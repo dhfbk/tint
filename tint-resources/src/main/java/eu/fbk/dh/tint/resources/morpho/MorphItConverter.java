@@ -82,7 +82,7 @@ public class MorphItConverter {
 
             writer.close();
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
     }
 }
