@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+    <abbreviations>
+        <abbreviation>pp.ff.</abbreviation>
+        <abbreviation>Aff.Est.</abbreviation>
+        <abbreviation>Amb.</abbreviation>
+        <abbreviation>Amm.</abbreviation>
+        <abbreviation>Art.</abbreviation>
+        <abbreviation>artt.</abbreviation>
+        <abbreviation>Uff.</abbreviation>
+        <abbreviation>Cap.</abbreviation>
+        <abbreviation>Cass.</abbreviation>
+        <abbreviation>Co.Re.Co.</abbreviation>
+        <abbreviation>Cod.</abbreviation>
+        <abbreviation>Cons.Gen.</abbreviation>
+        <abbreviation>Cost.</abbreviation>
+        <abbreviation>Ctg.</abbreviation>
+        <abbreviation>D.lgt.</abbreviation>
+        <abbreviation>FF.AA.</abbreviation>
+        <abbreviation>L.Cost.</abbreviation>
+        <abbreviation>L.Reg.</abbreviation>
+        <abbreviation>L.st.</abbreviation>
+        <abbreviation>LL.</abbreviation>
+        <abbreviation>LL.AA.</abbreviation>
+        <abbreviation>LL.MM.</abbreviation>
+        <abbreviation>LL.PP.</abbreviation>
+        <abbreviation>Lit.</abbreviation>
+        <abbreviation>O.F.M.Cap.</abbreviation>
+        <abbreviation>O.F.M.Conv.</abbreviation>
+        <abbreviation>OO.MM.</abbreviation>
+        <abbreviation>OO.PP.</abbreviation>
+        <abbreviation>OO.RR.</abbreviation>
+        <abbreviation>PP.SS.</abbreviation>
+        <abbreviation>PP.TT.</abbreviation>
+        <abbreviation>Proc.</abbreviation>
+        <abbreviation>R.I.Na.</abbreviation>
+        <abbreviation>S.acc.</abbreviation>
+        <abbreviation>S.acc.p.a.</abbreviation>
+        <abbreviation>SS.PP.</abbreviation>
+        <abbreviation>SS.RR.</abbreviation>
+        <abbreviation>UNI.</abbreviation>
+        <abbreviation>TEL.</abbreviation>
+        <abbreviation>Sett.</abbreviation>
+        <abbreviation>abr.</abbreviation>
+        <abbreviation>accel.</abbreviation>
+        <abbreviation>all.</abbreviation>
+        <abbreviation>allarg.</abbreviation>
+        <abbreviation>ang.</abbreviation>
+        <abbreviation>app.</abbreviation>
+        <abbreviation>arch.</abbreviation>
+        <abbreviation>arg.</abbreviation>
+        <abbreviation>art.</abbreviation>
+        <abbreviation>avv.</abbreviation>
+        <abbreviation>az.</abbreviation>
+        <abbreviation>bibl.</abbreviation>
+        <abbreviation>banc.</abbreviation>
+        <abbreviation>cab.</abbreviation>
+        <abbreviation>cad.</abbreviation>
+        <abbreviation>cap.</abbreviation>
+        <abbreviation>cav.</abbreviation>
+        <abbreviation>ced.</abbreviation>
+        <abbreviation>cfr.</abbreviation>
+        <abbreviation>cit.</abbreviation>
+        <abbreviation>ct.</abbreviation>
+        <abbreviation>coll.</abbreviation>
+        <abbreviation>comm.</abbreviation>
+        <abbreviation>comp.</abbreviation>
+        <abbreviation>cons.</abbreviation>
+        <abbreviation>coop.</abbreviation>
+        <abbreviation>cred.</abbreviation>
+        <abbreviation>cresc.</abbreviation>
+        <abbreviation>dd.</abbreviation>
+        <abbreviation>decr.</abbreviation>
+        <abbreviation>dim.</abbreviation>
+        <abbreviation>div.</abbreviation>
+        <abbreviation>doc.</abbreviation>
+        <abbreviation>Dott.</abbreviation>
+        <abbreviation>dott.</abbreviation>
+        <abbreviation>d.r</abbreviation>
+        <abbreviation>ecc.</abbreviation>
+        <abbreviation>eccl.</abbreviation>
+        <abbreviation>ed.</abbreviation>
+        <abbreviation>ediz.</abbreviation>
+        <abbreviation>egr.</abbreviation>
+        <abbreviation>em.</abbreviation>
+        <abbreviation>es.</abbreviation>
+        <abbreviation>p.es.</abbreviation>
+        <abbreviation>etc.</abbreviation>
+        <abbreviation>fig.</abbreviation>
+        <abbreviation>Fig.</abbreviation>
+        <abbreviation>FIG.</abbreviation>
+        <abbreviation>figs.</abbreviation>
+        <abbreviation>Figs.</abbreviation>
+        <abbreviation>figg.</abbreviation>
+        <abbreviation>genn.</abbreviation>
+        <abbreviation>gr.</abbreviation>
+        <abbreviation>hg.</abbreviation>
+        <abbreviation>ib.</abbreviation>
+        <abbreviation>ibid.</abbreviation>
+        <abbreviation>id.</abbreviation>
+        <abbreviation>ines.</abbreviation>
+        <abbreviation>inf.</abbreviation>
+        <abbreviation>ing.</abbreviation>
+        <abbreviation>kcal.</abbreviation>
+        <abbreviation>kg.</abbreviation>
+        <abbreviation>km.</abbreviation>
+        <abbreviation>l.cit.</abbreviation>
+        <abbreviation>lat.</abbreviation>
+        <abbreviation>lett.</abbreviation>
+        <abbreviation>loc.cit.</abbreviation>
+        <abbreviation>long.</abbreviation>
+        <abbreviation>lu.</abbreviation>
+        <abbreviation>m.rev.</abbreviation>
+        <abbreviation>ma.</abbreviation>
+        <abbreviation>magg.</abbreviation>
+        <abbreviation>max.</abbreviation>
+        <abbreviation>me.</abbreviation>
+        <abbreviation>merid.</abbreviation>
+        <abbreviation>min.</abbreviation>
+        <abbreviation>mod.</abbreviation>
+        <abbreviation>mons.</abbreviation>
+        <abbreviation>ms.</abbreviation>
+        <abbreviation>mss.</abbreviation>
+        <abbreviation>nav.</abbreviation>
+        <abbreviation>naz.</abbreviation>
+        <abbreviation>nord.</abbreviation>
+        <abbreviation>nov.</abbreviation>
+        <abbreviation>obbl.</abbreviation>
+        <abbreviation>occ.</abbreviation>
+        <abbreviation>occid.</abbreviation>
+        <abbreviation>on.</abbreviation>
+        <abbreviation>op.</abbreviation>
+        <abbreviation>op.cit.</abbreviation>
+        <abbreviation>orient.</abbreviation>
+        <abbreviation>p.ass.</abbreviation>
+        <abbreviation>post.</abbreviation>
+        <abbreviation>pag.</abbreviation>
+        <abbreviation>pagg.</abbreviation>
+        <abbreviation>par.</abbreviation>
+        <abbreviation>pas.</abbreviation>
+        <abbreviation>pass.</abbreviation>
+        <abbreviation>phil.</abbreviation>
+        <abbreviation>pizz.</abbreviation>
+        <abbreviation>pp.</abbreviation>
+        <abbreviation>pr.</abbreviation>
+        <abbreviation>pref.</abbreviation>
+        <abbreviation>priv.</abbreviation>
+        <abbreviation>prov.</abbreviation>
+        <abbreviation>pt.</abbreviation>
+        <abbreviation>quot.</abbreviation>
+        <abbreviation>racc.</abbreviation>
+        <abbreviation>rag.</abbreviation>
+        <abbreviation>rall.</abbreviation>
+        <abbreviation>red.</abbreviation>
+        <abbreviation>reg.</abbreviation>
+        <abbreviation>rel.</abbreviation>
+        <abbreviation>rep.</abbreviation>
+        <abbreviation>rev.</abbreviation>
+        <abbreviation>risp.</abbreviation>
+        <abbreviation>rist.</abbreviation>
+        <abbreviation>rit.</abbreviation>
+        <abbreviation>s.em.</abbreviation>
+        <abbreviation>sec.</abbreviation>
+        <abbreviation>secc.</abbreviation>
+        <abbreviation>seg.</abbreviation>
+        <abbreviation>segg.</abbreviation>
+        <abbreviation>sen.</abbreviation>
+        <abbreviation>seq.</abbreviation>
+        <abbreviation>serg.</abbreviation>
+        <abbreviation>sett.</abbreviation>
+        <abbreviation>settentr.</abbreviation>
+        <abbreviation>sez.</abbreviation>
+        <abbreviation>sg.</abbreviation>
+        <abbreviation>sgg.</abbreviation>
+        <abbreviation>sigg.</abbreviation>
+        <abbreviation>amb.</abbreviation>
+        <abbreviation>amm.</abbreviation>
+        <abbreviation>com.</abbreviation>
+        <abbreviation>dr.</abbreviation>
+        <abbreviation>geom.</abbreviation>
+        <abbreviation>ingg.</abbreviation>
+        <abbreviation>onn.</abbreviation>
+        <abbreviation>pm.</abbreviation>
+        <abbreviation>proc.</abbreviation>
+        <abbreviation>Prof.</abbreviation>
+        <abbreviation>prof.</abbreviation>
+        <abbreviation>proff.</abbreviation>
+        <abbreviation>sim.</abbreviation>
+        <abbreviation>somm.</abbreviation>
+        <abbreviation>sopr.</abbreviation>
+        <abbreviation>soprast.</abbreviation>
+        <abbreviation>spett.</abbreviation>
+        <abbreviation>ss.</abbreviation>
+        <abbreviation>st.civ.</abbreviation>
+        <abbreviation>stud.</abbreviation>
+        <abbreviation>str.</abbreviation>
+        <abbreviation>string.</abbreviation>
+        <abbreviation>sup.</abbreviation>
+        <abbreviation>suppl.</abbreviation>
+        <abbreviation>tab.</abbreviation>
+        <abbreviation>Tab.</abbreviation>
+        <abbreviation>TAB.</abbreviation>
+        <abbreviation>tav.</abbreviation>
+        <abbreviation>tel.</abbreviation>
+        <abbreviation>ten.</abbreviation>
+        <abbreviation>ten.col.</abbreviation>
+        <abbreviation>tit.</abbreviation>
+        <abbreviation>tr.</abbreviation>
+        <abbreviation>trad.</abbreviation>
+        <abbreviation>trans.</abbreviation>
+        <abbreviation>trib.</abbreviation>
+        <abbreviation>uff.</abbreviation>
+        <abbreviation>vol.</abbreviation>
+        <abbreviation>s.l.m.</abbreviation>
+        <abbreviation>lun.</abbreviation>
+        <abbreviation>mar.</abbreviation>
+        <abbreviation>mer.</abbreviation>
+        <abbreviation>gio.</abbreviation>
+        <abbreviation>ven.</abbreviation>
+        <abbreviation>sab.</abbreviation>
+        <abbreviation>dom.</abbreviation>
+        <abbreviation>gen.</abbreviation>
+        <abbreviation>feb.</abbreviation>
+        <abbreviation>apr.</abbreviation>
+        <abbreviation>mag.</abbreviation>
+        <abbreviation>giu.</abbreviation>
+        <abbreviation>lug.</abbreviation>
+        <abbreviation>ago.</abbreviation>
+        <abbreviation>set.</abbreviation>
+        <abbreviation>ott.</abbreviation>
+        <abbreviation>nov.</abbreviation>
+        <abbreviation>dic.</abbreviation>
+        <abbreviation>sig.</abbreviation>
+        <abbreviation>Sig.</abbreviation>
+        <abbreviation>Sigg.</abbreviation>
+        <abbreviation>Dott.</abbreviation>
+        <abbreviation>dott.</abbreviation>
+        <abbreviation>Dr.</abbreviation>
+        <abbreviation>dr.</abbreviation>
+        <abbreviation>Arch.</abbreviation>
+        <abbreviation>Avv.</abbreviation>
+        <abbreviation>Egr.</abbreviation>
+        <abbreviation>Gent.</abbreviation>
+        <abbreviation>Geom.</abbreviation>
+        <abbreviation>Ill.</abbreviation>
+        <abbreviation>Ing.</abbreviation>
+        <abbreviation>Mons.</abbreviation>
+        <abbreviation>On.</abbreviation>
+        <abbreviation>Preg.</abbreviation>
+        <abbreviation>Rag.</abbreviation>
+        <abbreviation>Rev.</abbreviation>
+        <abbreviation>Spett.</abbreviation>
+        <abbreviation>Soc.</abbreviation>
+        <abbreviation>Srl.</abbreviation>
+        <abbreviation>Mrs.</abbreviation>
+        <abbreviation>Mr.</abbreviation>
+        <abbreviation>Ms.</abbreviation>
+        <abbreviation>Pres.</abbreviation>
+        <abbreviation>Drs.</abbreviation>
+        <abbreviation>Gen.</abbreviation>
+        <abbreviation>Rep.</abbreviation>
+        <abbreviation>Sen.</abbreviation>
+        <abbreviation>Secy.</abbreviation>
+        <abbreviation>Treas.</abbreviation>
+        <abbreviation>Dir.</abbreviation>
+        <abbreviation>Sr.</abbreviation>
+        <abbreviation>Jr.</abbreviation>
+        <abbreviation>Ph.D.</abbreviation>
+        <abbreviation>etc.</abbreviation>
+        <abbreviation>al.</abbreviation>
+        <abbreviation>Gov.</abbreviation>
+        <abbreviation>gov.</abbreviation>
+        <abbreviation>Lt.</abbreviation>
+        <abbreviation>Ltd.</abbreviation>
+        <abbreviation>Co.</abbreviation>
+        <abbreviation>Corp.</abbreviation>
+        <abbreviation>Mgr.</abbreviation>
+        <abbreviation>Fdn.</abbreviation>
+        <abbreviation>Org.</abbreviation>
+        <abbreviation>no.</abbreviation>
+        <abbreviation>Mt.</abbreviation>
+        <abbreviation>Rd.</abbreviation>
+
+        <abbreviation>univ.</abbreviation>
+        <abbreviation>Univ.</abbreviation>
+        <abbreviation>S.p.A.</abbreviation>
+        <abbreviation>a.C.</abbreviation>
+        <abbreviation>''</abbreviation>
+        <abbreviation>``</abbreviation>
+
+    </abbreviations>
+
+    <expressions>
+        <!-- generic abbreviations like A. or A.B. or A.B.C. or a. or A.b.C. or a.b.c or na.vv. ... -->
+        <expression merge="0" find="\s+(([A-Za-z]{1,2}\.)+)" get="1"/>
+        <!-- email .[a-zA-Z]{2,4}-->
+        <expression merge="1" find="([a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,4})*)"/>
+        <!-- web address -->
+        <expression merge="1"
+                    find="([a-zA-Z]+://[a-zA-Z0-9\+&amp;@#/%\?=~\-\_\|!:,.;]*[a-zA-Z0-9\+&amp;@#/%=~\-\_\|])"/>
+        <!-- emoticons -->
+        <expression merge="1" find="([:;=]-?[\)\(DOP])"/>
+        <!-- Dash-connected words -->
+        <expression merge="1" find="(\w+-\w+)"/>
+        <!-- Dots ... -->
+        <expression merge="1" find="(\.{3,})"/>
+        <!-- Footnotes [1], [2], etc. -->
+        <expression merge="1" find="(\[[0-9]+\])"/>
+        <!-- Numbers and dates -->
+        <expression merge="1" find="([0-9]+([ \.,/][0-9]+)*)"/>
+    </expressions>
+
+    <tokenSplitting>
+        <char id="32" hexcode="0020" desc="SPACE"/>
+        <char id="8202" hexcode="200a" desc="HAIR SPACE"/>
+        <char id="160" hexcode="00A0" desc="NO-BREAK SPACE"/>
+        <char id="9" hexcode="0009" desc="TABULAR SPACE"/>
+        <char id="10" hexcode="000A" desc="LINE FEED"/>
+        <char id="13" hexcode="0x0d" desc="CARRIAGE RETURN"/>
+    </tokenSplitting>
+
+    <sentenceSplitting>
+        <char id="46" hexcode="002E" desc="FULL STOP" />
+        <char id="33" hexcode="0021" desc="EXCLAMATION MARK"/>
+        <char id="59" hexcode="003B" desc="SEMICOLON"/>
+        <char id="58" hexcode="003B" desc="COLON"/>
+        <char id="63" hexcode="003F" desc="QUESTION MARK"/>
+        <char id="13" hexcode="0x0d" desc="CARRIAGE RETURN" />
+    </sentenceSplitting>
+
+    <normalization>
+        <char hexcode="02BC" category="apostrophe" desc="MODIFIER LETTER APOSTROPHE">'</char>
+        <char hexcode="02C8" category="apostrophe" desc="MODIFIER LETTER VERTICAL LINE">'</char>
+        <char hexcode="030D" category="apostrophe" desc="COMBINING VERTICAL LINE ABOVE">'</char>
+        <char hexcode="055A" category="apostrophe" desc="ARMENIAN APOSTROPHE">'</char>
+        <char hexcode="FF07" category="apostrophe" desc="FULLWIDTH APOSTROPHE">'</char>
+        <char hexcode="02B9" category="apostrophe" desc="MODIFIER LETTER PRIME">'</char>
+        <char hexcode="0092" category="apostrophe" desc="CONTROL">'</char>
+        <char hexcode="2018" category="quote" desc="LEFT SINGLE QUOTATION MARK">'</char>
+        <char hexcode="2019" category="quote" desc="RIGHT SINGLE QUOTATION MARK">'</char>
+        <char hexcode="201A" category="quote" desc="RIGHT-BOTTOM SINGLE QUOTATION MARK">'</char>
+
+        <char hexcode="0060" category="accent" desc="GRAVE ACCENT">`</char>
+        <char hexcode="00B4" category="accent" desc="ACUTE ACCENT">`</char>
+        <char hexcode="02CA" category="accent" desc="MODIFIER LETTER ACUTE ACCENT">`</char>
+        <char hexcode="02CB" category="accent" desc="MODIFIER LETTER GRAVE ACCENT">`</char>
+        <char hexcode="02F4" category="accent" desc="MODIFIER LETTER MIDDLE GRAVE ACCENT">`</char>
+        <char hexcode="0300" category="accent" desc="COMBINING GRAVE ACCENT ">`</char>
+        <char hexcode="0301" category="accent" desc="COMBINING ACUTE ACCENT">`</char>
+
+        <char hexcode="02DD" category="quote" desc="DOUBLE ACUTE ACCENT">"</char>
+        <char hexcode="02BA" category="quote" desc="MODIFIER LETTER DOUBLE PRIME">"</char>
+        <char hexcode="02F5" category="quote" desc="MODIFIER LETTER MIDDLE DOUBLE GRAVE ACCENT">"</char>
+        <char hexcode="02F6" category="quote" desc="MODIFIER LETTER MIDDLE DOUBLE ACUTE ACCENT">"</char>
+        <char hexcode="030B" category="quote" desc="COMBINING DOUBLE ACUTE ACCENT">"</char>
+        <char hexcode="030E" category="quote" desc="COMBINING DOUBLE VERTICAL LINE ABOVE">"</char>
+        <char hexcode="1DC0" category="quote" desc="COMBINING DOTTED GRAVE ACCENT">"</char>
+        <char hexcode="1DC1" category="quote" desc="COMBINING DOTTED ACUTE ACCENT">"</char>
+        <char hexcode="201C" category="quote" desc="DOUBLE GRAVE ACCENT">"</char>
+        <char hexcode="201D" category="quote" desc="DOUBLE ACUTE ACCENT">"</char>
+        <char hexcode="02EE" category="quote" desc="MODIFIER LETTER DOUBLE APOSTROPHE">"</char>
+        <char hexcode="301E" category="quote" desc="DOUBLE PRIME QUOTATION MARK">"</char>
+        <char hexcode="301F" category="quote" desc="LOW DOUBLE PRIME QUOTATION MARK">"</char>
+
+        <char hexcode="2013" category="punctuation" desc="MINUS">-</char>
+
+        <char hexcode="00AB" category="open_parenthes" desc="LEFT-POINTING DOUBLE ANGLE QUOTATION MARK">"</char>
+        <char hexcode="00BB" category="close_parenthes" desc="RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK">"</char>
+        <char hexcode="0093" category="open_parenthes" desc="CONTROL">"</char>
+        <char hexcode="0094" category="close_parenthes" desc="CONTROL">"</char>
+        <char hexcode="008B" category="open_parenthes" desc="CONTROL">"</char>
+        <char hexcode="009B" category="close_parenthes" desc="CONTROL">"</char>
+    </normalization>
+</settings>
