@@ -131,24 +131,9 @@ public class TintRunner {
                 pikesPipeline.addToNerMap("PER", "PERSON");
                 pikesPipeline.addToNerMap("ORG", "ORGANIZATION");
                 pikesPipeline.addToNerMap("LOC", "LOCATION");
-                pikesPipeline.annotateStanford(new Properties(), pipeline, text, doc);
+                pikesPipeline.annotateStanford(new Properties(), annotation, doc);
                 outputStream.write(doc.toString().getBytes());
             }
-
-//            CoNLLOutputter.tpPrint(annotation, System.out);
-//            CoNLLUOutputter.conllUPrint(annotation, outputStream);
-
-//            List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
-//            for (CoreMap sentence : sentences) {
-//                List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
-//                for (CoreLabel token : tokens) {
-//                    System.out.println(token.get(CoreAnnotations.TextAnnotation.class));
-//                    System.out.println(token.get(CoreAnnotations.PartOfSpeechAnnotation.class));
-//                    System.out.println(token.get(CoreAnnotations.LemmaAnnotation.class));
-//                    System.out.println(token.get(CoreAnnotations.NamedEntityTagAnnotation.class));
-//                }
-//                System.out.println();
-//            }
 
         } catch (Exception e) {
             CommandLine.fail(e);

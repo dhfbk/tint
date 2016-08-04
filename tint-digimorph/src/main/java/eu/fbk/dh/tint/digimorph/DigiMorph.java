@@ -1,6 +1,7 @@
 package eu.fbk.dh.tint.digimorph;
 
 import com.google.common.collect.Lists;
+import com.google.common.io.Resources;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.mapdb.Serializer;
@@ -8,9 +9,8 @@ import org.mapdb.SortedTableMap;
 import org.mapdb.volume.MappedFileVol;
 import org.mapdb.volume.Volume;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.Reader;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -39,7 +39,15 @@ public class DigiMorph {
 
     public DigiMorph(String model_path) {
         if (model_path == null) {
-            model_path = this.getClass().getResource("/italian.db").getFile();
+            try {
+                File file = File.createTempFile("mapdb", "mapdb");
+                file.deleteOnExit();
+                byte[] bytes = Resources.toByteArray(Resources.getResource("italian.db"));
+                Files.write(file.toPath(), bytes);
+                model_path = file.getAbsolutePath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         this.model_path = model_path;
     }

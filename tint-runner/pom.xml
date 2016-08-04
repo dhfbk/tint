@@ -42,6 +42,20 @@
             <groupId>eu.fbk.pikes</groupId>
             <artifactId>pikes-tintop</artifactId>
             <version>${tint.pikes.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>edu.cmu.cs.lti.ark</groupId>
+                    <artifactId>Semafor</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>eu.fbk.anna</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.openrdf.sesame</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>eu.fbk.pikes</groupId>
@@ -56,7 +70,7 @@
 
     <profiles>
         <profile>
-            <id>package</id>
+            <id>release</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -76,6 +90,9 @@
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
+                            <descriptors>
+                                <descriptor>src/main/assembly/bin.xml</descriptor>
+                            </descriptors>
                         </configuration>
                     </plugin>
                 </plugins>

@@ -1,0 +1,32 @@
+<assembly>
+    <id>bin</id>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <baseDirectory>tint</baseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>src/main/scripts</directory>
+            <outputDirectory></outputDirectory>
+            <fileMode>0755</fileMode>
+            <directoryMode>0755</directoryMode>
+        </fileSet>
+        <!--<fileSet>-->
+            <!--<directory>..</directory>-->
+            <!--<outputDirectory></outputDirectory>-->
+            <!--<includes>-->
+                <!--<include>README.md</include>-->
+                <!--<include>NOTICE</include>-->
+                <!--<include>LICENSE.txt</include>-->
+                <!--<include>THIRD-PARTY.txt</include>-->
+            <!--</includes>-->
+        <!--</fileSet>-->
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useTransitiveFiltering>true</useTransitiveFiltering>
+        </dependencySet>
+    </dependencySets>
+</assembly>

@@ -292,7 +292,7 @@
 
     <expressions>
         <!-- generic abbreviations like A. or A.B. or A.B.C. or a. or A.b.C. or a.b.c or na.vv. ... -->
-        <expression merge="0" find="\s+(([A-Za-z]{1,2}\.)+)" get="1"/>
+        <expression merge="0" find="\s+(([A-Za-z]{1,2}\.){2,})" get="1"/>
         <!-- email .[a-zA-Z]{2,4}-->
         <expression merge="1" find="([a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,4})*)"/>
         <!-- web address -->

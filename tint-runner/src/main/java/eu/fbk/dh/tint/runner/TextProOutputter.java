@@ -21,57 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * <p>Write a subset of our CoreNLP output in CoNLL format.</p>
- * <p>
- * <p>The fields currently output are:</p>
- * <p>
- * <table>
- * <tr>
- * <td>Field Number</td>
- * <td>Field Name</td>
- * <td>Description</td>
- * </tr>
- * <tr>
- * <td>1</td>
- * <td>ID</td>
- * <td>Token Counter, starting at 1 for each new sentence.</td>
- * </tr>
- * <tr>
- * <td>2</td>
- * <td>FORM</td>
- * <td>Word form or punctuation symbol.</td>
- * </tr>
- * <tr>
- * <td>3</td>
- * <td>LEMMA</td>
- * <td>Lemma of word form, or an underscore if not available.</td>
- * </tr>
- * <tr>
- * <td>4</td>
- * <td>POSTAG</td>
- * <td>Fine-grained part-of-speech tag, or underscore if not available.</td>
- * </tr>
- * <tr>
- * <td>5</td>
- * <td>NER</td>
- * <td>Named Entity tag, or underscore if not available.</td>
- * </tr>
- * <tr>
- * <td>6</td>
- * <td>HEAD</td>
- * <td>Head of the current token, which is either a value of ID or zero ('0').
- * This is underscore if not available.</td>
- * </tr>
- * <tr>
- * <td>7</td>
- * <td>DEPREL</td>
- * <td>Dependency relation to the HEAD, or underscore if not available.</td>
- * </tr>
- * </table>
- *
- * @author Gabor Angeli
- */
 public class TextProOutputter extends AnnotationOutputter {
 
     private static final String NULL_PLACEHOLDER = "_";
@@ -142,26 +91,43 @@ public class TextProOutputter extends AnnotationOutputter {
                     SemanticGraph depTree = sentence
                             .get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
                     Integer index = 0;
-                    for (IndexedWord token : depTree.vertexListSorted()) {
-                        int govIdx = -1;
-                        GrammaticalRelation reln = null;
-                        HashMap<Integer, String> additionalDeps = new HashMap<>();
-                        for (IndexedWord parent : depTree.getParents(token)) {
-                            SemanticGraphEdge edge = depTree.getEdge(parent, token);
-                            if (govIdx == -1 && !edge.isExtra()) {
-                                govIdx = parent.index();
-                                reln = edge.getRelation();
-                            } else {
-                                additionalDeps.put(parent.index(), edge.getRelation().toString());
-                            }
-                        }
-                        if (govIdx == -1) {
-                            govIdx = 0;
-                            reln = GrammaticalRelation.ROOT;
-                        }
-                        String relnName = reln == null ? NULL_PLACEHOLDER : reln.toString();
 
-                        CoreLabel coreLabel = token.backingLabel();
+                    List tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
+                    if (depTree != null) {
+                        tokens = depTree.vertexListSorted();
+                    }
+
+                    int govIdx = -1;
+                    String relnName = null;
+
+                    for (int i = 0; i < tokens.size(); i++) {
+                        Object token = tokens.get(i);
+                        CoreLabel coreLabel;
+
+                        if (token instanceof IndexedWord) {
+                            IndexedWord thisToken = (IndexedWord) token;
+                            govIdx = -1;
+                            GrammaticalRelation reln = null;
+                            HashMap<Integer, String> additionalDeps = new HashMap<>();
+                            for (IndexedWord parent : depTree.getParents(thisToken)) {
+                                SemanticGraphEdge edge = depTree.getEdge(parent, thisToken);
+                                if (govIdx == -1 && !edge.isExtra()) {
+                                    govIdx = parent.index();
+                                    reln = edge.getRelation();
+                                } else {
+                                    additionalDeps.put(parent.index(), edge.getRelation().toString());
+                                }
+                            }
+                            if (govIdx == -1) {
+                                govIdx = 0;
+                                reln = GrammaticalRelation.ROOT;
+                            }
+                            relnName = reln == null ? NULL_PLACEHOLDER : reln.toString();
+                            coreLabel = thisToken.backingLabel();
+                        } else {
+                            coreLabel = (CoreLabel) token;
+                        }
+
                         index = coreLabel.get(CoreAnnotations.IndexAnnotation.class);
                         writer.print(line(index, coreLabel, govIdx, relnName, lastIndex));
                         writer.println();
