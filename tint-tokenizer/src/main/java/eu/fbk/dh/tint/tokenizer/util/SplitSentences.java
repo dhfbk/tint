@@ -46,7 +46,7 @@ public class SplitSentences {
             props.setProperty("annotators", "ita_toksent");
             props.setProperty("ita_toksent.newlineIsSentenceBreak", "1");
             props.setProperty("customAnnotatorClass.ita_toksent",
-                    "eu.fbk.dkm.pikes.tintop.ita.annotators.ItalianTokenizerAnnotator");
+                    "eu.fbk.dh.tint.tokenizer.annotators.ItalianTokenizerAnnotator");
 
             StanfordCoreNLP ITApipeline = new StanfordCoreNLP(props);
             Annotation annotation = new Annotation(text);

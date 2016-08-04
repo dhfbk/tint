@@ -36,9 +36,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -75,9 +73,18 @@ public class ItalianTokenizer {
         Trie.TrieBuilder builder = Trie.builder().removeOverlaps();
 
         InputStream stream = null;
-        stream = this.getClass().getResourceAsStream("/token-settings.xml");
+        if (settingFile != null) {
+            try {
+                stream = new FileInputStream(settingFile);
+            } catch (FileNotFoundException e) {
+                // continue
+            }
+        }
+        if (stream == null) {
+            stream = this.getClass().getResourceAsStream("/token-settings.xml");
+        }
 
-        logger.info("Loading model");
+        logger.trace("Loading model");
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

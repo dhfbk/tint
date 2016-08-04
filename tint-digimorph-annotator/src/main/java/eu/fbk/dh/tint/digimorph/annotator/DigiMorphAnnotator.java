@@ -5,7 +5,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.CoreMap;
-import eu.fbk.dh.digimorph.runner.DigiMorph;
+import eu.fbk.dh.tint.digimorph.DigiMorph;
 
 import java.util.*;
 

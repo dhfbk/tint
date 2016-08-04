@@ -17,7 +17,7 @@ public class ItalianTokenizerModel {
     private static final Logger LOGGER = LoggerFactory.getLogger(ItalianTokenizerModel.class);
 
     private ItalianTokenizerModel(File configuration) {
-        LOGGER.info("Loading model for Italian tokenizer");
+        LOGGER.trace("Loading model for Italian tokenizer");
         tokenizer = new ItalianTokenizer(configuration);
     }
 

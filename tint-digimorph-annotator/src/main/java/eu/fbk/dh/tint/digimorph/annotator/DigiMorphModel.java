@@ -1,6 +1,6 @@
 package eu.fbk.dh.tint.digimorph.annotator;
 
-import eu.fbk.dh.digimorph.runner.DigiMorph;
+import eu.fbk.dh.tint.digimorph.DigiMorph;
 
 /**
  * Created by giovannimoretti on 10/06/16.

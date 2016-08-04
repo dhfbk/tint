@@ -15,7 +15,7 @@
         <dependency>
             <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-textpro</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${tint.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>eu.fbk.dkm.utils</groupId>
             <artifactId>utils</artifactId>
-            <version>1.3-SNAPSHOT</version>
+            <version>${tint.utils.version}</version>
         </dependency>
         <dependency>
             <groupId>org.fbk.cit.hlt</groupId>
