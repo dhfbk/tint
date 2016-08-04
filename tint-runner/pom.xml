@@ -48,6 +48,10 @@
             <artifactId>pikes-naflib</artifactId>
             <version>${tint.pikes.version}</version>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
     </dependencies>
 
     <profiles>
