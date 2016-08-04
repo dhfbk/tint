@@ -7,7 +7,7 @@ import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.ArrayCoreMap;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.tokenizer.models.ItalianTokenizerModel;
-import eu.fbk.dh.tint.tokenizer.token.ItalianTokenizer;
+import eu.fbk.dh.tint.tokenizer.ItalianTokenizer;
 import eu.fbk.dkm.pikes.tintop.annotators.Defaults;
 
 import java.io.File;

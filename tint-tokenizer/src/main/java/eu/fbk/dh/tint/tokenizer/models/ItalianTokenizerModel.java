@@ -1,6 +1,6 @@
 package eu.fbk.dh.tint.tokenizer.models;
 
-import eu.fbk.dh.tint.tokenizer.token.ItalianTokenizer;
+import eu.fbk.dh.tint.tokenizer.ItalianTokenizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

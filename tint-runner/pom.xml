@@ -24,12 +24,29 @@
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
+            <version>3.6.0</version>
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-tokenizer</artifactId>
             <version>${tint.version}</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-digimorph-annotator</artifactId>
+            <version>${tint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.pikes</groupId>
+            <artifactId>pikes-tintop</artifactId>
+            <version>${tint.pikes.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.pikes</groupId>
+            <artifactId>pikes-naflib</artifactId>
+            <version>${tint.pikes.version}</version>
         </dependency>
     </dependencies>
 
