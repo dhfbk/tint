@@ -11,39 +11,39 @@
 
     <body>
         <head>
-            <link rel="icon" type="image/png" href="${site-root}/images/tint-100.png" />
+            <link rel="icon" type="image/png" href="${site-root}/images/tint-squared.png" />
         </head>
 
         <menu name="About">
             <item name="Home" href="index.html"/>
-            <item name="Pikes in a nutshell" href="overview.html"/>
-            <item name="Representation model" href="model.html"/>
-            <item name="Extraction pipeline" href="pipeline.html"/>
+            <!--<item name="Pikes in a nutshell" href="overview.html"/>-->
+            <!--<item name="Representation model" href="model.html"/>-->
+            <!--<item name="Extraction pipeline" href="pipeline.html"/>-->
             <item name="Publications" href="publications.html"/>
+            <item name="License" href="license.html"/>
+            <item name="Third-party licenses" href="third-party.html"/>
             <item name="Team" href="team-list.html"/>
         </menu>
 
-        <menu name="Resources">
-            <item name="Mappings to FrameBase" href="mappings.html"/>
-            <item name="Evaluation using FrameBase TBox" href="eval-framebase.html"/>
-            <item name="Evaluation using predicate models TBox" href="eval-pm.html"/>
-            <item name="Evaluation using Simple English Wikipedia" href="eval-sew.html"/>
+        <menu name="Pipeline">
+            <item name="Tokenization and sentence splitting" href="tokenization.html"/>
+            <item name="Morphological analysis and lemmatization" href="morpho.html"/>
+            <item name="Part-of-speech tagging" href="pos.html"/>
+            <item name="Named-entity recognition" href="ner.html"/>
+            <item name="Dependency parsing" href="parsing.html"/>
+            <item name="Wrappers" href="wrappers.html"/>
         </menu>
 
-        <menu name="Applications">
-            <item name="Using PIKES for Information Retrieval" href="ke4ir.html"/>
-        </menu>
-
-        <menu name="Maven Reports" ref="reports" inherit="top"/>
-        <menu ref="modules" inherit="top"/>
+        <menu name="Maven reports" ref="reports" inherit="top"/>
+        <menu name="Maven modules" ref="modules" inherit="top"/>
         <menu ref="parent" inherit="top"/>
 
         <menu name="Links">
-            <item name="Online demo" href="https://knowledgestore2.fbk.eu/pikes-demo/"/>
-            <item name="Video tour (YouTube)" href="https://www.youtube.com/watch?v=D0mcnUKc3sg"/>
-            <item name="GitHub project" href="https://github.com/dkmfbk/pikes"/>
-            <item name="Issue tracker" href="https://github.com/dkmfbk/pikes/issues"/>
-            <item name="Contact authors" href="mailto:pikesATfbkDOTeu"/>
+            <!--<item name="Online demo" href="https://knowledgestore2.fbk.eu/pikes-demo/"/>-->
+            <!--<item name="Video tour (YouTube)" href="https://www.youtube.com/watch?v=D0mcnUKc3sg"/>-->
+            <item name="GitHub project" href="https://github.com/dhfbk/tint/"/>
+            <item name="Issue tracker" href="https://github.com/dhfbk/tint/issues"/>
+            <item name="Contact authors" href="mailto:aprosioATfbkDOTeu"/>
         </menu>
     </body>
 
@@ -84,7 +84,7 @@
               <tocTopMax>6</tocTopMax>
               <tocTopFlatten>false</tocTopFlatten>
             -->
-            <topNav>About|Resources|Applications|Maven Reports|Modules|Parent Project|Links</topNav>
+            <topNav>About|Pipeline|Maven reports|Maven modules|Parent project|Links</topNav>
 
             <bottomNav maxSpan="8">
                 <column>About</column>
@@ -96,7 +96,7 @@
             <breadcrumbs>false</breadcrumbs>
             <bottomDescription quote="false">
                 <![CDATA[
-                Pikes is a suite for knowledge extraction developed within:<br/><br/>
+                Tint is a NLP pipeline for Italian developed within:<br/><br/>
                 <a id='unit-logo' href="http://dh.fbk.eu/"><img src="${site-root}/images/dh.png"/></a>&nbsp;&nbsp;
                 <a id='project-logo' href="http://www.simpatico-project.eu/"><img src="${site-root}/images/simpatico.png"/></a><br/><br/>
                 <div>

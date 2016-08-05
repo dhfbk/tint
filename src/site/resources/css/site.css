@@ -24,11 +24,11 @@
     width: 50px;
 }
 
-#unit-logo {
+#unit-logo img {
     height: 58px;
 }
 
-#project-logo {
+#project-logo img {
     height: 55px;
 }
 
@@ -55,6 +55,11 @@ p.copyright {
 
 .no-before:before {
     display: none !important;
+}
+
+h4 {
+    font-size: 18px;
+    margin-top: 20px;
 }
 
 /* Jumps to in-page links (e.g. page.html#foo) do not honor fixed navbar.

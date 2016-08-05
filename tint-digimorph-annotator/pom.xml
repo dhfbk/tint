@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tint-digimorph-annotator</artifactId>
+    <name>tint-digimorph-annotator</name>
+    <description>Stanford annotator for DigiMorph</description>
 
     <dependencies>
         <dependency>

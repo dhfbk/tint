@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tint-tokenizer</artifactId>
+    <name>tint-tokenizer</name>
+    <description>The Tint tokenizer and sentence splitter</description>
 
     <dependencies>
         <dependency>

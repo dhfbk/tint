@@ -1,4 +1,4 @@
-### List of third-party dependencies grouped by their license type.
+## List of third-party dependencies grouped by their license type.
 
 #### Apache Software License, Version 2.0:
 

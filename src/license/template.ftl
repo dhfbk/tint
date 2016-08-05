@@ -39,7 +39,7 @@
 <#if licenseMap?size == 0>
 The project has no dependencies.
 <#else>
-### List of third-party dependencies grouped by their license type.
+## List of third-party dependencies grouped by their license type.
     <#list licenseMap as e>
         <#assign license = e.getKey()/>
         <#assign projects = e.getValue()/>

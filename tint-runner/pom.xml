@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tint-runner</artifactId>
+    <name>tint-runner</name>
+    <description>The Tint launcher</description>
 
     <dependencies>
         <dependency>
