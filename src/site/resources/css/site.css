@@ -1,0 +1,75 @@
+.brand span {
+    padding-left: 55px;
+}
+
+.brand img {
+    position: absolute;
+    top: 10px;
+}
+
+#well-home {
+    text-align: center;
+    /*margin-top: 30px;*/
+}
+
+#well-home img {
+    width: 350px;
+}
+
+#well-home .title2 {
+    font-size: 150%;
+}
+
+#logo-head {
+    width: 50px;
+}
+
+#unit-logo {
+    height: 58px;
+}
+
+#project-logo {
+    height: 55px;
+}
+
+#home-buttons, #home-subtitle {
+    margin-top: 20px;
+}
+
+footer {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    margin-top: 30px !important
+}
+
+div.subfooter {
+    padding-top: 20px !important;
+    padding-bottom: 10px !important
+}
+
+p.copyright {
+    display: none
+}
+
+/* Reflow bugfix */
+
+.no-before:before {
+    display: none !important;
+}
+
+/* Jumps to in-page links (e.g. page.html#foo) do not honor fixed navbar.
+   Use pseudo element to move them down.
+   Taken from http://nicolasgallagher.com/jump-links-and-viewport-positioning/demo/#method-B
+ */
+h1[id]:before,
+h2[id]:before,
+h3[id]:before,
+h4[id]:before,
+h5[id]:before,
+h6[id]:before,
+a[name]:before {
+    display: block;
+    content: "";
+    height: 100px;
+    margin: -100px 0 0;
+}

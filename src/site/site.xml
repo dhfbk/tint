@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+
+    <publishDate position="bottom" format="yyyy/MM/dd"/>
+
+    <skin>
+        <groupId>lt.velykis.maven.skins</groupId>
+        <artifactId>reflow-maven-skin</artifactId>
+        <version>1.1.1</version>
+    </skin>
+
+    <body>
+        <head>
+            <link rel="icon" type="image/png" href="${site-root}/images/tint-100.png" />
+        </head>
+
+        <menu name="About">
+            <item name="Home" href="index.html"/>
+            <item name="Pikes in a nutshell" href="overview.html"/>
+            <item name="Representation model" href="model.html"/>
+            <item name="Extraction pipeline" href="pipeline.html"/>
+            <item name="Publications" href="publications.html"/>
+            <item name="Team" href="team-list.html"/>
+        </menu>
+
+        <menu name="Resources">
+            <item name="Mappings to FrameBase" href="mappings.html"/>
+            <item name="Evaluation using FrameBase TBox" href="eval-framebase.html"/>
+            <item name="Evaluation using predicate models TBox" href="eval-pm.html"/>
+            <item name="Evaluation using Simple English Wikipedia" href="eval-sew.html"/>
+        </menu>
+
+        <menu name="Applications">
+            <item name="Using PIKES for Information Retrieval" href="ke4ir.html"/>
+        </menu>
+
+        <menu name="Maven Reports" ref="reports" inherit="top"/>
+        <menu ref="modules" inherit="top"/>
+        <menu ref="parent" inherit="top"/>
+
+        <menu name="Links">
+            <item name="Online demo" href="https://knowledgestore2.fbk.eu/pikes-demo/"/>
+            <item name="Video tour (YouTube)" href="https://www.youtube.com/watch?v=D0mcnUKc3sg"/>
+            <item name="GitHub project" href="https://github.com/dkmfbk/pikes"/>
+            <item name="Issue tracker" href="https://github.com/dkmfbk/pikes/issues"/>
+            <item name="Contact authors" href="mailto:pikesATfbkDOTeu"/>
+        </menu>
+    </body>
+
+    <custom>
+        <reflowSkin>
+            <theme>bootswatch-cosmo</theme>
+
+            <endContent>
+                <script src="js/custom.js"></script>
+            </endContent>
+
+            <highlightJs>true</highlightJs>
+            <highlightJsTheme>googlecode</highlightJsTheme>
+            <imgLightbox>true</imgLightbox>
+            <smoothScroll>false</smoothScroll>
+            <bootstrapCss>true</bootstrapCss>
+            <bootstrapIcons>true</bootstrapIcons>
+            <html5Anchor>true</html5Anchor>
+            <markPageHeader>true</markPageHeader>
+
+	        <absoluteResourceURL>${site-root}</absoluteResourceURL>
+            <protocolRelativeURLs>true</protocolRelativeURLs>
+
+            <skinAttribution>true</skinAttribution>
+            <brand>
+                <name>
+                    <![CDATA[
+                        <img src='${site-root}/images/tint-white.png' id='logo-head' />
+                        <!--<span>TINT</span>-->
+                    ]]>
+                </name>
+                <href>${site-root}</href>
+            </brand>
+            <titleTemplate>%2$s | %1$s</titleTemplate>
+            <toc>none</toc>
+            <!--
+              <toc>top</toc>
+              <tocTopMax>6</tocTopMax>
+              <tocTopFlatten>false</tocTopFlatten>
+            -->
+            <topNav>About|Resources|Applications|Maven Reports|Modules|Parent Project|Links</topNav>
+
+            <bottomNav maxSpan="8">
+                <column>About</column>
+                <column>Links</column>
+                <column>Resources</column>
+                <column>Applications</column>
+            </bottomNav>
+
+            <breadcrumbs>false</breadcrumbs>
+            <bottomDescription quote="false">
+                <![CDATA[
+                Pikes is a suite for knowledge extraction developed within:<br/><br/>
+                <a id='unit-logo' href="http://dh.fbk.eu/"><img src="${site-root}/images/dh.png"/></a>&nbsp;&nbsp;
+                <a id='project-logo' href="http://www.simpatico-project.eu/"><img src="${site-root}/images/simpatico.png"/></a><br/><br/>
+                <div>
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+                    <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Tint web site</span> is licensed under the
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+                    Tint software is licensed under <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPL v3</a>.
+                </div>
+                ]]>
+            </bottomDescription>
+            <!--<shortTitle>generate</shortTitle>-->
+            <titleTemplate>%1$s - %2$s</titleTemplate>
+            <pages>
+                <index>
+                    <shortTitle>Home</shortTitle>
+                    <markPageHeader>false</markPageHeader>
+                    <sections>
+                        <body/>
+                        <columns>3</columns>
+                    </sections>
+                </index>
+                <taglist>
+                    <html5Anchor>false</html5Anchor>
+                </taglist>
+                <license>
+                    <highlightJs>false</highlightJs>
+                </license>
+                <pipeline>
+                    <highlightJs>false</highlightJs>
+                </pipeline>
+            </pages>
+        </reflowSkin>
+    </custom>
+</project>
