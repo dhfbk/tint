@@ -13,8 +13,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>eu.fbk.dkm.utils</groupId>
-            <artifactId>utils</artifactId>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-core</artifactId>
             <version>${tint.utils.version}</version>
         </dependency>
         <dependency>
@@ -29,6 +29,10 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
-
     </dependencies>
+
+    <properties>
+        <parent-path>/..</parent-path>
+    </properties>
+
 </project>

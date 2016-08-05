@@ -13,11 +13,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>eu.fbk.pikes</groupId>
-            <artifactId>pikes-tintop</artifactId>
-            <version>${tint.pikes.version}</version>
-        </dependency>
-        <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
         </dependency>
@@ -35,8 +30,8 @@
             <artifactId>commons-lang</artifactId>
         </dependency>
         <dependency>
-            <groupId>eu.fbk.dkm.utils</groupId>
-            <artifactId>utils</artifactId>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-core</artifactId>
             <version>${tint.utils.version}</version>
         </dependency>
         <dependency>
@@ -53,4 +48,9 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
+
+    <properties>
+        <parent-path>/..</parent-path>
+    </properties>
+
 </project>

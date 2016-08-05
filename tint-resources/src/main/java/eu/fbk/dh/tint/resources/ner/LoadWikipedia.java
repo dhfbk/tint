@@ -2,7 +2,7 @@ package eu.fbk.dh.tint.resources.ner;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-import eu.fbk.dkm.utils.CommandLine;
+import eu.fbk.utils.core.CommandLine;
 import org.fbk.cit.hlt.thewikimachine.index.FormPageSearcher;
 import org.fbk.cit.hlt.thewikimachine.index.PageFormSearcher;
 import org.fbk.cit.hlt.thewikimachine.index.util.FreqSetSearcher;

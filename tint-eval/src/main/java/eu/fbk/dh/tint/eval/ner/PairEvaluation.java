@@ -1,7 +1,7 @@
 package eu.fbk.dh.tint.eval.ner;
 
 import edu.stanford.nlp.stats.MultiClassChunkEvalStats;
-import eu.fbk.dkm.utils.CommandLine;
+import eu.fbk.utils.core.CommandLine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -6,9 +6,9 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.ArrayCoreMap;
 import edu.stanford.nlp.util.CoreMap;
-import eu.fbk.dh.tint.tokenizer.models.ItalianTokenizerModel;
 import eu.fbk.dh.tint.tokenizer.ItalianTokenizer;
-import eu.fbk.dkm.pikes.tintop.annotators.Defaults;
+import eu.fbk.dh.tint.tokenizer.models.ItalianTokenizerModel;
+import eu.fbk.utils.core.PropertiesUtils;
 
 import java.io.File;
 import java.util.*;
@@ -24,7 +24,7 @@ public class ItalianTokenizerAnnotator implements Annotator {
 
     public ItalianTokenizerAnnotator(String annotatorName, Properties props) {
         String modelFile = props.getProperty(annotatorName + ".model", null);
-        newlineIsSentenceBreak = Defaults
+        newlineIsSentenceBreak = PropertiesUtils
                 .getBoolean(props.getProperty(annotatorName + ".newlineIsSentenceBreak"), true);
 
         File model = null;

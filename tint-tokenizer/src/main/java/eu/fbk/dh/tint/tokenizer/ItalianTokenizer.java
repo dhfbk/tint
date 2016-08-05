@@ -21,7 +21,7 @@ import edu.stanford.nlp.process.CoreLabelTokenFactory;
 import eu.fbk.dh.tint.tokenizer.token.CharacterTable;
 import eu.fbk.dh.tint.tokenizer.token.Token;
 import eu.fbk.dh.tint.tokenizer.token.TokenGroup;
-import eu.fbk.dkm.pikes.tintop.annotators.Defaults;
+import eu.fbk.utils.core.PropertiesUtils;
 import org.ahocorasick.trie.Emit;
 import org.ahocorasick.trie.Trie;
 import org.apache.commons.lang.mutable.MutableBoolean;
@@ -156,8 +156,8 @@ public class ItalianTokenizer {
                 Node item = nl.item(i);
                 Element element = (Element) item;
                 String regExp = element.getAttribute("find");
-                boolean merge = Defaults.getBoolean(element.getAttribute("merge"), true);
-                Integer group = Defaults.getInteger(element.getAttribute("get"), 1);
+                boolean merge = PropertiesUtils.getBoolean(element.getAttribute("merge"), true);
+                Integer group = PropertiesUtils.getInteger(element.getAttribute("get"), 1);
                 if (merge) {
                     if (!first) {
                         b.append("|");

@@ -13,8 +13,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>eu.fbk.dkm.utils</groupId>
-            <artifactId>utils</artifactId>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-core</artifactId>
             <version>${tint.utils.version}</version>
         </dependency>
         <dependency>
@@ -99,5 +99,9 @@
             </build>
         </profile>
     </profiles>
+
+    <properties>
+        <parent-path>/..</parent-path>
+    </properties>
 
 </project>

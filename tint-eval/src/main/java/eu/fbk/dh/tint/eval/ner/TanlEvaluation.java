@@ -1,9 +1,8 @@
 package eu.fbk.dh.tint.eval.ner;
 
 import edu.stanford.nlp.stats.MultiClassChunkEvalStats;
-import eu.fbk.dkm.utils.CommandLine;
-import eu.fbk.dkm.utils.diff_match_patch;
-import eu.fbk.dkm.utils.diff_match_patch.Operation;
+import eu.fbk.utils.core.CommandLine;
+import eu.fbk.utils.core.diff_match_patch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

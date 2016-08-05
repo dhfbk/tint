@@ -1,6 +1,6 @@
 package eu.fbk.dh.tint.resources.pos;
 
-import eu.fbk.dkm.utils.CommandLine;
+import eu.fbk.utils.core.CommandLine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 public class CreateTrainingForStanfordPOS {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateTrainingForStanfordPOS.class);
+    private static final int DEFAULT_COL = 3;
 
     public static void main(String[] args) {
 
@@ -39,6 +40,8 @@ public class CreateTrainingForStanfordPOS {
                             CommandLine.Type.FILE_EXISTING, true, false, false)
                     .withOption("c", "conll", "Output in CoNLL format", "FILE",
                             CommandLine.Type.FILE_EXISTING, true, false, false)
+                    .withOption(null, "column", String.format("Column for POS (default %d)", DEFAULT_COL), "FILE",
+                            CommandLine.Type.INTEGER, true, false, false)
                     .withLogger(LoggerFactory.getLogger("eu.fbk")).parse(args);
 
             File input = cmd.getOptionValue("input", File.class);
@@ -47,6 +50,8 @@ public class CreateTrainingForStanfordPOS {
             File onlyPos = cmd.getOptionValue("only-pos", File.class);
             File onlyText = cmd.getOptionValue("text", File.class);
             File conll = cmd.getOptionValue("conll", File.class);
+
+            Integer column = cmd.getOptionValue("column", Integer.class, DEFAULT_COL);
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(output));
             BufferedWriter tokensWriter = null;
@@ -111,7 +116,13 @@ public class CreateTrainingForStanfordPOS {
                 String id = parts[0];
                 String token = parts[1];
                 String lemma = parts[2];
-                String pos = parts[4];
+                String pos;
+                try {
+                    pos = parts[column];
+                } catch (Exception e) {
+                    LOGGER.error("Invalid column");
+                    break;
+                }
                 Integer numericId = null;
 
                 if (id.contains("-")) {

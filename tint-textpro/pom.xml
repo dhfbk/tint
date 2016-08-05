@@ -21,4 +21,9 @@
             <artifactId>jsr305</artifactId>
         </dependency>
     </dependencies>
+
+    <properties>
+        <parent-path>/..</parent-path>
+    </properties>
+
 </project>

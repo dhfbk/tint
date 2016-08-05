@@ -4,7 +4,7 @@ import ch.qos.logback.classic.Level;
 import edu.stanford.nlp.pipeline.*;
 import eu.fbk.dkm.pikes.tintop.AnnotationPipeline;
 import eu.fbk.dkm.pikes.tintop.server.AbstractHandler;
-import eu.fbk.dkm.utils.CommandLine;
+import eu.fbk.utils.core.CommandLine;
 import ixa.kaflib.KAFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
