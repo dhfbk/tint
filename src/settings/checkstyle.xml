@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<!--
+  Based on SUN coding conventions
+  http://www.oracle.com/technetwork/java/codeconv-138413.html 
+
+  Differences w.r.t. SUN conventions (as encoded in Checkstyle sun_checks.xml):
+  - maximum line size is 100 instead of 80; line length not checked for lines with a @see tag (as long external URL may be reported)
+  - tab width equal to 4 instead of 8
+  - unused imports not checked, as this will force using fully qualified names in Javadoc comments
+  - imports of sun.* classes not checked, as most of these classes are indeed cross-platform, and btw they can be used as optional extensions
+  - magic numbers, inline conditionals, fields with package visibility, variables hiding other members and double checked locking pattern are allowed
+  - Javadoc required only for protected and public members; required Javadoc comments cannot be empty; can use @throws with subclasses of an already thrown exception
+  - throws declarations with RuntimeExceptions or subclasses of exceptions already in throws clause are allowed
+  - no check for TODO comments is performed, as they are already collected and reported by taglist plugin
+  - empty blocks allowed in loops and catch, provided they contain some text
+  - no enforcement that non-private members of a class are final or abstract or with empty implementation, as this prevents default method implementations in super classes
+  - spaces added in array initializers after opening parenthesis and before closing parenthesis, in order to allow proper auto-formatting of array annotations in Eclipse
+  - check on maximum number of parameters disabled
+  
+  Extensions to SUN conventions:
+  - class and method type parameters (i.e., <T>) must be uppercase tokens
+  - import order should be the following: java, javax, junit, sun, com, net, org, info, javassist, it, eu (newline between each block)
+  - length of anonymous inner classes <= 100
+  - no padding (extra whitespaces after and before parenthesis) in for loops
+  - Boolean and String instances cannot be obtained calling their constructors
+  - unchanged local variables must be final
+  - string literal equality is forbidden
+  - code labels are forbidden
+  - cannot modify control variables
+  - cannot declare multiple variables in the same declaration statement
+  - methods overriding finalize() and clone() must call corresponding super method
+  - parenthesis can be used only where strictly necessary
+  - exception classes must be immutable
+  - JUnit setUp(), tearDown() and suite() methods must be named and typed correctly
+  - @Deprecated annotation and Javadoc tag must be used together
+  - @Override must be used when @inheritDoc Javadoc tag is used
+  - annotations without parameters must not use parenthesis, annotations with an array parameter should not use brace parenthesis
+  - package annotations must be placed in package-info.java
+  - checkstyle checking can be suspended with // CHECKSTYLE:OFF and resumed with // CHECKSTYLE:ON
+-->
+<module name="Checker">
+
+  <property name="localeLanguage" value="en"/>
+  <property name="severity" value="warning" />
+
+
+  <!-- Max 2000 lines per file [SUN] -->
+  <!-- http://checkstyle.sf.net/config_sizes.html -->
+  <module name="FileLength" />
+
+  <!-- No tab characters ('\t') in the source code [SUN] -->
+  <!-- http://checkstyle.sf.net/config_whitespace.html -->
+  <module name="FileTabCharacter" />
+
+  <!-- A package-info.java file must exist for each package [SUN] -->
+  <!-- http://checkstyle.sf.net/config_javadoc.html#JavadocPackage -->
+  <module name="JavadocPackage" /> 
+
+  <!-- Files must end with a new line [SUN] -->
+  <!-- http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
+  <module name="NewlineAtEndOfFile" />
+
+  <!-- Checks that property files contain the same keys [SUN] -->
+  <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
+  <module name="Translation"/>
+
+  <!-- Checks for trailing spaces at the end of a line [SUN] -->
+  <!-- See http://checkstyle.sf.net/config_misc.html -->
+  <module name="RegexpSingleline">
+    <property name="format" value="[^\*]\s+$"/>
+    <property name="minimum" value="0"/>
+    <property name="maximum" value="0"/>
+    <property name="message" value="Line has trailing spaces."/>
+  </module>
+
+  <module name="TreeWalker">
+
+    <property name="tabWidth" value="4" /> <!-- SUN provides for 8 -->
+    <property name="cacheFile" value="target/checkstyle-cachefile"/>
+
+    <!-- Checks for Javadoc comments -->
+    <!-- [SUN + scope=protected, checkEmptyJavadoc, allowThrowsTagsForSubclasses] -->
+    <!-- http://checkstyle.sf.net/config_javadoc.html -->
+    <module name="JavadocType">
+      <property name="scope" value="protected" />
+    </module>
+    <module name="JavadocMethod">
+      <property name="scope" value="protected" />
+      <property name="allowThrowsTagsForSubclasses" value="true" />
+      <property name="suppressLoadErrors" value="true" />
+    </module>
+    <module name="JavadocVariable">
+      <property name="scope" value="protected" />
+    </module>
+    <module name="JavadocStyle">
+      <property name="scope" value="protected" />
+      <property name="checkEmptyJavadoc" value="true" />
+      <property name="checkHtml" value="false" /> <!-- disabled as checkstyle fooled by XML examples nested in Javadoc -->
+    </module>
+
+    <!-- Checks for Naming Conventions -->
+    <!-- [SUN + ClassTypeParameterName, MethodTypeParameterName] -->
+    <!-- http://checkstyle.sf.net/config_naming.html -->
+    <module name="ConstantName" />
+    <module name="LocalFinalVariableName" />
+    <module name="LocalVariableName" />
+    <module name="MemberName" />
+    <module name="MethodName" />
+    <module name="PackageName" />
+    <module name="ParameterName" />
+    <module name="StaticVariableName" />
+    <module name="TypeName" />
+    <module name="ClassTypeParameterName" />
+    <module name="MethodTypeParameterName" />
+
+    <!-- Checks for imports [SUN -UnusedImports +ImportOrder] -->
+    <!-- http://checkstyle.sf.net/config_import.html -->
+    <module name="AvoidStarImport" />
+    <!-- <module name="IllegalImport" /> --> <!-- defaults to sun.* packages --> 
+    <module name="RedundantImport" />
+    <!-- <module name="UnusedImports" /> --> <!-- does not detect use in Javadoc comments -->
+    <module name="ImportOrder">
+      <property name="option" value="top" />
+      <property name="groups" value="java, javax, junit, sun, com, net, org, info, javassist, virtuoso, it, ch, eu" />
+      <property name="separated" value="true" />
+    </module>
+
+    <!-- Checks for Size Violations -->
+    <!-- [SUN + max=100, ignorePattern for @see, AnonInnerLength] -->
+    <!-- http://checkstyle.sf.net/config_sizes.html -->
+    <module name="LineLength">
+      <property name="ignorePattern" value="^.*(@see|@\([#]\) \$Id:).*$" />
+      <property name="max" value="100" />
+    </module>
+    <module name="MethodLength" />
+    <!-- <module name="ParameterNumber" /> -->
+    <module name="AnonInnerLength">
+      <property name="max" value="100" />
+    </module>
+
+    <!-- Checks for whitespace [SUN +EmptyForInitializerPad -whitespace in array init] -->
+    <!-- http://checkstyle.sf.net/config_whitespace.html -->
+    <module name="EmptyForIteratorPad" />
+    <module name="GenericWhitespace" />
+    <module name="MethodParamPad" />
+    <module name="OperatorWrap" />
+    <module name="ParenPad" />
+    <module name="TypecastParenPad" />
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"> <!-- removed RCURLY -->
+      <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LCURLY, LE, LITERAL_ASSERT, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, TYPE_EXTENSION_AND"/>
+    </module>
+    <module name="NoWhitespaceBefore" />    
+    <module name="NoWhitespaceAfter">
+      <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS" />
+    </module>    
+    <module name="EmptyForInitializerPad" />
+
+    <!-- Modifier Checks [SUN] -->
+    <!-- http://checkstyle.sf.net/config_modifiers.html -->
+    <module name="ModifierOrder" />
+    <module name="RedundantModifier" />
+
+    <!-- Checks for blocks [SUN +maxLineLength=100] -->
+    <!-- http://checkstyle.sf.net/config_blocks.html -->
+    <module name="AvoidNestedBlocks" />
+    <module name="EmptyBlock">
+      <property name="tokens" value="LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_TRY, INSTANCE_INIT, STATIC_INIT" />
+    </module>
+    <module name="EmptyBlock">
+      <property name="option" value="text" />
+      <property name="tokens" value="LITERAL_CATCH, LITERAL_DO, LITERAL_FOR, LITERAL_WHILE" />
+    </module>
+    <module name="LeftCurly" />
+    <module name="RightCurly" />
+    <module name="NeedBraces" />
+    <!-- old LeftCurly configuration
+    <module name="LeftCurly">
+      <property name="maxLineLength" value="100" />
+      <property name="tokens"
+          value="LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE" />
+    </module>
+    <module name="LeftCurly">
+      <property name="maxLineLength" value="100" />
+      <property name="option" value="nl" />
+      <property name="tokens" value="CLASS_DEF, CTOR_DEF, INTERFACE_DEF, METHOD_DEF" />
+    </module>
+    -->
+
+    <!-- Checks for common coding problems -->
+    <!-- [SUN -AvoidInlineConditionals,DoubleCheckedLocking,MagicNumber,Hidden +CovariantEquals,classes=Boolean,String,allowUnchecked,allowSubclasses] -->
+    <!-- http://checkstyle.sf.net/config_coding.html -->
+    <!-- <module name="AvoidInlineConditionals"/> -->
+    <!-- <module name="DoubleCheckedLocking"/> -->
+    <module name="EmptyStatement" />
+    <module name="EqualsHashCode" />
+    <!-- <module name="HiddenField" /> -->
+    <module name="CovariantEquals" />
+    <module name="IllegalInstantiation">
+      <property name="classes" value="java.lang.Boolean, java.lang.String" />
+    </module>
+    <module name="InnerAssignment" />
+    <module name="MissingSwitchDefault" />
+    <module name="DefaultComesLast" />
+    <module name="RedundantThrows">
+      <property name="allowUnchecked" value="true" />
+      <property name="allowSubclasses" value="true" />
+      <property name="logLoadErrors" value="true" />
+      <property name="suppressLoadErrors" value="true" />
+    </module>
+    <module name="SimplifyBooleanExpression" />
+    <module name="SimplifyBooleanReturn" />
+
+    <!-- Additional checks for common coding problems [extension] -->
+    <!-- http://checkstyle.sf.net/config_coding.html -->
+    <module name="FinalLocalVariable" />
+    <module name="StringLiteralEquality" />
+    <module name="IllegalTokenText">
+      <property name="tokens" value="LABELED_STAT" />
+      <property name="format" value=".*" />
+      <property name="message" value="labels are discouraged" />
+      <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Labels are discouraged" />
+    </module>
+    <module name="ModifiedControlVariable" />
+    <module name="MultipleVariableDeclarations" />
+    <module name="SuperFinalize" />
+    <module name="SuperClone" />
+    <module name="UnnecessaryParentheses" />
+
+    <!-- Checks for class design [SUN +packageAllowed,MutableException -DesignForExtension] -->
+    <!-- http://checkstyle.sf.net/config_design.html -->
+    <!-- <module name="DesignForExtension"/> --> <!-- doesn't work with wrappers -->
+    <!-- <module name="DesignForExtension"/> --> <!-- doesn't allow for default implementations -->
+    <module name="FinalClass" />
+    <module name="HideUtilityClassConstructor" />
+    <module name="InterfaceIsType" />
+    <module name="VisibilityModifier">
+      <property name="packageAllowed" value="true" />
+    </module>
+    <module name="MutableException" />
+
+    <!-- Miscellaneous other checks [SUN -TodoComment] -->
+    <!-- http://checkstyle.sf.net/config_misc.html -->
+    <module name="ArrayTypeStyle" />
+    <module name="FinalParameters" />
+    <!-- <module name="TodoComment"> --> <!-- hides them in Eclipse, use taglist instead -->
+    <!-- <property name="format" value="FIXME" /> -->
+    <!-- </module> -->
+    <!-- <module name="TodoComment"> -->
+    <!-- <property name="format" value="TODO" /> -->
+    <!-- </module> -->
+    <!-- <module name="TodoComment"> -->
+    <!-- <property name="format" value="XXX" /> -->
+    <!-- </module> -->
+    <module name="UpperEll" />
+
+    <!-- JUnit checks [extension] -->
+    <module name="JUnitTestCase" />
+
+    <!-- Checks for annotations [extension] -->
+    <!-- http://checkstyle.sourceforge.net/config_annotation.html -->
+    <module name="MissingDeprecated" />
+    <module name="AnnotationUseStyle" />
+    <module name="MissingOverride" />
+    <module name="PackageAnnotation" />
+
+    <!-- Required for SuppressionCommentFilter below -->
+    <module name="FileContentsHolder"/>
+
+  </module>
+
+  <!-- Setup special comments to suppress specific checks from source files -->
+  <module name="SuppressionCommentFilter" />
+
+  <!-- Header checks to be enabled as soon as a license will be chosen -->
+  <!--<module name="Header">
+    <property name="headerFile" value="${checkstyle.header.file}"/>
+  </module>-->
+  <!-- <module name="RegexpHeader"> <property name="header" 
+    value="^/\*[ ]?$\n^ \* @\(#\)(([A-Z][A-Za-z0-9_]*)|(package-info))\.java([ ]?$|[ ]{3}[0-9]+\.[0-9]+[ 
+    ]{3}[A-Z][a-z]{2} [0-9]{1,2}, [0-9]{4,}[ ]?$)\n^ \*[ ]?$\n^ \* Copyright ([0-9]{4,}-)?([0-9]{4}) FBK 
+    \(http\:\\\\www\.fbk\.eu\)\. All Rights Reserved\.[ ]?$\n^ \*[ ]?$\n^ \* This software is the proprietary 
+    information of FBK\.[ ]?$\n^ \* Use is subject to license terms\.[ ]?$\n^ \*[ ]?$\n^ \* @\(#\) \$Id: 
+    ?.* \$[ ]?$\n^ \*/[ ]?$\n"/> <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Missing 
+    or incorrect header"/> </module> -->
+
+</module>
