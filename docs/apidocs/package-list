@@ -1,0 +1,17 @@
+eu.fbk.dh.tint.digimorph
+eu.fbk.dh.tint.digimorph.annotator
+eu.fbk.dh.tint.eval.morpho
+eu.fbk.dh.tint.eval.ner
+eu.fbk.dh.tint.eval.pos
+eu.fbk.dh.tint.resources.morpho
+eu.fbk.dh.tint.resources.ner
+eu.fbk.dh.tint.resources.parse
+eu.fbk.dh.tint.resources.pos
+eu.fbk.dh.tint.runner
+eu.fbk.dh.tint.runner.wrappers
+eu.fbk.dh.tint.textpro
+eu.fbk.dh.tint.tokenizer
+eu.fbk.dh.tint.tokenizer.annotators
+eu.fbk.dh.tint.tokenizer.models
+eu.fbk.dh.tint.tokenizer.token
+eu.fbk.dh.tint.tokenizer.util

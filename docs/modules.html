@@ -8,7 +8,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>tint - Home</title>
+		<title>tint - Project Modules</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
 		<meta http-equiv="content-language" content="en" />
@@ -35,7 +35,7 @@
 <link rel="icon" href="http://tint.fbk.eu//images/tint-squared.png" type="image/png"/>
 	</head>
 
-	<body class="page-index project-tint" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
+	<body class="page-modules project-tint" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -49,10 +49,10 @@
                         <!--<span>TINT</span>--></a>
 					<div class="nav-collapse collapse" id="top-nav-collapse">
 						<ul class="nav pull-right">
-							<li class="dropdown active">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li class="active"><a href="" title="Home">Home</a></li>
+									<li ><a href="index.html" title="Home">Home</a></li>
 									<li ><a href="publications.html" title="Publications">Publications</a></li>
 									<li ><a href="downloads.html" title="Download and usage">Download and usage</a></li>
 									<li ><a href="license.html" title="License">License</a></li>
@@ -77,14 +77,14 @@
 									<li class="dropdown-submenu ">
 										<a href="project-info.html" title="Project Information">Project Information</a>
 										<ul class="dropdown-menu">
-											<li class="active"><a href="" title="About">About</a></li>
+											<li ><a href="index.html" title="About">About</a></li>
 											<li ><a href="project-summary.html" title="Project Summary">Project Summary</a></li>
 											<li ><a href="license.html" title="Project License">Project License</a></li>
 											<li ><a href="source-repository.html" title="Source Repository">Source Repository</a></li>
 											<li ><a href="team-list.html" title="Project Team">Project Team</a></li>
 											<li ><a href="dependency-convergence.html" title="Dependency Convergence">Dependency Convergence</a></li>
 											<li ><a href="plugins.html" title="Project Plugins">Project Plugins</a></li>
-											<li ><a href="modules.html" title="Project Modules">Project Modules</a></li>
+											<li class="active"><a href="" title="Project Modules">Project Modules</a></li>
 										</ul>
 									</li>
 									<li class="dropdown-submenu ">
@@ -145,43 +145,53 @@
 	<div class="row">
 		<div class="span12">
 			<div class="body-content">
-				<div class="well sidebar" id="well-home"> 
- <h1> <img src="images/tint-big.png" alt="Tint" title="Tint" /> </h1> 
- <p id="home-subtitle" class="title2"> Lend color to your Italian texts! </p> 
- <p id="home-buttons"> <a class="btn btn-primary btn-large" href="http://simpatico.fbk.eu/tint-demo/">Online demo</a> <a class="btn btn-primary btn-large" href="https://github.com/dhfbk/tint">Source code</a> 
-  <!-- <a class="btn btn-primary btn-large" href="https://www.youtube.com/watch?v=D0mcnUKc3sg">Video tour</a> --> </p> 
+<div class="section"> 
+ <div class="page-header">
+  <h2 id="Project_Modules">Project Modules</h2>
+ </div> 
+ <a name="Project_Modules"></a> 
+ <p>This project has declared the following modules:</p> 
+ <table border="0" class="bodyTable table table-striped table-hover"> 
+  <thead> 
+   <tr class="a"> 
+    <th>Name</th> 
+    <th>Description</th> 
+   </tr> 
+  </thead> 
+  <tbody> 
+   <tr class="b"> 
+    <td><a href="tint-textpro/index.html">tint-textpro</a></td> 
+    <td>Some utility wrappers for TextPro</td> 
+   </tr> 
+   <tr class="a"> 
+    <td><a href="tint-eval/index.html">tint-eval</a></td> 
+    <td>Evaluation scripts for the Tint pipeline</td> 
+   </tr> 
+   <tr class="b"> 
+    <td><a href="tint-resources/index.html">tint-resources</a></td> 
+    <td>Java helpers for Tint retraining</td> 
+   </tr> 
+   <tr class="a"> 
+    <td><a href="tint-digimorph/index.html">tint-digimorph</a></td> 
+    <td>DigiMorph, an Italian morphological analyzer</td> 
+   </tr> 
+   <tr class="b"> 
+    <td><a href="tint-digimorph-annotator/index.html">tint-digimorph-annotator</a></td> 
+    <td>Stanford annotator for DigiMorph</td> 
+   </tr> 
+   <tr class="a"> 
+    <td><a href="tint-tokenizer/index.html">tint-tokenizer</a></td> 
+    <td>The Tint tokenizer and sentence splitter</td> 
+   </tr> 
+   <tr class="b"> 
+    <td><a href="tint-runner/index.html">tint-runner</a></td> 
+    <td>The Tint launcher</td> 
+   </tr> 
+  </tbody> 
+ </table> 
 </div>
 			</div>
 		</div>
-	</div>
-	<div class="row columns columns3">
-		<div class="span4">
-			<h3 class="no-before" id="About">About</h3>
-<p><b>Tint</b> (The Italian NLP Tool) is a Java-based pipeline for Natural Language Processing (NLP) in Italian. It is very fast and accurate, and implements most of the common linguistic tools, such as part-of-speech tagging, dependency parsing, entity linking. The tool is based on <a class="externalLink" href="http://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP</a>, and can be used as a stand-alone tool, included as a Java library or as a REST API service.</p>
-<div class="no-before">   
-</div>
-		</div>
-		<div class="span4">
-			<h3 class="no-before" id="Features">Features</h3>
-<ul> 
- <li>Fast and accurate native basic NLP tasks (tokenization, sentence splitting, morphological analysis, lemmatization)</li> 
- <li>Modules for part-of-speech tagging, dependency parsing and named entity recognition use state-of-the art technologies</li> 
- <li>It includes wrappers for entity linking, time expression identification, keywords extraction</li> 
- <li>Extensible interface, through Stanford CoreNLP library</li> 
- <li>REST API service included, built on top of <a class="externalLink" href="https://grizzly.java.net/">Grizzly</a></li> 
-</ul>
-<div class="no-before">  
- <!-- - 2015-06-08 [Try-it-out demo](https://knowledgestore2.fbk.eu/pikes-demo/) available! -->  
-</div>
-		</div>
-		<div class="span4">
-			<h3 class="no-before" id="News">News</h3>
-<ul> 
- <li>2016-08-15 Version 0.1 has been released.</li> 
-</ul>
-		</div>
-	</div>
-	<div class="row">
 	</div>
 	</div>
 
@@ -195,8 +205,8 @@
 				<div class="span2 bottom-nav">
 					<ul class="nav nav-list">
 						<li class="nav-header">About</li>
-						<li class="active">
-							<a href="#" title="Home">Home</a>
+						<li >
+							<a href="index.html" title="Home">Home</a>
 						</li>
 						<li >
 							<a href="publications.html" title="Publications">Publications</a>

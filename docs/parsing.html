@@ -8,7 +8,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>tint - Home</title>
+		<title>tint - Dependency Parsing</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
 		<meta http-equiv="content-language" content="en" />
@@ -35,7 +35,7 @@
 <link rel="icon" href="http://tint.fbk.eu//images/tint-squared.png" type="image/png"/>
 	</head>
 
-	<body class="page-index project-tint" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
+	<body class="page-parsing project-tint" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -49,10 +49,10 @@
                         <!--<span>TINT</span>--></a>
 					<div class="nav-collapse collapse" id="top-nav-collapse">
 						<ul class="nav pull-right">
-							<li class="dropdown active">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li class="active"><a href="" title="Home">Home</a></li>
+									<li ><a href="index.html" title="Home">Home</a></li>
 									<li ><a href="publications.html" title="Publications">Publications</a></li>
 									<li ><a href="downloads.html" title="Download and usage">Download and usage</a></li>
 									<li ><a href="license.html" title="License">License</a></li>
@@ -60,24 +60,24 @@
 									<li ><a href="team-list.html" title="Team">Team</a></li>
 								</ul>
 							</li>
-							<li class="dropdown">
+							<li class="dropdown active">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pipeline <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li ><a href="tokenization.html" title="Tokenization and sentence splitting">Tokenization and sentence splitting</a></li>
 									<li ><a href="morpho.html" title="Morphological analysis and lemmatization">Morphological analysis and lemmatization</a></li>
 									<li ><a href="pos.html" title="Part-of-speech tagging">Part-of-speech tagging</a></li>
 									<li ><a href="ner.html" title="Named-entity recognition">Named-entity recognition</a></li>
-									<li ><a href="parsing.html" title="Dependency parsing">Dependency parsing</a></li>
+									<li class="active"><a href="" title="Dependency parsing">Dependency parsing</a></li>
 									<li ><a href="wrappers.html" title="Wrappers">Wrappers</a></li>
 								</ul>
 							</li>
-							<li class="dropdown active">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Maven reports <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li class="dropdown-submenu ">
 										<a href="project-info.html" title="Project Information">Project Information</a>
 										<ul class="dropdown-menu">
-											<li class="active"><a href="" title="About">About</a></li>
+											<li ><a href="index.html" title="About">About</a></li>
 											<li ><a href="project-summary.html" title="Project Summary">Project Summary</a></li>
 											<li ><a href="license.html" title="Project License">Project License</a></li>
 											<li ><a href="source-repository.html" title="Source Repository">Source Repository</a></li>
@@ -145,43 +145,66 @@
 	<div class="row">
 		<div class="span12">
 			<div class="body-content">
-				<div class="well sidebar" id="well-home"> 
- <h1> <img src="images/tint-big.png" alt="Tint" title="Tint" /> </h1> 
- <p id="home-subtitle" class="title2"> Lend color to your Italian texts! </p> 
- <p id="home-buttons"> <a class="btn btn-primary btn-large" href="http://simpatico.fbk.eu/tint-demo/">Online demo</a> <a class="btn btn-primary btn-large" href="https://github.com/dhfbk/tint">Source code</a> 
-  <!-- <a class="btn btn-primary btn-large" href="https://www.youtube.com/watch?v=D0mcnUKc3sg">Video tour</a> --> </p> 
+<div class="section"> 
+ <div class="page-header">
+  <h2 id="Dependency_Parsing">Dependency Parsing</h2>
+ </div> 
+ <p>Dependency parsing is the process of extract the grammatical structure of a sentence in a form of a “tree”. A node in the tree is a word in the sentence. Edges correspond to relations between the words. Each edge connect a “head” word with a word that modify that head.</p> 
+ <div class="section"> 
+  <h3 id="Description">Description</h3> 
+  <p>The Dependency Parser included in Tint is based on the <a class="externalLink" href="http://nlp.stanford.edu/software/nndep.shtml">Neural Network Dependency Parser</a> included in Stanford CoreNLP.</p> 
+  <p>The model provided with Tint is trained on the ISTD (Italian Stanford Dependency Treebank), released for the <a class="externalLink" href="http://www.evalita.it/2014/tasks/dep_par4IE">dependency parsing shared task of Evalita-2014</a> and containing 316,660 tokens. The original resource is released under the Creative Commons <a class="externalLink" href="https://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike 3.0</a> license, therefore the resulting model cannot be used for commercial purposes.</p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Performances">Performances</h3> 
+  <p>Evaluated on the Universal Dependencies test set, the Italian dependency parser included in Tint gives: 84.67 (LAS) and 87.05 (UAS). On a 2,3 GHz Intel Core i7 with 16 GB of memory, it can tag 9,000 token/second.</p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Training">Training</h3> 
+  <p>The Tint module for dependency parsing relies on the corresponding module in Stanford CoreNLP. You can surf to its <a class="externalLink" href="http://nlp.stanford.edu/software/nndep.shtml">main page</a> for more information on how to use it.</p> 
+  <p>In order to retrain the Stanford Parser using the ISTD dataset, you need the training data to be in CoNLL format. While the ISTD is already given in the correct format, we need to parse it to meet the tokenization rules used by the Tint tokenizer, that are slightly different from the ones used in the dataset. See the <a href="">Universal Dependencies Italian page</a> for more information.</p> 
+  <p>The training data should be in the CoNLL format. For example:</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>1	Evacuata	evacuare	VERB	VERB	_	3	acl	3	acl
+2	la	il	DET	DET	_	3	det	3	det
+3	Tate	Tate	PROPN	PROPN	_	0	root	0	root
+4	Gallery	Gallery	PROPN	PROPN	_	3	name	3	name
+5	.	.	PUNCT	PUNCT	_	3	punct	3	punct
+</pre> 
+   </div> 
+  </div> 
+  <p>The CoreNLP class used is <tt>nndep.DependencyParser</tt>.</p> 
+  <p>The ISTD dataset needs to be downloaded from the <a class="externalLink" href="http://universaldependencies.org/">Universal Dependencies</a> website. After that, you need to run the <tt>eu.fbk.dh.tint.resources.parse.CreateTrainingForStanfordParser</tt> class to read the CoNLLU format and transform it to the standard CoNLL format.</p> 
+  <p>Command parameters:</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>     --column &lt;NUM&gt;   Column for POS (default 3)
+     --debug          enable verbose output
+  -h,--help           display this help message and terminate
+  -i,--input &lt;FILE&gt;   Input file
+  -o,--output &lt;FILE&gt;  Output file
+     --trace          enable very verbose output
+  -v,--version        display version information and terminate
+</pre> 
+   </div> 
+  </div> 
+  <p>For example, you can run it on the training set of the Universal Dependencies by using:</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>java eu.fbk.dh.tint.resources.parse.CreateTrainingForStanfordParser \
+    -i /path/to/ud/it-ud-train.conllu \
+    -o output.train.stanford.parse
+</pre> 
+   </div> 
+  </div> 
+  <p>The column parameter can be used to choose between the POS universal tags (<tt>--column 3</tt>, default) or the <a class="externalLink" href="http://www.ilc.cnr.it/EAGLES96/home.html">EAGLES</a> standard POS tags (<tt>--column 4</tt>).</p> 
+  <p>This Stanford parser is powered by a neural network which accepts word embedding inputs: in our model, these word embeddings are built on the <a class="externalLink" href="http://www.corpusitaliano.it">Pais&agrave; corpus</a>, that contains 250M tokens of freely available and distributable texts harvested from the web. The embeddings are available on the download page.</p> 
+  <p>Both the property file (<tt>italian.parser.model.props</tt>) and the resulting model (<tt>italian.parser.model</tt>) are included in the Tint distribution as resources.</p> 
+ </div> 
 </div>
 			</div>
 		</div>
-	</div>
-	<div class="row columns columns3">
-		<div class="span4">
-			<h3 class="no-before" id="About">About</h3>
-<p><b>Tint</b> (The Italian NLP Tool) is a Java-based pipeline for Natural Language Processing (NLP) in Italian. It is very fast and accurate, and implements most of the common linguistic tools, such as part-of-speech tagging, dependency parsing, entity linking. The tool is based on <a class="externalLink" href="http://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP</a>, and can be used as a stand-alone tool, included as a Java library or as a REST API service.</p>
-<div class="no-before">   
-</div>
-		</div>
-		<div class="span4">
-			<h3 class="no-before" id="Features">Features</h3>
-<ul> 
- <li>Fast and accurate native basic NLP tasks (tokenization, sentence splitting, morphological analysis, lemmatization)</li> 
- <li>Modules for part-of-speech tagging, dependency parsing and named entity recognition use state-of-the art technologies</li> 
- <li>It includes wrappers for entity linking, time expression identification, keywords extraction</li> 
- <li>Extensible interface, through Stanford CoreNLP library</li> 
- <li>REST API service included, built on top of <a class="externalLink" href="https://grizzly.java.net/">Grizzly</a></li> 
-</ul>
-<div class="no-before">  
- <!-- - 2015-06-08 [Try-it-out demo](https://knowledgestore2.fbk.eu/pikes-demo/) available! -->  
-</div>
-		</div>
-		<div class="span4">
-			<h3 class="no-before" id="News">News</h3>
-<ul> 
- <li>2016-08-15 Version 0.1 has been released.</li> 
-</ul>
-		</div>
-	</div>
-	<div class="row">
 	</div>
 	</div>
 
@@ -195,8 +218,8 @@
 				<div class="span2 bottom-nav">
 					<ul class="nav nav-list">
 						<li class="nav-header">About</li>
-						<li class="active">
-							<a href="#" title="Home">Home</a>
+						<li >
+							<a href="index.html" title="Home">Home</a>
 						</li>
 						<li >
 							<a href="publications.html" title="Publications">Publications</a>
@@ -244,8 +267,8 @@
 						<li >
 							<a href="ner.html" title="Named-entity recognition">Named-entity recognition</a>
 						</li>
-						<li >
-							<a href="parsing.html" title="Dependency parsing">Dependency parsing</a>
+						<li class="active">
+							<a href="#" title="Dependency parsing">Dependency parsing</a>
 						</li>
 						<li >
 							<a href="wrappers.html" title="Wrappers">Wrappers</a>

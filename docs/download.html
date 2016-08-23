@@ -8,7 +8,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>tint - Home</title>
+		<title>tint - Download and usage</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
 		<meta http-equiv="content-language" content="en" />
@@ -35,7 +35,7 @@
 <link rel="icon" href="http://tint.fbk.eu//images/tint-squared.png" type="image/png"/>
 	</head>
 
-	<body class="page-index project-tint" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
+	<body class="page-download project-tint" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -49,10 +49,10 @@
                         <!--<span>TINT</span>--></a>
 					<div class="nav-collapse collapse" id="top-nav-collapse">
 						<ul class="nav pull-right">
-							<li class="dropdown active">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li class="active"><a href="" title="Home">Home</a></li>
+									<li ><a href="index.html" title="Home">Home</a></li>
 									<li ><a href="publications.html" title="Publications">Publications</a></li>
 									<li ><a href="downloads.html" title="Download and usage">Download and usage</a></li>
 									<li ><a href="license.html" title="License">License</a></li>
@@ -71,13 +71,13 @@
 									<li ><a href="wrappers.html" title="Wrappers">Wrappers</a></li>
 								</ul>
 							</li>
-							<li class="dropdown active">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Maven reports <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li class="dropdown-submenu ">
 										<a href="project-info.html" title="Project Information">Project Information</a>
 										<ul class="dropdown-menu">
-											<li class="active"><a href="" title="About">About</a></li>
+											<li ><a href="index.html" title="About">About</a></li>
 											<li ><a href="project-summary.html" title="Project Summary">Project Summary</a></li>
 											<li ><a href="license.html" title="Project License">Project License</a></li>
 											<li ><a href="source-repository.html" title="Source Repository">Source Repository</a></li>
@@ -145,43 +145,96 @@
 	<div class="row">
 		<div class="span12">
 			<div class="body-content">
-				<div class="well sidebar" id="well-home"> 
- <h1> <img src="images/tint-big.png" alt="Tint" title="Tint" /> </h1> 
- <p id="home-subtitle" class="title2"> Lend color to your Italian texts! </p> 
- <p id="home-buttons"> <a class="btn btn-primary btn-large" href="http://simpatico.fbk.eu/tint-demo/">Online demo</a> <a class="btn btn-primary btn-large" href="https://github.com/dhfbk/tint">Source code</a> 
-  <!-- <a class="btn btn-primary btn-large" href="https://www.youtube.com/watch?v=D0mcnUKc3sg">Video tour</a> --> </p> 
+<div class="section"> 
+ <div class="page-header">
+  <h2 id="Download_and_usage">Download and usage</h2>
+ </div> 
+ <p>The Tint command line tool is packaged as a self-contained, cross-platform Java 8 application. In order to install it, download the following package and unpack it in the location you prefer:</p> 
+ <ul> 
+  <li><a class="externalLink" href="http://www.airpedia.org/tint/1.0-SNAPSHOT/tint-runner-1.0-SNAPSHOT-bin.tar.gz">tint-runner-1.0-SNAPSHOT-bin.tar.gz</a> (latest version, tar.gz)</li> 
+  <li><a class="externalLink" href="http://www.airpedia.org/tint/">browse all versions</a></li> 
+ </ul> 
+ <div class="section"> 
+  <h3 id="Basic_usage">Basic usage</h3> 
+  <p>Installing Tint is quite straightforward, as it only needs to be downloaded and uncompressed. On a Linux/Mac shell, just run these commands:</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>wget http://www.airpedia.org/tint/1.0-SNAPSHOT/tint-runner-1.0-SNAPSHOT-bin.tar.gz
+tar xzf tint-runner-1.0-SNAPSHOT-bin.tar.gz
+cd tint
+./tint.sh [options]
+</pre> 
+   </div> 
+  </div> 
+  <p>where <tt>[options]</tt> is documented as follows:</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>  -c,--config-file &lt;FILE&gt;      Configuration file
+     --debug                   enable verbose output
+  -f,--output-format &lt;FORMAT&gt;  Output format: textpro, json, xml, conll, naf,
+                               readable (default conll)
+  -h,--help                    display this help message and terminate
+  -i,--input-file &lt;FILE&gt;       Input text file (default stdin)
+  -o,--output-file &lt;FILE&gt;      Output processed file (default stdout)
+     --properties &lt;PROPS&gt;      Additional properties for Stanford CoreNLP
+     --trace                   enable very verbose output
+  -v,--version                 display version information and terminate
+</pre> 
+   </div> 
+  </div> 
+  <p>If the <tt>-i</tt> option is missing, the standard input is used instead. Similarly, if the <tt>-o</tt> option is not present, the standard output is used.</p> 
+  <p>The <tt>-c</tt> option can be used to add a configuration file written for Stanford CoreNLP. The preferences in this file are added to the ones included in the default configuration file (<tt>default-config.properties</tt> in the resources folder). If you want to add a single property, you can just use the <tt>--properties</tt> option.</p> 
+  <p>The priority is as follows: first the default properties are loaded; then the custom config file is loaded (<tt>-c</tt> option); finally, the additional properties (<tt>--properties</tt> option) are loaded. Whenever a property with a particular key is loaded, the previous one with the same key is overwritten.</p> 
+  <p>The models and the properties file for tokenization, sentence splitting, part-of-speech tagging, named-entity recognition, lemmatization and parsing are alredy included in default config, therefore you can simply run <tt>./tint.sh</tt> to have Tint read from the standard input and write to the standard output. The wrappers for entity linking, time expression extraction and keywords digging are not acivated by default because they need some additional configuration and software.</p> 
+  <p>A super-quick example:</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>./tint.sh [enter]
+[type text, including newlines]
+[Ctrl+D]
+</pre> 
+   </div> 
+  </div> 
+  <p>will output the result of the text analysis in a readable format.</p> 
+  <p>This use of Tint will result in loading the models after the <tt>Ctrl+D</tt> sequence, therefore you will wait some seconds before the text will be processed. If you don’t want to wait, you can load the models once, by importing Tint as a Maven module in an existing project or by running it as a server.</p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Running_Tint_as_a_web_server">Running Tint as a web server</h3> 
+  <p>After uncompressing the Tint package (see above), you can run the <tt>tint-server.sh</tt> script to run it as a server. In particular the syntax is</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>./tint-server.sh [options]
+</pre> 
+   </div> 
+  </div> 
+  <p>where <tt>[options]</tt> is documented as follows:</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>  -c,--config &lt;FILE&gt;       Configuration file
+     --debug               enable verbose output
+  -h,--help                display this help message and terminate
+  -p,--port &lt;NUM&gt;          Host port (default 8012)
+     --properties &lt;PROPS&gt;  Additional properties
+     --trace               enable very verbose output
+  -v,--version             display version information and terminate
+</pre> 
+   </div> 
+  </div> 
+  <p>The <tt>-c</tt> and <tt>--properties</tt> options work similarly to the <tt>tint.sh</tt> script. With the <tt>-p</tt> option you can configure the listening port for the Tint server.</p> 
+  <p>Once the server is loaded (the line <tt>INFO: [HttpServer] Started.</tt> will appear on standard output), you can test it by surfing to <tt>http://localhost:8012/tint?text=[text]&amp;format=[format]</tt> where <tt>[text]</tt> is a text in Italian and <tt>[format]</tt> is the output format (see above in the <tt>./tint.sh</tt> documentation).</p> 
+  <p>For instance, surfing to</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>http://localhost:8012/tint?text=Barack%20Obama%20%C3%A8%20il%20presidente%20degli%20Stati%20Uniti%20d%27America.&amp;format=naf
+</pre> 
+   </div> 
+  </div> 
+  <p>will result in the NAF file containing all the desired annotations.</p> 
+  <p>If you set the <tt>-p</tt> option, replace <tt>8012</tt> in the above example with the given port number.</p> 
+ </div> 
 </div>
 			</div>
 		</div>
-	</div>
-	<div class="row columns columns3">
-		<div class="span4">
-			<h3 class="no-before" id="About">About</h3>
-<p><b>Tint</b> (The Italian NLP Tool) is a Java-based pipeline for Natural Language Processing (NLP) in Italian. It is very fast and accurate, and implements most of the common linguistic tools, such as part-of-speech tagging, dependency parsing, entity linking. The tool is based on <a class="externalLink" href="http://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP</a>, and can be used as a stand-alone tool, included as a Java library or as a REST API service.</p>
-<div class="no-before">   
-</div>
-		</div>
-		<div class="span4">
-			<h3 class="no-before" id="Features">Features</h3>
-<ul> 
- <li>Fast and accurate native basic NLP tasks (tokenization, sentence splitting, morphological analysis, lemmatization)</li> 
- <li>Modules for part-of-speech tagging, dependency parsing and named entity recognition use state-of-the art technologies</li> 
- <li>It includes wrappers for entity linking, time expression identification, keywords extraction</li> 
- <li>Extensible interface, through Stanford CoreNLP library</li> 
- <li>REST API service included, built on top of <a class="externalLink" href="https://grizzly.java.net/">Grizzly</a></li> 
-</ul>
-<div class="no-before">  
- <!-- - 2015-06-08 [Try-it-out demo](https://knowledgestore2.fbk.eu/pikes-demo/) available! -->  
-</div>
-		</div>
-		<div class="span4">
-			<h3 class="no-before" id="News">News</h3>
-<ul> 
- <li>2016-08-15 Version 0.1 has been released.</li> 
-</ul>
-		</div>
-	</div>
-	<div class="row">
 	</div>
 	</div>
 
@@ -195,8 +248,8 @@
 				<div class="span2 bottom-nav">
 					<ul class="nav nav-list">
 						<li class="nav-header">About</li>
-						<li class="active">
-							<a href="#" title="Home">Home</a>
+						<li >
+							<a href="index.html" title="Home">Home</a>
 						</li>
 						<li >
 							<a href="publications.html" title="Publications">Publications</a>

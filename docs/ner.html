@@ -8,7 +8,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>tint - Home</title>
+		<title>tint - Named-entity recognition</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
 		<meta http-equiv="content-language" content="en" />
@@ -35,7 +35,7 @@
 <link rel="icon" href="http://tint.fbk.eu//images/tint-squared.png" type="image/png"/>
 	</head>
 
-	<body class="page-index project-tint" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
+	<body class="page-ner project-tint" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -49,10 +49,10 @@
                         <!--<span>TINT</span>--></a>
 					<div class="nav-collapse collapse" id="top-nav-collapse">
 						<ul class="nav pull-right">
-							<li class="dropdown active">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li class="active"><a href="" title="Home">Home</a></li>
+									<li ><a href="index.html" title="Home">Home</a></li>
 									<li ><a href="publications.html" title="Publications">Publications</a></li>
 									<li ><a href="downloads.html" title="Download and usage">Download and usage</a></li>
 									<li ><a href="license.html" title="License">License</a></li>
@@ -60,24 +60,24 @@
 									<li ><a href="team-list.html" title="Team">Team</a></li>
 								</ul>
 							</li>
-							<li class="dropdown">
+							<li class="dropdown active">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pipeline <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li ><a href="tokenization.html" title="Tokenization and sentence splitting">Tokenization and sentence splitting</a></li>
 									<li ><a href="morpho.html" title="Morphological analysis and lemmatization">Morphological analysis and lemmatization</a></li>
 									<li ><a href="pos.html" title="Part-of-speech tagging">Part-of-speech tagging</a></li>
-									<li ><a href="ner.html" title="Named-entity recognition">Named-entity recognition</a></li>
+									<li class="active"><a href="" title="Named-entity recognition">Named-entity recognition</a></li>
 									<li ><a href="parsing.html" title="Dependency parsing">Dependency parsing</a></li>
 									<li ><a href="wrappers.html" title="Wrappers">Wrappers</a></li>
 								</ul>
 							</li>
-							<li class="dropdown active">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Maven reports <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li class="dropdown-submenu ">
 										<a href="project-info.html" title="Project Information">Project Information</a>
 										<ul class="dropdown-menu">
-											<li class="active"><a href="" title="About">About</a></li>
+											<li ><a href="index.html" title="About">About</a></li>
 											<li ><a href="project-summary.html" title="Project Summary">Project Summary</a></li>
 											<li ><a href="license.html" title="Project License">Project License</a></li>
 											<li ><a href="source-repository.html" title="Source Repository">Source Repository</a></li>
@@ -145,43 +145,87 @@
 	<div class="row">
 		<div class="span12">
 			<div class="body-content">
-				<div class="well sidebar" id="well-home"> 
- <h1> <img src="images/tint-big.png" alt="Tint" title="Tint" /> </h1> 
- <p id="home-subtitle" class="title2"> Lend color to your Italian texts! </p> 
- <p id="home-buttons"> <a class="btn btn-primary btn-large" href="http://simpatico.fbk.eu/tint-demo/">Online demo</a> <a class="btn btn-primary btn-large" href="https://github.com/dhfbk/tint">Source code</a> 
-  <!-- <a class="btn btn-primary btn-large" href="https://www.youtube.com/watch?v=D0mcnUKc3sg">Video tour</a> --> </p> 
+<div class="section"> 
+ <div class="page-header">
+  <h2 id="Named-entity_recognition">Named-entity recognition</h2>
+ </div> 
+ <p>Named-entity recognition (NER) (also known as entity identification, entity chunking and entity extraction) is a subtask of information extraction that seeks to locate and classify named entities in text into pre-defined categories such as the names of persons, organizations, locations, expressions of times, quantities, monetary values, percentages, etc.</p> 
+ <p align="right"><i>from <a class="externalLink" href="https://en.wikipedia.org/wiki/Named-entity_recognition">Wikipedia</a></i></p> 
+ <div class="section"> 
+  <h3 id="Description">Description</h3> 
+  <p>The NER included in Tint is based on the <a class="externalLink" href="http://nlp.stanford.edu/software/CRF-NER.shtml">CRF Classifier</a> included in Stanford CoreNLP.</p> 
+  <p>The model provided with Tint is trained on the <a class="externalLink" href="http://ontotext.fbk.eu/icab.html">Italian Content Annotation Bank (I-CAB)</a>, containing around 180,000 words taken from the Italian newspaper <a class="externalLink" href="http://www.ladige.it/">L’Adige</a>, and used for the <a class="externalLink" href="http://www.evalita.it/2009/tasks/entity">Entity Regognition task at Evalita 2009</a>, the <a class="externalLink" href="http://www.evalita.it/2007/tasks/tern">Temporal Expression Recognition and Normalization Task at Evalita 2007</a> and the <a class="externalLink" href="http://www.evalita.it/2007/tasks/ner">Named Entity Recognition Task at Evalita 2007</a>.</p> 
+  <p>The resource is freely available for research purposes upon acceptance of a <a class="externalLink" href="http://ontotext.fbk.eu/i-cab/download-icab.html">license agreement</a>, therefore the resulting model cannot be used for commercial purposes.</p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Performances">Performances</h3> 
+  <p>Evaluated on the I-CAB test set, the Tint NER annotator gets 82.11 F1 overall. On a 2,3 GHz Intel Core i7 with 16 GB of memory, it can tag 30,000 token/second.</p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Training">Training</h3> 
+  <p>The Tint module for Named Entity Recognition relies on the corresponding module in Stanford CoreNLP. You can surf to its <a class="externalLink" href="http://nlp.stanford.edu/software/crf-faq.html">FAQ page</a> for more information.</p> 
+  <p>If you want to train your own model from I-CAB, you need to convert the original dataset to the format accepted by the Stanford <tt>CRFClassifier</tt>. The words should be tagged by having one token per line, the word and the tag separated by the tab character. The <tt>O</tt> denotes a non-entity word. For example:</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>Latte O
+al O
+seno O
+, O
+sos O
+di O
+Pedrotti PER
+</pre> 
+   </div> 
+  </div> 
+  <p>The original I-CAB dataset needs to be downloaded from <a class="externalLink" href="http://ontotext.fbk.eu/icab.html">its website</a>. After that, you need to run the <tt>eu.fbk.dh.tint.resources.ner.ConvertICAB</tt> class to read the I-CAB format and transform it to the tab-separated format.</p> 
+  <p>Command parameters:</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>     --debug                   enable verbose output
+  -g,--keep-gpe                Keep GPE tags (default is to remove them)
+  -h,--help                    display this help message and terminate
+  -i,--input &lt;FILE&gt;            Input training/test file in IOB2 format
+  -k,--output-text-br &lt;FILE&gt;   Output file one-token-per-line
+  -o,--output-stanford &lt;FILE&gt;  Output file for Stanford
+  -t,--output-text &lt;FILE&gt;      Output file text only
+     --trace                   enable very verbose output
+  -v,--version                 display version information and terminate
+</pre> 
+   </div> 
+  </div> 
+  <p>For example, you can run it on the training set of the Evalita 2009 dataset (included in I-CAB):</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>java eu.fbk.dh.tint.resources.ner.ConvertICAB \
+    -i /path/to/icab/I-CAB-evalita09-NER-training.iob2 \
+    -o output.train.stanford
+</pre> 
+   </div> 
+  </div> 
+  <p>For our annotation, we only consider three classes: PER (person), LOC (location), ORG (organization). The I-CAB dataset includes also a GPE class, but in Tint it has been merged with LOC. You can add it again using the <tt>--keep-gpe</tt> option when running <tt>ConvertICAB</tt>.</p> 
+  <p>In training Tint, we add some gazette of names, to help the classifier to recognize entities that are not present in the training set. In particular, we extracted a list of persons, locations and organizations by querying the <a class="externalLink" href="http://www.airpedia.org">Airpedia</a> database for Wikipedia pages classified as Person, Place and Organisation, respectively. The whole data used for training the NER is available for download.</p> 
+  <p>If you want to generate it from the Airpedia dumps, you can use the <tt>eu.fbk.dh.tint.resources.ner.LoadWikipedia</tt> class.</p> 
+  <p>Command parameters:</p> 
+  <div class="source"> 
+   <div class="source"> 
+    <pre>     --debug                 enable verbose output
+  -f,--form-page-path &lt;DIR&gt;  Form-page path from Airpedia
+  -h,--help                  display this help message and terminate
+  -l,--page-list &lt;FILE&gt;      Page-list from Airpedia
+     --label &lt;LABEL&gt;         Label (PER, ORG, LOC, ...)
+  -o,--output &lt;FILE&gt;         Output file
+  -p,--page-form-path &lt;DIR&gt;  Page-form path from Airpedia
+     --trace                 enable very verbose output
+  -v,--version               display version information and terminate
+</pre> 
+   </div> 
+  </div> 
+  <p>See the <a class="externalLink" href="http://www.airpedia.org">Airpedia website</a> to obtain the resources needed to run the command.</p> 
+  <p>Both the property file (<tt>italian.ner.model.props</tt>) and the resulting model (<tt>italian.ner.model</tt>) are included in the Tint distribution as resources.</p> 
+ </div> 
 </div>
 			</div>
 		</div>
-	</div>
-	<div class="row columns columns3">
-		<div class="span4">
-			<h3 class="no-before" id="About">About</h3>
-<p><b>Tint</b> (The Italian NLP Tool) is a Java-based pipeline for Natural Language Processing (NLP) in Italian. It is very fast and accurate, and implements most of the common linguistic tools, such as part-of-speech tagging, dependency parsing, entity linking. The tool is based on <a class="externalLink" href="http://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP</a>, and can be used as a stand-alone tool, included as a Java library or as a REST API service.</p>
-<div class="no-before">   
-</div>
-		</div>
-		<div class="span4">
-			<h3 class="no-before" id="Features">Features</h3>
-<ul> 
- <li>Fast and accurate native basic NLP tasks (tokenization, sentence splitting, morphological analysis, lemmatization)</li> 
- <li>Modules for part-of-speech tagging, dependency parsing and named entity recognition use state-of-the art technologies</li> 
- <li>It includes wrappers for entity linking, time expression identification, keywords extraction</li> 
- <li>Extensible interface, through Stanford CoreNLP library</li> 
- <li>REST API service included, built on top of <a class="externalLink" href="https://grizzly.java.net/">Grizzly</a></li> 
-</ul>
-<div class="no-before">  
- <!-- - 2015-06-08 [Try-it-out demo](https://knowledgestore2.fbk.eu/pikes-demo/) available! -->  
-</div>
-		</div>
-		<div class="span4">
-			<h3 class="no-before" id="News">News</h3>
-<ul> 
- <li>2016-08-15 Version 0.1 has been released.</li> 
-</ul>
-		</div>
-	</div>
-	<div class="row">
 	</div>
 	</div>
 
@@ -195,8 +239,8 @@
 				<div class="span2 bottom-nav">
 					<ul class="nav nav-list">
 						<li class="nav-header">About</li>
-						<li class="active">
-							<a href="#" title="Home">Home</a>
+						<li >
+							<a href="index.html" title="Home">Home</a>
 						</li>
 						<li >
 							<a href="publications.html" title="Publications">Publications</a>
@@ -241,8 +285,8 @@
 						<li >
 							<a href="pos.html" title="Part-of-speech tagging">Part-of-speech tagging</a>
 						</li>
-						<li >
-							<a href="ner.html" title="Named-entity recognition">Named-entity recognition</a>
+						<li class="active">
+							<a href="#" title="Named-entity recognition">Named-entity recognition</a>
 						</li>
 						<li >
 							<a href="parsing.html" title="Dependency parsing">Dependency parsing</a>
