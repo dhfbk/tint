@@ -31,7 +31,7 @@ On a 2,3 GHz Intel Core i7 with 16 GB of memory, it can tag 80,000 token/second.
 The Tint module for Part-of-speech tagging relies on the corresponding module in Stanford CoreNLP.
 You can surf to its [FAQ page](http://nlp.stanford.edu/software/pos-tagger-faq.shtml) for more information.
 
-If you want to retrain the POS tagger using the ISTD dataset, you need to convert the original dataset to the format
+In order to retrain the POS tagger using the ISTD dataset, you need to convert the original dataset to the format
 accepted by the Stanford `MaxentTagger`.
 The words should be tagged by having the word and the tag separated by the underscore character.
 For example:
@@ -50,13 +50,13 @@ Command parameters:
 ```
   -c,--conll <FILE>        Output in CoNLL format
      --column <FILE>       Column for POS (default 3)
-  -D,--verbose             enable verbose output
+     --debug               enable verbose output
   -h,--help                display this help message and terminate
   -i,--input <FILE>        Input file
   -o,--output <FILE>       Output file
   -p,--only-pos <FILE>     Output file for pos
   -t,--only-tokens <FILE>  Output file for tokens
-  -V,--very verbose        enable very verbose output
+     --trace               enable very verbose output
   -v,--version             display version information and terminate
   -x,--text <FILE>         Output text
 ```

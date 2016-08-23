@@ -1,16 +1,12 @@
 package eu.fbk.dh.tint.runner;
 
 import ch.qos.logback.classic.Level;
-import edu.stanford.nlp.pipeline.*;
-import eu.fbk.dkm.pikes.tintop.AnnotationPipeline;
-import eu.fbk.dkm.pikes.tintop.server.AbstractHandler;
 import eu.fbk.utils.core.CommandLine;
-import ixa.kaflib.KAFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -41,11 +37,23 @@ public class TintRunner {
                             "Output format: textpro, json, xml, conll, naf, readable (default conll)",
                             "FORMAT",
                             CommandLine.Type.STRING, true, false, false)
+                    .withOption(null, "properties", "Additional properties for Stanford CoreNLP", "PROPS",
+                            CommandLine.Type.STRING, true, false, false)
                     .withLogger(LoggerFactory.getLogger("eu.fbk")).parse(args);
 
             final File inputPath = cmd.getOptionValue("i", File.class);
             final File outputPath = cmd.getOptionValue("o", File.class);
             final File configPath = cmd.getOptionValue("c", File.class);
+
+            List<String> addProperties = cmd.getOptionValues("properties", String.class);
+            Properties additionalProps = new Properties();
+            for (String property : addProperties) {
+                try {
+                    additionalProps.load(new StringReader(property));
+                } catch (Exception e) {
+                    // continue
+                }
+            }
 
             if (outputPath == null) {
                 ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME)).setLevel(Level.OFF);
@@ -53,54 +61,26 @@ public class TintRunner {
             }
 
             final String formatString = cmd.getOptionValue("f", String.class);
-
-            OutputFormat format = OutputFormat.CONLL;
-            try {
-                format = OutputFormat.valueOf(formatString.toUpperCase());
-            } catch (Exception e) {
-                // continue
-            }
-
-            // Load properties
-
-            InputStream configStream = null;
-            Properties stanfordConfig = new Properties();
-
-            configStream = TintRunner.class.getResourceAsStream("/default-config.properties");
-            stanfordConfig.load(configStream);
-
-            if (configPath != null) {
-                configStream = new FileInputStream(configPath);
-                stanfordConfig.load(configStream);
-            }
+            OutputFormat format = getOutputFormat(formatString, OutputFormat.CONLL);
 
             // Input
 
-            StringBuilder inputText = new StringBuilder();
+            InputStream inputStream;
+//            Reader reader;
 
             if (inputPath != null) {
-                BufferedReader reader = new BufferedReader(new FileReader(inputPath));
-                int i;
-                while ((i = reader.read()) != -1) {
-                    inputText.append((char) i);
-                }
-                reader.close();
+                inputStream = new FileInputStream(inputPath);
             } else {
-                InputStreamReader reader = new InputStreamReader(System.in);
-                int i;
-                while ((i = reader.read()) != -1) {
-                    inputText.append((char) i);
-                }
-                reader.close();
+                inputStream = System.in;
             }
-
-            String text = inputText.toString();
 
             // Text annotation
 
-            StanfordCoreNLP pipeline = new StanfordCoreNLP(stanfordConfig);
-            Annotation annotation = new Annotation(text);
-            pipeline.annotate(annotation);
+            TintPipeline pipeline = new TintPipeline();
+            pipeline.loadDefaultProperties();
+            pipeline.loadPropertiesFromFile(configPath);
+            pipeline.addProperties(additionalProps);
+            pipeline.load();
 
             // Output
 
@@ -109,34 +89,20 @@ public class TintRunner {
                 outputStream = new FileOutputStream(outputPath);
             }
 
-            switch (format) {
-            case CONLL:
-                CoNLLUOutputter.conllUPrint(annotation, outputStream, pipeline);
-                break;
-            case READABLE:
-                TextOutputter.prettyPrint(annotation, outputStream, pipeline);
-                break;
-            case XML:
-                XMLOutputter.xmlPrint(annotation, outputStream, pipeline);
-                break;
-            case JSON:
-                JSONOutputter.jsonPrint(annotation, outputStream, pipeline);
-                break;
-            case TEXTPRO:
-                TextProOutputter.tpPrint(annotation, outputStream, pipeline);
-                break;
-            case NAF:
-                KAFDocument doc = AbstractHandler.text2naf(text, new HashMap<>());
-                AnnotationPipeline pikesPipeline = new AnnotationPipeline(null, null);
-                pikesPipeline.addToNerMap("PER", "PERSON");
-                pikesPipeline.addToNerMap("ORG", "ORGANIZATION");
-                pikesPipeline.addToNerMap("LOC", "LOCATION");
-                pikesPipeline.annotateStanford(new Properties(), annotation, doc);
-                outputStream.write(doc.toString().getBytes());
-            }
+            pipeline.run(inputStream, outputStream, format);
 
         } catch (Exception e) {
             CommandLine.fail(e);
         }
+    }
+
+    public static OutputFormat getOutputFormat(String formatString, OutputFormat outputFormat) {
+        OutputFormat format = outputFormat;
+        try {
+            format = OutputFormat.valueOf(formatString.toUpperCase());
+        } catch (Exception e) {
+            // continue
+        }
+        return format;
     }
 }

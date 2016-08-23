@@ -28,13 +28,13 @@ public class LoadWikipedia {
                 .parser()
                 .withName("ner-extractor")
                 .withHeader("Extractor for PER/ORG/LOC")
-                .withOption("f", "form-page-path", "Form-page path", "DIR", CommandLine.Type.DIRECTORY_EXISTING, true,
+                .withOption("f", "form-page-path", "Form-page path from Airpedia", "DIR", CommandLine.Type.DIRECTORY_EXISTING, true,
                         false, true)
-                .withOption("p", "page-form-path", "Page-form path", "DIR", CommandLine.Type.DIRECTORY_EXISTING, true,
+                .withOption("p", "page-form-path", "Page-form path from Airpedia", "DIR", CommandLine.Type.DIRECTORY_EXISTING, true,
                         false, true)
-                .withOption("l", "page-list", "Page-list", "FILE", CommandLine.Type.FILE_EXISTING, true, false, true)
+                .withOption("l", "page-list", "Page-list from Airpedia", "FILE", CommandLine.Type.FILE_EXISTING, true, false, true)
                 .withOption("o", "output", "Output file", "FILE", CommandLine.Type.FILE, true, false, true)
-                .withOption(null, "label", "Label", "LABEL", CommandLine.Type.STRING, true, false, true)
+                .withOption(null, "label", "Label (PER, ORG, LOC, ...)", "LABEL", CommandLine.Type.STRING, true, false, true)
                 .withLogger(LoggerFactory.getLogger("eu.fbk.fssa")).parse(args);
 
         final File formPagePath = cmd.getOptionValue("f", File.class);

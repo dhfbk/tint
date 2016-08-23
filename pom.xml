@@ -14,7 +14,7 @@
     <parent>
         <groupId>eu.fbk.dkm</groupId>
         <artifactId>parent</artifactId>
-        <version>1.4-SNAPSHOT</version>
+        <version>1.4</version>
     </parent>
 
     <licenses>
@@ -80,7 +80,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <tint.utils.version>1.3-SNAPSHOT</tint.utils.version>
+        <tint.utils.version>2.1-SNAPSHOT</tint.utils.version>
         <tint.pikes.version>1.0-SNAPSHOT</tint.pikes.version>
         <tint.version>${project.version}</tint.version>
         <site.root>http://tint.fbk.eu/</site.root>

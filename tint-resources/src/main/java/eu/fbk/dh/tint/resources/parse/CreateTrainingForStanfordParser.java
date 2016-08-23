@@ -1,5 +1,6 @@
 package eu.fbk.dh.tint.resources.parse;
 
+import eu.fbk.utils.core.CommandLine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,18 +23,31 @@ import java.util.regex.Pattern;
 public class CreateTrainingForStanfordParser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateTrainingForStanfordParser.class);
+    private static final int DEFAULT_POS_COL = 3;
 
     public static void main(String[] args) {
-//        String input = args[0];
-//        String output = args[1];
-
-        String input = "/Users/alessio/Documents/Resources/universal-dependencies-1.2/UD_Italian/it-ud-dev.conllu";
-        String output = "/Users/alessio/Documents/Resources/universal-dependencies-1.2/UD_Italian/it-ud-dev.conllu.parse.stanford";
 
         try {
+
+            final CommandLine cmd = CommandLine
+                    .parser()
+                    .withName("./create-parse-training")
+                    .withHeader("Create training for Stanford Parser")
+                    .withOption("i", "input", "Input file", "FILE",
+                            CommandLine.Type.FILE_EXISTING, true, false, true)
+                    .withOption("o", "output", "Output file", "FILE",
+                            CommandLine.Type.FILE_EXISTING, true, false, true)
+                    .withOption(null, "column", String.format("Column for POS (default %d)", DEFAULT_POS_COL), "NUM",
+                            CommandLine.Type.INTEGER, true, false, false)
+                    .withLogger(LoggerFactory.getLogger("eu.fbk")).parse(args);
+
+            File input = cmd.getOptionValue("input", File.class);
+            File output = cmd.getOptionValue("output", File.class);
+            Integer column = cmd.getOptionValue("column", Integer.class, DEFAULT_POS_COL);
+
             BufferedWriter writer = new BufferedWriter(new FileWriter(output));
 
-            List<String> lines = Files.readAllLines((new File(input)).toPath());
+            List<String> lines = Files.readAllLines(input.toPath());
 
             ArrayList<HashMap<String, Object>> sentence = new ArrayList<>();
             HashMap<Integer, Integer> sentenceOffsets = new HashMap<>();
@@ -71,7 +85,7 @@ public class CreateTrainingForStanfordParser {
                 String id = parts[0];
                 String token = parts[1];
                 String lemma = parts[2];
-                String pos = parts[4];
+                String pos = parts[column];
 
                 Integer parseParent = null;
                 try {
@@ -131,13 +145,6 @@ public class CreateTrainingForStanfordParser {
                         sentence.add(thisToken);
                         sentenceOffsets.put(from, offset);
 
-//                        writer.append(Integer.toString(from - offset)).append("\t");
-//                        writer.append(multiToken).append("\t");
-//                        writer.append(multiToken).append("\t");
-//                        writer.append(multiPos.toString()).append("\t");
-//                        writer.append(multiParseParent.toString()).append("\t");
-//                        writer.append(multiParseLabel).append("\n");
-
                         multiPos = new StringBuffer();
                         multiToken = null;
                         offset += end - from;
@@ -165,23 +172,16 @@ public class CreateTrainingForStanfordParser {
                 sentence.add(thisToken);
                 sentenceOffsets.put(Integer.parseInt(id), offset);
 
-//                writer.append(Integer.toString(Integer.parseInt(id) - offset)).append("\t");
-//                writer.append(token).append("\t");
-//                writer.append(lemma).append("\t");
-//                writer.append(pos).append("\t");
-//                writer.append(parseParent.toString()).append("\t");
-//                writer.append(parseLabel).append("\n");
             }
 
             writeSentence(sentence, sentenceOffsets, writer);
-            sentence = new ArrayList<>();
-            sentenceOffsets = new HashMap<>();
-//            writer.append("\n");
+//            sentence = new ArrayList<>();
+//            sentenceOffsets = new HashMap<>();
 
             writer.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CommandLine.fail(e);
         }
     }
 

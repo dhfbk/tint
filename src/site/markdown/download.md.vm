@@ -1,0 +1,109 @@
+#set( $H2 = '##' )
+#set( $H3 = '###' )
+
+$H2 Download and usage
+
+The Tint command line tool is packaged as a self-contained, cross-platform Java 8 application.
+In order to install it, download the following package and unpack it in the location you prefer:
+
+* [tint-runner-${project-version}-bin.tar.gz](http://www.airpedia.org/tint/${project-version}/tint-runner-${project-version}-bin.tar.gz) (latest version, tar.gz)
+* [browse all versions](http://www.airpedia.org/tint/)
+
+$H3 Basic usage
+
+Installing Tint is quite straightforward, as it only needs to be downloaded and uncompressed.
+On a Linux/Mac shell, just run these commands:
+
+```
+wget http://www.airpedia.org/tint/${project-version}/tint-runner-${project-version}-bin.tar.gz
+tar xzf tint-runner-${project-version}-bin.tar.gz
+cd tint
+./tint.sh [options]
+```
+
+where `[options]` is documented as follows:
+
+```
+  -c,--config-file <FILE>      Configuration file
+     --debug                   enable verbose output
+  -f,--output-format <FORMAT>  Output format: textpro, json, xml, conll, naf,
+                               readable (default conll)
+  -h,--help                    display this help message and terminate
+  -i,--input-file <FILE>       Input text file (default stdin)
+  -o,--output-file <FILE>      Output processed file (default stdout)
+     --properties <PROPS>      Additional properties for Stanford CoreNLP
+     --trace                   enable very verbose output
+  -v,--version                 display version information and terminate
+```
+
+If the `-i` option is missing, the standard input is used instead.
+Similarly, if the `-o` option is not present, the standard output is used.
+
+The `-c` option can be used to add a configuration file written for Stanford CoreNLP.
+The preferences in this file are added to the ones included in the default configuration file
+(`default-config.properties` in the resources folder).
+If you want to add a single property, you can just use the `--properties` option.
+
+The priority is as follows: first the default properties are loaded; then the custom config file is loaded
+(`-c` option); finally, the additional properties (`--properties` option) are loaded.
+Whenever a property with a particular key is loaded, the previous one with the same key is overwritten.
+
+The models and the properties file for tokenization, sentence splitting, part-of-speech tagging,
+named-entity recognition, lemmatization and parsing are alredy included in default config, therefore
+you can simply run `./tint.sh` to have Tint read from the standard input and write to the standard
+output.
+The wrappers for entity linking, time expression extraction and keywords digging are not acivated by default
+because they need some additional configuration and software.
+
+A super-quick example:
+
+```
+./tint.sh [enter]
+[type text, including newlines]
+[Ctrl+D]
+```
+
+will output the result of the text analysis in a readable format.
+
+This use of Tint will result in loading the models after the `Ctrl+D` sequence, therefore you will wait some
+seconds before the text will be processed.
+If you don't want to wait, you can load the models once, by importing Tint as a Maven module in an existing project
+or by running it as a server.
+
+$H3 Running Tint as a web server
+
+After uncompressing the Tint package (see above), you can run the `tint-server.sh` script to run it as a server.
+In particular the syntax is
+
+```
+./tint-server.sh [options]
+```
+
+where `[options]` is documented as follows:
+
+```
+  -c,--config <FILE>       Configuration file
+     --debug               enable verbose output
+  -h,--help                display this help message and terminate
+  -p,--port <NUM>          Host port (default 8012)
+     --properties <PROPS>  Additional properties
+     --trace               enable very verbose output
+  -v,--version             display version information and terminate
+```
+
+The `-c` and `--properties` options work similarly to the `tint.sh` script.
+With the `-p` option you can configure the listening port for the Tint server.
+
+Once the server is loaded (the line `INFO: [HttpServer] Started.` will appear on standard output), you can test it
+by surfing to `http://localhost:8012/tint?text=[text]&format=[format]` where `[text]` is a text in Italian and
+`[format]` is the output format (see above in the `./tint.sh` documentation).
+
+For instance, surfing to
+
+```
+http://localhost:8012/tint?text=Barack%20Obama%20%C3%A8%20il%20presidente%20degli%20Stati%20Uniti%20d%27America.&format=naf
+```
+
+will result in the NAF file containing all the desired annotations.
+
+If you set the `-p` option, replace `8012` in the above example with the given port number.

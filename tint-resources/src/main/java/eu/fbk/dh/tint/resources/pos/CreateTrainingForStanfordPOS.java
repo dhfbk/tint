@@ -40,7 +40,7 @@ public class CreateTrainingForStanfordPOS {
                             CommandLine.Type.FILE_EXISTING, true, false, false)
                     .withOption("c", "conll", "Output in CoNLL format", "FILE",
                             CommandLine.Type.FILE_EXISTING, true, false, false)
-                    .withOption(null, "column", String.format("Column for POS (default %d)", DEFAULT_COL), "FILE",
+                    .withOption(null, "column", String.format("Column for POS (default %d)", DEFAULT_COL), "NUM",
                             CommandLine.Type.INTEGER, true, false, false)
                     .withLogger(LoggerFactory.getLogger("eu.fbk")).parse(args);
 

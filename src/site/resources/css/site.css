@@ -42,6 +42,11 @@ footer {
     margin-top: 30px !important
 }
 
+footer .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 div.subfooter {
     padding-top: 20px !important;
     padding-bottom: 10px !important
