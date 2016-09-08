@@ -28,7 +28,8 @@ public class DigiMorph {
     List<Future<List<String>>> futures = null;
 
     Set<Callable<List<String>>> callables = new HashSet<Callable<List<String>>>();
-
+    Volume volume = null;
+    SortedTableMap<String, String> map = null;
     public static String getVersion() {
         return DigiMorph.class.getPackage().getImplementationTitle() + "\n"
                 + DigiMorph.class.getPackage().getSpecificationVendor() + " - "
@@ -52,7 +53,11 @@ public class DigiMorph {
                 e.printStackTrace();
             }
         }
-        this.model_path = model_path;
+
+            this.model_path = model_path;
+            volume = MappedFileVol.FACTORY.makeVolume(model_path, true);
+            this.map = SortedTableMap.open(volume, Serializer.STRING, Serializer.STRING);
+
     }
 
     /**
@@ -63,17 +68,11 @@ public class DigiMorph {
      */
 
     synchronized public List<String> getMorphology(List token_list) {
-
-        Volume volume = null;
-        volume = MappedFileVol.FACTORY.makeVolume(model_path, true);
-
         List<String> results = new LinkedList<String>();
         List<List<String>> parts;
-//        int threadsNumber = Runtime.getRuntime().availableProcessors();
-        int threadsNumber = 1;
+        int threadsNumber = Runtime.getRuntime().availableProcessors();
+        //int threadsNumber = 1;
         parts = Lists.partition(token_list, (token_list.size() / threadsNumber) + 1);
-
-        SortedTableMap<String, String> map = SortedTableMap.open(volume, Serializer.STRING, Serializer.STRING);
 
         try {
             executor = Executors.newFixedThreadPool(parts.size());
@@ -101,7 +100,6 @@ public class DigiMorph {
         try {
             for (int i = 0; i < futures.size(); i++) {
                 List<String> stringList = futures.get(i).get();
-//                System.out.println("SL size: " + stringList.size());
                 results.addAll(stringList);
             }
         } catch (Exception e) {
@@ -113,7 +111,7 @@ public class DigiMorph {
 
 //        System.out.println("Result size: " + results.size());
 
-        volume.close();
+       // volume.close();
         return results;
     }
 
@@ -176,7 +174,7 @@ public class DigiMorph {
         }
 
         SortedTableMap<String, String> stmap = sink.create();
-        volume.close();
+        //volume.close();
 
         System.out.println("done");
 
