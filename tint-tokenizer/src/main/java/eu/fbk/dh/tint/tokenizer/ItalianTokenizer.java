@@ -293,12 +293,15 @@ public class ItalianTokenizer {
     public static String getString(TokenGroup tokenGroup) {
         StringBuilder buffer = new StringBuilder();
         ArrayList<Token> tokens = tokenGroup.getSupport();
-        for (int i = 0; i < tokens.size() - 1; i++) {
-            Token token = tokens.get(i);
-            buffer.append(token.getForm()).append(CharacterTable.SPACE);
-        }
-        buffer.append(tokens.get(tokens.size() - 1).getForm());
 
+        // todo: check this
+        if (tokens.size() > 0) {
+            for (int i = 0; i < tokens.size() - 1; i++) {
+                Token token = tokens.get(i);
+                buffer.append(token.getForm()).append(CharacterTable.SPACE);
+            }
+            buffer.append(tokens.get(tokens.size() - 1).getForm());
+        }
         return buffer.toString();
     }
 
