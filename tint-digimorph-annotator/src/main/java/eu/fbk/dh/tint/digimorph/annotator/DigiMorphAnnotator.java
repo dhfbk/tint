@@ -23,24 +23,20 @@ public class DigiMorphAnnotator implements Annotator {
 
     public void annotate(Annotation annotation) {
 
-        synchronized (this) {
-            List<String> token_word = new LinkedList<String>();
+        List<String> token_word = new LinkedList<String>();
 
-            if (annotation.has(CoreAnnotations.SentencesAnnotation.class)) {
-                for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-                    List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
-                    for (CoreLabel c : tokens) {
-                        token_word.add(c.word());
-                    }
+        if (annotation.has(CoreAnnotations.SentencesAnnotation.class)) {
+            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+                List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
+                for (CoreLabel c : tokens) {
+                    token_word.add(c.word());
                 }
+            }
 
-                // todo: check this
-                if (token_word.size() == 0) {
-                    System.out.println(token_word);
-                }
+            List<String> tmp = new ArrayList<>(token_word);
+            token_word = dm.getMorphology(token_word);
 
-                token_word = dm.getMorphology(token_word);
-
+            try {
                 for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
                     List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
                     for (CoreLabel c : tokens) {
@@ -48,8 +44,12 @@ public class DigiMorphAnnotator implements Annotator {
                         token_word.remove(0);
                     }
                 }
-
+            } catch (Exception e) {
+                System.out.println(token_word);
+                e.printStackTrace();
+                System.exit(1);
             }
+
         }
     }
 
