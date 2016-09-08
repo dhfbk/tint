@@ -15,6 +15,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -24,6 +26,7 @@ import java.util.*;
 public class HeidelTimeAnnotator implements Annotator {
 
     HeidelTimeStandalone tagger;
+    static DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     class TimexObject {
 
@@ -105,7 +108,15 @@ public class HeidelTimeAnnotator implements Annotator {
         if (text != null) {
 
             try {
-                String process = tagger.process(text, new Date());
+                Date documentDate = new Date();
+
+                try {
+                    String creationDate = annotation.get(CoreAnnotations.DocDateAnnotation.class);
+                    documentDate = format.parse(creationDate);
+                } catch (Exception e) {
+                    // ignored
+                }
+                String process = tagger.process(text, documentDate);
 
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

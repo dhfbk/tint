@@ -195,6 +195,7 @@ public class ItalianTokenizer {
     }
 
     public TokenGroup tokenArray(String text) {
+
         if (text.length() == 0) {
             return new TokenGroup();
         }
@@ -345,13 +346,19 @@ public class ItalianTokenizer {
 
         TokenGroup tokenGroup = tokenArray(text);
         ArrayList<Token> tokens = tokenGroup.getSupport();
+
+        if (tokens.size() == 0) {
+            return ret;
+        }
+
+        int offset = tokens.get(0).getStart();
         String s = " " + getString(tokenGroup) + " ";
 
         Collection<Emit> emits = trie.parseText(s);
         for (Emit emit : emits) {
             // Added -1 for compatibility with the "s" string
-            Token startToken = tokenGroup.getStartOffIndexes().get(emit.getStart() + 1 - 1);
-            Token endToken = tokenGroup.getEndOffIndexes().get(emit.getEnd() - 1 - 1);
+            Token startToken = tokenGroup.getStartOffIndexes().get(emit.getStart() + 1 - 1 + offset);
+            Token endToken = tokenGroup.getEndOffIndexes().get(emit.getEnd() - 1 - 1 + offset);
             if (startToken != null && endToken != null) {
                 mergeList.put(startToken.getStart(), endToken.getEnd());
             } else {
