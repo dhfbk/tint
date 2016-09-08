@@ -9,7 +9,10 @@ import org.mapdb.SortedTableMap;
 import org.mapdb.volume.MappedFileVol;
 import org.mapdb.volume.Volume;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.*;
@@ -59,19 +62,18 @@ public class DigiMorph {
      * @version 0.4a
      */
 
-    public List<String> getMorphology(List token_list) {
+    synchronized public List<String> getMorphology(List token_list) {
 
         Volume volume = null;
         volume = MappedFileVol.FACTORY.makeVolume(model_path, true);
 
-        SortedTableMap<String, String> map = SortedTableMap.open(volume, Serializer.STRING, Serializer.STRING);
-
         List<String> results = new LinkedList<String>();
-
-        int threadsNumber = Runtime.getRuntime().availableProcessors();
         List<List<String>> parts;
-
+//        int threadsNumber = Runtime.getRuntime().availableProcessors();
+        int threadsNumber = 1;
         parts = Lists.partition(token_list, (token_list.size() / threadsNumber) + 1);
+
+        SortedTableMap<String, String> map = SortedTableMap.open(volume, Serializer.STRING, Serializer.STRING);
 
         try {
             executor = Executors.newFixedThreadPool(parts.size());
@@ -98,8 +100,9 @@ public class DigiMorph {
 
         try {
             for (int i = 0; i < futures.size(); i++) {
-                results.addAll(futures.get(i).get());
-
+                List<String> stringList = futures.get(i).get();
+//                System.out.println("SL size: " + stringList.size());
+                results.addAll(stringList);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,12 +111,14 @@ public class DigiMorph {
             parts.get(pts).clear();
         }
 
+//        System.out.println("Result size: " + results.size());
+
         volume.close();
         return results;
     }
 
-    Map<String, String> mapcodgram = new HashMap<String, String>();
-    Map<String, String> mapcodfless = new HashMap<String, String>();
+//    Map<String, String> mapcodgram = new HashMap<String, String>();
+//    Map<String, String> mapcodfless = new HashMap<String, String>();
 
     /**
      * This method creates or re-creates the db file with the morphology forms used by the analyzer
