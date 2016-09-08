@@ -101,7 +101,7 @@ public class DigiLemmaAnnotator implements Annotator {
 
                 List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
                 for (CoreLabel c : tokens) {
-                    String[] morph_fatures = c.get(CoreAnnotations.MorphoCaseAnnotation.class).split(" ");
+                    String[] morph_fatures = c.get(DigiMorphAnnotations.MorphoAnnotation.class).split(" ");
                     String pos = c.get(CoreAnnotations.PartOfSpeechAnnotation.class);
                     c.set(CoreAnnotations.LemmaAnnotation.class, morph_fatures[0]);
 
@@ -129,12 +129,12 @@ public class DigiLemmaAnnotator implements Annotator {
                                     String featMapped = pos_morpho_mapping.get(pos);
 
                                     String possible_candidate = "";
-                                    String firsCandidate = "";
+                                    String firstCandidate = "";
                                     if (featMapped != null) {
                                         for (String feature : morph_fatures) {
                                             if (feature.contains(featMapped)) {
-                                                if (firsCandidate.length() == 0) {
-                                                    firsCandidate = feature.split("\\+")[0].split("~")[0];
+                                                if (firstCandidate.length() == 0) {
+                                                    firstCandidate = feature.split("\\+")[0].split("~")[0];
                                                 }
 
                                                 if (featMapped.equals("+art") && feature.contains("+m+")) {
@@ -151,11 +151,11 @@ public class DigiLemmaAnnotator implements Annotator {
 
                                             }
                                         }
-                                        if (firsCandidate.length() == 0) {
-                                            firsCandidate = c.word();
+                                        if (firstCandidate.length() == 0) {
+                                            firstCandidate = c.word();
                                         }
                                         c.set(CoreAnnotations.LemmaAnnotation.class,
-                                                possible_candidate.length() > 0 ? possible_candidate : firsCandidate);
+                                                possible_candidate.length() > 0 ? possible_candidate : firstCandidate);
                                     }
 
                                 } else {

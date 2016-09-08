@@ -23,25 +23,33 @@ public class DigiMorphAnnotator implements Annotator {
 
     public void annotate(Annotation annotation) {
 
+        synchronized (this) {
+            List<String> token_word = new LinkedList<String>();
 
-        List<String> token_word = new LinkedList<String>();
-
-        if (annotation.has(CoreAnnotations.SentencesAnnotation.class)) {
-            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-                List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
-                for (CoreLabel c : tokens) {
-                    token_word.add(c.word());
+            if (annotation.has(CoreAnnotations.SentencesAnnotation.class)) {
+                for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+                    List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
+                    for (CoreLabel c : tokens) {
+                        token_word.add(c.word());
+                    }
                 }
-            }
-            token_word = dm.getMorphology(token_word);
-            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-                List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
-                for (CoreLabel c : tokens) {
-                    c.set(CoreAnnotations.MorphoCaseAnnotation.class, token_word.get(0));
-                    token_word.remove(0);
-                }
-            }
 
+                // todo: check this
+                if (token_word.size() == 0) {
+                    System.out.println(token_word);
+                }
+
+                token_word = dm.getMorphology(token_word);
+
+                for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+                    List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
+                    for (CoreLabel c : tokens) {
+                        c.set(DigiMorphAnnotations.MorphoAnnotation.class, token_word.get(0));
+                        token_word.remove(0);
+                    }
+                }
+
+            }
         }
     }
 

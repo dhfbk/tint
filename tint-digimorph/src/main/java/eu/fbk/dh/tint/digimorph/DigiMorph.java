@@ -60,6 +60,7 @@ public class DigiMorph {
      */
 
     public List<String> getMorphology(List token_list) {
+
         Volume volume = null;
         volume = MappedFileVol.FACTORY.makeVolume(model_path, true);
 
