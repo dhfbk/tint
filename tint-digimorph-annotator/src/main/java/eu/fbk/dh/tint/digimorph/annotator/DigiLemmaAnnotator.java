@@ -17,7 +17,18 @@ public class DigiLemmaAnnotator implements Annotator {
     //private Multimap<String,String> pos_morpho_mapping = ArrayListMultimap.create();
     private Map<String, String> pos_morpho_mapping = new HashMap<String, String>();
 
+    private final String auxiliary = "VA";
+
+    private final Set<String> betweenAuxAndVerb = new HashSet<>(Arrays.asList("B", "BN"));
+
     public DigiLemmaAnnotator(String annotatorName, Properties prop) {
+
+
+
+
+
+
+
         /*pos_morpho_mapping.put("A", "+ADJ");
         pos_morpho_mapping.put("AP", "+DET");
         pos_morpho_mapping.put("B", "+ADV");
@@ -98,12 +109,20 @@ public class DigiLemmaAnnotator implements Annotator {
         if (annotation.has(CoreAnnotations.SentencesAnnotation.class)) {
             for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
                 String last_valuable_genre = "";
-
+                Boolean valid_aux = false;
                 List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
                 for (CoreLabel c : tokens) {
                     String[] morph_fatures = c.get(DigiMorphAnnotations.MorphoAnnotation.class).split(" ");
                     String pos = c.get(CoreAnnotations.PartOfSpeechAnnotation.class);
                     c.set(CoreAnnotations.LemmaAnnotation.class, morph_fatures[0]);
+                    if (!pos.equals("V")) {
+                        if (pos.equals(auxiliary) || (valid_aux && betweenAuxAndVerb.contains(pos))) {
+                            valid_aux = true;
+                        } else {
+                            valid_aux = false;
+                        }
+                    }
+
 
                     if (!pos.equals("SP")) {
 
@@ -148,6 +167,13 @@ public class DigiLemmaAnnotator implements Annotator {
                                                 } else if (last_valuable_genre.equals("m") && feature.contains("+f+")) {
                                                     possible_candidate = feature.split("\\+")[0].split("~")[0];
                                                 }
+
+                                                if (valid_aux && feature.contains("+part+")){
+                                                    possible_candidate = feature.split("\\+")[0].split("~")[0];
+                                                    valid_aux=false;
+                                                }
+
+
 
                                             }
                                         }
