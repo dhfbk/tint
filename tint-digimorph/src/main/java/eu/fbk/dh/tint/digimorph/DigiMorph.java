@@ -8,6 +8,8 @@ import org.mapdb.Serializer;
 import org.mapdb.SortedTableMap;
 import org.mapdb.volume.MappedFileVol;
 import org.mapdb.volume.Volume;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileReader;
@@ -30,6 +32,10 @@ public class DigiMorph {
     Set<Callable<List<String>>> callables = new HashSet<Callable<List<String>>>();
     Volume volume = null;
     SortedTableMap<String, String> map = null;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DigiMorph.class);
+
+
     public static String getVersion() {
         return DigiMorph.class.getPackage().getImplementationTitle() + "\n"
                 + DigiMorph.class.getPackage().getSpecificationVendor() + " - "
@@ -54,9 +60,9 @@ public class DigiMorph {
             }
         }
 
-            this.model_path = model_path;
-            volume = MappedFileVol.FACTORY.makeVolume(model_path, true);
-            this.map = SortedTableMap.open(volume, Serializer.STRING, Serializer.STRING);
+        this.model_path = model_path;
+        volume = MappedFileVol.FACTORY.makeVolume(model_path, true);
+        this.map = SortedTableMap.open(volume, Serializer.STRING, Serializer.STRING);
 
     }
 
@@ -64,7 +70,7 @@ public class DigiMorph {
      * @param token_list list of string containing words.
      * @return list of string containing the results of the Morphological analyzer.
      * @author Giovanni Moretti
-     * @version 0.4a
+     * @version 0.42a
      */
 
     synchronized public List<String> getMorphology(List token_list) {
@@ -74,10 +80,11 @@ public class DigiMorph {
         //int threadsNumber = 1;
         parts = Lists.partition(token_list, (token_list.size() / threadsNumber) + 1);
 
-        try {
+        if (token_list.size() > 0) {
             executor = Executors.newFixedThreadPool(parts.size());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            LOGGER.warn("No tokens to the morphological analyzer");
+            return results;
         }
 
         callables = new LinkedHashSet<Callable<List<String>>>();
@@ -89,6 +96,7 @@ public class DigiMorph {
         try {
 
             futures = executor.invokeAll(callables);
+
             executor.shutdown();
             executor.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS);
 
@@ -111,7 +119,7 @@ public class DigiMorph {
 
 //        System.out.println("Result size: " + results.size());
 
-       // volume.close();
+        // volume.close();
         return results;
     }
 

@@ -24,6 +24,7 @@
             <artifactId>tint-digimorph</artifactId>
             <version>${tint.version}</version>
         </dependency>
+
     </dependencies>
 
     <properties>

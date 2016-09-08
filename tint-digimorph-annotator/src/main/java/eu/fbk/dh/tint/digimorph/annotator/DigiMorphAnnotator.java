@@ -33,15 +33,16 @@ public class DigiMorphAnnotator implements Annotator {
                 }
             }
 
-            List<String> tmp = new ArrayList<>(token_word);
             token_word = dm.getMorphology(token_word);
 
             try {
-                for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-                    List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
-                    for (CoreLabel c : tokens) {
-                        c.set(DigiMorphAnnotations.MorphoAnnotation.class, token_word.get(0));
-                        token_word.remove(0);
+                if (token_word.size() > 0) {
+                    for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+                        List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
+                        for (CoreLabel c : tokens) {
+                            c.set(DigiMorphAnnotations.MorphoAnnotation.class, token_word.get(0));
+                            token_word.remove(0);
+                        }
                     }
                 }
             } catch (Exception e) {
