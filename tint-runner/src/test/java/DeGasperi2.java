@@ -51,10 +51,12 @@ public class DeGasperi2 {
 //            AtomicInteger linkedPersons = new AtomicInteger(0);
 //            AtomicInteger documents = new AtomicInteger(0);
 
-            java.nio.file.Files.walk(folder.toPath()).collect(Collectors.toList()).parallelStream()
+            java.nio.file.Files.walk(folder.toPath()).collect(Collectors.toList()) // .parallelStream()
                     .forEach(filePath -> {
                         try {
                             if (java.nio.file.Files.isRegularFile(filePath)) {
+                                Path fileName = filePath.getFileName();
+
                                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                                 XPathFactory xPathfactory = XPathFactory.newInstance();
@@ -64,7 +66,6 @@ public class DeGasperi2 {
                                 pipeline.loadDefaultProperties();
                                 pipeline.load();
 
-                                Path fileName = filePath.getFileName();
                                 LOGGER.info("FILE: {}", fileName);
                                 InputStream stream = new FileInputStream(filePath.toFile());
 
@@ -85,6 +86,12 @@ public class DeGasperi2 {
                                     String title = XMLHelper.getNodeValue("title", headNode.getChildNodes());
                                     String date = XMLHelper.getNodeValue("date", headNode.getChildNodes());
                                     String id = XMLHelper.getNodeAttr("id", fileNode);
+
+                                    System.out.println("ID: " + id);
+                                    if (content.length() == 0) {
+                                        LOGGER.warn("Text is empty");
+                                        break;
+                                    }
 
                                     String outputFile =
                                             outputFolder.getAbsolutePath() + File.separator + fileName.toString() + "."
@@ -149,7 +156,6 @@ public class DeGasperi2 {
                                                 TintRunner.OutputFormat.JSON);
                                         writer.close();
 
-//                                        break;
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }

@@ -1,5 +1,6 @@
 package eu.fbk.dh.tint.runner;
 
+import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.*;
 import eu.fbk.dkm.pikes.tintop.AnnotationPipeline;
 import eu.fbk.dkm.pikes.tintop.server.AbstractHandler;
@@ -19,6 +20,7 @@ public class TintPipeline {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TintPipeline.class);
     StanfordCoreNLP pipeline = null;
+    String documentDate = null;
     Properties props = new Properties();
 
     public void load() {
@@ -34,10 +36,14 @@ public class TintPipeline {
         }
     }
 
+    public void loadPropertiesFromStream(InputStream stream) throws IOException {
+        props.load(stream);
+    }
+
     public void loadPropertiesFromFile(File propsFile) throws IOException {
         if (propsFile != null) {
             InputStream configStream = new FileInputStream(propsFile);
-            props.load(configStream);
+            loadPropertiesFromStream(configStream);
         }
     }
 
@@ -47,10 +53,29 @@ public class TintPipeline {
         }
     }
 
-    public void run(InputStream inputStream, OutputStream outputStream, TintRunner.OutputFormat format)
-            throws IOException {
+    public String getDocumentDate() {
+        return documentDate;
+    }
 
+    public void setDocumentDate(String documentDate) {
+        this.documentDate = documentDate;
+    }
+
+    public Annotation runRaw(String text) {
         load();
+
+        Annotation annotation = new Annotation(text);
+        LOGGER.debug("Text: {}", text);
+        if (documentDate != null) {
+            annotation.set(CoreAnnotations.DocDateAnnotation.class, documentDate);
+        }
+        pipeline.annotate(annotation);
+
+        return annotation;
+    }
+
+    public Annotation run(InputStream inputStream, OutputStream outputStream, TintRunner.OutputFormat format)
+            throws IOException {
 
         Reader reader = new InputStreamReader(inputStream);
         StringBuilder inputText = new StringBuilder();
@@ -61,9 +86,7 @@ public class TintPipeline {
         reader.close();
         String text = inputText.toString();
 
-        Annotation annotation = new Annotation(text);
-        LOGGER.debug("Text: {}", text);
-        pipeline.annotate(annotation);
+        Annotation annotation = runRaw(text);
 
         switch (format) {
         case CONLL:
@@ -89,6 +112,9 @@ public class TintPipeline {
             pikesPipeline.addToNerMap("LOC", "LOCATION");
             pikesPipeline.annotateStanford(new Properties(), annotation, doc);
             outputStream.write(doc.toString().getBytes());
+            outputStream.flush();
         }
+
+        return annotation;
     }
 }
