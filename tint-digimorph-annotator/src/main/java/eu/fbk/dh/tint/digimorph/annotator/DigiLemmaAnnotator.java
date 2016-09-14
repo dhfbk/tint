@@ -11,7 +11,7 @@ import java.util.*;
 
 /**
  * Created by giovannimoretti on 19/05/16.
- * version 0.5b
+ * @version 0.42a
  */
 public class DigiLemmaAnnotator implements Annotator {
 
