@@ -14,7 +14,7 @@
     <parent>
         <groupId>eu.fbk.dkm</groupId>
         <artifactId>parent</artifactId>
-        <version>1.4</version>
+        <version>1.5-SNAPSHOT</version>
     </parent>
 
     <licenses>
@@ -75,6 +75,7 @@
         <module>tint-digimorph-annotator</module>
         <module>tint-tokenizer</module>
         <module>tint-runner</module>
+        <module>tint-tense</module>
     </modules>
 
     <properties>
