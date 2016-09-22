@@ -8,7 +8,9 @@ eu.fbk.dh.tint.resources.ner
 eu.fbk.dh.tint.resources.parse
 eu.fbk.dh.tint.resources.pos
 eu.fbk.dh.tint.runner
+eu.fbk.dh.tint.runner.readability
 eu.fbk.dh.tint.runner.wrappers
+eu.fbk.dh.tint.tense
 eu.fbk.dh.tint.textpro
 eu.fbk.dh.tint.tokenizer
 eu.fbk.dh.tint.tokenizer.annotators

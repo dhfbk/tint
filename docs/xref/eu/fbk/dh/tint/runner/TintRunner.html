@@ -89,31 +89,32 @@
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              pipeline.loadPropertiesFromFile(configPath);
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>              pipeline.addProperties(additionalProps);
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>              pipeline.load();
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>              <em class="jxr_comment">// Output</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>  
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>              OutputStream outputStream = System.out;
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>              <strong class="jxr_keyword">if</strong> (outputPath != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>                  outputStream = <strong class="jxr_keyword">new</strong> FileOutputStream(outputPath);
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>              }
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>              pipeline.run(inputStream, outputStream, format);
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>              CommandLine.fail(e);
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>          }
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>      }
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>  
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../eu/fbk/dh/tint/runner/TintRunner.html">OutputFormat</a> getOutputFormat(String formatString, <a href="../../../../../eu/fbk/dh/tint/runner/TintRunner.html">OutputFormat</a> outputFormat) {
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <a href="../../../../../eu/fbk/dh/tint/runner/TintRunner.html">OutputFormat</a> format = outputFormat;
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>             format = OutputFormat.valueOf(formatString.toUpperCase());
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>             <em class="jxr_comment">// continue</em>
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         }
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <strong class="jxr_keyword">return</strong> format;
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>     }
-<a class="jxr_linenumber" name="L108" href="#L108">108</a> }
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>              System.err.println(<span class="jxr_string">"Tint is ready"</span>);
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>              <em class="jxr_comment">// Output</em>
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>  
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>              OutputStream outputStream = System.out;
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              <strong class="jxr_keyword">if</strong> (outputPath != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>                  outputStream = <strong class="jxr_keyword">new</strong> FileOutputStream(outputPath);
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>              }
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>              pipeline.run(inputStream, outputStream, format);
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>  
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>              CommandLine.fail(e);
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          }
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      }
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>  
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../eu/fbk/dh/tint/runner/TintRunner.html">OutputFormat</a> getOutputFormat(String formatString, <a href="../../../../../eu/fbk/dh/tint/runner/TintRunner.html">OutputFormat</a> outputFormat) {
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>         <a href="../../../../../eu/fbk/dh/tint/runner/TintRunner.html">OutputFormat</a> format = outputFormat;
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>             format = OutputFormat.valueOf(formatString.toUpperCase());
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>             <em class="jxr_comment">// continue</em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>         }
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">return</strong> format;
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     }
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2016 <a href="http://www.fbk.eu">FBK-irst</a>. All rights reserved.</div>

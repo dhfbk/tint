@@ -25,9 +25,9 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2016 FBK-irst</copyright>
     <item>
-      <title>File: 46,
-             Errors: 0,
-             Warnings: 1202,
+      <title>File: 61,
+             Errors: 3,
+             Warnings: 1483,
              Infos: 0
       </title>
             <link>http://dkm.fbk.eu/tint//checkstyle.html</link>
@@ -44,48 +44,6 @@ under the License.
             </tr>
           </thead>
           <tbody>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.textpro.FstanRunnerBuffered.java">eu/fbk/dh/tint/textpro/FstanRunnerBuffered.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  47
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.wrappers.HeidelTimeModel.java">eu/fbk/dh/tint/runner/wrappers/HeidelTimeModel.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  15
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tokenizer.annotators.ItalianTokenizerAnnotator.java">eu/fbk/dh/tint/tokenizer/annotators/ItalianTokenizerAnnotator.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  19
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
                           <tr>
                 <td>
                   <a href="http://dkm.fbk.eu/tint//checkstyle.html#TestTokenizer.java">TestTokenizer.java</a>
@@ -158,20 +116,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.TintHandler.java">eu/fbk/dh/tint/runner/TintHandler.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  28
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tokenizer.token.Token.java">eu/fbk/dh/tint/tokenizer/token/Token.java</a>
                 </td>
                 <td>
@@ -179,48 +123,6 @@ under the License.
                 </td>
                 <td>
                   27
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tokenizer.token.Extent.java">eu/fbk/dh/tint/tokenizer/token/Extent.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  31
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.StanfordToConllDepsAnnotator.java">eu/fbk/dh/tint/runner/StanfordToConllDepsAnnotator.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  13
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotations.java">eu/fbk/dh/tint/digimorph/annotator/DigiMorphAnnotations.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
                 </td>
                 <td>
                   0
@@ -248,35 +150,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  41
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotator.java">eu/fbk/dh/tint/digimorph/annotator/DigiMorphAnnotator.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  15
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tokenizer.ItalianTokenizer.java">eu/fbk/dh/tint/tokenizer/ItalianTokenizer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  112
+                  40
                 </td>
                 <td>
                   0
@@ -326,6 +200,398 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.eval.morpho.TreeTaggerEvaluation.java">eu/fbk/dh/tint/eval/morpho/TreeTaggerEvaluation.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.readability.Readability.java">eu/fbk/dh/tint/runner/readability/Readability.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  39
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tokenizer.token.TokenGroup.java">eu/fbk/dh/tint/tokenizer/token/TokenGroup.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.resources.ner.LoadWikipedia.java">eu/fbk/dh/tint/resources/ner/LoadWikipedia.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.XMLHelper.java">eu/fbk/dh/tint/runner/XMLHelper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  32
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.eval.pos.StanfordEvaluation.java">eu/fbk/dh/tint/eval/pos/StanfordEvaluation.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.TintServer.java">eu/fbk/dh/tint/runner/TintServer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  34
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.resources.morpho.MorphItConverter.java">eu/fbk/dh/tint/resources/morpho/MorphItConverter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  18
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.TintPipeline.java">eu/fbk/dh/tint/runner/TintPipeline.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  31
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.AnnotationOutputter.java">eu/fbk/dh/tint/runner/AnnotationOutputter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  43
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tense.TenseAnnotations.java">eu/fbk/dh/tint/tense/TenseAnnotations.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.eval.pos.TextProEvaluation.java">eu/fbk/dh/tint/eval/pos/TextProEvaluation.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tense.TenseAnnotator.java">eu/fbk/dh/tint/tense/TenseAnnotator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  73
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.resources.pos.CreateTrainingForStanfordPOS.java">eu/fbk/dh/tint/resources/pos/CreateTrainingForStanfordPOS.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  27
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.JSONOutputter.java">eu/fbk/dh/tint/runner/JSONOutputter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.textpro.FstanRunnerBuffered.java">eu/fbk/dh/tint/textpro/FstanRunnerBuffered.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  47
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.readability.ReadabilityAnnotator.java">eu/fbk/dh/tint/runner/readability/ReadabilityAnnotator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  18
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.wrappers.HeidelTimeModel.java">eu/fbk/dh/tint/runner/wrappers/HeidelTimeModel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tokenizer.annotators.ItalianTokenizerAnnotator.java">eu/fbk/dh/tint/tokenizer/annotators/ItalianTokenizerAnnotator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  19
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.readability.ItalianReadability.java">eu/fbk/dh/tint/runner/readability/ItalianReadability.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.TintHandler.java">eu/fbk/dh/tint/runner/TintHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  28
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tokenizer.token.Extent.java">eu/fbk/dh/tint/tokenizer/token/Extent.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  31
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#DeGasperi2.java">DeGasperi2.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.StanfordToConllDepsAnnotator.java">eu/fbk/dh/tint/runner/StanfordToConllDepsAnnotator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotations.java">eu/fbk/dh/tint/digimorph/annotator/DigiMorphAnnotations.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotator.java">eu/fbk/dh/tint/digimorph/annotator/DigiMorphAnnotator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tokenizer.ItalianTokenizer.java">eu/fbk/dh/tint/tokenizer/ItalianTokenizer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  114
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#DeGasperi.java">DeGasperi.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tokenizer.token.CharacterTable.java">eu/fbk/dh/tint/tokenizer/token/CharacterTable.java</a>
                 </td>
                 <td>
@@ -346,21 +612,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  30
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.eval.morpho.TreeTaggerEvaluation.java">eu/fbk/dh/tint/eval/morpho/TreeTaggerEvaluation.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  12
+                  36
                 </td>
                 <td>
                   0
@@ -396,20 +648,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tokenizer.token.TokenGroup.java">eu/fbk/dh/tint/tokenizer/token/TokenGroup.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  10
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.resources.pos.CreateTrainingForStanfordPOS2.java">eu/fbk/dh/tint/resources/pos/CreateTrainingForStanfordPOS2.java</a>
                 </td>
                 <td>
@@ -417,20 +655,6 @@ under the License.
                 </td>
                 <td>
                   15
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.resources.ner.LoadWikipedia.java">eu/fbk/dh/tint/resources/ner/LoadWikipedia.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  22
                 </td>
                 <td>
                   0
@@ -494,27 +718,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.eval.pos.StanfordEvaluation.java">eu/fbk/dh/tint/eval/pos/StanfordEvaluation.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#TintTest.java">TintTest.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  16
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.TintServer.java">eu/fbk/dh/tint/runner/TintServer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  34
+                  11
                 </td>
                 <td>
                   0
@@ -542,21 +752,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  44
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.resources.morpho.MorphItConverter.java">eu/fbk/dh/tint/resources/morpho/MorphItConverter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  18
+                  45
                 </td>
                 <td>
                   0
@@ -578,27 +774,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.TintPipeline.java">eu/fbk/dh/tint/runner/TintPipeline.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#HeidelTest.java">HeidelTest.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  27
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.eval.pos.TextProEvaluation.java">eu/fbk/dh/tint/eval/pos/TextProEvaluation.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  17
+                  28
                 </td>
                 <td>
                   0
@@ -620,13 +802,41 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.resources.pos.CreateTrainingForStanfordPOS.java">eu/fbk/dh/tint/resources/pos/CreateTrainingForStanfordPOS.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.readability.ItalianStandardReadability.java">eu/fbk/dh/tint/runner/readability/ItalianStandardReadability.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  27
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.tense.TenseModel.java">eu/fbk/dh/tint/tense/TenseModel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.readability.ReadabilityAnnotations.java">eu/fbk/dh/tint/runner/readability/ReadabilityAnnotations.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
                 <td>
                   0
