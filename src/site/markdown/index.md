@@ -8,7 +8,8 @@
     </p>
 
     <p id='home-buttons'>
-        <a class="btn btn-primary btn-large" href="http://simpatico.fbk.eu/tint-demo/">Online demo</a>
+        <a class="btn btn-primary btn-large" href="http://simpatico.fbk.eu/demo/">Online demo</a>
+        <a class="btn btn-primary btn-large" href="download.html">Download</a>
         <a class="btn btn-primary btn-large" href="https://github.com/dhfbk/tint">Source code</a>
         <!--<a class="btn btn-primary btn-large" href="https://www.youtube.com/watch?v=D0mcnUKc3sg">Video tour</a>-->
     </p>
@@ -35,4 +36,5 @@ as a stand-alone tool, included as a Java library or as a REST API service.
 <h3 class='no-before'>News</h3>
 
 <!-- - 2015-06-08 [Try-it-out demo](https://knowledgestore2.fbk.eu/pikes-demo/) available!-->
-- 2016-08-15 Version 0.1 has been released.
+- 2016-09-22 [Description paper about Tint](http://arxiv.org/abs/1609.06204) published on arXiv.
+- 2016-09-15 [Version 1.0-SNAPSHOT](download.html) available.

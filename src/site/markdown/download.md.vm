@@ -67,6 +67,12 @@ will output the result of the text analysis in a readable format.
 
 This use of Tint will result in loading the models after the `Ctrl+D` sequence, therefore you will wait some
 seconds before the text will be processed.
+You can also parse a plain text file using the command
+
+```
+cat /path/to/plain.txt | ./tint.sh [enter]
+```
+
 If you don't want to wait, you can load the models once, by importing Tint as a Maven module in an existing project
 or by running it as a server.
 
@@ -101,9 +107,9 @@ by surfing to `http://localhost:8012/tint?text=[text]&format=[format]` where `[t
 For instance, surfing to
 
 ```
-http://localhost:8012/tint?text=Barack%20Obama%20%C3%A8%20il%20presidente%20degli%20Stati%20Uniti%20d%27America.&format=naf
+http://localhost:8012/tint?text=Barack%20Obama%20%C3%A8%20il%20presidente%20degli%20Stati%20Uniti%20d%27America.&format=json
 ```
 
-will result in the NAF file containing all the desired annotations.
+will result in the JSON file containing all the desired annotations.
 
 If you set the `-p` option, replace `8012` in the above example with the given port number.
