@@ -7,13 +7,14 @@ import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
-import eu.fbk.dkm.pikes.tintop.annotators.DepParseInfo;
-import eu.fbk.dkm.pikes.tintop.annotators.PikesAnnotations;
+import eu.fbk.dkm.pikes.depparseannotation.DepParseInfo;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+
+import static eu.fbk.dkm.pikes.depparseannotation.DepparseAnnotations.CONLLPARSE_REQUIREMENT;
 
 /**
  * Created by alessio on 06/05/15.
@@ -33,8 +34,6 @@ public class StanfordToConllDepsAnnotator implements Annotator {
                 SemanticGraph dependencies = sentence.get(
                         SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
                 DepParseInfo info = new DepParseInfo(dependencies);
-//                System.out.println(info);
-//                System.out.println();
                 List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
                 if (dependencies != null) {
                     for (int i = 0; i < tokens.size(); i++) {
@@ -46,11 +45,6 @@ public class StanfordToConllDepsAnnotator implements Annotator {
                         if (head < -1) {
                             head = -1;
                         }
-//                        System.out.println(j);
-//                        System.out.println(token);
-//                        System.out.println(label);
-//                        System.out.println(head);
-//                        System.out.println();
                         token.set(CoreAnnotations.CoNLLDepTypeAnnotation.class, label);
                         token.set(CoreAnnotations.CoNLLDepParentIndexAnnotation.class, head);
                     }
@@ -64,7 +58,7 @@ public class StanfordToConllDepsAnnotator implements Annotator {
 
     @Override
     public Set<Requirement> requirementsSatisfied() {
-        return Collections.singleton(PikesAnnotations.CONLLPARSE_REQUIREMENT);
+        return Collections.singleton(CONLLPARSE_REQUIREMENT);
     }
 
     @Override

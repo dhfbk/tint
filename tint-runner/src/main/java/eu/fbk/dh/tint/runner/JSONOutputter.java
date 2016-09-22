@@ -23,9 +23,8 @@ import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import edu.stanford.nlp.trees.TreePrint;
 import edu.stanford.nlp.util.Pair;
 import edu.stanford.nlp.util.Pointer;
+import eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotations;
 import eu.fbk.dh.tint.tense.TenseAnnotations;
-import eu.fbk.dkm.pikes.tintop.annotators.PikesAnnotations;
-import eu.fbk.dkm.pikes.tintop.annotators.raw.LinkingTag;
 
 import java.io.*;
 import java.text.DecimalFormat;
@@ -135,6 +134,7 @@ public class JSONOutputter extends AnnotationOutputter {
                                             l3.set("word", token.word());
                                             l3.set("originalText", token.originalText());
                                             l3.set("lemma", token.lemma());
+                                            l3.set("full_morpho", token.get(DigiMorphAnnotations.MorphoAnnotation.class));
                                             l3.set("characterOffsetBegin", token.beginPosition());
                                             l3.set("characterOffsetEnd", token.endPosition());
                                             l3.set("pos", token.tag());
@@ -143,13 +143,13 @@ public class JSONOutputter extends AnnotationOutputter {
                                             // todo: quickly added by Alessio
                                             l3.set("tense", token.get(TenseAnnotations.TenseAnnotation.class));
 
-                                            String linkedPage = null;
-                                            LinkingTag linkingTag = token
-                                                    .get(PikesAnnotations.DBpediaSpotlightAnnotation.class);
-                                            if (linkingTag != null) {
-                                                linkedPage = linkingTag.getPage();
-                                            }
-                                            l3.set("link", linkedPage);
+//                                            String linkedPage = null;
+//                                            LinkingTag linkingTag = token
+//                                                    .get(PikesAnnotations.DBpediaSpotlightAnnotation.class);
+//                                            if (linkingTag != null) {
+//                                                linkedPage = linkingTag.getPage();
+//                                            }
+//                                            l3.set("link", linkedPage);
 
                                             l3.set("normalizedNER", token.get(
                                                     CoreAnnotations.NormalizedNamedEntityTagAnnotation.class));

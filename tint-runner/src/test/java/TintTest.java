@@ -30,6 +30,8 @@ public class TintTest {
             for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
                 for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
                     System.out.println(token);
+                    System.out.println(token.ner());
+                    System.out.println();
                 }
 
             }

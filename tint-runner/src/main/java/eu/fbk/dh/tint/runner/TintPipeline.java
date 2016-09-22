@@ -2,14 +2,10 @@ package eu.fbk.dh.tint.runner;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.*;
-import eu.fbk.dkm.pikes.tintop.AnnotationPipeline;
-import eu.fbk.dkm.pikes.tintop.server.AbstractHandler;
-import ixa.kaflib.KAFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -105,14 +101,14 @@ public class TintPipeline {
             TextProOutputter.tpPrint(annotation, outputStream, pipeline);
             break;
         case NAF:
-            KAFDocument doc = AbstractHandler.text2naf(text, new HashMap<>());
-            AnnotationPipeline pikesPipeline = new AnnotationPipeline(null, null);
-            pikesPipeline.addToNerMap("PER", "PERSON");
-            pikesPipeline.addToNerMap("ORG", "ORGANIZATION");
-            pikesPipeline.addToNerMap("LOC", "LOCATION");
-            pikesPipeline.annotateStanford(new Properties(), annotation, doc);
-            outputStream.write(doc.toString().getBytes());
-            outputStream.flush();
+//            KAFDocument doc = AbstractHandler.text2naf(text, new HashMap<>());
+//            AnnotationPipeline pikesPipeline = new AnnotationPipeline(null, null);
+//            pikesPipeline.addToNerMap("PER", "PERSON");
+//            pikesPipeline.addToNerMap("ORG", "ORGANIZATION");
+//            pikesPipeline.addToNerMap("LOC", "LOCATION");
+//            pikesPipeline.annotateStanford(new Properties(), annotation, doc);
+//            outputStream.write(doc.toString().getBytes());
+//            outputStream.flush();
         }
 
         return annotation;

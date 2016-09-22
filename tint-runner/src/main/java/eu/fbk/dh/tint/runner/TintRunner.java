@@ -81,6 +81,7 @@ public class TintRunner {
             pipeline.loadPropertiesFromFile(configPath);
             pipeline.addProperties(additionalProps);
             pipeline.load();
+            System.err.println("Tint is ready");
 
             // Output
 
