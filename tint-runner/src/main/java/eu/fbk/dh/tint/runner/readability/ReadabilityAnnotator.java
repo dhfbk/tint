@@ -5,7 +5,11 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.CoreMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -15,6 +19,7 @@ import java.util.Set;
 
 public class ReadabilityAnnotator implements Annotator {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReadabilityAnnotator.class);
     public static String DEFAULT_MAX_SENTENCE_LENGTH = "25";
     private String language;
     private int maxSentenceLength;
@@ -33,6 +38,11 @@ public class ReadabilityAnnotator implements Annotator {
     @Override public void annotate(Annotation annotation) {
 
         Readability readability = null;
+        if (language == null) {
+            LOGGER.warn("Language variable is not defined, readability will be empty");
+            return;
+        }
+
         switch (language) {
         case "it":
             readability = new ItalianStandardReadability();
@@ -48,20 +58,28 @@ public class ReadabilityAnnotator implements Annotator {
             return;
         }
 
-        for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-
-            int sentenceID = sentence.get(CoreAnnotations.IndexAnnotation.class);
+        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+        int tokenCount = 0;
+        readability.setSentenceCount(sentences.size());
+        for (CoreMap sentence : sentences) {
+            int sentenceID = sentence.get(CoreAnnotations.SentenceIndexAnnotation.class);
             int wordsNow = readability.getWordCount();
             for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
-                String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-                String lemma = token.get(CoreAnnotations.LemmaAnnotation.class);
-                readability.addWord(lemma, pos);
+                readability.addWord(token);
+                tokenCount++;
             }
             int words = readability.getWordCount() - wordsNow;
             if (words > maxSentenceLength) {
                 readability.addTooLongSentence(sentenceID);
             }
         }
+        readability.setTokenCount(tokenCount);
+
+        String text = annotation.get(CoreAnnotations.TextAnnotation.class);
+        readability.setDocLenWithSpaces(text.length());
+        readability.setDocLenWithoutSpaces(text.replaceAll("\\s+", "").length());
+
+        annotation.set(ReadabilityAnnotations.ReadabilityAnnotation.class, readability);
     }
 
     /**
@@ -69,7 +87,7 @@ public class ReadabilityAnnotator implements Annotator {
      * provide.  For example, the POS annotator will return "pos".
      */
     @Override public Set<Requirement> requirementsSatisfied() {
-        return null;
+        return Collections.emptySet();
     }
 
     /**

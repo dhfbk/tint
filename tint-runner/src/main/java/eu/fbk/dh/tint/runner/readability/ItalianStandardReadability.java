@@ -11,6 +11,8 @@ import java.util.Map;
 
 public class ItalianStandardReadability extends ItalianReadability {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItalianStandardReadability.class);
+
     public ItalianStandardReadability() {
         super();
 
@@ -39,5 +41,4 @@ public class ItalianStandardReadability extends ItalianReadability {
 
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ItalianStandardReadability.class);
 }

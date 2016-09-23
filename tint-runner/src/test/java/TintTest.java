@@ -2,9 +2,16 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
+import edu.stanford.nlp.util.TypesafeMap;
 import eu.fbk.dh.tint.runner.TintPipeline;
+import eu.fbk.dh.tint.runner.TintRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by alessio on 07/09/16.
@@ -25,16 +32,27 @@ public class TintTest {
             pipeline.loadDefaultProperties();
             pipeline.load();
 
-            Annotation annotation = pipeline.runRaw(sentenceText);
+//            Annotation annotation = pipeline.runRaw(sentenceText);
 
-            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-                for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
-                    System.out.println(token);
-                    System.out.println(token.ner());
-                    System.out.println();
-                }
+            OutputStream outputStream = System.out;
+            InputStream inputStream = new ByteArrayInputStream(sentenceText.getBytes(StandardCharsets.UTF_8));
 
-            }
+            pipeline.run(inputStream, outputStream, TintRunner.OutputFormat.JSON);
+
+//            for (Class<?> myClass : annotation.keySetNotNull()) {
+//                Object o = annotation.get((Class) myClass);
+//
+//                System.out.println(o.getClass().getMethod("json"));
+//            }
+
+//            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+//                for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+//                    System.out.println(token);
+//                    System.out.println(token.ner());
+//                    System.out.println();
+//                }
+//
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();

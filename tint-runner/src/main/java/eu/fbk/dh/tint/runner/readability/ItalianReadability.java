@@ -1,5 +1,6 @@
 package eu.fbk.dh.tint.runner.readability;
 
+import com.itextpdf.layout.hyphenation.Hyphenator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,9 +16,6 @@ abstract class ItalianReadability extends Readability {
 
     public ItalianReadability() {
         super("it");
-    }
-
-    @Override Map<String, Object> json() {
-        return null;
+        hyphenator = new Hyphenator("it", "it", 1, 1);
     }
 }

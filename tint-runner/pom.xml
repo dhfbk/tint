@@ -45,8 +45,22 @@
             <version>${tint.version}</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2-version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2-version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j2-version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>xml-apis</groupId>
@@ -88,38 +102,22 @@
             <artifactId>pikes-depparse-annotation</artifactId>
             <version>${tint.pikes.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>eu.fbk.pikes</groupId>-->
-            <!--<artifactId>pikes-tintop</artifactId>-->
-            <!--<version>${tint.pikes.version}</version>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>edu.cmu.cs.lti.ark</groupId>-->
-                    <!--<artifactId>Semafor</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>eu.fbk.anna</groupId>-->
-                    <!--<artifactId>*</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.openrdf.sesame</groupId>-->
-                    <!--<artifactId>*</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>commons-lang</groupId>-->
-                    <!--<artifactId>commons-lang</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>eu.fbk.dkm.utils</groupId>-->
-                    <!--<artifactId>utils</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>eu.fbk.pikes</groupId>-->
-            <!--<artifactId>pikes-naflib</artifactId>-->
-            <!--<version>${tint.pikes.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>hyph</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>layout</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.7</version>
+        </dependency>
 
     </dependencies>
 
@@ -157,6 +155,7 @@
 
     <properties>
         <parent-path>/..</parent-path>
+        <log4j2-version>2.6.1</log4j2-version>
     </properties>
 
 </project>

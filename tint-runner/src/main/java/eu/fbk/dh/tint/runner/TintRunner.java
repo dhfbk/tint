@@ -1,11 +1,14 @@
 package eu.fbk.dh.tint.runner;
 
-import ch.qos.logback.classic.Level;
+import com.google.common.base.Throwables;
 import eu.fbk.utils.core.CommandLine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Properties;
 
@@ -55,9 +58,37 @@ public class TintRunner {
                 }
             }
 
-            if (outputPath == null) {
-                ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME)).setLevel(Level.OFF);
-                ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger("eu.fbk")).setLevel(Level.OFF);
+            Console console = System.console();
+            if (console == null) {
+                final String loggerClassName = LOGGER.getClass().getName();
+                if (loggerClassName.equals("ch.qos.logback.classic.Logger")) {
+                    final Class<?> levelClass = Class.forName("ch.qos.logback.classic.Level");
+                    final Object level = call(levelClass, "valueOf", "OFF");
+                    call(LOGGER, "setLevel", level);
+                } else if (loggerClassName.equals("org.apache.log4j.Logger")) {
+                    final Class<?> levelClass = Class.forName("org.apache.log4j.Level");
+                    final Object level = call(levelClass, "valueOf", "OFF");
+                    call(LOGGER, "setLevel", level);
+                } else if (loggerClassName.equals("org.apache.logging.slf4j.Log4jLogger")) {
+
+                    // todo: check
+                    final Class<?> managerClass = Class
+                            .forName("org.apache.logging.log4j.LogManager");
+                    final Object ctx = call(managerClass, "getContext", false);
+                    final Object config = call(ctx, "getConfiguration");
+                    final Object logConfig = call(config, "getLoggerConfig",
+                            LOGGER.getName());
+                    final Class<?> levelClass = Class
+                            .forName("org.apache.logging.log4j.Level");
+                    final Object level = call(levelClass, "valueOf", "OFF");
+                    call(logConfig, "setLevel", level);
+                    call(ctx, "updateLoggers");
+                }
+
+//            if (outputPath == null) {
+                // todo: disable logging at all
+//                ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME)).setLevel(Level.OFF);
+//                ((ch.qos.logback.classic.Logger) LoggerFactory.getLogger("eu.fbk")).setLevel(Level.OFF);
             }
 
             final String formatString = cmd.getOptionValue("f", String.class);
@@ -106,4 +137,26 @@ public class TintRunner {
         }
         return format;
     }
+
+    private static Object call(final Object object, final String methodName,
+            final Object... args) {
+        final boolean isStatic = object instanceof Class<?>;
+        final Class<?> clazz = isStatic ? (Class<?>) object : object.getClass();
+        for (final Method method : clazz.getMethods()) {
+            if (method.getName().equals(methodName)
+                    && isStatic == Modifier.isStatic(method.getModifiers())
+                    && method.getParameterTypes().length == args.length) {
+                try {
+                    return method.invoke(isStatic ? null : object, args);
+                } catch (final InvocationTargetException ex) {
+                    Throwables.propagate(ex.getCause());
+                } catch (final IllegalAccessException ex) {
+                    throw new IllegalArgumentException("Cannot invoke " + method, ex);
+                }
+            }
+        }
+        throw new IllegalArgumentException("Cannot invoke " + methodName);
+    }
+
+
 }
