@@ -1,17 +1,19 @@
-package eu.fbk.dh.tint.runner.readability;
+package eu.fbk.dh.tint.readability;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.itextpdf.layout.hyphenation.Hyphenation;
 import com.itextpdf.layout.hyphenation.Hyphenator;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
-import eu.fbk.dh.tint.runner.JSONable;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.util.CoreMap;
+import eu.fbk.dh.tint.json.JSONExclude;
+import eu.fbk.dh.tint.json.JSONable;
+import eu.fbk.dh.tint.json.JSONableString;
 import eu.fbk.utils.core.FrequencyHashSet;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -26,26 +28,46 @@ abstract class Readability implements JSONable {
     private int hyphenCount = 0;
     private int hyphenWordCount = 0;
 
-    protected HashSet<String> contentPosList = new HashSet<>();
-    protected HashSet<String> simplePosList = new HashSet<>();
-    protected HashSet<String> nonWordPosList = new HashSet<>();
+    Map<String, Double> measures = new HashMap<>();
 
-    protected HashMap<String, String> genericPosDescription = new HashMap<>();
-    protected HashMap<String, String> posDescription = new HashMap<>();
+    @JSONExclude HashSet<String> contentPosList = new HashSet<>();
+    @JSONExclude HashSet<String> simplePosList = new HashSet<>();
+    @JSONExclude HashSet<String> nonWordPosList = new HashSet<>();
 
-    protected boolean useGenericForContent = true;
-    protected boolean useGenericForSimple = true;
-    protected boolean useGenericForWord = true;
+    HashMap<String, String> genericPosDescription = new HashMap<>();
+    HashMap<String, String> posDescription = new HashMap<>();
 
-    protected Set<Integer> tooLongSentences = new HashSet<>();
-    protected FrequencyHashSet<String> posStats = new FrequencyHashSet<>();
-    protected FrequencyHashSet<String> genericPosStats = new FrequencyHashSet<>();
+    @JSONExclude boolean useGenericForContent = true;
+    @JSONExclude boolean useGenericForSimple = true;
+    @JSONExclude boolean useGenericForWord = true;
 
-    protected Hyphenator hyphenator;
+    Set<Integer> tooLongSentences = new HashSet<>();
+    FrequencyHashSet<String> posStats = new FrequencyHashSet<>();
+    FrequencyHashSet<String> genericPosStats = new FrequencyHashSet<>();
 
-    public Readability(String language) {
+    @JSONExclude Hyphenator hyphenator;
+    @JSONExclude Annotation annotation;
+
+    public Readability(String language, Annotation annotation) {
         this.language = language;
+        this.annotation = annotation;
+
+        String text = annotation.get(CoreAnnotations.TextAnnotation.class);
+        docLenWithSpaces = text.length();
+        docLenWithoutSpaces = text.replaceAll("\\s+", "").length();
     }
+
+    public abstract void finalizeReadability();
+
+    public abstract void addingContentWord(CoreLabel token);
+
+    public abstract void addingEasyWord(CoreLabel token);
+
+    public abstract void addingWord(CoreLabel token);
+
+    public abstract void addingToken(CoreLabel token);
+
+    public abstract void addingSentence(CoreMap sentence);
 
     public void addTooLongSentence(Integer sentenceID) {
         tooLongSentences.add(sentenceID);
@@ -149,29 +171,39 @@ abstract class Readability implements JSONable {
 
     public void addWord(CoreLabel token) {
         String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-        String lemma = token.get(CoreAnnotations.LemmaAnnotation.class);
+//        String lemma = token.get(CoreAnnotations.LemmaAnnotation.class);
         String word = token.word();
 
+        addingToken(token);
+
         if (isWordPos(pos)) {
+            addingWord(token);
             wordCount++;
             docLenLettersOnly += token.endPosition() - token.beginPosition();
 
             if (isContentPos(pos)) {
                 contentWordSize++;
+                addingContentWord(token);
             }
             if (isEasyPos(pos)) {
                 contentEasyWordSize++;
+                addingEasyWord(token);
             }
 
             Hyphenation hyphenation = hyphenator.hyphenate(word);
 
             if (hyphenation != null) {
                 incrementHyphenCount(hyphenation.length() + 1);
+                token.set(ReadabilityAnnotations.HyphenationAnnotation.class,
+                        new JSONableString(hyphenation.toString()));
                 hyphenWordCount++;
             } else if (word.length() < 5) {
                 incrementHyphenCount(1);
                 hyphenWordCount++;
             }
+        }
+        if (token.get(ReadabilityAnnotations.HyphenationAnnotation.class) == null) {
+            token.set(ReadabilityAnnotations.HyphenationAnnotation.class, new JSONableString(token.originalText()));
         }
 
         String genericPos = getGenericPos(pos);
@@ -232,13 +264,6 @@ abstract class Readability implements JSONable {
                 ", posStats=" + posStats +
                 ", genericPosStats=" + genericPosStats +
                 '}';
-    }
-
-    public static void main(String[] args) {
-//        Readability readability = new ItalianStandardReadability();
-        Hyphenator h = new Hyphenator("it", "IT", 2, 2);
-        Hyphenation hyphenation = h.hyphenate("lasciavamo");
-        System.out.println(hyphenation);
     }
 
     @Override public String getName() {

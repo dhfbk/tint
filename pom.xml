@@ -76,6 +76,8 @@
         <module>tint-tokenizer</module>
         <module>tint-runner</module>
         <module>tint-tense</module>
+        <module>tint-json</module>
+        <module>tint-readability</module>
     </modules>
 
     <properties>

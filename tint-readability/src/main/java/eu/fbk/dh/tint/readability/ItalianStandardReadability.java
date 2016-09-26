@@ -1,9 +1,10 @@
-package eu.fbk.dh.tint.runner.readability;
+package eu.fbk.dh.tint.readability;
 
+import edu.stanford.nlp.pipeline.Annotation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by alessio on 21/09/16.
@@ -13,8 +14,8 @@ public class ItalianStandardReadability extends ItalianReadability {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ItalianStandardReadability.class);
 
-    public ItalianStandardReadability() {
-        super();
+    public ItalianStandardReadability(Properties globalProperties, Properties localProperties, Annotation annotation) {
+        super(globalProperties, localProperties, annotation);
 
         contentPosList.add("S");
         contentPosList.add("A");

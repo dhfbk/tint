@@ -1,10 +1,11 @@
-package eu.fbk.dh.tint.runner.readability;
+package eu.fbk.dh.tint.readability;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.CoreMap;
+import eu.fbk.utils.core.PropertiesUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,10 +25,15 @@ public class ReadabilityAnnotator implements Annotator {
     private String language;
     private int maxSentenceLength;
 
+    private Properties globalProperties;
+    private Properties localProperties;
+
     public ReadabilityAnnotator(String annotatorName, Properties props) {
-        language = props.getProperty(annotatorName + ".language", null);
+        globalProperties = props;
+        localProperties = PropertiesUtils.dotConvertedProperties(props, annotatorName);
+        language = globalProperties.getProperty(annotatorName + ".language");
         maxSentenceLength = Integer
-                .parseInt(props.getProperty(annotatorName + ".maxSentenceLength", DEFAULT_MAX_SENTENCE_LENGTH));
+                .parseInt(globalProperties.getProperty(annotatorName + ".maxSentenceLength", DEFAULT_MAX_SENTENCE_LENGTH));
     }
 
     /**
@@ -43,9 +49,10 @@ public class ReadabilityAnnotator implements Annotator {
             return;
         }
 
+        String text = annotation.get(CoreAnnotations.TextAnnotation.class);
         switch (language) {
         case "it":
-            readability = new ItalianStandardReadability();
+            readability = new ItalianStandardReadability(globalProperties, localProperties, annotation);
             break;
 //        case "es":
 //            readability = new SpanishReadability();
@@ -75,9 +82,7 @@ public class ReadabilityAnnotator implements Annotator {
         }
         readability.setTokenCount(tokenCount);
 
-        String text = annotation.get(CoreAnnotations.TextAnnotation.class);
-        readability.setDocLenWithSpaces(text.length());
-        readability.setDocLenWithoutSpaces(text.replaceAll("\\s+", "").length());
+        readability.finalizeReadability();
 
         annotation.set(ReadabilityAnnotations.ReadabilityAnnotation.class, readability);
     }
@@ -96,6 +101,6 @@ public class ReadabilityAnnotator implements Annotator {
      * "tokenize", "ssplit".
      */
     @Override public Set<Requirement> requires() {
-        return TOKENIZE_SSPLIT_POS_LEMMA;
+        return Annotator.TOKENIZE_SSPLIT_POS_LEMMA;
     }
 }

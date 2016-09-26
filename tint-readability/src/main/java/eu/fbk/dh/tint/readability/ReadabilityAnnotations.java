@@ -1,6 +1,7 @@
-package eu.fbk.dh.tint.runner.readability;
+package eu.fbk.dh.tint.readability;
 
 import edu.stanford.nlp.ling.CoreAnnotation;
+import eu.fbk.dh.tint.json.JSONableString;
 
 /**
  * Created by giovannimoretti on 19/05/16.
@@ -11,6 +12,13 @@ public class ReadabilityAnnotations {
 
         public Class<Readability> getType() {
             return Readability.class;
+        }
+    }
+
+    public static class HyphenationAnnotation implements CoreAnnotation<JSONableString> {
+
+        public Class<JSONableString> getType() {
+            return JSONableString.class;
         }
     }
 

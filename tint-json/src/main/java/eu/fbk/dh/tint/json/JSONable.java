@@ -1,4 +1,4 @@
-package eu.fbk.dh.tint.runner;
+package eu.fbk.dh.tint.json;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
