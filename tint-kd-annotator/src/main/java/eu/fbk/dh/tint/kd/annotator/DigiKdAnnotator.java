@@ -123,7 +123,7 @@ public class DigiKdAnnotator implements Annotator{
 
 
 
-        List<DigiKdResult> listOfKeys  = new ArrayList<DigiKdResult>();
+        DigiKDList<DigiKdResult> listOfKeys  = new DigiKDList<>();
 
 
         try {

@@ -4,9 +4,14 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.kd.annotator.DigiKdAnnotations;
 import eu.fbk.dh.tint.runner.TintPipeline;
+import eu.fbk.dh.tint.runner.TintRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 /**
@@ -29,7 +34,7 @@ public class TintTest {
 
             Properties prop = new Properties();
             prop.setProperty("annotators","ita_toksent, pos, ita_morpho, ita_lemma, keyphrase,ner ");
-            prop.setProperty("keyphrase.languageFolder", "/Volumes/Storage/Dropbox/Work/KD_DEPLOY_FOLDER/languages");
+            prop.setProperty("keyphrase.languageFolder", "/Users/alessio/Downloads/languages");
             prop.setProperty("keyphrase.language", "ITALIAN");
             prop.setProperty("keyphrase.numberOfConcepts", "20");
             prop.setProperty("keyphrase.local_frequency_threshold", "2");
@@ -51,21 +56,21 @@ public class TintTest {
             pipeline.addProperties(prop);
             pipeline.load();
 
-            Annotation annotation = pipeline.runRaw(sentenceText);
-            System.out.println(annotation.get(DigiKdAnnotations.DH_KEYPHRASE.class));
-            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-                for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
-                    System.out.println(token);
-                    System.out.println(token.ner());
+//            Annotation annotation = pipeline.runRaw(sentenceText);
+//            System.out.println(annotation.get(DigiKdAnnotations.DH_KEYPHRASE.class));
+//            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+//                for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+//                    System.out.println(token);
+//                    System.out.println(token.ner());
+//
+//                }
+//
+//            }
 
-                }
 
-            }
-
-
-//            OutputStream outputStream = System.out;
-//            InputStream inputStream = new ByteArrayInputStream(sentenceText.getBytes(StandardCharsets.UTF_8));
-//            pipeline.run(inputStream, outputStream, TintRunner.OutputFormat.JSON);
+            OutputStream outputStream = System.out;
+            InputStream inputStream = new ByteArrayInputStream(sentenceText.getBytes(StandardCharsets.UTF_8));
+            pipeline.run(inputStream, outputStream, TintRunner.OutputFormat.JSON);
 
 //            for (Class<?> myClass : annotation.keySetNotNull()) {
 //                Object o = annotation.get((Class) myClass);

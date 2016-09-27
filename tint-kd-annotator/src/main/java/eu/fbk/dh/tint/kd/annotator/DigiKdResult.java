@@ -1,5 +1,11 @@
 package eu.fbk.dh.tint.kd.annotator;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +20,17 @@ public class DigiKdResult {
     ArrayList<String> tokens = new ArrayList<>();
     List<String> posList = new ArrayList<>();
 
+//    class ResultSerializer implements JsonSerializer<DigiKdResult> {
+//
+//        @Override public JsonElement serialize(DigiKdResult digiKdResult, Type type,
+//                JsonSerializationContext jsonSerializationContext) {
+//            JsonObject element = new JsonObject();
+//            element.addProperty("keyphrase", digiKdResult.getKeyphrase());
+//            element.addProperty("frequency", digiKdResult.getFrequency());
+//            element.addProperty("score", digiKdResult.getScore());
+//            return element;
+//        }
+//    }
 
     public DigiKdResult(String keyphrase, Integer frequency, Double score, ArrayList<String> lemmas, ArrayList<String> tokens,List<String> posList) {
         this.keyphrase = keyphrase;
