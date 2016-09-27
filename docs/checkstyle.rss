@@ -214,7 +214,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.readability.Readability.java">eu/fbk/dh/tint/runner/readability/Readability.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.readability.Readability.java">eu/fbk/dh/tint/runner/readability/Readability.java</a>
                 </td>
                 <td>
                   0
@@ -424,7 +424,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.readability.ReadabilityAnnotator.java">eu/fbk/dh/tint/runner/readability/ReadabilityAnnotator.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.readability.ReadabilityAnnotator.java">eu/fbk/dh/tint/runner/readability/ReadabilityAnnotator.java</a>
                 </td>
                 <td>
                   0
@@ -466,7 +466,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.readability.ItalianReadability.java">eu/fbk/dh/tint/runner/readability/ItalianReadability.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.readability.ItalianReadability.java">eu/fbk/dh/tint/runner/readability/ItalianReadability.java</a>
                 </td>
                 <td>
                   0
@@ -802,7 +802,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.readability.ItalianStandardReadability.java">eu/fbk/dh/tint/runner/readability/ItalianStandardReadability.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.readability.ItalianStandardReadability.java">eu/fbk/dh/tint/runner/readability/ItalianStandardReadability.java</a>
                 </td>
                 <td>
                   0
@@ -830,7 +830,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.readability.ReadabilityAnnotations.java">eu/fbk/dh/tint/runner/readability/ReadabilityAnnotations.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.readability.ReadabilityAnnotations.java">eu/fbk/dh/tint/runner/readability/ReadabilityAnnotations.java</a>
                 </td>
                 <td>
                   0
