@@ -1,6 +1,6 @@
 ## Publications
 
-Please cite the following paper, if you use PIKES in a scientific publication:
+Please cite the following paper, if you use Tint in a scientific publication:
 
 **Italy goes to Stanford: a collection of CoreNLP modules for Italian**<br />
 By Alessio Palmero Aprosio and Giovanni Moretti.<br />

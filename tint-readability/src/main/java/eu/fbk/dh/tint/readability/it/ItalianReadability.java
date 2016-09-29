@@ -1,4 +1,4 @@
-package eu.fbk.dh.tint.readability;
+package eu.fbk.dh.tint.readability.it;
 
 import com.google.common.collect.HashMultimap;
 import com.itextpdf.layout.hyphenation.Hyphenator;
@@ -7,6 +7,9 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.json.JSONExclude;
+import eu.fbk.dh.tint.readability.DescriptionForm;
+import eu.fbk.dh.tint.readability.GlossarioEntry;
+import eu.fbk.dh.tint.readability.Readability;
 
 import java.util.*;
 

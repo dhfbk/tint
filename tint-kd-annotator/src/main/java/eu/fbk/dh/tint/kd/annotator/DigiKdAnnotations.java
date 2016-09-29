@@ -13,9 +13,9 @@ public class DigiKdAnnotations {
     public static final String DH_KEYPHRASE = "dh_keyphrase";
     public static final Annotator.Requirement DH_KEYPHRASE_REQUIREMENT = new Annotator.Requirement(DH_KEYPHRASE);
 
-    public static class DH_KEYPHRASE implements CoreAnnotation<List<DigiKdResult>> {
+    public static class DH_KEYPHRASE implements CoreAnnotation<DigiKDList<DigiKdResult>> {
         @Override
-        public Class<List<DigiKdResult>> getType() {
+        public Class<DigiKDList<DigiKdResult>> getType() {
             return ErasureUtils.uncheckedCast(List.class);
         }
     }

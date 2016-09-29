@@ -9,8 +9,14 @@ import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.json.JSONExclude;
 import eu.fbk.dh.tint.json.JSONable;
 import eu.fbk.dh.tint.json.JSONableString;
+import eu.fbk.dh.tint.readability.es.SpanishReadabilityModel;
 import eu.fbk.utils.core.FrequencyHashSet;
 
+import javax.annotation.Nullable;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -19,7 +25,7 @@ import java.util.Set;
 /**
  * Created by alessio on 21/09/16.
  */
-abstract class Readability implements JSONable {
+public abstract class Readability implements JSONable {
 
     private String language = null;
     private int contentWordSize = 0, contentEasyWordSize = 0, wordCount = 0;
@@ -28,14 +34,18 @@ abstract class Readability implements JSONable {
     private int hyphenCount = 0;
     private int hyphenWordCount = 0;
 
-    Map<String, Double> measures = new HashMap<>();
+    protected Map<String, Double> measures = new HashMap<>();
 
-    @JSONExclude HashSet<String> contentPosList = new HashSet<>();
-    @JSONExclude HashSet<String> simplePosList = new HashSet<>();
-    @JSONExclude HashSet<String> nonWordPosList = new HashSet<>();
+    public int getHyphenWordCount() {
+        return hyphenWordCount;
+    }
 
-    HashMap<String, String> genericPosDescription = new HashMap<>();
-    HashMap<String, String> posDescription = new HashMap<>();
+    @JSONExclude protected HashSet<String> contentPosList = new HashSet<>();
+    @JSONExclude protected HashSet<String> simplePosList = new HashSet<>();
+    @JSONExclude protected HashSet<String> nonWordPosList = new HashSet<>();
+
+    protected HashMap<String, String> genericPosDescription = new HashMap<>();
+    protected HashMap<String, String> posDescription = new HashMap<>();
 
     @JSONExclude boolean useGenericForContent = true;
     @JSONExclude boolean useGenericForSimple = true;
@@ -45,8 +55,8 @@ abstract class Readability implements JSONable {
     FrequencyHashSet<String> posStats = new FrequencyHashSet<>();
     FrequencyHashSet<String> genericPosStats = new FrequencyHashSet<>();
 
-    @JSONExclude Hyphenator hyphenator;
-    @JSONExclude Annotation annotation;
+    @JSONExclude protected Hyphenator hyphenator;
+    @JSONExclude protected Annotation annotation;
 
     public Readability(String language, Annotation annotation) {
         this.language = language;
@@ -181,15 +191,6 @@ abstract class Readability implements JSONable {
             wordCount++;
             docLenLettersOnly += token.endPosition() - token.beginPosition();
 
-            if (isContentPos(pos)) {
-                contentWordSize++;
-                addingContentWord(token);
-            }
-            if (isEasyPos(pos)) {
-                contentEasyWordSize++;
-                addingEasyWord(token);
-            }
-
             Hyphenation hyphenation = hyphenator.hyphenate(word);
 
             boolean done = false;
@@ -209,6 +210,15 @@ abstract class Readability implements JSONable {
             if (!done && word.length() < 5) {
                 incrementHyphenCount(1);
                 hyphenWordCount++;
+            }
+
+            if (isContentPos(pos)) {
+                contentWordSize++;
+                addingContentWord(token);
+            }
+            if (isEasyPos(pos)) {
+                contentEasyWordSize++;
+                addingEasyWord(token);
             }
         }
         if (token.get(ReadabilityAnnotations.HyphenationAnnotation.class) == null) {
@@ -236,6 +246,25 @@ abstract class Readability implements JSONable {
         }
     }
 
+    public static InputStream getStream(String fileName, @Nullable String defaultFileName)
+            throws FileNotFoundException {
+        if (fileName != null) {
+            File streamFile = new File(fileName);
+            if (streamFile.exists()) {
+                return new FileInputStream(streamFile);
+            }
+        }
+        InputStream input = SpanishReadabilityModel.class.getResourceAsStream(defaultFileName);
+        if (input != null) {
+            return input;
+        }
+
+        if (defaultFileName != null) {
+            return getStream(defaultFileName, null);
+        }
+        return null;
+    }
+
     protected boolean isWordPos(String pos) {
         return getGenericPosInfo(useGenericForWord, nonWordPosList, pos, true);
     }
@@ -257,18 +286,14 @@ abstract class Readability implements JSONable {
                 ", docLenWithSpaces=" + docLenWithSpaces +
                 ", docLenWithoutSpaces=" + docLenWithoutSpaces +
                 ", docLenLettersOnly=" + docLenLettersOnly +
-                ", hyphenCount=" + hyphenCount +
-                ", hyphenWordCount=" + hyphenWordCount +
                 ", sentenceCount=" + sentenceCount +
                 ", tokenCount=" + tokenCount +
+                ", hyphenCount=" + hyphenCount +
+                ", hyphenWordCount=" + hyphenWordCount +
+                ", measures=" + measures +
                 ", contentPosList=" + contentPosList +
                 ", simplePosList=" + simplePosList +
                 ", nonWordPosList=" + nonWordPosList +
-                ", genericPosDescription=" + genericPosDescription +
-                ", posDescription=" + posDescription +
-                ", useGenericForContent=" + useGenericForContent +
-                ", useGenericForSimple=" + useGenericForSimple +
-                ", useGenericForWord=" + useGenericForWord +
                 ", tooLongSentences=" + tooLongSentences +
                 ", posStats=" + posStats +
                 ", genericPosStats=" + genericPosStats +

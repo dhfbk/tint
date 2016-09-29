@@ -5,6 +5,9 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.CoreMap;
+import eu.fbk.dh.tint.readability.en.EnglishStandardReadability;
+import eu.fbk.dh.tint.readability.es.SpanishStandardReadability;
+import eu.fbk.dh.tint.readability.it.ItalianStandardReadability;
 import eu.fbk.utils.core.PropertiesUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +36,8 @@ public class ReadabilityAnnotator implements Annotator {
         localProperties = PropertiesUtils.dotConvertedProperties(props, annotatorName);
         language = globalProperties.getProperty(annotatorName + ".language");
         maxSentenceLength = Integer
-                .parseInt(globalProperties.getProperty(annotatorName + ".maxSentenceLength", DEFAULT_MAX_SENTENCE_LENGTH));
+                .parseInt(globalProperties
+                        .getProperty(annotatorName + ".maxSentenceLength", DEFAULT_MAX_SENTENCE_LENGTH));
     }
 
     /**
@@ -49,14 +53,16 @@ public class ReadabilityAnnotator implements Annotator {
             return;
         }
 
-        String text = annotation.get(CoreAnnotations.TextAnnotation.class);
         switch (language) {
         case "it":
             readability = new ItalianStandardReadability(globalProperties, localProperties, annotation);
             break;
-//        case "es":
-//            readability = new SpanishReadability();
-//            break;
+        case "es":
+            readability = new SpanishStandardReadability(globalProperties, localProperties, annotation);
+            break;
+        case "en":
+            readability = new EnglishStandardReadability(globalProperties, localProperties, annotation);
+            break;
 //        default:
 //            readability = new EnglishReadability();
         }

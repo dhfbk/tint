@@ -28,6 +28,12 @@
             <artifactId>stanford-corenlp</artifactId>
         </dependency>
         <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <classifier>models</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-json</artifactId>
             <version>${tint.version}</version>

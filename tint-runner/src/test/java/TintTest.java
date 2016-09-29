@@ -44,10 +44,10 @@ public class TintTest {
             pipeline.loadDefaultProperties();
             pipeline.load();
 
-//            Annotation annotation = pipeline.runRaw(sentenceText);
-            OutputStream outputStream = System.out;
-            InputStream inputStream = new ByteArrayInputStream(sentenceText.getBytes(StandardCharsets.UTF_8));
-            pipeline.run(inputStream, outputStream, TintRunner.OutputFormat.JSON);
+            Annotation annotation = pipeline.runRaw(sentenceText);
+//            OutputStream outputStream = System.out;
+//            InputStream inputStream = new ByteArrayInputStream(sentenceText.getBytes(StandardCharsets.UTF_8));
+//            pipeline.run(inputStream, outputStream, TintRunner.OutputFormat.JSON);
 
 //            for (Class<?> myClass : annotation.keySetNotNull()) {
 //                Object o = annotation.get((Class) myClass);

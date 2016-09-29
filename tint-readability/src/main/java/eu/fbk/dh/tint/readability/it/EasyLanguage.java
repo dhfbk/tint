@@ -1,4 +1,4 @@
-package eu.fbk.dh.tint.readability;
+package eu.fbk.dh.tint.readability.it;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +10,7 @@ public class EasyLanguage {
 
     public class EasySingle {
 
-        String[] n, v, a, r;
+        public String[] n, v, a, r;
 
         public EasySingle() {
             n = new String[0];
@@ -26,7 +26,7 @@ public class EasyLanguage {
         level3 = new EasySingle();
     }
 
-    @SerializedName("level-1") EasySingle level1;
-    @SerializedName("level-2") EasySingle level2;
-    @SerializedName("level-3") EasySingle level3;
+    @SerializedName("level-1") public EasySingle level1;
+    @SerializedName("level-2") public EasySingle level2;
+    @SerializedName("level-3") public EasySingle level3;
 }

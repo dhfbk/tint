@@ -466,7 +466,11 @@ under the License.
               </tr>
                           <tr>
                 <td>
+<<<<<<< HEAD
                   <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.readability.ItalianReadability.java">eu/fbk/dh/tint/runner/readability/ItalianReadability.java</a>
+=======
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.readability.it.ItalianReadability.java">eu/fbk/dh/tint/runner/readability/ItalianReadability.java</a>
+>>>>>>> kd-branch
                 </td>
                 <td>
                   0
@@ -802,7 +806,11 @@ under the License.
               </tr>
                           <tr>
                 <td>
+<<<<<<< HEAD
                   <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.readability.ItalianStandardReadability.java">eu/fbk/dh/tint/runner/readability/ItalianStandardReadability.java</a>
+=======
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.readability.it.ItalianStandardReadability.java">eu/fbk/dh/tint/runner/readability/ItalianStandardReadability.java</a>
+>>>>>>> kd-branch
                 </td>
                 <td>
                   0
