@@ -134,7 +134,7 @@ public class DigiKdAnnotator implements Annotator{
         }catch (NullPointerException n){
 
         }
-        annotation.set(DigiKdAnnotations.DH_KEYPHRASE.class,listOfKeys);
+        annotation.set(DigiKdAnnotations.KeyphrasesAnnotation.class,listOfKeys);
 
 
     }
