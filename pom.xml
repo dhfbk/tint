@@ -79,6 +79,7 @@
         <module>tint-json</module>
         <module>tint-readability</module>
         <module>tint-kd-annotator</module>
+        <module>tint-geoloc-annotator</module>
     </modules>
 
     <properties>
