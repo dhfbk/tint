@@ -1,4 +1,4 @@
-package eu.fbk.dh.tint.runner.wrappers;
+package eu.fbk.dh.tint.heideltime.annotator;
 
 import de.unihd.dbs.heideltime.standalone.DocumentType;
 import de.unihd.dbs.heideltime.standalone.HeidelTimeStandalone;
@@ -186,6 +186,6 @@ public class HeidelTimeAnnotator implements Annotator {
      * "tokenize", "ssplit".
      */
     @Override public Set<Requirement> requires() {
-        return Collections.singleton(TOKENIZE_REQUIREMENT);
+        return Collections.singleton(Annotator.TOKENIZE_REQUIREMENT);
     }
 }

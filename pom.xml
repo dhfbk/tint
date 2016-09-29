@@ -78,6 +78,9 @@
         <module>tint-tense</module>
         <module>tint-json</module>
         <module>tint-readability</module>
+        <module>tint-kd-annotator</module>
+        <module>tint-geoloc-annotator</module>
+        <module>tint-heideltime-annotator</module>
     </modules>
 
     <properties>

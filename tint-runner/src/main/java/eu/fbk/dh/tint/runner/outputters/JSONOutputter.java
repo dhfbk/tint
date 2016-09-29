@@ -1,4 +1,4 @@
-package eu.fbk.dh.tint.runner;
+package eu.fbk.dh.tint.runner.outputters;
 
 import com.google.gson.*;
 import edu.stanford.nlp.hcoref.CorefCoreAnnotations;

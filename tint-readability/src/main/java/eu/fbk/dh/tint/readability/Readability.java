@@ -192,12 +192,21 @@ abstract class Readability implements JSONable {
 
             Hyphenation hyphenation = hyphenator.hyphenate(word);
 
+            boolean done = false;
             if (hyphenation != null) {
-                incrementHyphenCount(hyphenation.length() + 1);
-                token.set(ReadabilityAnnotations.HyphenationAnnotation.class,
-                        new JSONableString(hyphenation.toString()));
-                hyphenWordCount++;
-            } else if (word.length() < 5) {
+                try {
+                    String h = hyphenation.toString();
+                    incrementHyphenCount(hyphenation.length() + 1);
+                    token.set(ReadabilityAnnotations.HyphenationAnnotation.class,
+                            new JSONableString(h));
+                    done = true;
+                    hyphenWordCount++;
+                } catch (Exception e) {
+                    // ignored
+                }
+            }
+
+            if (!done && word.length() < 5) {
                 incrementHyphenCount(1);
                 hyphenWordCount++;
             }

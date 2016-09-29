@@ -2,6 +2,7 @@ package eu.fbk.dh.tint.runner;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.*;
+import eu.fbk.dh.tint.runner.outputters.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,7 +96,7 @@ public class TintPipeline {
             XMLOutputter.xmlPrint(annotation, outputStream, pipeline);
             break;
         case JSON:
-            JSONOutputter.jsonPrint(annotation, outputStream, pipeline);
+            eu.fbk.dh.tint.runner.outputters.JSONOutputter.jsonPrint(annotation, outputStream, pipeline);
             break;
         case TEXTPRO:
             TextProOutputter.tpPrint(annotation, outputStream, pipeline);
