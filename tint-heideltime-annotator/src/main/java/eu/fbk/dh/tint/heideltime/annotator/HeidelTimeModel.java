@@ -1,4 +1,4 @@
-package eu.fbk.dh.tint.runner.wrappers;
+package eu.fbk.dh.tint.heideltime.annotator;
 
 import de.unihd.dbs.heideltime.standalone.Config;
 import de.unihd.dbs.heideltime.standalone.DocumentType;

@@ -29,29 +29,6 @@
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-tokenizer</artifactId>
-            <version>${tint.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-tense</artifactId>
-            <version>${tint.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-readability</artifactId>
-            <version>${tint.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-digimorph-annotator</artifactId>
-            <version>${tint.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-json</artifactId>
             <version>${tint.version}</version>
         </dependency>
@@ -95,39 +72,42 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.github.heideltime</groupId>
-            <artifactId>heideltime</artifactId>
-            <version>2.1-FBK</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.uima</groupId>
-            <artifactId>uimaj-core</artifactId>
-            <version>2.8.1</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>eu.fbk.pikes</groupId>
-            <artifactId>pikes-depparse-annotation</artifactId>
-            <version>${tint.pikes.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.7</version>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>edu.stanford.nlp</groupId>-->
-            <!--<artifactId>stanford-corenlp</artifactId>-->
-            <!--<classifier>models</classifier>-->
-            <!--<version>3.6.0</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-
+        <!-- Annotators -->
+        <dependency>
+            <groupId>eu.fbk.pikes</groupId>
+            <artifactId>pikes-depparse-annotation</artifactId>
+            <version>${tint.pikes.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-tokenizer</artifactId>
+            <version>${tint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-tense</artifactId>
+            <version>${tint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-readability</artifactId>
+            <version>${tint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-digimorph-annotator</artifactId>
+            <version>${tint.version}</version>
+        </dependency>
 
     </dependencies>
 

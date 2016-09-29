@@ -18,16 +18,17 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.*;
 
-
 /**
  * Created by giovannimoretti on 25/09/16.
  */
 public class GeolocAnnotator implements Annotator {
+
     GeolocConfiguration geoloc_conf;
     private static final Logger LOGGER = LoggerFactory.getLogger(GeolocAnnotator.class);
 
     public GeolocAnnotator(String annotatorName, Properties prop) {
-        List<String> allowed_entities = Arrays.asList(prop.getProperty(annotatorName + ".allowed_entity_type").split(","));
+        List<String> allowed_entities = Arrays
+                .asList(prop.getProperty(annotatorName + ".allowed_entity_type").split(","));
         String geocoder_url = prop.getProperty(annotatorName + ".geocoder_url");
         Boolean use_local_geocoder = Boolean.parseBoolean(prop.getProperty(annotatorName + ".use_local_geocoder"));
         Integer timeout = 1050;
@@ -36,7 +37,6 @@ public class GeolocAnnotator implements Annotator {
         }
         this.geoloc_conf = GeolocModel.getInstance(allowed_entities, geocoder_url, use_local_geocoder, timeout);
     }
-
 
     @Override
     public void annotate(Annotation annotation) {
@@ -55,11 +55,13 @@ public class GeolocAnnotator implements Annotator {
                             URL geocoder_address = new URL(geocoder_url + URLEncoder.encode(c.word()));
                             LOGGER.info(geocoder_address.toString());
                             URLConnection gconn = geocoder_address.openConnection();
-                            BufferedReader in = new BufferedReader(new InputStreamReader(gconn.getInputStream(), "UTF-8"));
+                            BufferedReader in = new BufferedReader(
+                                    new InputStreamReader(gconn.getInputStream(), "UTF-8"));
                             String inputLine;
                             StringBuilder a = new StringBuilder();
-                            while ((inputLine = in.readLine()) != null)
+                            while ((inputLine = in.readLine()) != null) {
                                 a.append(inputLine);
+                            }
                             in.close();
                             JsonParser parser = new JsonParser();
                             JsonArray locations = (JsonArray) parser.parse(a.toString());

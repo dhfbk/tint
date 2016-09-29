@@ -326,7 +326,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.AnnotationOutputter.java">eu/fbk/dh/tint/runner/AnnotationOutputter.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.outputters.AnnotationOutputter.java">eu/fbk/dh/tint/runner/AnnotationOutputter.java</a>
                 </td>
                 <td>
                   0
@@ -396,7 +396,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.JSONOutputter.java">eu/fbk/dh/tint/runner/JSONOutputter.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.outputters.JSONOutputter.java">eu/fbk/dh/tint/runner/JSONOutputter.java</a>
                 </td>
                 <td>
                   0
@@ -438,7 +438,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.wrappers.HeidelTimeModel.java">eu/fbk/dh/tint/runner/wrappers/HeidelTimeModel.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.heideltime.annotator.HeidelTimeModel.java">eu/fbk/dh/tint/runner/wrappers/HeidelTimeModel.java</a>
                 </td>
                 <td>
                   0
@@ -746,7 +746,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.wrappers.HeidelTimeAnnotator.java">eu/fbk/dh/tint/runner/wrappers/HeidelTimeAnnotator.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.heideltime.annotator.HeidelTimeAnnotator.java">eu/fbk/dh/tint/runner/wrappers/HeidelTimeAnnotator.java</a>
                 </td>
                 <td>
                   0
@@ -760,7 +760,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.TextProOutputter.java">eu/fbk/dh/tint/runner/TextProOutputter.java</a>
+                  <a href="http://dkm.fbk.eu/tint//checkstyle.html#eu.fbk.dh.tint.runner.outputters.TextProOutputter.java">eu/fbk/dh/tint/runner/TextProOutputter.java</a>
                 </td>
                 <td>
                   0

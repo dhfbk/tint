@@ -1,7 +1,7 @@
 import eu.fbk.dh.tint.runner.TintPipeline;
 import eu.fbk.dh.tint.runner.TintRunner;
-import eu.fbk.dh.tint.runner.XMLHelper;
 import eu.fbk.utils.core.CommandLine;
+import eu.fbk.utils.core.XMLHelper;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

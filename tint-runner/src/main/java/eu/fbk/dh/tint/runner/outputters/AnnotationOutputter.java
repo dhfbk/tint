@@ -1,4 +1,4 @@
-package eu.fbk.dh.tint.runner;
+package eu.fbk.dh.tint.runner.outputters;
 
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;

@@ -3,7 +3,6 @@ package eu.fbk.dh.tint.geoloc.annotator;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created by giovannimoretti on 25/09/16.
  */
@@ -15,7 +14,8 @@ public class GeolocConfiguration {
     private String local_geocoder_url = "";
     private Integer timeout = 1000;
 
-    public GeolocConfiguration(List<String> allowed_entities,String geocoder_url,Boolean use_local_geocoder,Integer timeout){
+    public GeolocConfiguration(List<String> allowed_entities, String geocoder_url, Boolean use_local_geocoder,
+            Integer timeout) {
         this.setAllowed_loc_type(allowed_entities);
         this.setLocal_geocoder_url(geocoder_url);
         this.setUse_local_geocoder_instance(use_local_geocoder);
