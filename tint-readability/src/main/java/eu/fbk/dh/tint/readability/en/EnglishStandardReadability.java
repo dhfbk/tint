@@ -1,0 +1,76 @@
+package eu.fbk.dh.tint.readability.en;
+
+import edu.stanford.nlp.pipeline.Annotation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashSet;
+import java.util.Properties;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Created by alessio on 21/09/16.
+ */
+
+public class EnglishStandardReadability extends EnglishReadability {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnglishStandardReadability.class);
+    private static final Pattern startsWithLetter = Pattern.compile("^[a-zA-Z].*");
+    private static final Set<String> immutablePos = new HashSet<>();
+
+    static {
+        immutablePos.add("POS");
+        immutablePos.add("CC");
+        immutablePos.add("CD");
+        immutablePos.add("PDT");
+        immutablePos.add("TO");
+    }
+
+    @Override protected String getGenericPos(String pos) {
+        if (immutablePos.contains(pos)) {
+            return pos;
+        }
+        if (pos.equals("SYM")) {
+            return "F";
+        }
+
+        Matcher matcher = startsWithLetter.matcher(pos);
+        if (matcher.find()) {
+            return super.getGenericPos(pos);
+        }
+
+        return "F";
+    }
+
+    public EnglishStandardReadability(Properties globalProperties, Properties localProperties, Annotation annotation) {
+        super(globalProperties, localProperties, annotation);
+
+        contentPosList.add("N");
+        contentPosList.add("J");
+        contentPosList.add("V");
+        contentPosList.add("R");
+
+        simplePosList.add("N");
+        simplePosList.add("V");
+
+        nonWordPosList.add("F");
+
+//        genericPosDescription.put("A", "Adjective");
+//        genericPosDescription.put("C", "Conjunction");
+//        genericPosDescription.put("D", "Determiner");
+//        genericPosDescription.put("F", "Punctuation");
+//        genericPosDescription.put("I", "Interjection");
+//        genericPosDescription.put("R", "Adverb");
+//        genericPosDescription.put("N", "Noun");
+//        genericPosDescription.put("S", "Preposition");
+//        genericPosDescription.put("P", "Pronoun");
+//        genericPosDescription.put("V", "Verb");
+//        genericPosDescription.put("X", "Other");
+//        genericPosDescription.put("Z", "Number");
+//        genericPosDescription.put("W", "Date");
+
+    }
+
+}

@@ -1,4 +1,4 @@
-package eu.fbk.dh.tint.readability;
+package eu.fbk.dh.tint.readability.it;
 
 import com.google.common.collect.HashMultimap;
 import com.google.gson.Gson;
@@ -7,11 +7,12 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import eu.fbk.dh.tint.readability.GlossarioEntry;
+import eu.fbk.dh.tint.readability.Readability;
 import eu.fbk.utils.core.PropertiesUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
 import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,7 +53,7 @@ public class ItalianReadabilityModel {
             EasyLanguage easyLanguage = new EasyLanguage();
             LOGGER.info("Loading easy lemmas");
             try {
-                InputStream stream = getStream(easyWordsFileName, "/models/easy-output.json");
+                InputStream stream = Readability.getStream(easyWordsFileName, "/models/easy-output.json");
                 JsonReader reader = new JsonReader(new InputStreamReader(stream));
                 easyLanguage = gson.fromJson(reader, EasyLanguage.class);
             } catch (Exception e) {
@@ -82,7 +83,7 @@ public class ItalianReadabilityModel {
             HashMap<String, GlossarioEntry> glossario = new HashMap<>();
             LOGGER.info("Loading glossario");
             try {
-                InputStream stream = getStream(glossarioFileName, "/models/glossario-parsed-edited.json");
+                InputStream stream = Readability.getStream(glossarioFileName, "/models/glossario-parsed-edited.json");
                 JsonReader reader = new JsonReader(new InputStreamReader(stream));
                 GlossarioEntry[] entries = gson.fromJson(reader, GlossarioEntry[].class);
                 for (GlossarioEntry entry : entries) {
@@ -117,25 +118,6 @@ public class ItalianReadabilityModel {
             LOGGER.info("Readability model already loaded");
         }
         return ourInstance;
-    }
-
-    private static InputStream getStream(String fileName, @Nullable String defaultFileName)
-            throws FileNotFoundException {
-        if (fileName != null) {
-            File streamFile = new File(fileName);
-            if (streamFile.exists()) {
-                return new FileInputStream(streamFile);
-            }
-        }
-        InputStream input = ItalianReadabilityModel.class.getResourceAsStream(defaultFileName);
-        if (input != null) {
-            return input;
-        }
-
-        if (defaultFileName != null) {
-            return getStream(defaultFileName, null);
-        }
-        return null;
     }
 
     private ItalianReadabilityModel(

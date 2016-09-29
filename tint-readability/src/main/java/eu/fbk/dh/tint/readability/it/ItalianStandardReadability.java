@@ -1,4 +1,4 @@
-package eu.fbk.dh.tint.readability;
+package eu.fbk.dh.tint.readability.it;
 
 import edu.stanford.nlp.pipeline.Annotation;
 import org.slf4j.Logger;
