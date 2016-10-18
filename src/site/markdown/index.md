@@ -20,16 +20,18 @@
 <h3 class='no-before'>About</h3>
 
 **Tint** (The Italian NLP Tool) is a Java-based pipeline for Natural Language Processing (NLP) in Italian.
-It is very fast and accurate, and implements most of the common linguistic tools, such as part-of-speech tagging,
-dependency parsing, entity linking.
+It is very fast and accurate, and implements most of the common linguistic tools, such as part-of-speech tagging and
+dependency parsing.
 The tool is based on [Stanford CoreNLP](http://stanfordnlp.github.io/CoreNLP/), and can be used
 as a stand-alone tool, included as a Java library or as a REST API service.
+Tint also includes wrappers (for third-party tools) that use the CoreNLP paradigm and therefore can be applied to
+languages different than Italian.
 
 <h3 class='no-before'>Features</h3>
 
 - Fast and accurate native basic NLP tasks (tokenization, sentence splitting, morphological analysis, lemmatization)
 - Modules for part-of-speech tagging, dependency parsing and named entity recognition use state-of-the art technologies
-- It includes wrappers for entity linking, time expression identification, keywords extraction 
+- It includes wrappers for entity linking, time expression identification, keywords extraction, hyphenation, geocoding.
 - Extensible interface, through Stanford CoreNLP library
 - REST API service included, built on top of [Grizzly](https://grizzly.java.net/)
 

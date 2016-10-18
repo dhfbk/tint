@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>StanfordTest xref</title>
+<link type="text/css" rel="stylesheet" href="../stylesheet.css" />
+</head>
+<body>
+<pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">import</strong> edu.stanford.nlp.pipeline.Annotation;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <strong class="jxr_keyword">import</strong> edu.stanford.nlp.pipeline.StanfordCoreNLP;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> eu.fbk.dh.tint.runner.outputters.JSONOutputter;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.Properties;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * Created by alessio on 25/09/16.</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="..//StanfordTest.html">StanfordTest</a> {
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(StanfordTest.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(String[] args) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>          String text = <span class="jxr_string">"International prosecutors investigating the downing of flight MH17 over eastern Ukraine in 2014 say the Buk missile that hit the plane was from Russia.\n"</span>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>                  + <span class="jxr_string">"They also narrowed down the area it was fired from to a field in territory controlled by Russian-backed rebels.\n"</span>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>                  + <span class="jxr_string">"All 298 people on board the Boeing 777 died when it broke apart in mid-air flying from Amsterdam to Kuala Lumpur.\n"</span>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>                  + <span class="jxr_string">"Russia says it cannot accept the findings as the final truth, saying no Russian weapons were taken to Ukraine.\n"</span>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>                  + <span class="jxr_string">"\&quot;Based on the criminal investigation, we have concluded that flight MH17 was downed by a Buk missile of the series 9M83 that came from the territory of the Russian Federation,\&quot; chief Dutch police investigator Wilbert Paulissen told a news conference on Thursday.\n"</span>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>                  + <span class="jxr_string">"The missile had been taken from Russia to rebel-held Ukraine in the morning 17 of July, when the plane was shot down, and the launcher was taken back to Russia afterwards, he said."</span>;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>          Properties props = <strong class="jxr_keyword">new</strong> Properties();
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>          props.setProperty(<span class="jxr_string">"annotators"</span>, <span class="jxr_string">"tokenize, ssplit, pos, lemma, readability"</span>);
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>          props.setProperty(<span class="jxr_string">"readability.language"</span>, <span class="jxr_string">"en"</span>);
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>          props.setProperty(<span class="jxr_string">"customAnnotatorClass.readability"</span>, <span class="jxr_string">"eu.fbk.dh.tint.readability.ReadabilityAnnotator"</span>);
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          StanfordCoreNLP pipeline = <strong class="jxr_keyword">new</strong> StanfordCoreNLP(props);
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          Annotation document = <strong class="jxr_keyword">new</strong> Annotation(text);
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>          pipeline.annotate(document);
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          System.out.println(JSONOutputter.jsonPrint(document));
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      }
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2016 <a href="http://www.fbk.eu">FBK-irst</a>. All rights reserved.</div>
+</body>
+</html>
