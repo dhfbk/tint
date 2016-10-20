@@ -30,12 +30,6 @@
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-runner</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-json</artifactId>
             <version>${project.version}</version>
         </dependency>

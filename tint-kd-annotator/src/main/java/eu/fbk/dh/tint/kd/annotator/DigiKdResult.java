@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import eu.fbk.dh.tint.json.JSONExclude;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
