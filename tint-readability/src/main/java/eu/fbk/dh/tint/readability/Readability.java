@@ -7,8 +7,6 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.json.JSONExclude;
-import eu.fbk.dh.tint.json.JSONable;
-import eu.fbk.dh.tint.json.JSONableString;
 import eu.fbk.dh.tint.readability.es.SpanishReadabilityModel;
 import eu.fbk.utils.core.FrequencyHashSet;
 
@@ -17,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -25,7 +24,7 @@ import java.util.Set;
 /**
  * Created by alessio on 21/09/16.
  */
-public abstract class Readability implements JSONable {
+public abstract class Readability {
 
     private String language = null;
     private int contentWordSize = 0, contentEasyWordSize = 0, wordCount = 0;
@@ -179,6 +178,18 @@ public abstract class Readability implements JSONable {
         this.hyphenCount += increment;
     }
 
+    // thanks! http://stackoverflow.com/questions/3322152/is-there-a-way-to-get-rid-of-accents-and-convert-a-whole-string-to-regular-lette
+    public static String flattenToAscii(String string) {
+        StringBuilder sb = new StringBuilder(string.length());
+        string = Normalizer.normalize(string, Normalizer.Form.NFD);
+        for (char c : string.toCharArray()) {
+            if (c <= '\u007F') {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
     public void addWord(CoreLabel token) {
         String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
 //        String lemma = token.get(CoreAnnotations.LemmaAnnotation.class);
@@ -191,6 +202,7 @@ public abstract class Readability implements JSONable {
             wordCount++;
             docLenLettersOnly += token.endPosition() - token.beginPosition();
 
+            word = flattenToAscii(word);
             Hyphenation hyphenation = hyphenator.hyphenate(word);
 
             boolean done = false;
@@ -198,8 +210,7 @@ public abstract class Readability implements JSONable {
                 try {
                     String h = hyphenation.toString();
                     incrementHyphenCount(hyphenation.length() + 1);
-                    token.set(ReadabilityAnnotations.HyphenationAnnotation.class,
-                            new JSONableString(h));
+                    token.set(ReadabilityAnnotations.HyphenationAnnotation.class, h);
                     done = true;
                     hyphenWordCount++;
                 } catch (Exception e) {
@@ -222,7 +233,7 @@ public abstract class Readability implements JSONable {
             }
         }
         if (token.get(ReadabilityAnnotations.HyphenationAnnotation.class) == null) {
-            token.set(ReadabilityAnnotations.HyphenationAnnotation.class, new JSONableString(token.originalText()));
+            token.set(ReadabilityAnnotations.HyphenationAnnotation.class, token.originalText());
         }
 
         String genericPos = getGenericPos(pos);
@@ -298,9 +309,5 @@ public abstract class Readability implements JSONable {
                 ", posStats=" + posStats +
                 ", genericPosStats=" + genericPosStats +
                 '}';
-    }
-
-    @Override public String getName() {
-        return "readability";
     }
 }

@@ -26,6 +26,7 @@ public class EnglishStandardReadability extends EnglishReadability {
         immutablePos.add("CD");
         immutablePos.add("PDT");
         immutablePos.add("TO");
+        immutablePos.add("IN");
     }
 
     @Override protected String getGenericPos(String pos) {
@@ -33,7 +34,10 @@ public class EnglishStandardReadability extends EnglishReadability {
             return pos;
         }
         if (pos.equals("SYM")) {
-            return "F";
+            return "X";
+        }
+        if (pos.equals("MD")) {
+            return "V";
         }
 
         Matcher matcher = startsWithLetter.matcher(pos);
@@ -41,7 +45,7 @@ public class EnglishStandardReadability extends EnglishReadability {
             return super.getGenericPos(pos);
         }
 
-        return "F";
+        return "X";
     }
 
     public EnglishStandardReadability(Properties globalProperties, Properties localProperties, Annotation annotation) {
@@ -55,21 +59,25 @@ public class EnglishStandardReadability extends EnglishReadability {
         simplePosList.add("N");
         simplePosList.add("V");
 
-        nonWordPosList.add("F");
+        nonWordPosList.add("X");
 
-//        genericPosDescription.put("A", "Adjective");
-//        genericPosDescription.put("C", "Conjunction");
-//        genericPosDescription.put("D", "Determiner");
-//        genericPosDescription.put("F", "Punctuation");
-//        genericPosDescription.put("I", "Interjection");
-//        genericPosDescription.put("R", "Adverb");
-//        genericPosDescription.put("N", "Noun");
-//        genericPosDescription.put("S", "Preposition");
-//        genericPosDescription.put("P", "Pronoun");
-//        genericPosDescription.put("V", "Verb");
-//        genericPosDescription.put("X", "Other");
-//        genericPosDescription.put("Z", "Number");
-//        genericPosDescription.put("W", "Date");
+        genericPosDescription.put("J", "Adjective");
+        genericPosDescription.put("CC", "Conjunction");
+        genericPosDescription.put("CD", "Number");
+        genericPosDescription.put("D", "Determiner");
+        genericPosDescription.put("X", "Punctuation");
+        genericPosDescription.put("F", "Foreign word");
+        genericPosDescription.put("IN", "Subordinating (prep. or conj.)");
+        genericPosDescription.put("L", "List item marker");
+        genericPosDescription.put("PDT", "Pre-determiner");
+        genericPosDescription.put("POS", "Possessive");
+        genericPosDescription.put("P", "Pronoun");
+        genericPosDescription.put("R", "Adverb");
+        genericPosDescription.put("N", "Noun");
+        genericPosDescription.put("TO", "To");
+        genericPosDescription.put("U", "Interjection");
+        genericPosDescription.put("V", "Verb");
+        genericPosDescription.put("W", "Wh-stuff");
 
     }
 

@@ -13,7 +13,8 @@ import eu.fbk.utils.core.PropertiesUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,21 +32,9 @@ public class ItalianReadabilityModel {
 
     public static ItalianReadabilityModel getInstance(Properties globalProperties, Properties localProperties) {
         if (ourInstance == null) {
-            Properties stanfordProperties = PropertiesUtils
-                    .dotConvertedProperties(localProperties, "glossario.stanford");
-            for (String key : globalProperties.stringPropertyNames()) {
-                if (stanfordProperties.getProperty(key) == null) {
-                    stanfordProperties.setProperty(key, globalProperties.getProperty(key));
-                }
-            }
-
-            String glossarioFileName = localProperties.getProperty("glossario");
+            boolean useGlossario = PropertiesUtils.getBoolean(localProperties.getProperty("glossario.use"), false);
             String easyWordsFileName = localProperties.getProperty("easyWords");
 
-            Boolean parseGlossario = PropertiesUtils
-                    .getBoolean(localProperties.getProperty("glossario.parse", "true"), true);
-
-            StanfordCoreNLP pipeline = new StanfordCoreNLP(stanfordProperties);
             Gson gson = new Gson();
 
             // Loading simple words
@@ -81,36 +70,54 @@ public class ItalianReadabilityModel {
             // Loading glossario
 
             HashMap<String, GlossarioEntry> glossario = new HashMap<>();
-            LOGGER.info("Loading glossario");
-            try {
-                InputStream stream = Readability.getStream(glossarioFileName, "/models/glossario-parsed-edited.json");
-                JsonReader reader = new JsonReader(new InputStreamReader(stream));
-                GlossarioEntry[] entries = gson.fromJson(reader, GlossarioEntry[].class);
-                for (GlossarioEntry entry : entries) {
-                    for (String form : entry.getForms()) {
 
-                        if (parseGlossario) {
-                            Annotation annotation = new Annotation(form);
-                            pipeline.annotate(annotation);
-                            StringBuffer stringBuffer = new StringBuffer();
-                            List<CoreLabel> tokens = annotation.get(CoreAnnotations.TokensAnnotation.class);
-                            for (CoreLabel token : tokens) {
-                                stringBuffer.append(token.get(CoreAnnotations.LemmaAnnotation.class)).append(" ");
-                            }
-
-                            String pos = entry.getPos();
-                            String annotatedPos = tokens.get(0).get(CoreAnnotations.PartOfSpeechAnnotation.class);
-                            if (pos == null || annotatedPos.substring(0, 1).equals("S")) {
-                                glossario.put(stringBuffer.toString().trim(), entry);
-                            }
-                        }
-
-                        glossario.put(form, entry);
+            if (useGlossario) {
+                Properties stanfordProperties = PropertiesUtils
+                        .dotConvertedProperties(localProperties, "glossario.stanford");
+                for (String key : globalProperties.stringPropertyNames()) {
+                    if (stanfordProperties.getProperty(key) == null) {
+                        stanfordProperties.setProperty(key, globalProperties.getProperty(key));
                     }
                 }
 
-            } catch (Exception e) {
-                LOGGER.warn("Unable to load glossario file: {}", e.getMessage());
+                String glossarioFileName = localProperties.getProperty("glossario");
+
+                Boolean parseGlossario = PropertiesUtils
+                        .getBoolean(localProperties.getProperty("glossario.parse", "true"), true);
+
+                StanfordCoreNLP pipeline = new StanfordCoreNLP(stanfordProperties);
+                LOGGER.info("Loading glossario");
+                try {
+                    InputStream stream = Readability
+                            .getStream(glossarioFileName, "/models/glossario-parsed-edited.json");
+                    JsonReader reader = new JsonReader(new InputStreamReader(stream));
+                    GlossarioEntry[] entries = gson.fromJson(reader, GlossarioEntry[].class);
+                    for (GlossarioEntry entry : entries) {
+                        for (String form : entry.getForms()) {
+
+                            if (parseGlossario) {
+                                Annotation annotation = new Annotation(form);
+                                pipeline.annotate(annotation);
+                                StringBuffer stringBuffer = new StringBuffer();
+                                List<CoreLabel> tokens = annotation.get(CoreAnnotations.TokensAnnotation.class);
+                                for (CoreLabel token : tokens) {
+                                    stringBuffer.append(token.get(CoreAnnotations.LemmaAnnotation.class)).append(" ");
+                                }
+
+                                String pos = entry.getPos();
+                                String annotatedPos = tokens.get(0).get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                                if (pos == null || annotatedPos.substring(0, 1).equals("S")) {
+                                    glossario.put(stringBuffer.toString().trim(), entry);
+                                }
+                            }
+
+                            glossario.put(form, entry);
+                        }
+                    }
+
+                } catch (Exception e) {
+                    LOGGER.warn("Unable to load glossario file: {}", e.getMessage());
+                }
             }
 
             ourInstance = new ItalianReadabilityModel(glossario, easyWords);
