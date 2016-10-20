@@ -1,13 +1,24 @@
 package eu.fbk.dh.tint.geoloc.annotator;
 
 import com.google.gson.JsonElement;
-import eu.fbk.dh.tint.json.JSONable;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
+import java.lang.reflect.Type;
 
 /**
  * Created by alessio on 29/09/16.
  */
 
-public class GeocodResult implements JSONable {
+public class GeocodResult {
+
+//    public static class GeocodResultSerializer implements JsonSerializer<GeocodResult> {
+//
+//        @Override public JsonElement serialize(GeocodResult geocodResult, Type type,
+//                JsonSerializationContext jsonSerializationContext) {
+//            return jsonSerializationContext.serialize(geocodResult.getText());
+//        }
+//    }
 
     double longitude, latitude;
     int start, end;
@@ -51,9 +62,5 @@ public class GeocodResult implements JSONable {
         this.latitude = latitude;
         this.start = start;
         this.end = end;
-    }
-
-    @Override public String getName() {
-        return "geocodedlocation";
     }
 }
