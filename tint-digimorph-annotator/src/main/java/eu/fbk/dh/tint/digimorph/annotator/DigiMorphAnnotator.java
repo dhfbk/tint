@@ -48,7 +48,6 @@ public class DigiMorphAnnotator implements Annotator {
             } catch (Exception e) {
                 System.out.println(token_word);
                 e.printStackTrace();
-                System.exit(1);
             }
 
         }
