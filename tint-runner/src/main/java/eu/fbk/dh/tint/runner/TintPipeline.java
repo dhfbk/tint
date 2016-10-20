@@ -1,12 +1,16 @@
 package eu.fbk.dh.tint.runner;
 
+import com.google.gson.GsonBuilder;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.*;
-import eu.fbk.dh.tint.runner.outputters.*;
+import eu.fbk.dh.tint.runner.outputters.SerializerCollector;
+import eu.fbk.dh.tint.runner.outputters.TextProOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
 import java.io.*;
+import java.time.Instant;
 import java.util.Properties;
 
 /**
@@ -16,14 +20,24 @@ import java.util.Properties;
 public class TintPipeline {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TintPipeline.class);
-    StanfordCoreNLP pipeline = null;
-    String documentDate = null;
-    Properties props = new Properties();
+    //    private StanfordCoreNLP pipeline = null;
+    private String documentDate = null;
+    private Properties props = new Properties();
+
+    private boolean DEFAULT_LOAD_SERIALIZER = false;
+    SerializerCollector serializerCollector = null;
+
+    public void loadSerializers() {
+        serializerCollector = new SerializerCollector();
+    }
 
     public void load() {
-        if (pipeline == null) {
-            pipeline = new StanfordCoreNLP(props);
+//        if (pipeline == null) {
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        if (DEFAULT_LOAD_SERIALIZER) {
+            loadSerializers();
         }
+//        }
     }
 
     public void loadDefaultProperties() throws IOException {
@@ -50,6 +64,10 @@ public class TintPipeline {
         }
     }
 
+    public void setProperty(String key, String value) {
+        props.setProperty(key, value);
+    }
+
     public String getDocumentDate() {
         return documentDate;
     }
@@ -59,14 +77,24 @@ public class TintPipeline {
     }
 
     public Annotation runRaw(String text) {
+        return runRaw(text, null);
+    }
+
+    public Annotation runRaw(String text, @Nullable StanfordCoreNLP pipeline) {
         load();
 
         Annotation annotation = new Annotation(text);
         LOGGER.debug("Text: {}", text);
-        if (documentDate != null) {
-            annotation.set(CoreAnnotations.DocDateAnnotation.class, documentDate);
+        if (documentDate == null) {
+            documentDate = Instant.now().toString().substring(0, 10);
+        }
+
+        annotation.set(CoreAnnotations.DocDateAnnotation.class, documentDate);
+        if (pipeline == null) {
+            pipeline = new StanfordCoreNLP(props);
         }
         pipeline.annotate(annotation);
+        annotation.set(TimingAnnotations.TimingAnnotation.class, pipeline.timingInformation());
 
         return annotation;
     }
@@ -83,7 +111,8 @@ public class TintPipeline {
         reader.close();
         String text = inputText.toString();
 
-        Annotation annotation = runRaw(text);
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        Annotation annotation = runRaw(text, pipeline);
 
         switch (format) {
         case CONLL:
@@ -96,7 +125,13 @@ public class TintPipeline {
             XMLOutputter.xmlPrint(annotation, outputStream, pipeline);
             break;
         case JSON:
-            eu.fbk.dh.tint.runner.outputters.JSONOutputter.jsonPrint(annotation, outputStream, pipeline);
+            GsonBuilder gsonBuilder;
+            if (serializerCollector != null) {
+                gsonBuilder = serializerCollector.getGsonBuilder();
+            } else {
+                gsonBuilder = new GsonBuilder();
+            }
+            eu.fbk.dh.tint.runner.outputters.JSONOutputter.jsonPrint(gsonBuilder, annotation, outputStream, pipeline);
             break;
         case TEXTPRO:
             TextProOutputter.tpPrint(annotation, outputStream, pipeline);

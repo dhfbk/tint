@@ -48,6 +48,10 @@ public class TintServer {
             pipeline.loadDefaultProperties();
             pipeline.loadPropertiesFromFile(configFile);
             pipeline.addProperties(additionalProperties);
+
+            // todo: parametrize this!
+            pipeline.loadSerializers();
+
             pipeline.load();
 
             LOGGER.info("Pipeline loaded");
@@ -67,6 +71,7 @@ public class TintServer {
             Thread.currentThread().join();
         } catch (Exception e) {
             LOGGER.error("error running " + host + ":" + port);
+            e.printStackTrace();
         }
     }
 

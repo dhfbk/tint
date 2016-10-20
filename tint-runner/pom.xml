@@ -92,6 +92,12 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <groupId>eu.fbk.pikes</groupId>
+            <artifactId>pikes-twm</artifactId>
+            <version>${tint.pikes.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-tokenizer</artifactId>
             <version>${tint.version}</version>
@@ -113,6 +119,32 @@
             <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-digimorph-annotator</artifactId>
             <version>${tint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-geoloc-annotator</artifactId>
+            <version>${tint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-heideltime-annotator</artifactId>
+            <version>${tint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-kd-annotator</artifactId>
+            <version>${tint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.lukehutch</groupId>
+            <artifactId>fast-classpath-scanner</artifactId>
+            <version>LATEST</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

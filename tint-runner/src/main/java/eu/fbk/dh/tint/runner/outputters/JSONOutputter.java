@@ -5,7 +5,6 @@ import edu.stanford.nlp.hcoref.CorefCoreAnnotations;
 import edu.stanford.nlp.hcoref.data.CorefChain;
 import edu.stanford.nlp.ie.machinereading.structure.Span;
 import edu.stanford.nlp.ie.util.RelationTriple;
-import edu.stanford.nlp.io.StringOutputStream;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.IndexedWord;
@@ -25,9 +24,7 @@ import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import edu.stanford.nlp.trees.TreePrint;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.TypesafeMap;
-import eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotations;
-import eu.fbk.dh.tint.json.AnnotationExclusionStrategy;
-import eu.fbk.dh.tint.json.JSONable;
+import eu.fbk.dh.tint.json.JSONLabel;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -42,14 +39,30 @@ import java.util.List;
 public class JSONOutputter extends AnnotationOutputter {
 
     private final ThreadLocal<Annotation> annotationThreadLocal = new ThreadLocal<>();
+    GsonBuilder gsonBuilder = new GsonBuilder();
 
     static private void add(Gson gson, JsonObject jsonObject, TypesafeMap annotation) {
         for (Class<?> myClass : annotation.keySet()) {
             Object o = annotation.get((Class) myClass);
             if (o != null) {
-                if (o instanceof JSONable) {
-                    String name = ((JSONable) o).getName();
-                    jsonObject.add(name, ((JSONable) o).getJson(gson));
+                if (myClass.isAnnotationPresent(JSONLabel.class)) {
+                    JSONLabel JsonAnnotation = myClass.getAnnotation(JSONLabel.class);
+                    String name = JsonAnnotation.value();
+                    if (name != null && name.length() > 0) {
+                        try {
+                            jsonObject.add(JsonAnnotation.value(), gson.toJsonTree(o));
+                        } catch (Exception e) {
+                            // ignored
+                        }
+                    }
+
+                    Class<?>[] serializerClasses = JsonAnnotation.serializer();
+                    for (Class<?> serializerClass : serializerClasses) {
+                        if (JsonSerializer.class.isAssignableFrom(serializerClass)) {
+                            // do stuff
+                        }
+                    }
+
                 }
             }
         }
@@ -153,10 +166,17 @@ public class JSONOutputter extends AnnotationOutputter {
         }
     }
 
+    public JSONOutputter(GsonBuilder gsonBuilder) {
+        this.gsonBuilder = gsonBuilder;
+    }
+
+    public JSONOutputter() {
+        this.gsonBuilder = new GsonBuilder();
+    }
+
     @Override
     public void print(Annotation doc, OutputStream target, Options options) throws IOException {
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
         if (options.pretty) {
             gsonBuilder.setPrettyPrinting();
         }
@@ -165,7 +185,8 @@ public class JSONOutputter extends AnnotationOutputter {
         gsonBuilder.registerTypeAdapter(RelationTriple.class, new RelationTripleSerializer());
         gsonBuilder.registerTypeAdapter(Timex.class, new TimexSerializer());
         gsonBuilder.registerTypeAdapter(CorefChain.class, new CorefChainSerializer());
-        Gson gson = gsonBuilder.setExclusionStrategies(new AnnotationExclusionStrategy()).create();
+        gsonBuilder.serializeSpecialFloatingPointValues();
+        Gson gson = gsonBuilder.create();
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("docId", doc.get(CoreAnnotations.DocIDAnnotation.class));
@@ -189,7 +210,9 @@ public class JSONOutputter extends AnnotationOutputter {
         annotationThreadLocal.set(doc);
         jsonObject.add("corefs", gson.toJsonTree(doc.get(CorefCoreAnnotations.CorefChainAnnotation.class)));
 
-        Writer w = new OutputStreamWriter(target, "UTF-8");
+//        System.out.println(gson.toJson(jsonObject));
+
+        Writer w = new OutputStreamWriter(target);
         w.write(gson.toJson(jsonObject));
         w.flush();
     }
@@ -200,9 +223,13 @@ public class JSONOutputter extends AnnotationOutputter {
         for (CoreMap sentence : sentences) {
             JsonObject sentenceObj = new JsonObject();
 
+            List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
             sentenceObj.addProperty("id", sentence.get(CoreAnnotations.SentenceIDAnnotation.class));
             sentenceObj.addProperty("index", sentence.get(CoreAnnotations.SentenceIndexAnnotation.class));
             sentenceObj.addProperty("line", sentence.get(CoreAnnotations.LineNumberAnnotation.class));
+            sentenceObj.addProperty("characterOffsetBegin", tokens.get(0).beginPosition());
+            sentenceObj.addProperty("characterOffsetEnd", tokens.get(tokens.size() - 1).endPosition());
+            sentenceObj.addProperty("text", sentence.get(CoreAnnotations.TextAnnotation.class));
 
             // Dependencies
             sentenceObj.add("basic-dependencies",
@@ -258,7 +285,6 @@ public class JSONOutputter extends AnnotationOutputter {
             tokenObj.addProperty("word", token.word());
             tokenObj.addProperty("originalText", token.originalText());
             tokenObj.addProperty("lemma", token.lemma());
-            tokenObj.addProperty("full_morpho", token.get(DigiMorphAnnotations.MorphoAnnotation.class));
             tokenObj.addProperty("characterOffsetBegin", token.beginPosition());
             tokenObj.addProperty("characterOffsetEnd", token.endPosition());
             tokenObj.addProperty("pos", token.tag());
@@ -282,21 +308,43 @@ public class JSONOutputter extends AnnotationOutputter {
         sentenceObj.add("tokens", jsonTokenArray);
     }
 
+    public static String jsonPrint(GsonBuilder gsonBuilder, Annotation annotation) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        new JSONOutputter(gsonBuilder).print(annotation, outputStream);
+        return new String(outputStream.toByteArray(), "UTF-8");
+    }
+
+    public static void jsonPrint(GsonBuilder gsonBuilder, Annotation annotation, OutputStream os) throws IOException {
+        new JSONOutputter(gsonBuilder).print(annotation, os);
+    }
+
+    public static void jsonPrint(GsonBuilder gsonBuilder, Annotation annotation, OutputStream os,
+            StanfordCoreNLP pipeline) throws IOException {
+        new JSONOutputter(gsonBuilder).print(annotation, os, pipeline);
+    }
+
+    public static void jsonPrint(GsonBuilder gsonBuilder, Annotation annotation, OutputStream os, Options options)
+            throws IOException {
+        new JSONOutputter(gsonBuilder).print(annotation, os, options);
+    }
+
     public static String jsonPrint(Annotation annotation) throws IOException {
-        StringOutputStream os = new StringOutputStream();
-        new JSONOutputter().print(annotation, os);
-        return os.toString();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        new JSONOutputter().print(annotation, outputStream);
+        return new String(outputStream.toByteArray(), "UTF-8");
     }
 
     public static void jsonPrint(Annotation annotation, OutputStream os) throws IOException {
         new JSONOutputter().print(annotation, os);
     }
 
-    public static void jsonPrint(Annotation annotation, OutputStream os, StanfordCoreNLP pipeline) throws IOException {
+    public static void jsonPrint(Annotation annotation, OutputStream os,
+            StanfordCoreNLP pipeline) throws IOException {
         new JSONOutputter().print(annotation, os, pipeline);
     }
 
-    public static void jsonPrint(Annotation annotation, OutputStream os, Options options) throws IOException {
+    public static void jsonPrint(Annotation annotation, OutputStream os, Options options)
+            throws IOException {
         new JSONOutputter().print(annotation, os, options);
     }
 

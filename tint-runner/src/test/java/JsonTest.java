@@ -12,11 +12,11 @@ import java.util.Map;
 public class JsonTest {
 
     public static void main(String[] args) {
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         Map<Integer, String> map = new HashMap<>();
         map.put(1, "Ciao");
-        map.put(2, "Buonasera");
+        map.put(2, "È");
 
         System.out.println(gson.toJson(map).toString());
     }

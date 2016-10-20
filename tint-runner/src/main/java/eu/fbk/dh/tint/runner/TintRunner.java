@@ -92,7 +92,7 @@ public class TintRunner {
             }
 
             final String formatString = cmd.getOptionValue("f", String.class);
-            OutputFormat format = getOutputFormat(formatString, OutputFormat.CONLL);
+            OutputFormat format = getOutputFormat(formatString, OutputFormat.JSON);
 
             // Input
 
