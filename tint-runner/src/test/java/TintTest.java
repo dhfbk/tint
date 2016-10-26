@@ -9,17 +9,17 @@ import eu.fbk.dh.tint.runner.outputters.JSONOutputter;
 public class TintTest {
 
     public static void main(String[] args) {
-        String sentenceText = "Barack Obama è stato eletto presidente degli Stati Uniti otto anni fa.";
+        String sentenceText = "Barack Obama è stato eletto\n\n\npresidente degli Stati . Uniti otto anni fa.";
 
         try {
 
             TintPipeline pipeline = new TintPipeline();
             pipeline.loadDefaultProperties();
-            pipeline.loadSerializers();
-            pipeline.setProperty("timex.treeTaggerHome", "/Volumes/LEXAR/Software/TreeTagger");
+//            pipeline.loadSerializers();
+            pipeline.setProperty("annotators", "ita_toksent");
+            pipeline.setProperty("ita_toksent.tokenizeOnlyOnSpace", "true");
+//            pipeline.setProperty("ita_toksent.ssplitOnlyOnNewLine", "true");
             pipeline.load();
-
-            pipeline.setDocumentDate("2016-10-20");
 
             Annotation annotation = pipeline.runRaw(sentenceText);
             System.out.println(JSONOutputter.jsonPrint(annotation));

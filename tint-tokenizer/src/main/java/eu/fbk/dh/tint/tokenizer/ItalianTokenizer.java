@@ -58,6 +58,7 @@ public class ItalianTokenizer {
      * Logger instance named <code>HardTokenizer</code>.
      */
     static Logger logger = LoggerFactory.getLogger(ItalianTokenizer.class);
+    static Pattern spaceTokenizer = Pattern.compile("\\s+");
 
     private Trie trie;
     private Set<Integer> splittingChars = new HashSet<>();
@@ -325,146 +326,201 @@ public class ItalianTokenizer {
     }
 
     public List<List<CoreLabel>> parse(String text) {
-        return parse(text, true);
+        return parse(text, true, false, false);
     }
 
-    public List<List<CoreLabel>> parse(String text, boolean splitOnNewLine) {
+    public List<List<CoreLabel>> parse(String text, boolean newlineIsSentenceBreak, boolean tokenizeOnlyOnSpace,
+            boolean ssplitOnlyOnNewLine) {
 
         List<List<CoreLabel>> ret = new ArrayList<>();
-
         List<CoreLabel> temp = new ArrayList<>();
-
-        HashMap<Integer, Integer> mergeList = new HashMap<>();
-
-        for (Pattern expression : expressions.keySet()) {
-            int get = expressions.get(expression);
-            Matcher matcher = expression.matcher(text);
-            while (matcher.find()) {
-                mergeList.put(matcher.start(get), matcher.end(get));
-            }
-        }
-
-        TokenGroup tokenGroup = tokenArray(text);
-        ArrayList<Token> tokens = tokenGroup.getSupport();
-
-        if (tokens.size() == 0) {
-            return ret;
-        }
-
-        int offset = tokens.get(0).getStart();
-        String s = " " + getString(tokenGroup) + " ";
-
-        Collection<Emit> emits = trie.parseText(s);
-        for (Emit emit : emits) {
-            // Added -1 for compatibility with the "s" string
-            Token startToken = tokenGroup.getStartOffIndexes().get(emit.getStart() + 1 - 1 + offset);
-            Token endToken = tokenGroup.getEndOffIndexes().get(emit.getEnd() - 1 - 1 + offset);
-            if (startToken != null && endToken != null) {
-                mergeList.put(startToken.getStart(), endToken.getEnd());
-            } else {
-                logger.warn("Something is null! -- " + emit.toString());
-            }
-        }
-
-        Integer end = null;
-        Integer start = null;
-
         int index = 0;
-        for (int i = 0; i < tokens.size(); i++) {
-            Token token = tokens.get(i);
-            boolean merging = false;
 
-            if (mergeList.containsKey(token.getStart()) || end != null) {
-                merging = true;
-                if (end == null) {
-                    end = mergeList.get(token.getStart());
+        if (tokenizeOnlyOnSpace) {
+
+            int nextStart = 0;
+            boolean lastIsWhitespace = true;
+            int newLineCount = 0;
+
+            for (int i = 0; i < text.length(); i++) {
+                char currentChar = text.charAt(i);
+                if (Character.isWhitespace(currentChar)) {
+                    if (!lastIsWhitespace) {
+                        System.out.println("---" + text.substring(nextStart, i) + "---" + newLineCount);
+
+                        String word = text.substring(nextStart, i);
+                        CoreLabel clToken = factory.makeToken(word, word, nextStart, i - nextStart);
+                        clToken.setIndex(++index);
+
+                        if (newlineIsSentenceBreak && newLineCount > 0) {
+                            if (temp.size() > 0) {
+                                ret.add(temp);
+                                temp = new ArrayList<>();
+                            }
+                        }
+
+                        temp.add(clToken);
+
+                        if (!ssplitOnlyOnNewLine) {
+                            if (word.length() == 1 && sentenceChars.contains((int) word.charAt(0))) {
+                                ret.add(temp);
+                                temp = new ArrayList<>();
+                            }
+                        }
+
+                        newLineCount = 0;
+                    }
+                    if (currentChar == '\n') {
+                        newLineCount++;
+                    }
+                    lastIsWhitespace = true;
+                } else {
+                    if (lastIsWhitespace) {
+                        nextStart = i;
+                    }
+                    lastIsWhitespace = false;
+                }
+            }
+            if (temp.size() > 0) {
+                ret.add(temp);
+            }
+//            if (!lastIsWhitespace) {
+//                System.out.println("---" + text.substring(nextStart) + "---");
+//            }
+        } else {
+            HashMap<Integer, Integer> mergeList = new HashMap<>();
+
+            for (Pattern expression : expressions.keySet()) {
+                int get = expressions.get(expression);
+                Matcher matcher = expression.matcher(text);
+                while (matcher.find()) {
+                    mergeList.put(matcher.start(get), matcher.end(get));
                 }
             }
 
-            if (merging && (end != null && token.getEnd() >= end)) {
-                end = null;
-                merging = false;
+            TokenGroup tokenGroup = tokenArray(text);
+            ArrayList<Token> tokens = tokenGroup.getSupport();
+
+            if (tokens.size() == 0) {
+                return ret;
             }
 
-            if (token.getNormForm().equals("'")) {
+            int offset = tokens.get(0).getStart();
+            String s = " " + getString(tokenGroup) + " ";
 
-                Token prevToken = null,
-                        nextToken = null;
-                if (i > 0) {
-                    prevToken = tokens.get(i - 1);
+            Collection<Emit> emits = trie.parseText(s);
+            for (Emit emit : emits) {
+                // Added -1 for compatibility with the "s" string
+                Token startToken = tokenGroup.getStartOffIndexes().get(emit.getStart() + 1 - 1 + offset);
+                Token endToken = tokenGroup.getEndOffIndexes().get(emit.getEnd() - 1 - 1 + offset);
+                if (startToken != null && endToken != null) {
+                    mergeList.put(startToken.getStart(), endToken.getEnd());
+                } else {
+                    logger.warn("Something is null! -- " + emit.toString());
                 }
-                if (i < tokens.size() - 1) {
-                    nextToken = tokens.get(i + 1);
-                }
+            }
 
-                // Example: l'economia
-                if (prevToken != null &&
-                        nextToken != null &&
-                        !token.isPreceedBySpace() &&
-                        !nextToken.isPreceedBySpace() &&
-                        Character.isLetter(prevToken.getForm().charAt(prevToken.getForm().length() - 1)) &&
-                        Character.isLetter(nextToken.getForm().charAt(0))) {
-                    CoreLabel lastToken = temp.get(temp.size() - 1);
-                    start = lastToken.beginPosition();
-                    temp.remove(temp.size() - 1);
-                    index--;
-                }
+            Integer end = null;
+            Integer start = null;
 
-                // Example: sta'
-                else if (prevToken != null &&
-                        Character.isLetter(prevToken.getForm().charAt(prevToken.getForm().length() - 1)) &&
-                        !token.isPreceedBySpace() &&
-                        (nextToken == null || !nextToken.getNormForm().equals("'"))) {
-                    CoreLabel lastToken = temp.get(temp.size() - 1);
-                    start = lastToken.beginPosition();
-                    temp.remove(temp.size() - 1);
-                    index--;
-                }
+            for (int i = 0; i < tokens.size(); i++) {
+                Token token = tokens.get(i);
+                boolean merging = false;
 
-                // Example: 'ndrangheta
-                else if (nextToken != null &&
-                        Character.isLetter(nextToken.getForm().charAt(0)) &&
-                        !nextToken.isPreceedBySpace() &&
-                        (prevToken == null || !prevToken.getNormForm().equals("'"))) {
+                if (mergeList.containsKey(token.getStart()) || end != null) {
                     merging = true;
+                    if (end == null) {
+                        end = mergeList.get(token.getStart());
+                    }
                 }
-            }
 
-            if (merging) {
+                if (merging && (end != null && token.getEnd() >= end)) {
+                    end = null;
+                    merging = false;
+                }
+
+                if (token.getNormForm().equals("'")) {
+
+                    Token prevToken = null,
+                            nextToken = null;
+                    if (i > 0) {
+                        prevToken = tokens.get(i - 1);
+                    }
+                    if (i < tokens.size() - 1) {
+                        nextToken = tokens.get(i + 1);
+                    }
+
+                    // Example: l'economia
+                    if (prevToken != null &&
+                            nextToken != null &&
+                            !token.isPreceedBySpace() &&
+                            !nextToken.isPreceedBySpace() &&
+                            Character.isLetter(prevToken.getForm().charAt(prevToken.getForm().length() - 1)) &&
+                            Character.isLetter(nextToken.getForm().charAt(0))) {
+                        CoreLabel lastToken = temp.get(temp.size() - 1);
+                        start = lastToken.beginPosition();
+                        temp.remove(temp.size() - 1);
+                        index--;
+                    }
+
+                    // Example: sta'
+                    else if (prevToken != null &&
+                            Character.isLetter(prevToken.getForm().charAt(prevToken.getForm().length() - 1)) &&
+                            !token.isPreceedBySpace() &&
+                            (nextToken == null || !nextToken.getNormForm().equals("'"))) {
+                        CoreLabel lastToken = temp.get(temp.size() - 1);
+                        start = lastToken.beginPosition();
+                        temp.remove(temp.size() - 1);
+                        index--;
+                    }
+
+                    // Example: 'ndrangheta
+                    else if (nextToken != null &&
+                            Character.isLetter(nextToken.getForm().charAt(0)) &&
+                            !nextToken.isPreceedBySpace() &&
+                            (prevToken == null || !prevToken.getNormForm().equals("'"))) {
+                        merging = true;
+                    }
+                }
+
+                if (merging) {
+                    if (start == null) {
+                        start = token.getStart();
+                    }
+                    continue;
+                }
+
                 if (start == null) {
                     start = token.getStart();
                 }
-                continue;
-            }
 
-            if (start == null) {
-                start = token.getStart();
-            }
+                int finish = token.getEnd();
+                String word = text.substring(start, finish);
+                CoreLabel clToken = factory.makeToken(word, word, start, finish - start);
+                clToken.setIndex(++index);
 
-            int finish = token.getEnd();
-            String word = text.substring(start, finish);
-            CoreLabel clToken = factory.makeToken(word, word, start, finish - start);
-            clToken.setIndex(++index);
-
-            if (splitOnNewLine && tokenGroup.getNewLines().contains(start)) {
-                if (temp.size() > 0) {
-                    ret.add(temp);
-                    temp = new ArrayList<>();
+                if (newlineIsSentenceBreak && tokenGroup.getNewLines().contains(start)) {
+                    if (temp.size() > 0) {
+                        ret.add(temp);
+                        temp = new ArrayList<>();
+                    }
                 }
+
+                temp.add(clToken);
+
+                if (!ssplitOnlyOnNewLine) {
+                    if (word.length() == 1 && sentenceChars.contains((int) word.charAt(0))) {
+                        ret.add(temp);
+                        temp = new ArrayList<>();
+                    }
+                }
+
+                start = null;
             }
 
-            temp.add(clToken);
-
-            if (word.length() == 1 && sentenceChars.contains((int) word.charAt(0))) {
+            if (temp.size() > 0) {
                 ret.add(temp);
-                temp = new ArrayList<>();
             }
-
-            start = null;
-        }
-
-        if (temp.size() > 0) {
-            ret.add(temp);
         }
 
         return ret;

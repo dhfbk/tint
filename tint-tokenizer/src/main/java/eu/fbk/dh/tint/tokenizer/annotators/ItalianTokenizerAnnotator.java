@@ -19,13 +19,21 @@ import java.util.*;
 
 public class ItalianTokenizerAnnotator implements Annotator {
 
-    boolean newlineIsSentenceBreak;
+    boolean newlineIsSentenceBreak, tokenizeOnlyOnSpace, ssplitOnlyOnNewLine;
     ItalianTokenizer tokenizer;
 
     public ItalianTokenizerAnnotator(String annotatorName, Properties props) {
         String modelFile = props.getProperty(annotatorName + ".model", null);
+
         newlineIsSentenceBreak = PropertiesUtils
                 .getBoolean(props.getProperty(annotatorName + ".newlineIsSentenceBreak"), true);
+        tokenizeOnlyOnSpace = PropertiesUtils
+                .getBoolean(props.getProperty(annotatorName + ".tokenizeOnlyOnSpace"), false);
+        ssplitOnlyOnNewLine = PropertiesUtils
+                .getBoolean(props.getProperty(annotatorName + ".ssplitOnlyOnNewLine"), false);
+        if (ssplitOnlyOnNewLine) {
+            newlineIsSentenceBreak = true;
+        }
 
         File model = null;
         if (modelFile != null) {
@@ -41,7 +49,7 @@ public class ItalianTokenizerAnnotator implements Annotator {
      */
     @Override public void annotate(Annotation annotation) {
         String text = annotation.get(CoreAnnotations.TextAnnotation.class);
-        List<List<CoreLabel>> sTokens = tokenizer.parse(text, newlineIsSentenceBreak);
+        List<List<CoreLabel>> sTokens = tokenizer.parse(text, newlineIsSentenceBreak, tokenizeOnlyOnSpace, ssplitOnlyOnNewLine);
 
         List<CoreMap> sentences = new ArrayList<>();
         ArrayList<CoreLabel> tokens = new ArrayList<>();
