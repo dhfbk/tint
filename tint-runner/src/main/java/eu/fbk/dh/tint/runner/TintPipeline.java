@@ -68,6 +68,10 @@ public class TintPipeline {
         props.setProperty(key, value);
     }
 
+    public String getProperty(String key) {
+        return props.getProperty(key);
+    }
+
     public String getDocumentDate() {
         return documentDate;
     }
