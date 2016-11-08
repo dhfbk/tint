@@ -24,6 +24,7 @@ import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import edu.stanford.nlp.trees.TreePrint;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.TypesafeMap;
+import eu.fbk.dh.tint.json.AnnotationExclusionStrategy;
 import eu.fbk.dh.tint.json.JSONLabel;
 
 import java.io.*;
@@ -50,7 +51,7 @@ public class JSONOutputter extends AnnotationOutputter {
                     String name = JsonAnnotation.value();
                     if (name != null && name.length() > 0) {
                         try {
-                            jsonObject.add(JsonAnnotation.value(), gson.toJsonTree(o));
+                            jsonObject.add(name, gson.toJsonTree(o));
                         } catch (Exception e) {
                             // ignored
                         }
@@ -186,6 +187,7 @@ public class JSONOutputter extends AnnotationOutputter {
         gsonBuilder.registerTypeAdapter(Timex.class, new TimexSerializer());
         gsonBuilder.registerTypeAdapter(CorefChain.class, new CorefChainSerializer());
         gsonBuilder.serializeSpecialFloatingPointValues();
+        gsonBuilder.setExclusionStrategies(new AnnotationExclusionStrategy());
         Gson gson = gsonBuilder.create();
 
         JsonObject jsonObject = new JsonObject();

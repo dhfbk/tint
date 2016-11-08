@@ -72,8 +72,6 @@ public class SerializerCollector {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        gsonBuilder.setExclusionStrategies(new AnnotationExclusionStrategy());
     }
 
 }
