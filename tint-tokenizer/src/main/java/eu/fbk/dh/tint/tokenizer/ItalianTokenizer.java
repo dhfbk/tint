@@ -40,7 +40,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -496,7 +495,14 @@ public class ItalianTokenizer {
 
                 int finish = token.getEnd();
                 String word = text.substring(start, finish);
-                CoreLabel clToken = factory.makeToken(word, word, start, finish - start);
+                String normWord = word;
+
+                // todo: bad
+                // solves https://github.com/dhfbk/tint/issues/3
+                if (word.charAt(word.length() - 1) == '’' || word.charAt(word.length() - 1) == '`') {
+                    normWord = word.substring(0, word.length() - 1) + "'";
+                }
+                CoreLabel clToken = factory.makeToken(normWord, word, start, finish - start);
                 clToken.setIndex(++index);
 
                 if (newlineIsSentenceBreak && tokenGroup.getNewLines().contains(start)) {
@@ -530,8 +536,9 @@ public class ItalianTokenizer {
 
         ItalianTokenizer tokenizer = new ItalianTokenizer();
 
-        byte[] file = Files.readAllBytes((new File("/Users/alessio/Desktop/milano.txt")).toPath());
-        String text = new String(file);
+//        byte[] file = Files.readAllBytes((new File("/Users/alessio/Desktop/milano.txt")).toPath());
+//        String text = new String(file);
+        String text = "Clinton in testa nei sondaggi dopo l’«assoluzione» dell’Fbi sull’uso di un server di posta privato quando era Segretario di stato.";
 //        text = "``Determinato, pronto a «fare tutto il necessario per mantenere la stabilità dei prezzi».''"
 //                + " Ma anche allarmato per come le conseguenze del referendum britannico minacciano l’economia e i mercati europei."
 //                + " Sono nato nel 200 S.p.A."
@@ -551,7 +558,7 @@ public class ItalianTokenizer {
         for (int i = 0; i < Math.min(10, sentences.size()); i++) {
             List<CoreLabel> sentence = sentences.get(i);
             for (CoreLabel token : sentence) {
-                System.out.println(token.originalText() + " -- " + token.beginPosition());
+                System.out.println(token.word() + " -- " + token.originalText() + " -- " + token.beginPosition());
 
             }
             System.out.println();
