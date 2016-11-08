@@ -1,12 +1,15 @@
 package eu.fbk.dh.tint.readability;
 
 import edu.stanford.nlp.ling.CoreAnnotation;
+import edu.stanford.nlp.pipeline.Annotator;
 import eu.fbk.dh.tint.json.JSONLabel;
 
 /**
  * Created by giovannimoretti on 19/05/16.
  */
 public class ReadabilityAnnotations {
+
+    public static Annotator.Requirement READABILITY_REQUIREMENT = new Annotator.Requirement("readability");
 
     @JSONLabel("readability")
     public static class ReadabilityAnnotation implements CoreAnnotation<Readability> {
@@ -21,6 +24,14 @@ public class ReadabilityAnnotations {
 
         public Class<String> getType() {
             return String.class;
+        }
+    }
+
+    @JSONLabel("difficultyLevel")
+    public static class DifficultyLevelAnnotation implements CoreAnnotation<Integer> {
+
+        public Class<Integer> getType() {
+            return Integer.class;
         }
     }
 

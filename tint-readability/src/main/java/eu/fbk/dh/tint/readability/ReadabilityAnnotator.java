@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import static eu.fbk.dh.tint.readability.ReadabilityAnnotations.READABILITY_REQUIREMENT;
+
 /**
  * Created by alessio on 21/09/16.
  */
@@ -98,7 +100,7 @@ public class ReadabilityAnnotator implements Annotator {
      * provide.  For example, the POS annotator will return "pos".
      */
     @Override public Set<Requirement> requirementsSatisfied() {
-        return Collections.emptySet();
+        return Collections.singleton(READABILITY_REQUIREMENT);
     }
 
     /**

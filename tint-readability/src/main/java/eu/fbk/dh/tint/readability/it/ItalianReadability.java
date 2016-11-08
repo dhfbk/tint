@@ -10,6 +10,7 @@ import eu.fbk.dh.tint.json.JSONExclude;
 import eu.fbk.dh.tint.readability.DescriptionForm;
 import eu.fbk.dh.tint.readability.GlossarioEntry;
 import eu.fbk.dh.tint.readability.Readability;
+import eu.fbk.dh.tint.readability.ReadabilityAnnotations;
 
 import java.util.*;
 
@@ -122,14 +123,17 @@ abstract class ItalianReadability extends Readability {
         String simplePos = getGenericPos(token.get(CoreAnnotations.PartOfSpeechAnnotation.class));
         String lemma = token.get(CoreAnnotations.LemmaAnnotation.class);
 
-        if (easyWords.get(1).get(simplePos).contains(lemma)) {
-            level1WordSize++;
+        if (easyWords.get(3).get(simplePos).contains(lemma)) {
+            level3WordSize++;
+            token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 3);
         }
         if (easyWords.get(2).get(simplePos).contains(lemma)) {
             level2WordSize++;
+            token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 2);
         }
-        if (easyWords.get(3).get(simplePos).contains(lemma)) {
-            level3WordSize++;
+        if (easyWords.get(1).get(simplePos).contains(lemma)) {
+            level1WordSize++;
+            token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 1);
         }
     }
 
