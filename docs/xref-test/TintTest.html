@@ -6,103 +6,41 @@
 </head>
 <body>
 <pre>
-<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">import</strong> edu.stanford.nlp.ling.CoreAnnotations;
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <strong class="jxr_keyword">import</strong> edu.stanford.nlp.ling.CoreLabel;
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> edu.stanford.nlp.pipeline.Annotation;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> edu.stanford.nlp.util.CoreMap;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> eu.fbk.dh.tint.kd.annotator.DigiKdAnnotations;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> eu.fbk.dh.tint.runner.TintPipeline;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> eu.fbk.dh.tint.runner.TintRunner;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">import</strong> edu.stanford.nlp.pipeline.Annotation;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <strong class="jxr_keyword">import</strong> eu.fbk.dh.tint.runner.TintPipeline;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> eu.fbk.dh.tint.runner.outputters.JSONOutputter;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * Created by alessio on 07/09/16.</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="..//TintTest.html">TintTest</a> {
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.io.ByteArrayInputStream;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.io.InputStream;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.io.OutputStream;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.nio.charset.StandardCharsets;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.util.Properties;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(String[] args) {
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>          String sentenceText = <span class="jxr_string">"Barack Obama è stato eletto\n\n\npresidente degli Stati . Uniti otto anni fa."</span>;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>          sentenceText = <span class="jxr_string">"Clinton in testa nei sondaggi dopo l’«assoluzione» dell’Fbi sull’uso di un server di posta privato quando era Segretario di stato."</span>;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * Created by alessio on 07/09/16.</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="..//TintTest.html">TintTest</a> {
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(TintTest.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>              TintPipeline pipeline = <strong class="jxr_keyword">new</strong> TintPipeline();
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>              pipeline.loadDefaultProperties();
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_comment">//            pipeline.loadSerializers();</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>              pipeline.setProperty(<span class="jxr_string">"annotators"</span>, <span class="jxr_string">"ita_toksent, pos"</span>);
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_comment">//            pipeline.setProperty("ita_toksent.tokenizeOnlyOnSpace", "true");</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_comment">//            pipeline.setProperty("ita_toksent.ssplitOnlyOnNewLine", "true");</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>              pipeline.load();
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(String[] args) {
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>          String sentenceText =
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>                  <span class="jxr_string">"Pensieri molto allegri. e sulla debolezza dei vinti. La pace che si firma è una pace che si puntella sull'arbitrio del vincitore  l'esportazione di merci verso la Germania; la causa va ricercata anche nel mancato  coinvolgimento, da parte del governo italiano, di esponenti politici e sociali delle terre  redente nella formulazione dei trattati. Quando leggiamo nella stampa francese che nell'Alsazia-Lorena ritornano  in questi giorni i compratori di Magonza e Francoforte per l'acquisto dei soliti  vini da taglio e che, in base al trattato, si riorganizza l'esportazione dei vini  e di alcune manifatture verso la Germania, noi ci chiediamo con un senso  di invidia e di stizza perché noi, italiani delle terre redente, non ci troviamo  nella stessa situazione in confronto dei paesi della defunta Monarchia. E qui ci preoccupa naturalmente in prima linea la crisi stessa dei vini. \n"</span>
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>                          + <span class="jxr_string">"Benché le cause della crisi siano molteplici e risiedano sovrattutto nelle  condizioni del cambio, è tuttavia innegabile che la mancanza di una disposizione precisa nel trattato difficoltò la ripresa dei mercati. Perché nel patto  di S. Germain non c'è stato assicurato un trattamento di favore? Il Governo  non ignorava il nostro postulato; ricorderemo in proposito che un deputato  trentino ebbe occasione di parlarne all'on. Sonnino già nella primavera del  1915, durante il periodo di neutralità e che lo stesso postulato riappare nei  memoriali e nelle pubblicazioni degli emigrati trentini durante la guerra; che  infine già da Berna il 2 novembre, prima dunque ancora dell'occupazione  di Trento, i deputati appena usciti dall'Austria ne telegrafavano al Ministero  degli esteri e pochi giorno dopo giunti a Roma ne parlavano all'on. Orlando  e all'on. Sonnino, lasciando a quest'ultimo anche un memoriale; più tardi  v'insistettero la consulta trentina, il consiglio d'agricoltura e ne trattò l'on. \n"</span>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>                          + <span class="jxr_string">"Tambosi a Parigi. Non v'ha dubbio tuttavia che se il paese avesse potuto imaginare che un  postulato il quale sembrava così facile non avrebbe potuto ottenere soddisfacimento, si sarebbe riscosso dal suo torpore ed avrebbe ben fatta sentire  diversamente la sua voce. Ma chi era pienamente informato, chi sapeva esattamente a qual punto  stavano le trattative? E qui noi mettiamo il dito nella piaga. La mancata  clausola sui vini non è che un esempio, e noi temiamo che nel trattato  troveremo ben altre omissioni. Ciò deve ascriversi sovrattutto al fatto che  nessun rappresentante del paese né politico, né tecnico, né commerciale, né  agricoltore venne chiamato dal Governo a Parigi, a tempo debito e munito  delle necessarie attribuzioni. Anzi, e questo è peggio, nel nostro paese né in  Italia, con partecipazione della regione nostra, non sorse alcuna commissione  a preparare e studiare le clausole finanziarie del trattato. In ogni più piccolo staterello sorto sulle rovine dell'Austria, si costituirono  larghe e molteplici commissioni di deputati, industriali, commercianti, tecnici,  finanzieri per preparare i trattati. I deputati redenti hanno potuto vedere  quasi tutti i loro colleghi della Camera austriaca in quanto già non sedevano  sui banchi dei rispettivi governi, partecipare o in commissioni preliminari  in casa propria o in appositi comitati presso le loro delegazioni di Parigi ai  lavori per la pace e hanno dovuto assistere a questo fenomeno con un senso  d'umiliazione, perché viceversa il loro governo nazionale si ricordava della  deputazione delle terre redente per consultarla solo incidentalmente. Non facciamo questione di persone; avremmo potuto ammettere che  si fossero scelti almeno altri rappresentanti come periti in argomento. Ciò  avvenne in parte per la Venezia Giulia, per noi, niente. Per iniziativa dei deputati il Comando supremo e con lui l'on. Orlando  acconsentirono alla costituzione del cosiddetto comitato di tutela in Vienna,  che nella mente dei promotori doveva diventare il rappresentante degl'italiani  nella liquidazione a[ustro] u[ngarica] e, durante l'armistizio, servire d'organo  di studio per la delegazione di Parigi. Ebbene, a fatica, appena dopo alcuni mesi preziosi si riuscì a convincere  la delegazione che, invece di rivolgersi all'uno o all'altro per informazioni,  procedendo a tastoni, poteva dirigersi al comitato, che aveva a sua disposizione  la maggior parte d'impiegati italiani ch'erano prima nei ministeri austriaci. Ma la cosa più dolorosa è che, nonostante molte e ripetute insistenze tra  delegazione e comitato non si è mai potuti arrivare ad una reciproca collaborazione sul terreno della difesa dei nostri interessi. Il caso dell'articolo 266  del trattato a cui s'è riferito recentemente il nostro collaboratore viennese, è  sintomatico e, a ragion veduta, meriterà un maggior rilievo. E auguriamoci che nel testo del trattato che, quando Dio vorrà, potremo  leggere, non si trovino altre simili sorprese. Frattanto però un senso di amarezza rimane nel nostro animo per la superficialità, l'assenza di ogni metodo e la mancanza di ogni criterio democratico  che dominarono in questioni di così vitale interesse per la nostra regione. Il Trentino per questo trattamento soffre non solo nei suoi interessi, ma  anche nella sua dignità."</span>;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_comment">//            LOGGER.info(sentenceText);</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>              Properties prop = <strong class="jxr_keyword">new</strong> Properties();
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>              prop.setProperty(<span class="jxr_string">"annotators"</span>,<span class="jxr_string">"ita_toksent, pos, ita_morpho, ita_lemma, keyphrase,ner "</span>);
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>              prop.setProperty(<span class="jxr_string">"keyphrase.languageFolder"</span>, <span class="jxr_string">"/Users/alessio/Downloads/languages"</span>);
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>              prop.setProperty(<span class="jxr_string">"keyphrase.language"</span>, <span class="jxr_string">"ITALIAN"</span>);
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>              prop.setProperty(<span class="jxr_string">"keyphrase.numberOfConcepts"</span>, <span class="jxr_string">"20"</span>);
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>              prop.setProperty(<span class="jxr_string">"keyphrase.local_frequency_threshold"</span>, <span class="jxr_string">"2"</span>);
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>              prop.setProperty(<span class="jxr_string">"keyphrase.max_keyword_length"</span>, <span class="jxr_string">"4"</span>);
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>              prop.setProperty(<span class="jxr_string">"keyphrase.prefer_specific_concept"</span>, <span class="jxr_string">"MEDIUM"</span>);
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>              prop.setProperty(<span class="jxr_string">"keyphrase.group_by"</span>, <span class="jxr_string">"NONE"</span>);
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>              prop.setProperty(<span class="jxr_string">"keyphrase.update"</span>, <span class="jxr_string">"true"</span>);
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>              prop.setProperty(<span class="jxr_string">"keyphrase.no_abstract"</span>, <span class="jxr_string">"false"</span>);
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>              prop.setProperty(<span class="jxr_string">"keyphrase.skip_proper_noun"</span>, <span class="jxr_string">"true"</span>);
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>              prop.setProperty(<span class="jxr_string">"keyphrase.skip_keyword_with_proper_noun"</span>, <span class="jxr_string">"true"</span>);
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>              prop.setProperty(<span class="jxr_string">"keyphrase.skip_keyword_with_not_allowed_words"</span>, <span class="jxr_string">"true"</span>);
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>              prop.setProperty(<span class="jxr_string">"customAnnotatorClass.keyphrase"</span>,<span class="jxr_string">"eu.fbk.dh.tint.kd.annotator.DigiKdAnnotator"</span>);
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>              TintPipeline pipeline = <strong class="jxr_keyword">new</strong> TintPipeline();
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>              pipeline.loadDefaultProperties();
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>              pipeline.addProperties(prop);
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>              pipeline.load();
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_comment">//            Annotation annotation = pipeline.runRaw(sentenceText);</em>
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_comment">//            System.out.println(annotation.get(DigiKdAnnotations.DH_KEYPHRASE.class));</em>
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_comment">//            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_comment">//                for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {</em>
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_comment">//                    System.out.println(token);</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_comment">//                    System.out.println(token.ner());</em>
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_comment">//                }</em>
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_comment">//            }</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>              OutputStream outputStream = System.out;
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>              InputStream inputStream = <strong class="jxr_keyword">new</strong> ByteArrayInputStream(sentenceText.getBytes(StandardCharsets.UTF_8));
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>              pipeline.run(inputStream, outputStream, TintRunner.OutputFormat.JSON);
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_comment">//            for (Class&lt;?&gt; myClass : annotation.keySetNotNull()) {</em>
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_comment">//                Object o = annotation.get((Class) myClass);</em>
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_comment">//                System.out.println(o.getClass().getMethod("json"));</em>
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_comment">//            }</em>
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_comment">//            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_comment">//                for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_comment">//                    System.out.println(token);</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_comment">//                    System.out.println(token.ner());</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_comment">//                    System.out.println();</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_comment">//                }</em>
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_comment">//            }</em>
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>  
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>              e.printStackTrace();
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>          }
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>      }
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>  }
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>              Annotation annotation = pipeline.runRaw(sentenceText);
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>              System.out.println(JSONOutputter.jsonPrint(annotation));
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>              e.printStackTrace();
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          }
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      }
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2016 <a href="http://www.fbk.eu">FBK-irst</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2016 <a href="http://www.fbk.eu">FBK</a>. All rights reserved.</div>
 </body>
 </html>
