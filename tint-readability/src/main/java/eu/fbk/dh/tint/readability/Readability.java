@@ -6,9 +6,9 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
-import eu.fbk.dh.tint.json.JSONExclude;
 import eu.fbk.dh.tint.readability.es.SpanishReadabilityModel;
 import eu.fbk.utils.core.FrequencyHashSet;
+import eu.fbk.utils.gson.JSONExclude;
 
 import javax.annotation.Nullable;
 import java.io.File;

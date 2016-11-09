@@ -6,11 +6,11 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
-import eu.fbk.dh.tint.json.JSONExclude;
 import eu.fbk.dh.tint.readability.DescriptionForm;
 import eu.fbk.dh.tint.readability.GlossarioEntry;
 import eu.fbk.dh.tint.readability.Readability;
 import eu.fbk.dh.tint.readability.ReadabilityAnnotations;
+import eu.fbk.utils.gson.JSONExclude;
 
 import java.util.*;
 

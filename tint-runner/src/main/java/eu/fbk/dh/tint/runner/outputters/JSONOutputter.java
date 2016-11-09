@@ -24,8 +24,8 @@ import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import edu.stanford.nlp.trees.TreePrint;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.TypesafeMap;
-import eu.fbk.dh.tint.json.AnnotationExclusionStrategy;
-import eu.fbk.dh.tint.json.JSONLabel;
+import eu.fbk.utils.gson.AnnotationExclusionStrategy;
+import eu.fbk.utils.gson.JSONLabel;
 
 import java.io.*;
 import java.lang.reflect.Type;

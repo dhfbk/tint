@@ -5,7 +5,7 @@
     <parent>
         <artifactId>tint</artifactId>
         <groupId>eu.fbk.dh</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,6 +20,11 @@
             <version>${tint.version}</version>
         </dependency>
         <dependency>
+            <groupId>eu.fbk.twm</groupId>
+            <artifactId>twm-index</artifactId>
+            <version>${twm-version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
@@ -27,10 +32,6 @@
             <groupId>eu.fbk.utils</groupId>
             <artifactId>utils-core</artifactId>
             <version>${tint.utils.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fbk.cit.hlt</groupId>
-            <artifactId>thewikimachine</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -42,11 +43,6 @@
             <version>1.2.17</version>
             <scope>runtime</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>xml-apis</groupId>-->
-            <!--<artifactId>xml-apis</artifactId>-->
-            <!--<version>1.4.01</version>-->
-        <!--</dependency>-->
     </dependencies>
 
     <profiles>

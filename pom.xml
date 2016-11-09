@@ -7,14 +7,14 @@
     <groupId>eu.fbk.dh</groupId>
     <artifactId>tint</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1</version>
     <inceptionYear>2016</inceptionYear>
     <description>The Italian NLP Tool</description>
 
     <parent>
-        <groupId>eu.fbk.dkm</groupId>
+        <groupId>eu.fbk.parent</groupId>
         <artifactId>parent</artifactId>
-        <version>1.5-SNAPSHOT</version>
+        <version>2.0</version>
     </parent>
 
     <licenses>
@@ -76,19 +76,21 @@
         <module>tint-tokenizer</module>
         <module>tint-runner</module>
         <module>tint-tense</module>
-        <module>tint-json</module>
         <module>tint-readability</module>
         <module>tint-kd-annotator</module>
         <module>tint-geoloc-annotator</module>
         <module>tint-heideltime-annotator</module>
+        <module>tint-models</module>
     </modules>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <tint.utils.version>2.1-SNAPSHOT</tint.utils.version>
-        <tint.pikes.version>1.0-SNAPSHOT</tint.pikes.version>
+        <tint.utils.version>3.0</tint.utils.version>
+        <tint.pikes.version>0.1</tint.pikes.version>
         <tint.version>${project.version}</tint.version>
+        <tint-models.version>${project.version}</tint-models.version>
+        <twm-version>1.4</twm-version>
         <site.root>http://tint.fbk.eu/</site.root>
     </properties>
 

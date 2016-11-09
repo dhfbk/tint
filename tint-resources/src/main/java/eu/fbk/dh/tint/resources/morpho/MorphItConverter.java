@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.fbk.cit.hlt.core.lsa.InverseVocabulary.logger;
-
 /**
  * Created by alessio on 18/05/16.
  */
@@ -26,6 +24,7 @@ public class MorphItConverter {
     private static Pattern morphoType = Pattern.compile("^([A-Z-]+):?");
 
     static HashMap<String, String> noLemmaTypes = new HashMap<>();
+
     static {
         noLemmaTypes.put("PON", "[PUNCT]");
         noLemmaTypes.put("SENT", "[PUNCT]");

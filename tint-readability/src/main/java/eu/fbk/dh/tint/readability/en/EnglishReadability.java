@@ -4,8 +4,8 @@ import com.itextpdf.layout.hyphenation.Hyphenator;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
-import eu.fbk.dh.tint.json.JSONExclude;
 import eu.fbk.dh.tint.readability.Readability;
+import eu.fbk.utils.gson.JSONExclude;
 
 import java.util.Properties;
 

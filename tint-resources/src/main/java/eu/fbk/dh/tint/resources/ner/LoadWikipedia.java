@@ -2,10 +2,10 @@ package eu.fbk.dh.tint.resources.ner;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
+import eu.fbk.twm.index.FormPageSearcher;
+import eu.fbk.twm.index.PageFormSearcher;
+import eu.fbk.twm.index.util.FreqSetSearcher;
 import eu.fbk.utils.core.CommandLine;
-import org.fbk.cit.hlt.thewikimachine.index.FormPageSearcher;
-import org.fbk.cit.hlt.thewikimachine.index.PageFormSearcher;
-import org.fbk.cit.hlt.thewikimachine.index.util.FreqSetSearcher;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedWriter;

@@ -1,12 +1,5 @@
 package eu.fbk.dh.tint.kd.annotator;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import eu.fbk.dh.tint.json.JSONExclude;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +7,7 @@ import java.util.List;
  * Created by giovannimoretti on 24/05/16.
  */
 public class DigiKdResult {
+
     String keyphrase;
     Integer frequency;
     Double score;
@@ -21,19 +15,8 @@ public class DigiKdResult {
     ArrayList<String> tokens = new ArrayList<>();
     List<String> posList = new ArrayList<>();
 
-//    class ResultSerializer implements JsonSerializer<DigiKdResult> {
-//
-//        @Override public JsonElement serialize(DigiKdResult digiKdResult, Type type,
-//                JsonSerializationContext jsonSerializationContext) {
-//            JsonObject element = new JsonObject();
-//            element.addProperty("keyphrase", digiKdResult.getKeyphrase());
-//            element.addProperty("frequency", digiKdResult.getFrequency());
-//            element.addProperty("score", digiKdResult.getScore());
-//            return element;
-//        }
-//    }
-
-    public DigiKdResult(String keyphrase, Integer frequency, Double score, ArrayList<String> lemmas, ArrayList<String> tokens,List<String> posList) {
+    public DigiKdResult(String keyphrase, Integer frequency, Double score, ArrayList<String> lemmas,
+            ArrayList<String> tokens, List<String> posList) {
         this.keyphrase = keyphrase;
         this.frequency = frequency;
         this.score = score;
@@ -75,7 +58,6 @@ public class DigiKdResult {
         this.score = score;
     }
 
-
     public void setLemmas(ArrayList<String> lemmas) {
         this.lemmas = lemmas;
     }
@@ -92,7 +74,7 @@ public class DigiKdResult {
         return tokens;
     }
 
-    public String toString(){
-        return keyphrase+"\t"+"<"+frequency+","+score+">";
+    public String toString() {
+        return keyphrase + "\t" + "<" + frequency + "," + score + ">";
     }
 }

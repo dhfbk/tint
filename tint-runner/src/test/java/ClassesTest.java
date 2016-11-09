@@ -1,11 +1,10 @@
 import com.google.common.reflect.ClassPath;
 import com.google.gson.JsonSerializer;
-import eu.fbk.dh.tint.json.JSONLabel;
+import eu.fbk.utils.gson.JSONLabel;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 
 /**
  * Created by alessio on 04/10/16.

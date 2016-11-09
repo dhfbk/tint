@@ -3,8 +3,7 @@ package eu.fbk.dh.tint.runner.outputters;
 import com.google.common.reflect.ClassPath;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSerializer;
-import eu.fbk.dh.tint.json.AnnotationExclusionStrategy;
-import eu.fbk.dh.tint.json.JSONLabel;
+import eu.fbk.utils.gson.JSONLabel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

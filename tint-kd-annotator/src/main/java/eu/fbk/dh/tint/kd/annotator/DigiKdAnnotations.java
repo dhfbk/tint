@@ -3,7 +3,7 @@ package eu.fbk.dh.tint.kd.annotator;
 import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.ErasureUtils;
-import eu.fbk.dh.tint.json.JSONLabel;
+import eu.fbk.utils.gson.JSONLabel;
 
 import java.util.List;
 
