@@ -5,7 +5,6 @@ eu.fbk.dh.tint.eval.ner
 eu.fbk.dh.tint.eval.pos
 eu.fbk.dh.tint.geoloc.annotator
 eu.fbk.dh.tint.heideltime.annotator
-eu.fbk.dh.tint.json
 eu.fbk.dh.tint.kd.annotator
 eu.fbk.dh.tint.readability
 eu.fbk.dh.tint.readability.en

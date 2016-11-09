@@ -6,10 +6,55 @@ $H2 Download and usage
 The Tint command line tool is packaged as a self-contained, cross-platform Java 8 application.
 In order to install it, download the following package and unpack it in the location you prefer:
 
-* [tint-runner-${project-version}-bin.tar.gz](http://www.airpedia.org/tint/${project-version}/tint-runner-${project-version}-bin.tar.gz) (latest version, tar.gz)
+* [tint-runner-${project-version}-bin.tar.gz](http://www.airpedia.org/tint/${project-version}/tint-runner-${project-version}-bin.tar.gz) (latest nightly build, tar.gz)
+* [tint-runner-0.1-bin.tar.gz](http://www.airpedia.org/tint/0.1/tint-runner-0.1-bin.tar.gz) (latest stable version, tar.gz)
 * [browse all versions](http://www.airpedia.org/tint/)
 
-$H3 Basic usage
+$H3 Tint Java API
+
+Tint can be included easily into an existing Java project using Maven.
+
+In the `pom.xml` file, add the following dependency:
+
+```xml
+<dependency>
+    <groupId>eu.fbk.dh</groupId>
+    <artifactId>tint-runner</artifactId>
+    <version>0.1</version>
+</dependency>
+```
+
+Then, this is an example on how to instantiate it in a Java project:
+
+```js
+// Initialize the Tint pipeline
+TintPipeline pipeline = new TintPipeline();
+
+// Load the default properties
+// see https://github.com/dhfbk/tint/blob/master/tint-runner/src/main/resources/default-config.properties
+pipeline.loadDefaultProperties();
+
+// Add a custom property
+// pipeline.setProperty("my_property", "my_value");
+
+// Load the models
+pipeline.load();
+
+// Use for example a text in a String
+String text = "I topi non avevano nipoti.";
+
+// Get the original Annotation (Stanford CoreNLP)
+Annotation stanfordAnnotation = pipeline.runRaw(text);
+
+// **or**
+
+// Get the JSON
+// (optionally getting the original Stanford CoreNLP Annotation as return value)
+InputStream stream = new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8));
+Annotation annotation = pipeline.run(stream, System.out, TintRunner.OutputFormat.JSON);
+```
+
+$H3 Command-line usage
 
 Installing Tint is quite straightforward, as it only needs to be downloaded and uncompressed.
 On a Linux/Mac shell, just run these commands:

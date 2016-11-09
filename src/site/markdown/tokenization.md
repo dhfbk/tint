@@ -34,6 +34,12 @@ Finally, sentence boundaries are identified using a list of characters contained
 
 A basic fully-working settings file (`token-settings.xml`) is provided as a `tint-tokenizer` module resource.
 
+### Properties
+
+* `ita_toksent.newlineIsSentenceBreak`: can be set to `true` or `false`; if `true`, the tokenizer always breaks sentence on newline (default `true`)
+* `ita_toksent.tokenizeOnlyOnSpace`: can be set to `true` or `false`; if `true`, the text is tokenized on white spaces instead of applying the tokenizer (default `false`)
+* `ita_toksent.ssplitOnlyOnNewLine`: can be set to `true` or `false`; if `true`, only newlines are considered as sentence breaks (default `false`)
+
 ### Performances
 
 The Tint tokenizer can reach 80,000 token/second in the standard configuration, but one can deactivate regular

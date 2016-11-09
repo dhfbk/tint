@@ -55,79 +55,25 @@
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      @Override
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> service(Request request, Response response) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          String host = request.getHeader(<span class="jxr_string">"x-forwarded-for"</span>);
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_comment">//		String referer = request.getHeader("referer");</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_comment">//		String okReferer = pipeline.getDefaultConfig().getProperty("back_referer");</em>
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_comment">//		boolean backLink = false;</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_comment">//		if (okReferer != null || referer != null) {</em>
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_comment">//			backLink = true;</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_comment">//		}</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          request.setCharacterEncoding(<span class="jxr_string">"UTF-8"</span>);
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>          String text = request.getParameter(<span class="jxr_string">"text"</span>);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          String outputFormat = request.getParameter(<span class="jxr_string">"format"</span>);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          InputStream inputStream = <strong class="jxr_keyword">new</strong> ByteArrayInputStream(text.getBytes());
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          OutputStream outputStream = <strong class="jxr_keyword">new</strong> ByteArrayOutputStream();
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          TintRunner.OutputFormat format = TintRunner.getOutputFormat(outputFormat, TintRunner.OutputFormat.JSON);
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          pipeline.run(inputStream, outputStream, format);
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          request.setCharacterEncoding(<span class="jxr_string">"UTF-8"</span>);
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>          String text = request.getParameter(<span class="jxr_string">"text"</span>);
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          String outputFormat = request.getParameter(<span class="jxr_string">"format"</span>);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          LOGGER.debug(<span class="jxr_string">"Text: {}"</span>, text);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          String output = outputStream.toString();
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          InputStream inputStream = <strong class="jxr_keyword">new</strong> ByteArrayInputStream(text.getBytes());
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          OutputStream outputStream = <strong class="jxr_keyword">new</strong> ByteArrayOutputStream();
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          TintRunner.OutputFormat format = TintRunner.getOutputFormat(outputFormat, TintRunner.OutputFormat.CONLL);
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          pipeline.run(inputStream, outputStream, format);
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <em class="jxr_comment">// Log for stats</em>
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>          LOGGER.info(<span class="jxr_string">"[SENTENCE]"</span>);
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>          LOGGER.info(<span class="jxr_string">"Host: {}"</span>, host);
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          LOGGER.info(<span class="jxr_string">"Text: {}"</span>, text);
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          String output = outputStream.toString();
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_comment">//		KAFDocument doc = text2naf(text, meta);</em>
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_comment">//		doc = pipeline.parseFromString(doc.toString());</em>
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_comment">//        String viewString;</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_comment">//        viewString = doc.toString();</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_comment">//        try {</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_comment">//            HashMap&lt;String, Object&gt; demoProperties = new HashMap&lt;&gt;();</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_comment">//            demoProperties.put("renderer.template.title", "PIKES demo");</em>
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_comment">//            if (backLink) {</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_comment">//                demoProperties.put("renderer.template.backlink", "javascript:history.back();");</em>
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_comment">//            } else {</em>
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_comment">//                demoProperties</em>
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_comment">//                        .put("renderer.template.backlink", pipeline.getDefaultConfig().getProperty("back_alt_link"));</em>
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_comment">//                demoProperties</em>
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  <em class="jxr_comment">//                        .put("renderer.template.backlabel", pipeline.getDefaultConfig().getProperty("back_alt_text"));</em>
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_comment">//            }</em>
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_comment">//            boolean fusion = request.getParameter("rdf_fusion") != null;</em>
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_comment">//            boolean normalization = request.getParameter("rdf_compaction") != null;</em>
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>  <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_comment">//            demoProperties.put("generator.fusion", fusion);</em>
-<a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_comment">//            demoProperties.put("generator.normalization", normalization);</em>
-<a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L102" href="#L102">102</a> <em class="jxr_comment">//            NAFFilter filter = NAFFilter.builder().withProperties(pipeline.getDefaultConfig(), "filter").build();</em>
-<a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_comment">//            RDFGenerator generator = RDFGenerator.builder().withProperties(demoProperties, "generator").build();</em>
-<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_comment">//            Renderer renderer = Renderer.builder().withProperties(demoProperties, "renderer").build();</em>
-<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_comment">//            filter.filter(doc);</em>
-<a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_comment">//            final Model model = generator.generate(doc, null);</em>
-<a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_comment">//            StringWriter writer = new StringWriter();</em>
-<a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_comment">//            renderer.renderAll(writer, doc, model, null, null);</em>
-<a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_comment">//            viewString = writer.toString();</em>
-<a class="jxr_linenumber" name="L111" href="#L111">111</a> <em class="jxr_comment">//</em>
-<a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_comment">//        } catch (Exception e) {</em>
-<a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_comment">//            e.printStackTrace();</em>
-<a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_comment">//            viewString = "Unable to show graph. &lt;br /&gt;&lt;br /&gt;\n&lt;pre&gt;" + doc.toString().replace("&lt;", "&amp;lt;")</em>
-<a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_comment">//                    .replace("&gt;", "&amp;gt;") + "&lt;/pre&gt;";</em>
-<a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_comment">//        }</em>
-<a class="jxr_linenumber" name="L117" href="#L117">117</a> 
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>         writeOutput(response, contentTypes.get(format), output);
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>     }
-<a class="jxr_linenumber" name="L120" href="#L120">120</a> }
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          writeOutput(response, contentTypes.get(format), output);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2016 <a href="http://www.fbk.eu">FBK-irst</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2016 <a href="http://www.fbk.eu">FBK</a>. All rights reserved.</div>
 </body>
 </html>
