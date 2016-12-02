@@ -345,7 +345,7 @@ public class ItalianTokenizer {
                 char currentChar = text.charAt(i);
                 if (Character.isWhitespace(currentChar)) {
                     if (!lastIsWhitespace) {
-                        System.out.println("---" + text.substring(nextStart, i) + "---" + newLineCount);
+//                        System.out.println("---" + text.substring(nextStart, i) + "---" + newLineCount);
 
                         String word = text.substring(nextStart, i);
                         CoreLabel clToken = factory.makeToken(word, word, nextStart, i - nextStart);
@@ -410,8 +410,16 @@ public class ItalianTokenizer {
             Collection<Emit> emits = trie.parseText(s);
             for (Emit emit : emits) {
                 // Added -1 for compatibility with the "s" string
+
                 Token startToken = tokenGroup.getStartOffIndexes().get(emit.getStart() + 1 - 1 + offset);
                 Token endToken = tokenGroup.getEndOffIndexes().get(emit.getEnd() - 1 - 1 + offset);
+
+                if (newlineIsSentenceBreak) {
+                    String substring = text.substring(startToken.getStart(), endToken.getEnd());
+                    if (substring.contains("\n")) {
+                        continue;
+                    }
+                }
                 if (startToken != null && endToken != null) {
                     mergeList.put(startToken.getStart(), endToken.getEnd());
                 } else {

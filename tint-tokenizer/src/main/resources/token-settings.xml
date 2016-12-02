@@ -300,6 +300,8 @@
         <expression merge="1" find="([:;=]-?[\)\(DOP])"/>
         <!-- Dash-connected words -->
         <expression merge="1" find="(\w+-\w+)"/>
+        <!-- Hashtags -->
+        <expression merge="1" find="(#\w+)"/>
         <!-- Dots ... -->
         <expression merge="1" find="(\.{3,})"/>
         <!-- Footnotes [1], [2], etc. -->

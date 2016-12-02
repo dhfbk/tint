@@ -16,7 +16,8 @@ public class TestTokenizer {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestTokenizer.class);
 
     public static void main(String[] args) {
-        String text = "È più di un sospetto, bensì un’indagine complessa su cui lavorano più procure.";
+        String text = "Questa frase finisce.'\n'E questa inizia. Questi invece sono vicini: '' Ciao #bersani";
+
         Properties props;
         Annotation annotation;
 
