@@ -103,18 +103,8 @@ public class TintPipeline {
         return annotation;
     }
 
-    public Annotation run(InputStream inputStream, OutputStream outputStream, TintRunner.OutputFormat format)
+    public Annotation run(String text, OutputStream outputStream, TintRunner.OutputFormat format)
             throws IOException {
-
-        Reader reader = new InputStreamReader(inputStream);
-        StringBuilder inputText = new StringBuilder();
-        int i;
-        while ((i = reader.read()) != -1) {
-            inputText.append((char) i);
-        }
-        reader.close();
-        String text = inputText.toString();
-
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
         Annotation annotation = runRaw(text, pipeline);
 
@@ -152,5 +142,21 @@ public class TintPipeline {
         }
 
         return annotation;
+    }
+
+    public Annotation run(InputStream inputStream, OutputStream outputStream, TintRunner.OutputFormat format)
+            throws IOException {
+
+        Reader reader = new InputStreamReader(inputStream);
+        StringBuilder inputText = new StringBuilder();
+        int i;
+        while ((i = reader.read()) != -1) {
+            inputText.append((char) i);
+        }
+        reader.close();
+        String text = inputText.toString();
+
+        return run(text, outputStream, format);
+
     }
 }
