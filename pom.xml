@@ -81,6 +81,7 @@
         <module>tint-geoloc-annotator</module>
         <module>tint-heideltime-annotator</module>
         <module>tint-models</module>
+        <module>tint-languagetool</module>
     </modules>
 
     <properties>
