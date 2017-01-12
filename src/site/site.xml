@@ -42,8 +42,8 @@
         <menu name="Links">
             <!--<item name="Online demo" href="https://knowledgestore2.fbk.eu/pikes-demo/"/>-->
             <!--<item name="Video tour (YouTube)" href="https://www.youtube.com/watch?v=D0mcnUKc3sg"/>-->
-            <item name="GitHub project" href="https://github.com/dhfbk/tint/"/>
-            <item name="Issue tracker" href="https://github.com/dhfbk/tint/issues"/>
+            <item name="GitHub project" href="https://www.github.com/dhfbk/tint/"/>
+            <item name="Issue tracker" href="https://www.github.com/dhfbk/tint/issues"/>
             <item name="Contact authors" href="mailto:aprosioATfbkDOTeu"/>
         </menu>
     </body>
