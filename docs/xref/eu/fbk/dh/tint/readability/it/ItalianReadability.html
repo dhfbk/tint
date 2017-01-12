@@ -26,7 +26,7 @@
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * Created by alessio on 21/09/16.</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../eu/fbk/dh/tint/readability/it/ItalianReadability.html">ItalianReadability</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../../eu/fbk/dh/tint/readability/Readability.html">Readability</a> {
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../eu/fbk/dh/tint/readability/it/ItalianReadability.html">ItalianReadability</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../../eu/fbk/dh/tint/readability/Readability.html">Readability</a> {
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>      @JSONExclude <a href="../../../../../../eu/fbk/dh/tint/readability/it/ItalianReadabilityModel.html">ItalianReadabilityModel</a> model;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>      @JSONExclude <strong class="jxr_keyword">int</strong> level1WordSize = 0, level2WordSize = 0, level3WordSize = 0;
@@ -74,7 +74,7 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          model = ItalianReadabilityModel.getInstance(globalProperties, localProperties);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      }
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../eu/fbk/dh/tint/readability/it/ItalianReadability.html">StringLenComparator</a> <strong class="jxr_keyword">implements</strong> Comparator&lt;String&gt; {
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../eu/fbk/dh/tint/readability/it/ItalianReadability.html">StringLenComparator</a> <strong class="jxr_keyword">implements</strong> Comparator&lt;String&gt; {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> compare(String s1, String s2) {
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>              <strong class="jxr_keyword">return</strong> s1.length() - s2.length();
@@ -101,7 +101,7 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">return</strong> ret;
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>      }
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addDescriptionForm(String form, HashMap&lt;Integer, Integer&gt; indexes, <strong class="jxr_keyword">int</strong> start,
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addDescriptionForm(String form, HashMap&lt;Integer, Integer&gt; indexes, <strong class="jxr_keyword">int</strong> start,
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>              <strong class="jxr_keyword">int</strong> numberOfTokens, TreeMap&lt;Integer, DescriptionForm&gt; forms, Annotation annotation,
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>              HashMap&lt;String, GlossarioEntry&gt; glossario) {
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          Integer lemmaIndex = indexes.get(start);
@@ -167,6 +167,6 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2016 <a href="http://www.fbk.eu">FBK</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2016&#x2013;2017 <a href="http://www.fbk.eu">FBK</a>. All rights reserved.</div>
 </body>
 </html>
