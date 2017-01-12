@@ -18,7 +18,7 @@ import java.util.*;
  * Created by alessio on 21/09/16.
  */
 
-abstract class ItalianReadability extends Readability {
+public abstract class ItalianReadability extends Readability {
 
     @JSONExclude ItalianReadabilityModel model;
     @JSONExclude int level1WordSize = 0, level2WordSize = 0, level3WordSize = 0;
@@ -66,7 +66,7 @@ abstract class ItalianReadability extends Readability {
         model = ItalianReadabilityModel.getInstance(globalProperties, localProperties);
     }
 
-    static class StringLenComparator implements Comparator<String> {
+    public static class StringLenComparator implements Comparator<String> {
 
         public int compare(String s1, String s2) {
             return s1.length() - s2.length();
@@ -93,7 +93,7 @@ abstract class ItalianReadability extends Readability {
         return ret;
     }
 
-    static private void addDescriptionForm(String form, HashMap<Integer, Integer> indexes, int start,
+    static public void addDescriptionForm(String form, HashMap<Integer, Integer> indexes, int start,
             int numberOfTokens, TreeMap<Integer, DescriptionForm> forms, Annotation annotation,
             HashMap<String, GlossarioEntry> glossario) {
         Integer lemmaIndex = indexes.get(start);
