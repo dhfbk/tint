@@ -16,6 +16,14 @@ public class LanguageToolAnnotations {
     public static final Annotator.Requirement LANGUAGETOOL_ANNOTATION_REQUIREMENT = new Annotator.Requirement(
             LANGUAGETOOL_ANNOTATION);
 
+//    @JSONLabel(value = "languagetooltext")
+//    public static class LanguageToolAnnotation implements CoreAnnotation<String> {
+//
+//        @Override public Class<String> getType() {
+//            return String.class;
+//        }
+//    }
+//
     @JSONLabel(value = "languagetool")
     public static class LanguageToolMultiAnnotation implements CoreAnnotation<List<Match>> {
 
