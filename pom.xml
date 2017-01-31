@@ -82,6 +82,7 @@
         <module>tint-heideltime-annotator</module>
         <module>tint-models</module>
         <module>tint-languagetool</module>
+        <module>tint-inverse-digimorph</module>
     </modules>
 
     <properties>
