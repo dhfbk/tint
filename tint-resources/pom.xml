@@ -25,6 +25,11 @@
             <version>${twm-version}</version>
         </dependency>
         <dependency>
+            <groupId>eu.fbk.twm</groupId>
+            <artifactId>twm-wiki</artifactId>
+            <version>${twm-version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
