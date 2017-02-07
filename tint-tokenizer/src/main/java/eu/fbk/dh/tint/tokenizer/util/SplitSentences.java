@@ -32,7 +32,7 @@ public class SplitSentences {
                     .withHeader("Annotate sentences")
                     .withOption("i", "input", "Input file", "FILE",
                             CommandLine.Type.FILE_EXISTING, true, false, true)
-                    .withOption("o", "output", "Input file", "FILE",
+                    .withOption("o", "output", "Output file", "FILE",
                             CommandLine.Type.FILE_EXISTING, true, false, true)
                     .withLogger(LoggerFactory.getLogger("eu.fbk")).parse(args);
 
@@ -44,7 +44,6 @@ public class SplitSentences {
 
             Properties props = new Properties();
             props.setProperty("annotators", "ita_toksent");
-            props.setProperty("ita_toksent.newlineIsSentenceBreak", "1");
             props.setProperty("customAnnotatorClass.ita_toksent",
                     "eu.fbk.dh.tint.tokenizer.annotators.ItalianTokenizerAnnotator");
 
