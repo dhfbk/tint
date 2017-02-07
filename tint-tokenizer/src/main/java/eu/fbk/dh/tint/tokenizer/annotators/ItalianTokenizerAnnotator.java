@@ -1,5 +1,6 @@
 package eu.fbk.dh.tint.tokenizer.annotators;
 
+import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -49,7 +50,8 @@ public class ItalianTokenizerAnnotator implements Annotator {
      */
     @Override public void annotate(Annotation annotation) {
         String text = annotation.get(CoreAnnotations.TextAnnotation.class);
-        List<List<CoreLabel>> sTokens = tokenizer.parse(text, newlineIsSentenceBreak, tokenizeOnlyOnSpace, ssplitOnlyOnNewLine);
+        List<List<CoreLabel>> sTokens = tokenizer
+                .parse(text, newlineIsSentenceBreak, tokenizeOnlyOnSpace, ssplitOnlyOnNewLine);
 
         List<CoreMap> sentences = new ArrayList<>();
         ArrayList<CoreLabel> tokens = new ArrayList<>();
@@ -90,20 +92,27 @@ public class ItalianTokenizerAnnotator implements Annotator {
 
     }
 
-    /**
-     * Returns a set of requirements for which tasks this annotator can
-     * provide.  For example, the POS annotator will return "pos".
-     */
-    @Override public Set<Requirement> requirementsSatisfied() {
-        return TOKENIZE_AND_SSPLIT;
+    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
+        return new HashSet<>(Arrays.asList(
+                CoreAnnotations.TextAnnotation.class,
+                CoreAnnotations.TokensAnnotation.class,
+                CoreAnnotations.CharacterOffsetBeginAnnotation.class,
+                CoreAnnotations.CharacterOffsetEndAnnotation.class,
+                CoreAnnotations.BeforeAnnotation.class,
+                CoreAnnotations.AfterAnnotation.class,
+                CoreAnnotations.TokenBeginAnnotation.class,
+                CoreAnnotations.TokenEndAnnotation.class,
+                CoreAnnotations.PositionAnnotation.class,
+                CoreAnnotations.IndexAnnotation.class,
+                CoreAnnotations.OriginalTextAnnotation.class,
+                CoreAnnotations.ValueAnnotation.class,
+                CoreAnnotations.SentencesAnnotation.class,
+                CoreAnnotations.SentenceIndexAnnotation.class
+        ));
     }
 
-    /**
-     * Returns the set of tasks which this annotator requires in order
-     * to perform.  For example, the POS annotator will return
-     * "tokenize", "ssplit".
-     */
-    @Override public Set<Requirement> requires() {
-        return Collections.emptySet();
+    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+        return null;
     }
+
 }
