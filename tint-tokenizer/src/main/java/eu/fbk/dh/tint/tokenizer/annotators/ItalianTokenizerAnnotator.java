@@ -112,7 +112,7 @@ public class ItalianTokenizerAnnotator implements Annotator {
     }
 
     @Override public Set<Class<? extends CoreAnnotation>> requires() {
-        return null;
+        return Collections.emptySet();
     }
 
 }
