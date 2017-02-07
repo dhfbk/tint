@@ -19,23 +19,23 @@ public class WikiNewsReader extends AbstractWikipediaExtractor {
 
     }
 
-    @Override public void disambiguationPage(String text, String title, long wikiID) {
+    @Override public void disambiguationPage(String text, String title, int wikiID) {
 
     }
 
-    @Override public void categoryPage(String text, String title, long wikiID) {
+    @Override public void categoryPage(String text, String title, int wikiID) {
 
     }
 
-    @Override public void templatePage(String text, String title, long wikiID) {
+    @Override public void templatePage(String text, String title, int wikiID) {
 
     }
 
-    @Override public void redirectPage(String text, String title, long wikiID) {
+    @Override public void redirectPage(String text, String title, int wikiID) {
 
     }
 
-    @Override public void contentPage(String text, String title, long wikiID) {
+    @Override public void contentPage(String text, String title, int wikiID) {
         if (title.startsWith("Wikinotizie:")) {
             return;
         }
@@ -45,15 +45,15 @@ public class WikiNewsReader extends AbstractWikipediaExtractor {
         System.out.println("--------");
     }
 
-    @Override public void portalPage(String text, String title, long wikiID) {
+    @Override public void portalPage(String text, String title, int wikiID) {
 
     }
 
-    @Override public void projectPage(String text, String title, long wikiID) {
+    @Override public void projectPage(String text, String title, int wikiID) {
 
     }
 
-    @Override public void filePage(String text, String title, long wikiID) {
+    @Override public void filePage(String text, String title, int wikiID) {
 
     }
 
