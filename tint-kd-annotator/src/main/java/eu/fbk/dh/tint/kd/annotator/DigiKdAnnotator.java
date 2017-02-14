@@ -154,16 +154,5 @@ public class DigiKdAnnotator implements Annotator {
                 CoreAnnotations.SentencesAnnotation.class
         )));
     }
-    //
-//    public Set<Requirement> requirementsSatisfied() {
-//        return Collections.singleton(DH_KEYPHRASE_REQUIREMENT);
-//    }
-//
-//    public Set<Requirement> requires() {
-//        return Collections.unmodifiableSet(
-//                new ArraySet<Requirement>(TOKENIZE_REQUIREMENT, LEMMA_REQUIREMENT, SSPLIT_REQUIREMENT,
-//                        POS_REQUIREMENT));
-//
-//    }
 }
 
