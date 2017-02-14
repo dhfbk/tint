@@ -21,7 +21,7 @@ public class Simplifier {
     public static void main(String[] args) {
         String sentenceText;
         sentenceText = "Per gli interventi di seguito descritti, la cui autorizzazione può risultare di competenza dei Comuni o delle CTC in relazione alla tipologia ed alla localizzazione dell'intervento, si indicano i seguenti elaborati, precisando che essi sono orientativi e che comunque devono mostrare chiaramente dove si interviene e come si interviene.";
-//        sentenceText = "Il mondo, precisando che si tratta della Terra, è molto bello.";
+        sentenceText = "Il mondo, precisando che si tratta della Terra, è molto bello.";
 
         try {
 
