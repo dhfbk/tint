@@ -11,6 +11,7 @@ import java.util.*;
 
 /**
  * Created by giovannimoretti on 19/05/16.
+ *
  * @version 0.42a
  */
 public class DigiLemmaAnnotator implements Annotator {
@@ -115,6 +116,7 @@ public class DigiLemmaAnnotator implements Annotator {
                 for (CoreLabel c : tokens) {
                     String[] morph_fatures = c.get(DigiMorphAnnotations.MorphoAnnotation.class).split(" ");
                     String pos = c.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                    c.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, true);
                     c.set(CoreAnnotations.LemmaAnnotation.class, morph_fatures[0]);
                     if (!pos.equals("V")) {
                         if (pos.equals(auxiliary) || (valid_aux && betweenAuxAndVerb.contains(pos))) {
@@ -123,7 +125,6 @@ public class DigiLemmaAnnotator implements Annotator {
                             valid_aux = false;
                         }
                     }
-
 
                     if (!pos.equals("SP")) {
 
@@ -136,6 +137,7 @@ public class DigiLemmaAnnotator implements Annotator {
                                     last_valuable_genre = "f";
                                 }
 
+                                c.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, false);
                                 c.set(CoreAnnotations.LemmaAnnotation.class,
                                         morph_fatures[1].split("\\+")[0].split("~")[0]);
                             } else {
@@ -169,25 +171,30 @@ public class DigiLemmaAnnotator implements Annotator {
                                                     possible_candidate = feature.split("\\+")[0].split("~")[0];
                                                 }
 
-                                                if (valid_aux && feature.contains("+part+")){
+                                                if (valid_aux && feature.contains("+part+")) {
                                                     possible_candidate = feature.split("\\+")[0].split("~")[0];
-                                                    valid_aux=false;
+                                                    valid_aux = false;
                                                 }
-
-
 
                                             }
                                         }
+                                        boolean guessed = false;
                                         if (firstCandidate.length() == 0) {
                                             firstCandidate = c.word();
+                                            guessed = true;
                                         }
                                         c.set(CoreAnnotations.LemmaAnnotation.class,
                                                 possible_candidate.length() > 0 ? possible_candidate : firstCandidate);
+
+//                                        if (possible_candidate.length() > 0){
+                                        c.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, guessed);
+//                                        }
                                     }
 
                                 } else {
                                     c.set(CoreAnnotations.LemmaAnnotation.class,
                                             morph_fatures[1].split("\\+")[0].split("~")[0]);
+                                    c.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, false);
                                 }
                             }
                         }
