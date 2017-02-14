@@ -26,6 +26,7 @@
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
+            <version>${corenlp-version}</version>
         </dependency>
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
@@ -149,18 +150,32 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>eu.fbk.dh</groupId>-->
-            <!--<artifactId>tint-kd-annotator</artifactId>-->
-            <!--<version>${tint.version}</version>-->
-            <!--<scope>provided</scope>-->
+        <!--<groupId>eu.fbk.dh</groupId>-->
+        <!--<artifactId>tint-kd-annotator</artifactId>-->
+        <!--<version>${tint.version}</version>-->
+        <!--<scope>provided</scope>-->
         <!--</dependency>-->
 
-        <dependency>
-            <groupId>io.github.lukehutch</groupId>
-            <artifactId>fast-classpath-scanner</artifactId>
-            <version>LATEST</version>
-            <scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>io.github.lukehutch</groupId>-->
+            <!--<artifactId>fast-classpath-scanner</artifactId>-->
+            <!--<version>LATEST</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>eu.fbk.dh</groupId>-->
+            <!--<artifactId>fcw-udpipe-api</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>commons-logging</groupId>-->
+            <!--<artifactId>commons-logging</artifactId>-->
+            <!--<version>1.2</version>-->
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
+
 
     </dependencies>
 

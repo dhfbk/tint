@@ -1,14 +1,13 @@
 package eu.fbk.dh.tint.runner.outputters;
 
 import com.google.gson.*;
-import edu.stanford.nlp.hcoref.CorefCoreAnnotations;
-import edu.stanford.nlp.hcoref.data.CorefChain;
+import edu.stanford.nlp.coref.CorefCoreAnnotations;
+import edu.stanford.nlp.coref.data.CorefChain;
 import edu.stanford.nlp.ie.machinereading.structure.Span;
 import edu.stanford.nlp.ie.util.RelationTriple;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.IndexedWord;
-import edu.stanford.nlp.ling.Sentence;
 import edu.stanford.nlp.naturalli.NaturalLogicAnnotations;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -145,13 +144,7 @@ public class JSONOutputter extends AnnotationOutputter {
             for (CorefChain.CorefMention mention : chain.getMentionsInTextualOrder()) {
                 JsonObject mentionObj = new JsonObject();
                 mentionObj.addProperty("id", mention.mentionID);
-                mentionObj.addProperty("text", Sentence
-                        .listToOriginalTextString(
-                                annotationThreadLocal.get().get(CoreAnnotations.SentencesAnnotation.class)
-                                        .get(mention.sentNum - 1)
-                                        .get(CoreAnnotations.TokensAnnotation.class)
-                                        .subList(mention.startIndex - 1,
-                                                mention.endIndex - 1)).trim());
+                mentionObj.add("text", jsonSerializationContext.serialize(mention.mentionSpan));
                 mentionObj.add("type", jsonSerializationContext.serialize(mention.mentionType));
                 mentionObj.add("number", jsonSerializationContext.serialize(mention.number));
                 mentionObj.add("gender", jsonSerializationContext.serialize(mention.gender));

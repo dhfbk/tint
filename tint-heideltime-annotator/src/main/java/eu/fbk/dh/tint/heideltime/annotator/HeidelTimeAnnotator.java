@@ -2,6 +2,7 @@ package eu.fbk.dh.tint.heideltime.annotator;
 
 import de.unihd.dbs.heideltime.standalone.DocumentType;
 import de.unihd.dbs.heideltime.standalone.HeidelTimeStandalone;
+import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -176,7 +177,7 @@ public class HeidelTimeAnnotator implements Annotator {
      * Returns a set of requirements for which tasks this annotator can
      * provide.  For example, the POS annotator will return "pos".
      */
-    @Override public Set<Requirement> requirementsSatisfied() {
+    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
         return Collections.emptySet();
     }
 
@@ -185,7 +186,7 @@ public class HeidelTimeAnnotator implements Annotator {
      * to perform.  For example, the POS annotator will return
      * "tokenize", "ssplit".
      */
-    @Override public Set<Requirement> requires() {
-        return Collections.singleton(Annotator.TOKENIZE_REQUIREMENT);
+    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+        return Collections.singleton(CoreAnnotations.TokensAnnotation.class);
     }
 }

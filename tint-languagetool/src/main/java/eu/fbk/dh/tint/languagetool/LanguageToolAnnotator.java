@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
@@ -75,11 +76,20 @@ public class LanguageToolAnnotator implements Annotator {
         return in;
     }
 
-    @Override public Set<Requirement> requirementsSatisfied() {
-        return Collections.singleton(LanguageToolAnnotations.LANGUAGETOOL_ANNOTATION_REQUIREMENT);
+    /**
+     * Returns a set of requirements for which tasks this annotator can
+     * provide.  For example, the POS annotator will return "pos".
+     */
+    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
+        return Collections.singleton(LanguageToolAnnotations.LanguageToolMultiAnnotation.class);
     }
 
-    @Override public Set<Requirement> requires() {
+    /**
+     * Returns the set of tasks which this annotator requires in order
+     * to perform.  For example, the POS annotator will return
+     * "tokenize", "ssplit".
+     */
+    @Override public Set<Class<? extends CoreAnnotation>> requires() {
         return Collections.emptySet();
     }
 

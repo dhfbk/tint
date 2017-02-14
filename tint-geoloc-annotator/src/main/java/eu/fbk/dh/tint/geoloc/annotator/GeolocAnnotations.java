@@ -1,7 +1,6 @@
 package eu.fbk.dh.tint.geoloc.annotator;
 
 import edu.stanford.nlp.ling.CoreAnnotation;
-import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.ErasureUtils;
 import eu.fbk.utils.gson.JSONLabel;
 
@@ -12,11 +11,7 @@ import java.util.List;
  */
 public class GeolocAnnotations {
 
-    public static final String GEOLOC_ANNOTATION = "geoloc";
-    public static final Annotator.Requirement GEOLOC_ANNOTATION_REQUIREMENT = new Annotator.Requirement(
-            GEOLOC_ANNOTATION);
-
-//    @JSONLabel(value = "geocodedlocation", serializer = { GeocodResult.GeocodResultSerializer.class })
+    //    @JSONLabel(value = "geocodedlocation", serializer = { GeocodResult.GeocodResultSerializer.class })
     @JSONLabel(value = "geocodedlocation")
     public static class GeolocAnnotation implements CoreAnnotation<GeocodResult> {
 

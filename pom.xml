@@ -83,6 +83,7 @@
         <module>tint-models</module>
         <module>tint-languagetool</module>
         <module>tint-inverse-digimorph</module>
+        <module>tint-simplifier</module>
     </modules>
 
     <properties>

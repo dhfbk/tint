@@ -1,9 +1,11 @@
 package eu.fbk.dh.tint.textpro;
 
+import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
+import edu.stanford.nlp.util.ArraySet;
 import edu.stanford.nlp.util.CoreMap;
 
 import java.util.*;
@@ -212,7 +214,7 @@ public class TextProLemmaAnnotator implements Annotator {
 
     @Override
     public void annotate(Annotation annotation) {
-        if (annotation.has(CoreAnnotations.SentencesAnnotation.class)) {
+        if (annotation.containsKey(CoreAnnotations.SentencesAnnotation.class)) {
 
             ArrayList<LemmaProperty> list = new ArrayList<>();
             ArrayList<String> tokenList = new ArrayList<>();
@@ -267,13 +269,24 @@ public class TextProLemmaAnnotator implements Annotator {
 
     }
 
-    @Override
-    public Set<Requirement> requirementsSatisfied() {
-        return Collections.singleton(LEMMA_REQUIREMENT);
+    /**
+     * Returns a set of requirements for which tasks this annotator can
+     * provide.  For example, the POS annotator will return "pos".
+     */
+    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
+        return Collections.singleton(CoreAnnotations.LemmaAnnotation.class);
     }
 
-    @Override
-    public Set<Requirement> requires() {
-        return TOKENIZE_SSPLIT_POS;
+    /**
+     * Returns the set of tasks which this annotator requires in order
+     * to perform.  For example, the POS annotator will return
+     * "tokenize", "ssplit".
+     */
+    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+        return Collections.unmodifiableSet(new ArraySet<>(Arrays.asList(
+                CoreAnnotations.PartOfSpeechAnnotation.class,
+                CoreAnnotations.TokensAnnotation.class,
+                CoreAnnotations.SentencesAnnotation.class
+        )));
     }
 }

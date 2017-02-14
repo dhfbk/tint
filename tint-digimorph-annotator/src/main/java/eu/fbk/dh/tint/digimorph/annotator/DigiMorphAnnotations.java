@@ -1,7 +1,6 @@
 package eu.fbk.dh.tint.digimorph.annotator;
 
 import edu.stanford.nlp.ling.CoreAnnotation;
-import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.ErasureUtils;
 import eu.fbk.utils.gson.JSONLabel;
 
@@ -12,9 +11,6 @@ import java.util.List;
  */
 public class DigiMorphAnnotations {
 
-    public static final String DH_MORPHOLOGY = "morphology";
-    public static final Annotator.Requirement DH_MORPHOLOGY_REQUIREMENT = new Annotator.Requirement(DH_MORPHOLOGY);
-
     @JSONLabel("full_morpho")
     public static class MorphoAnnotation implements CoreAnnotation<String> {
 
@@ -22,17 +18,20 @@ public class DigiMorphAnnotations {
             return String.class;
         }
     }
+
     @JSONLabel("comp_morpho")
     public static class MorphoCompAnnotation implements CoreAnnotation<List<String>> {
 
         public Class<List<String>> getType() {
-            return ErasureUtils.<Class<List<String>>>uncheckedCast(List.class);
+            return ErasureUtils.uncheckedCast(List.class);
         }
     }
+
     @JSONLabel("guessed_lemma")
     public static class GuessedLemmaAnnotation implements CoreAnnotation<Boolean> {
+
         public Class<Boolean> getType() {
-            return ErasureUtils.<Class<Boolean>>uncheckedCast(Boolean.class);
+            return ErasureUtils.uncheckedCast(Boolean.class);
         }
     }
 

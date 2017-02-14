@@ -12,10 +12,6 @@ import java.util.List;
  */
 public class LanguageToolAnnotations {
 
-    public static final String LANGUAGETOOL_ANNOTATION = "languagetool";
-    public static final Annotator.Requirement LANGUAGETOOL_ANNOTATION_REQUIREMENT = new Annotator.Requirement(
-            LANGUAGETOOL_ANNOTATION);
-
 //    @JSONLabel(value = "languagetooltext")
 //    public static class LanguageToolAnnotation implements CoreAnnotation<String> {
 //

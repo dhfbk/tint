@@ -2,6 +2,7 @@ package eu.fbk.dh.tint.geoloc.annotator;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -77,7 +78,7 @@ public class GeolocAnnotator implements Annotator {
         List<GeocodResult> res = new ArrayList<>();
         Map<String, GeocodResult> cache = new HashMap<>();
 
-        if (annotation.has(CoreAnnotations.SentencesAnnotation.class)) {
+        if (annotation.containsKey(CoreAnnotations.SentencesAnnotation.class)) {
             for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
 
                 String lastNer = DEFAULT_NO_ENTITY;
@@ -174,14 +175,33 @@ public class GeolocAnnotator implements Annotator {
         annotation.set(GeolocAnnotations.GeolocMultiAnnotation.class, res);
     }
 
-    @Override
-    public Set<Requirement> requirementsSatisfied() {
-        return Collections.singleton(GeolocAnnotations.GEOLOC_ANNOTATION_REQUIREMENT);
+    /**
+     * Returns a set of requirements for which tasks this annotator can
+     * provide.  For example, the POS annotator will return "pos".
+     */
+    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
+        return Collections.unmodifiableSet(new ArraySet<>(Arrays.asList(
+                GeolocAnnotations.GeolocAnnotation.class,
+                GeolocAnnotations.GeolocMultiAnnotation.class
+        )));
     }
 
-    @Override
-    public Set<Requirement> requires() {
-        return Collections.unmodifiableSet(
-                new ArraySet<Requirement>(NER_REQUIREMENT));
+    /**
+     * Returns the set of tasks which this annotator requires in order
+     * to perform.  For example, the POS annotator will return
+     * "tokenize", "ssplit".
+     */
+    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+        return Collections.singleton(CoreAnnotations.NamedEntityTagAnnotation.class);
     }
+//    @Override
+//    public Set<Requirement> requirementsSatisfied() {
+//        return Collections.singleton(GeolocAnnotations.GEOLOC_ANNOTATION_REQUIREMENT);
+//    }
+//
+//    @Override
+//    public Set<Requirement> requires() {
+//        return Collections.unmodifiableSet(
+//                new ArraySet<Requirement>(NER_REQUIREMENT));
+//    }
 }

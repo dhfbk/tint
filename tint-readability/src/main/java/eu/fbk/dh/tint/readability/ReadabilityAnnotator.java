@@ -1,9 +1,11 @@
 package eu.fbk.dh.tint.readability;
 
+import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
+import edu.stanford.nlp.util.ArraySet;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.readability.en.EnglishStandardReadability;
 import eu.fbk.dh.tint.readability.es.SpanishStandardReadability;
@@ -12,12 +14,7 @@ import eu.fbk.utils.core.PropertiesUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-
-import static eu.fbk.dh.tint.readability.ReadabilityAnnotations.READABILITY_REQUIREMENT;
+import java.util.*;
 
 /**
  * Created by alessio on 21/09/16.
@@ -99,8 +96,8 @@ public class ReadabilityAnnotator implements Annotator {
      * Returns a set of requirements for which tasks this annotator can
      * provide.  For example, the POS annotator will return "pos".
      */
-    @Override public Set<Requirement> requirementsSatisfied() {
-        return Collections.singleton(READABILITY_REQUIREMENT);
+    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
+        return Collections.singleton(ReadabilityAnnotations.ReadabilityAnnotation.class);
     }
 
     /**
@@ -108,7 +105,12 @@ public class ReadabilityAnnotator implements Annotator {
      * to perform.  For example, the POS annotator will return
      * "tokenize", "ssplit".
      */
-    @Override public Set<Requirement> requires() {
-        return Annotator.TOKENIZE_SSPLIT_POS_LEMMA;
+    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+        return Collections.unmodifiableSet(new ArraySet<>(Arrays.asList(
+                CoreAnnotations.PartOfSpeechAnnotation.class,
+                CoreAnnotations.TokensAnnotation.class,
+                CoreAnnotations.LemmaAnnotation.class,
+                CoreAnnotations.SentencesAnnotation.class
+        )));
     }
 }
