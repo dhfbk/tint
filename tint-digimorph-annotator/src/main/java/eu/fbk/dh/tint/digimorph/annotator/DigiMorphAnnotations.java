@@ -22,11 +22,17 @@ public class DigiMorphAnnotations {
             return String.class;
         }
     }
-
+    @JSONLabel("comp_morpho")
     public static class MorphoCompAnnotation implements CoreAnnotation<List<String>> {
 
         public Class<List<String>> getType() {
             return ErasureUtils.<Class<List<String>>>uncheckedCast(List.class);
+        }
+    }
+    @JSONLabel("guessed_lemma")
+    public static class GuessedLemmaAnnotation implements CoreAnnotation<Boolean> {
+        public Class<Boolean> getType() {
+            return ErasureUtils.<Class<Boolean>>uncheckedCast(Boolean.class);
         }
     }
 
