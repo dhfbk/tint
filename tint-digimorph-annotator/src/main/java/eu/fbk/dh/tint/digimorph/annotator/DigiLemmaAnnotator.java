@@ -223,7 +223,6 @@ public class DigiLemmaAnnotator implements Annotator {
         return Collections.unmodifiableSet(new ArraySet<>(Arrays.asList(
                 CoreAnnotations.PartOfSpeechAnnotation.class,
                 DigiMorphAnnotations.MorphoAnnotation.class,
-                CoreAnnotations.LemmaAnnotation.class,
                 CoreAnnotations.TokensAnnotation.class,
                 CoreAnnotations.SentencesAnnotation.class
         )));
