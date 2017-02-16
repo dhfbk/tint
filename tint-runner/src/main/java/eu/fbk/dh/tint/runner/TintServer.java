@@ -50,7 +50,7 @@ public class TintServer {
             pipeline.addProperties(additionalProperties);
 
             // todo: parametrize this!
-            pipeline.loadSerializers();
+//            pipeline.loadSerializers();
 
             pipeline.load();
 
