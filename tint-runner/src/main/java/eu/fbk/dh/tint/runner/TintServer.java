@@ -88,24 +88,24 @@ public class TintServer {
                             CommandLine.Type.INTEGER, true, false, false)
                     .withOption("h", "host", String.format("Host address (default %s)", DEFAULT_HOST), "NUM",
                             CommandLine.Type.STRING, true, false, false)
-                    .withOption(null, "properties", "Additional properties", "PROPS", CommandLine.Type.STRING, true,
-                            true, false)
+//                    .withOption(null, "properties", "Additional properties", "PROPS", CommandLine.Type.STRING, true,
+//                            true, false)
                     .withLogger(LoggerFactory.getLogger("eu.fbk")).parse(args);
 
             String host = cmd.getOptionValue("host", String.class, DEFAULT_HOST);
             Integer port = cmd.getOptionValue("port", Integer.class, DEFAULT_PORT);
             File configFile = cmd.getOptionValue("config", File.class);
 
-            List<String> addProperties = cmd.getOptionValues("properties", String.class);
+//            List<String> addProperties = cmd.getOptionValues("properties", String.class);
 
             Properties additionalProps = new Properties();
-            for (String property : addProperties) {
-                try {
-                    additionalProps.load(new StringReader(property));
-                } catch (Exception e) {
-                    LOGGER.warn(e.getMessage());
-                }
-            }
+//            for (String property : addProperties) {
+//                try {
+//                    additionalProps.load(new StringReader(property));
+//                } catch (Exception e) {
+//                    LOGGER.warn(e.getMessage());
+//                }
+//            }
 
             TintServer server = new TintServer(host, port, configFile, additionalProps);
 
