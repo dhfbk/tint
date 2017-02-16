@@ -55,4 +55,8 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
+    <properties>
+        <parent-path>..</parent-path>
+    </properties>
+
 </project>

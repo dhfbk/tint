@@ -87,15 +87,15 @@
 
         <!-- Annotators -->
         <dependency>
-            <groupId>eu.fbk.pikes</groupId>
-            <artifactId>pikes-depparse-annotation</artifactId>
-            <version>${tint.pikes.version}</version>
+            <groupId>eu.fbk.fcw</groupId>
+            <artifactId>fcw-depparse</artifactId>
+            <version>${fcw.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>eu.fbk.pikes</groupId>
-            <artifactId>pikes-twm</artifactId>
-            <version>${tint.pikes.version}</version>
+            <groupId>eu.fbk.fcw</groupId>
+            <artifactId>fcw-linking</artifactId>
+            <version>${fcw.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -212,7 +212,7 @@
     </profiles>
 
     <properties>
-        <parent-path>/..</parent-path>
+        <parent-path>..</parent-path>
         <log4j2-version>2.6.1</log4j2-version>
     </properties>
 

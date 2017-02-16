@@ -107,7 +107,7 @@
                     <artifactId>license-maven-plugin</artifactId>
                     <configuration>
                         <licenseName>gpl_v3</licenseName>
-                        <fileTemplate>${project.basedir}${parent-path}/src/license/template.ftl</fileTemplate>
+                        <fileTemplate>${project.basedir}/${parent-path}/src/license/template.ftl</fileTemplate>
                         <!--<licenseResolver>file://${project.basedir}${parent-path}/src/license</licenseResolver>-->
                     </configuration>
                 </plugin>

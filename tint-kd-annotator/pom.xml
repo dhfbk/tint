@@ -31,5 +31,8 @@
             <version>${tint.utils.version}</version>
         </dependency>
     </dependencies>
+    <properties>
+        <parent-path>..</parent-path>
+    </properties>
 
 </project>

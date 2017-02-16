@@ -11,5 +11,8 @@
 
     <artifactId>tint-models</artifactId>
 
+    <properties>
+        <parent-path>..</parent-path>
+    </properties>
 
 </project>

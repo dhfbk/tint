@@ -42,7 +42,7 @@
     </dependencies>
 
     <properties>
-        <parent-path>/..</parent-path>
+        <parent-path>..</parent-path>
     </properties>
 
 </project>

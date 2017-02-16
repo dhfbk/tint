@@ -13,6 +13,7 @@
   * Lucene Queries (org.apache.lucene:lucene-queries:4.10.3)
   * Lucene QueryParsers (org.apache.lucene:lucene-queryparser:4.10.3)
   * Lucene Sandbox (org.apache.lucene:lucene-sandbox:4.10.3)
+  * Apache UIMA Base: uimaj-core (org.apache.uima:uimaj-core:2.8.1)
   * xalan (xalan:xalan:2.7.0)
   * Xerces2 Java Parser (xerces:xercesImpl:2.8.0)
   * xml-apis (xml-apis:xml-apis:1.3.03)
@@ -36,6 +37,10 @@
 #### CDDL 1.1:
 
   * Java Architecture for XML Binding (javax.xml.bind:jaxb-api:2.2.7)
+
+#### GNU General Public License (GPL):
+
+  * HeidelTime (com.github.heideltime:heideltime:2.2.1)
 
 #### GNU General Public License (GPL) version 3:
 

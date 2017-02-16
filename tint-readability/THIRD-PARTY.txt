@@ -1,11 +1,17 @@
 ## List of third-party dependencies grouped by their license type.
 
+#### Apache 2.0:
+
+  * Gson (com.google.code.gson:gson:2.7)
+
 #### Apache Software License, Version 2.0:
 
+  * FindBugs-jsr305 (com.google.code.findbugs:jsr305:3.0.0)
   * Guava: Google Core Libraries for Java (com.google.guava:guava:20.0-rc1)
   * Apache Commons CLI (commons-cli:commons-cli:1.3.1)
   * Jollyday (de.jollyday:jollyday:0.4.9)
   * utils-core (eu.fbk.utils:utils-core:3.0)
+  * utils-gson (eu.fbk.utils:utils-gson:3.0)
   * Joda-Time (joda-time:joda-time:2.9)
   * Apache Commons Lang (org.apache.commons:commons-lang3:3.4)
   * Lucene Common Analyzers (org.apache.lucene:lucene-analyzers-common:4.10.3)
@@ -37,6 +43,12 @@
 
   * Java Architecture for XML Binding (javax.xml.bind:jaxb-api:2.2.7)
 
+#### GNU Affero General Public License v3:
+
+  * iText 7 - io (com.itextpdf:io:7.0.1)
+  * iText 7 - kernel (com.itextpdf:kernel:7.0.1)
+  * iText 7 - layout (com.itextpdf:layout:7.0.1)
+
 #### GNU General Public License (GPL) version 3:
 
   * Stanford CoreNLP (edu.stanford.nlp:stanford-corenlp:3.7.0)
@@ -53,3 +65,7 @@
 #### MIT License:
 
   * SLF4J API Module (org.slf4j:slf4j-api:1.7.12)
+
+#### Various licenses (see individual files):
+
+  * iText 7 - hyph (com.itextpdf:hyph:7.0.1)

@@ -1,11 +1,13 @@
 ## List of third-party dependencies grouped by their license type.
 
+#### Apache 2.0:
+
+  * Gson (com.google.code.gson:gson:2.8.0)
+
 #### Apache Software License, Version 2.0:
 
-  * Guava: Google Core Libraries for Java (com.google.guava:guava:20.0-rc1)
-  * Apache Commons CLI (commons-cli:commons-cli:1.3.1)
   * Jollyday (de.jollyday:jollyday:0.4.9)
-  * utils-core (eu.fbk.utils:utils-core:3.0)
+  * utils-gson (eu.fbk.utils:utils-gson:3.0)
   * Joda-Time (joda-time:joda-time:2.9)
   * Apache Commons Lang (org.apache.commons:commons-lang3:3.4)
   * Lucene Common Analyzers (org.apache.lucene:lucene-analyzers-common:4.10.3)
