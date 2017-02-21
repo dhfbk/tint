@@ -133,6 +133,7 @@ public class TintRunner {
         try {
             format = OutputFormat.valueOf(formatString.toUpperCase());
         } catch (Exception e) {
+            LOGGER.error("Unrecognized format {}, using default ({})", formatString, outputFormat.toString());
             // continue
         }
         return format;
@@ -157,6 +158,5 @@ public class TintRunner {
         }
         throw new IllegalArgumentException("Cannot invoke " + methodName);
     }
-
 
 }
