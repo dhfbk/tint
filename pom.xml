@@ -76,7 +76,7 @@
         <module>tint-runner</module>
         <module>tint-tense</module>
         <module>tint-readability</module>
-        <module>tint-kd-annotator</module>
+        <!--<module>tint-kd-annotator</module>-->
         <module>tint-heideltime-annotator</module>
         <module>tint-models</module>
         <module>tint-inverse-digimorph</module>

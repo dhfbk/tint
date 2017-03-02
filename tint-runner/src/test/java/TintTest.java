@@ -10,13 +10,13 @@ public class TintTest {
 
     public static void main(String[] args) {
         String sentenceText;
-        sentenceText = "Il 12 gennaio 2017 sono andato a fare la spesa.";
+        sentenceText = "Il 12 gennaio 2017 sarei potuto andare a fare la spesa.";
 
         try {
 
             TintPipeline pipeline = new TintPipeline();
             pipeline.loadDefaultProperties();
-            pipeline.setProperty("annotators", "ita_toksent, udpipe, ita_morpho, ita_lemma, timex");
+            pipeline.setProperty("annotators", "ita_toksent, udpipe, ita_tense");
             pipeline.setProperty("timex.treeTaggerHome", "/Volumes/LEXAR/Software/TreeTagger");
             pipeline.setProperty("customAnnotatorClass.udpipe", "eu.fbk.fcw.udpipe.api.UDPipeAnnotator");
             pipeline.setProperty("udpipe.server", "gardner");
@@ -24,7 +24,7 @@ public class TintTest {
             pipeline.load();
 
             Annotation annotation = pipeline.runRaw(sentenceText);
-            System.out.println(JSONOutputter.jsonPrint(annotation));
+//            System.out.println(JSONOutputter.jsonPrint(annotation));
             
         } catch (Exception e) {
             e.printStackTrace();

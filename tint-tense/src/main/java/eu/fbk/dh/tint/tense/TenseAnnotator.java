@@ -25,6 +25,7 @@ public class TenseAnnotator implements Annotator {
 
     static Set<String> noWords = new HashSet<>();
     static Map<String, String> multiTenses = new HashMap<>();
+    private boolean preceededByNot;
 
     enum Form {ACTIVE, PASSIVE}
 
@@ -248,16 +249,24 @@ public class TenseAnnotator implements Annotator {
                     }
 
                     if (lastVerb.size() > 0) {
-                        String tense = analyzeVerb(lastVerb, followedByExMark, preceededByNot);
-                        tokens.get(i - 1).set(TenseAnnotations.TenseAnnotation.class, tense);
+                        for (CoreLabel verb : lastVerb) {
+                            System.out.println(verb + " " + verb.get(CoreAnnotations.PartOfSpeechAnnotation.class));
+                        }
+                        System.out.println();
+//                        String tense = analyzeVerb(lastVerb, followedByExMark, preceededByNot);
+//                        tokens.get(i - 1).set(TenseAnnotations.TenseAnnotation.class, tense);
                         preceededByNot = false;
                         lastVerb = new ArrayList<>();
                     }
                 }
 
                 if (lastVerb.size() > 0) {
-                    String tense = analyzeVerb(lastVerb, followedByExMark, preceededByNot);
-                    tokens.get(tokens.size() - 1).set(TenseAnnotations.TenseAnnotation.class, tense);
+                    for (CoreLabel verb : lastVerb) {
+                        System.out.println(verb + " " + verb.get(CoreAnnotations.PartOfSpeechAnnotation.class));
+                    }
+                    System.out.println();
+//                    String tense = analyzeVerb(lastVerb, followedByExMark, preceededByNot);
+//                    tokens.get(tokens.size() - 1).set(TenseAnnotations.TenseAnnotation.class, tense);
 //                    lastVerb = new ArrayList<>();
 //                    preceededByNot = false;
                 }
@@ -470,7 +479,7 @@ public class TenseAnnotator implements Annotator {
     @Override public Set<Class<? extends CoreAnnotation>> requires() {
         return Collections.unmodifiableSet(new ArraySet<>(Arrays.asList(
                 CoreAnnotations.PartOfSpeechAnnotation.class,
-                DigiMorphAnnotations.MorphoAnnotation.class,
+//                DigiMorphAnnotations.MorphoAnnotation.class,
                 CoreAnnotations.LemmaAnnotation.class,
                 CoreAnnotations.TokensAnnotation.class,
                 CoreAnnotations.SentencesAnnotation.class
