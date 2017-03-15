@@ -322,8 +322,8 @@
     <sentenceSplitting>
         <char id="46" hexcode="002E" desc="FULL STOP"/>
         <char id="33" hexcode="0021" desc="EXCLAMATION MARK"/>
-        <!--<char id="59" hexcode="003B" desc="SEMICOLON"/>-->
-        <!--<char id="58" hexcode="003B" desc="COLON"/>-->
+        <char id="59" hexcode="003B" desc="SEMICOLON"/>
+        <char id="58" hexcode="003B" desc="COLON"/>
         <char id="63" hexcode="003F" desc="QUESTION MARK"/>
         <char id="13" hexcode="0x0d" desc="CARRIAGE RETURN"/>
     </sentenceSplitting>
