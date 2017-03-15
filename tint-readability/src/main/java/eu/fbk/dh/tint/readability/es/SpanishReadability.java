@@ -25,6 +25,8 @@ abstract class SpanishReadability extends Readability {
 //    TreeMap<Integer, DescriptionForm> forms = new TreeMap<>();
 
     @Override public void finalizeReadability() {
+        super.finalizeReadability();
+
 
         double fleschSzigriszt =
                 206.835 - (62.3 * getHyphenCount() / getHyphenWordCount()) - (1.0 * getWordCount()
@@ -63,12 +65,14 @@ abstract class SpanishReadability extends Readability {
     }
 
     public SpanishReadability(Properties globalProperties, Properties localProperties, Annotation annotation) {
-        super("es", annotation);
+        super("es", annotation, localProperties);
         hyphenator = new Hyphenator("es", "es", 1, 1);
         model = SpanishReadabilityModel.getInstance(globalProperties, localProperties);
     }
 
     @Override public void addingContentWord(CoreLabel token) {
+        super.addingContentWord(token);
+
         String lemma = token.lemma();
         if (model.getLevel1Lemmas().contains(lemma)) {
             level1WordSize++;
@@ -105,7 +109,7 @@ abstract class SpanishReadability extends Readability {
     }
 
     @Override public void addingWord(CoreLabel token) {
-
+        super.addingWord(token);
     }
 
     @Override public void addingToken(CoreLabel token) {

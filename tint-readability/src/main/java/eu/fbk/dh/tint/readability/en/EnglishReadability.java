@@ -25,6 +25,8 @@ abstract class EnglishReadability extends Readability {
 //    TreeMap<Integer, DescriptionForm> forms = new TreeMap<>();
 
     @Override public void finalizeReadability() {
+        super.finalizeReadability();
+
 
         double flesch = 206.835 - (84.6 * getHyphenCount() / getHyphenWordCount()) - (1.015 * getWordCount()
                 / getSentenceCount());
@@ -61,7 +63,7 @@ abstract class EnglishReadability extends Readability {
     }
 
     public EnglishReadability(Properties globalProperties, Properties localProperties, Annotation annotation) {
-        super("en", annotation);
+        super("en", annotation, localProperties);
         hyphenator = new Hyphenator("en", "en", 1, 1);
         model = EnglishReadabilityModel.getInstance(globalProperties, localProperties);
 
@@ -71,6 +73,8 @@ abstract class EnglishReadability extends Readability {
     }
 
     @Override public void addingContentWord(CoreLabel token) {
+        super.addingContentWord(token);
+
         String lemma = token.word();
         if (model.getLevel1Lemmas().contains(lemma)) {
             level1WordSize++;
@@ -107,7 +111,7 @@ abstract class EnglishReadability extends Readability {
     }
 
     @Override public void addingWord(CoreLabel token) {
-
+        super.addingWord(token);
     }
 
     @Override public void addingToken(CoreLabel token) {

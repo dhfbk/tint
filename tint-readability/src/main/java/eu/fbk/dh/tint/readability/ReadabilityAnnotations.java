@@ -8,6 +8,22 @@ import eu.fbk.utils.gson.JSONLabel;
  */
 public class ReadabilityAnnotations {
 
+    @JSONLabel("contentWord")
+    public static class ContentWord implements CoreAnnotation<Boolean> {
+
+        public Class<Boolean> getType() {
+            return Boolean.class;
+        }
+    }
+
+    @JSONLabel("literalWord")
+    public static class LiteralWord implements CoreAnnotation<Boolean> {
+
+        public Class<Boolean> getType() {
+            return Boolean.class;
+        }
+    }
+
     @JSONLabel("readability")
     public static class ReadabilityAnnotation implements CoreAnnotation<Readability> {
 

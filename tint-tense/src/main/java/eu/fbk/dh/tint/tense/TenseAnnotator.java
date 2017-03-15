@@ -231,6 +231,8 @@ public class TenseAnnotator implements Annotator {
                 boolean followedByExMark = tokens.get(tokens.size() - 1).word().equals("!");
                 boolean preceededByNot = false;
 
+                List<TenseMultiToken> verbs = new ArrayList<>();
+
                 for (int i = 0; i < tokens.size(); i++) {
                     CoreLabel token = tokens.get(i);
 
@@ -249,29 +251,28 @@ public class TenseAnnotator implements Annotator {
                     }
 
                     if (lastVerb.size() > 0) {
-                        for (CoreLabel verb : lastVerb) {
-                            System.out.println(verb + " " + verb.get(CoreAnnotations.PartOfSpeechAnnotation.class));
-                        }
-                        System.out.println();
-//                        String tense = analyzeVerb(lastVerb, followedByExMark, preceededByNot);
-//                        tokens.get(i - 1).set(TenseAnnotations.TenseAnnotation.class, tense);
-                        preceededByNot = false;
+                        addVerbs(lastVerb, verbs);
                         lastVerb = new ArrayList<>();
                     }
                 }
 
                 if (lastVerb.size() > 0) {
-                    for (CoreLabel verb : lastVerb) {
-                        System.out.println(verb + " " + verb.get(CoreAnnotations.PartOfSpeechAnnotation.class));
-                    }
-                    System.out.println();
-//                    String tense = analyzeVerb(lastVerb, followedByExMark, preceededByNot);
-//                    tokens.get(tokens.size() - 1).set(TenseAnnotations.TenseAnnotation.class, tense);
-//                    lastVerb = new ArrayList<>();
-//                    preceededByNot = false;
+                    addVerbs(lastVerb, verbs);
                 }
+
+                sentence.set(TenseAnnotations.VerbsAnnotation.class, verbs);
             }
         }
+    }
+
+    private void addVerbs(List<CoreLabel> lastVerb, List<TenseMultiToken> verbs) {
+        TenseMultiToken multiToken = new TenseMultiToken();
+        for (CoreLabel verb : lastVerb) {
+//            System.out.println(verb + " " + verb.get(CoreAnnotations.PartOfSpeechAnnotation.class));
+            multiToken.addToken(verb);
+        }
+        verbs.add(multiToken);
+//        System.out.println();
     }
 
     static Set<String> getFromMap(Set<String> needle, Map<String, String> haystack) {

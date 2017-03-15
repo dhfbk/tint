@@ -30,6 +30,8 @@ public abstract class ItalianReadability extends Readability {
     TreeMap<Integer, DescriptionForm> forms = new TreeMap<>();
 
     @Override public void finalizeReadability() {
+        super.finalizeReadability();
+
         double gulpease = 89 + (300 * getSentenceCount() - 10 * getDocLenLettersOnly()) / (getWordCount() * 1.0);
         measures.put("gulpease", gulpease);
         measures.put("level1", 100.0 * level1WordSize / getContentEasyWordSize());
@@ -61,9 +63,44 @@ public abstract class ItalianReadability extends Readability {
     }
 
     public ItalianReadability(Properties globalProperties, Properties localProperties, Annotation annotation) {
-        super("it", annotation);
+        super("it", annotation, localProperties);
         hyphenator = new Hyphenator("it", "it", 1, 1);
         model = ItalianReadabilityModel.getInstance(globalProperties, localProperties);
+
+        minYellowValues.put("propositionsAvg", 2.038);
+        maxYellowValues.put("propositionsAvg", 2.699);
+        minValues.put("propositionsAvg", 0.0);
+        maxValues.put("propositionsAvg", 5.0);
+
+        minYellowValues.put("wordsAvg", 9.845);
+        maxYellowValues.put("wordsAvg", 10.153);
+        minValues.put("wordsAvg", 0.0);
+        maxValues.put("wordsAvg", 12.0);
+        
+//        minYellowValues.put("coordinateRatio", 0.737);
+//        maxYellowValues.put("coordinateRatio", 0.675);
+//        minValues.put("coordinateRatio", 0.0);
+//        maxValues.put("coordinateRatio", 1.0);
+
+        minYellowValues.put("subordinateRatio", 0.263);
+        maxYellowValues.put("subordinateRatio", 0.325);
+        minValues.put("subordinateRatio", 0.0);
+        maxValues.put("subordinateRatio", 1.0);
+
+        minYellowValues.put("deepAvg", 5.292);
+        maxYellowValues.put("deepAvg", 6.532);
+        minValues.put("deepAvg", 0.0);
+        maxValues.put("deepAvg", 10.0);
+
+        minYellowValues.put("ttrValue", 0.549);
+        maxYellowValues.put("ttrValue", 0.719);
+        minValues.put("ttrValue", 0.0);
+        maxValues.put("ttrValue", 1.0);
+
+        minYellowValues.put("density", 0.566);
+        maxYellowValues.put("density", 0.566);
+        minValues.put("density", 0.0);
+        maxValues.put("density", 1.0);
     }
 
     public static class StringLenComparator implements Comparator<String> {
@@ -119,6 +156,7 @@ public abstract class ItalianReadability extends Readability {
     }
 
     @Override public void addingContentWord(CoreLabel token) {
+        super.addingContentWord(token);
         HashMap<Integer, HashMultimap<String, String>> easyWords = model.getEasyWords();
         String simplePos = getGenericPos(token.get(CoreAnnotations.PartOfSpeechAnnotation.class));
         String lemma = token.get(CoreAnnotations.LemmaAnnotation.class);
@@ -142,7 +180,7 @@ public abstract class ItalianReadability extends Readability {
     }
 
     @Override public void addingWord(CoreLabel token) {
-
+        super.addingWord(token);
     }
 
     @Override public void addingToken(CoreLabel token) {

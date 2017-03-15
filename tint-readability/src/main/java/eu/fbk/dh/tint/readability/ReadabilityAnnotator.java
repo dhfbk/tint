@@ -23,7 +23,8 @@ import java.util.*;
 public class ReadabilityAnnotator implements Annotator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReadabilityAnnotator.class);
-    public static String DEFAULT_MAX_SENTENCE_LENGTH = "25";
+    public static Integer DEFAULT_MAX_SENTENCE_LENGTH = 25;
+
     private String language;
     private int maxSentenceLength;
 
@@ -33,10 +34,10 @@ public class ReadabilityAnnotator implements Annotator {
     public ReadabilityAnnotator(String annotatorName, Properties props) {
         globalProperties = props;
         localProperties = PropertiesUtils.dotConvertedProperties(props, annotatorName);
+
         language = globalProperties.getProperty(annotatorName + ".language");
-        maxSentenceLength = Integer
-                .parseInt(globalProperties
-                        .getProperty(annotatorName + ".maxSentenceLength", DEFAULT_MAX_SENTENCE_LENGTH));
+        maxSentenceLength = PropertiesUtils
+                .getInteger(localProperties.getProperty("maxSentenceLength"), DEFAULT_MAX_SENTENCE_LENGTH);
     }
 
     /**
