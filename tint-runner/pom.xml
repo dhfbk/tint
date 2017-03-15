@@ -111,9 +111,9 @@
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-tense</artifactId>
+            <artifactId>tint-verb</artifactId>
             <version>${tint.version}</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>

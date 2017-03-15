@@ -1,3 +1,5 @@
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import eu.fbk.dh.tint.runner.outputters.JSONOutputter;
@@ -23,15 +25,16 @@ public class StanfordTest {
                 + "\"Based on the criminal investigation, we have concluded that flight MH17 was downed by a Buk missile of the series 9M83 that came from the territory of the Russian Federation,\" chief Dutch police investigator Wilbert Paulissen told a news conference on Thursday.\n"
                 + "The missile had been taken from Russia to rebel-held Ukraine in the morning 17 of July, when the plane was shot down, and the launcher was taken back to Russia afterwards, he said.";
         Properties props = new Properties();
-        props.setProperty("annotators", "tokenize, ssplit, pos, lemma, readability");
-        props.setProperty("readability.language", "en");
-        props.setProperty("customAnnotatorClass.readability", "eu.fbk.dh.tint.readability.ReadabilityAnnotator");
+        props.setProperty("annotators", "tokenize, ssplit");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 
         Annotation document = new Annotation(text);
-
         pipeline.annotate(document);
 
-        System.out.println(JSONOutputter.jsonPrint(document));
+        for (CoreLabel coreLabel : document.get(CoreAnnotations.TokensAnnotation.class)) {
+            System.out.println(coreLabel.index());
+        }
+
+//        System.out.println(JSONOutputter.jsonPrint(document));
     }
 }
