@@ -333,6 +333,7 @@ public class ItalianTokenizer {
 
         List<List<CoreLabel>> ret = new ArrayList<>();
         List<CoreLabel> temp = new ArrayList<>();
+
         int index = 0;
 
         if (tokenizeOnlyOnSpace) {
@@ -354,6 +355,7 @@ public class ItalianTokenizer {
                         if (newlineIsSentenceBreak && newLineCount > 0) {
                             if (temp.size() > 0) {
                                 ret.add(temp);
+                                index = 0; // index must be zeroed to meet Stanford policy
                                 temp = new ArrayList<>();
                             }
                         }
@@ -363,6 +365,7 @@ public class ItalianTokenizer {
                         if (!ssplitOnlyOnNewLine) {
                             if (word.length() == 1 && sentenceChars.contains((int) word.charAt(0))) {
                                 ret.add(temp);
+                                index = 0; // index must be zeroed to meet Stanford policy
                                 temp = new ArrayList<>();
                             }
                         }
@@ -382,6 +385,7 @@ public class ItalianTokenizer {
             }
             if (temp.size() > 0) {
                 ret.add(temp);
+                index = 0; // index must be zeroed to meet Stanford policy
             }
 //            if (!lastIsWhitespace) {
 //                System.out.println("---" + text.substring(nextStart) + "---");
@@ -516,6 +520,7 @@ public class ItalianTokenizer {
                 if (newlineIsSentenceBreak && tokenGroup.getNewLines().contains(start)) {
                     if (temp.size() > 0) {
                         ret.add(temp);
+                        index = 0; // index must be zeroed to meet Stanford policy
                         temp = new ArrayList<>();
                     }
                 }
@@ -525,6 +530,7 @@ public class ItalianTokenizer {
                 if (!ssplitOnlyOnNewLine) {
                     if (word.length() == 1 && sentenceChars.contains((int) word.charAt(0))) {
                         ret.add(temp);
+                        index = 0; // index must be zeroed to meet Stanford policy
                         temp = new ArrayList<>();
                     }
                 }
@@ -534,6 +540,7 @@ public class ItalianTokenizer {
 
             if (temp.size() > 0) {
                 ret.add(temp);
+                index = 0; // index must be zeroed to meet Stanford policy
             }
         }
 
