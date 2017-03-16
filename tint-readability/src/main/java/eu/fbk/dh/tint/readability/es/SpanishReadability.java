@@ -27,14 +27,14 @@ abstract class SpanishReadability extends Readability {
     @Override public void finalizeReadability() {
         super.finalizeReadability();
 
-
         double fleschSzigriszt =
                 206.835 - (62.3 * getHyphenCount() / getHyphenWordCount()) - (1.0 * getWordCount()
                         / getSentenceCount());
         double fernandezHuerta =
                 206.84 - 0.6 * (100.0 * getHyphenCount() / getHyphenWordCount()) - 1.02 * (100.0 * getSentenceCount()
                         / getWordCount());
-        measures.put("flesch-szigriszt", fleschSzigriszt);
+        labels.put("main", "Flesch-Szigriszt");
+        measures.put("main", fleschSzigriszt);
         measures.put("fernandez-huerta", fernandezHuerta);
         measures.put("level1", 100.0 * level1WordSize / getContentWordSize());
         measures.put("level2", 100.0 * level2WordSize / getContentWordSize());

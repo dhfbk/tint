@@ -33,7 +33,8 @@ public abstract class ItalianReadability extends Readability {
         super.finalizeReadability();
 
         double gulpease = 89 + (300 * getSentenceCount() - 10 * getDocLenLettersOnly()) / (getWordCount() * 1.0);
-        measures.put("gulpease", gulpease);
+        labels.put("main", "Gulpease");
+        measures.put("main", gulpease);
         measures.put("level1", 100.0 * level1WordSize / getContentEasyWordSize());
         measures.put("level2", 100.0 * level2WordSize / getContentWordSize());
         measures.put("level3", 100.0 * level3WordSize / getContentWordSize());
@@ -67,40 +68,35 @@ public abstract class ItalianReadability extends Readability {
         hyphenator = new Hyphenator("it", "it", 1, 1);
         model = ItalianReadabilityModel.getInstance(globalProperties, localProperties);
 
-        minYellowValues.put("propositionsAvg", 2.038);
-        maxYellowValues.put("propositionsAvg", 2.699);
-        minValues.put("propositionsAvg", 0.0);
-        maxValues.put("propositionsAvg", 5.0);
+        measures.put("propositionsAvgYellow", 2.038);
+        measures.put("propositionsAvgYellow", 2.699);
+        measures.put("propositionsAvg", 0.0);
+        measures.put("propositionsAvg", 5.0);
 
-        minYellowValues.put("wordsAvg", 9.845);
-        maxYellowValues.put("wordsAvg", 10.153);
-        minValues.put("wordsAvg", 0.0);
-        maxValues.put("wordsAvg", 12.0);
+        measures.put("wordsAvgYellow", 9.845);
+        measures.put("wordsAvgYellow", 10.153);
+        measures.put("wordsAvg", 0.0);
+        measures.put("wordsAvg", 12.0);
         
-//        minYellowValues.put("coordinateRatio", 0.737);
-//        maxYellowValues.put("coordinateRatio", 0.675);
-//        minValues.put("coordinateRatio", 0.0);
-//        maxValues.put("coordinateRatio", 1.0);
+        measures.put("subordinateRatioYellow", 0.263);
+        measures.put("subordinateRatioYellow", 0.325);
+        measures.put("subordinateRatio", 0.0);
+        measures.put("subordinateRatio", 1.0);
 
-        minYellowValues.put("subordinateRatio", 0.263);
-        maxYellowValues.put("subordinateRatio", 0.325);
-        minValues.put("subordinateRatio", 0.0);
-        maxValues.put("subordinateRatio", 1.0);
+        measures.put("deepAvgYellow", 5.292);
+        measures.put("deepAvgYellow", 6.532);
+        measures.put("deepAvg", 0.0);
+        measures.put("deepAvg", 10.0);
 
-        minYellowValues.put("deepAvg", 5.292);
-        maxYellowValues.put("deepAvg", 6.532);
-        minValues.put("deepAvg", 0.0);
-        maxValues.put("deepAvg", 10.0);
+        measures.put("ttrValueYellow", 0.549);
+        measures.put("ttrValueYellow", 0.719);
+        measures.put("ttrValue", 0.0);
+        measures.put("ttrValue", 1.0);
 
-        minYellowValues.put("ttrValue", 0.549);
-        maxYellowValues.put("ttrValue", 0.719);
-        minValues.put("ttrValue", 0.0);
-        maxValues.put("ttrValue", 1.0);
-
-        minYellowValues.put("density", 0.566);
-        maxYellowValues.put("density", 0.566);
-        minValues.put("density", 0.0);
-        maxValues.put("density", 1.0);
+        measures.put("densityYellow", 0.566);
+        measures.put("densityYellow", 0.566);
+        measures.put("density", 0.0);
+        measures.put("density", 1.0);
     }
 
     public static class StringLenComparator implements Comparator<String> {

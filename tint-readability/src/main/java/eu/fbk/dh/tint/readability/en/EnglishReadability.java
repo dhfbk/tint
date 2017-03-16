@@ -32,7 +32,8 @@ abstract class EnglishReadability extends Readability {
                 / getSentenceCount());
         double fleschKincaid =
                 (0.39 * getWordCount() / getSentenceCount()) + (11.8 * getHyphenCount() / getHyphenWordCount()) - 15.59;
-        measures.put("flesch", flesch);
+        labels.put("main", "Flesch");
+        measures.put("main", flesch);
         measures.put("flesch-kincaid", fleschKincaid);
         measures.put("level1", 100.0 * level1WordSize / getContentWordSize());
         measures.put("level2", 100.0 * level2WordSize / getContentWordSize());
