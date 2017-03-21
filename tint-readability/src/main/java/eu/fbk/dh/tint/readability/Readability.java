@@ -173,15 +173,19 @@ public abstract class Readability {
 
         Double ttrValue;
         Double density;
-        Double deepAvg;
-        Double propositionsAvg;
-        Double wordsAvg;
+        Double deepAvg = 0D;
+        Double propositionsAvg = 0D;
+        Double wordsAvg = 0D;
         Double subordinateRatio;
 
         ttrValue = 1.0 * ttr.size() / (1.0 * i);
-        deepAvg = deeps.stream().mapToInt(val -> val).average().getAsDouble();
-        propositionsAvg = propositions.stream().mapToInt(val -> val).average().getAsDouble();
-        wordsAvg = (1.0 * getWordCount()) / propositions.stream().mapToInt(val -> val).sum();
+        if (deeps.size() > 0) {
+            deepAvg = deeps.stream().mapToInt(val -> val).average().getAsDouble();
+        }
+        if (propositions.size() > 0) {
+            propositionsAvg = propositions.stream().mapToInt(val -> val).average().getAsDouble();
+            wordsAvg = (1.0 * getWordCount()) / propositions.stream().mapToInt(val -> val).sum();
+        }
 
         int total = coordinates + subordinates;
         if (total == 0) {
