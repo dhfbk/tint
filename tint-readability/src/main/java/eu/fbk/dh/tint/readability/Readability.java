@@ -199,6 +199,22 @@ public abstract class Readability {
         measures.put("subordinateRatio", subordinateRatio);
     }
 
+    public Map<String, Double> getMeasures() {
+        return measures;
+    }
+
+    public Map<String, String> getLabels() {
+        return labels;
+    }
+
+    public HashMap<String, String> getGenericPosDescription() {
+        return genericPosDescription;
+    }
+
+    public HashMap<String, String> getPosDescription() {
+        return posDescription;
+    }
+
     public void addingContentWord(CoreLabel token) {
         token.set(ReadabilityAnnotations.ContentWord.class, true);
     }
