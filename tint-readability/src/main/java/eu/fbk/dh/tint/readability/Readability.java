@@ -85,7 +85,7 @@ public abstract class Readability {
             }
 
             if (i >= ttrLimit) {
-                return;
+                break;
             }
             String tokenText = token.originalText().toLowerCase();
             ttr.add(tokenText);
