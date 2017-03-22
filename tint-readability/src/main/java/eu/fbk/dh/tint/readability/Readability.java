@@ -174,13 +174,16 @@ public abstract class Readability {
         Double ttrValue;
         Double density;
         Double deepAvg = 0D;
+        Double deepMax = 0D;
         Double propositionsAvg = 0D;
         Double wordsAvg = 0D;
         Double subordinateRatio;
 
         ttrValue = 1.0 * ttr.size() / (1.0 * i);
+
         if (deeps.size() > 0) {
             deepAvg = deeps.stream().mapToInt(val -> val).average().getAsDouble();
+            deepMax = deeps.stream().mapToInt(val -> val).max().getAsInt() * 1.0;
         }
         if (propositions.size() > 0) {
             propositionsAvg = propositions.stream().mapToInt(val -> val).average().getAsDouble();
@@ -201,6 +204,7 @@ public abstract class Readability {
         measures.put("propositionsAvg", propositionsAvg);
         measures.put("wordsAvg", wordsAvg);
         measures.put("subordinateRatio", subordinateRatio);
+        measures.put("deepMax", deepMax);
     }
 
     public Map<String, Double> getMeasures() {
