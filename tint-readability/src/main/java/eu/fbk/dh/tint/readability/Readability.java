@@ -103,23 +103,26 @@ public abstract class Readability {
         for (int sentIndex = 0; sentIndex < sentences.size(); sentIndex++) {
             CoreMap sentence = sentences.get(sentIndex);
 
+            SemanticGraph semanticGraph = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
+            int deep = 0;
+            if (semanticGraph != null) {
+                for (IndexedWord indexedWord : semanticGraph.getLeafVertices()) {
+                    try {
+                        deep = Math.max(deep, semanticGraph.getPathToRoot(indexedWord).size());
+                    } catch (NullPointerException e) {
+                        // ignored
+                    }
+                }
+            }
+            deeps.add(deep);
+
+            // Verb part
+
             if (!sentence.containsKey(VerbAnnotations.VerbsAnnotation.class)) {
                 continue;
             }
 
             List<VerbMultiToken> verbs = sentence.get(VerbAnnotations.VerbsAnnotation.class);
-            SemanticGraph semanticGraph = sentence
-                    .get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
-//                System.out.println(semanticGraph);
-            int deep = 0;
-            for (IndexedWord indexedWord : semanticGraph.getLeafVertices()) {
-                try {
-                    deep = Math.max(deep, semanticGraph.getPathToRoot(indexedWord).size());
-                } catch (NullPointerException e) {
-                    // ignored
-                }
-            }
-            deeps.add(deep);
             propositions.add(verbs.size());
 
             Set<Integer> heads = new HashSet<>();
@@ -173,10 +176,10 @@ public abstract class Readability {
 
         Double ttrValue;
         Double density;
-        Double deepAvg = 0D;
-        Double deepMax = 0D;
-        Double propositionsAvg = 0D;
-        Double wordsAvg = 0D;
+        Double deepAvg = null;
+        Double deepMax = null;
+        Double propositionsAvg = null;
+        Double wordsAvg = null;
         Double subordinateRatio;
 
         ttrValue = 1.0 * ttr.size() / (1.0 * i);
