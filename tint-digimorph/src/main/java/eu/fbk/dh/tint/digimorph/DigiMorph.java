@@ -66,6 +66,10 @@ public class DigiMorph {
 
     }
 
+    public SortedTableMap<String, String> getMap() {
+        return map;
+    }
+
     /**
      * @param token_list list of string containing words.
      * @return list of string containing the results of the Morphological analyzer.
