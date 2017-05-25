@@ -27,6 +27,7 @@ abstract class SpanishReadability extends Readability {
     @Override public void finalizeReadability() {
         super.finalizeReadability();
 
+
         double fleschSzigriszt =
                 206.835 - (62.3 * getHyphenCount() / getHyphenWordCount()) - (1.0 * getWordCount()
                         / getSentenceCount());

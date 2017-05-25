@@ -94,24 +94,34 @@ public class ItalianReadabilityModel {
                     GlossarioEntry[] entries = gson.fromJson(reader, GlossarioEntry[].class);
                     for (GlossarioEntry entry : entries) {
                         for (String form : entry.getForms()) {
+                            if (!form.equals("nido d'infanzia")) {
+                                continue;
+                            }
 
                             if (parseGlossario) {
                                 Annotation annotation = new Annotation(form);
                                 pipeline.annotate(annotation);
-                                StringBuffer stringBuffer = new StringBuffer();
+
+                                StringBuffer lemmaBuffer = new StringBuffer();
+                                StringBuffer tokenBuffer = new StringBuffer();
+
                                 List<CoreLabel> tokens = annotation.get(CoreAnnotations.TokensAnnotation.class);
                                 for (CoreLabel token : tokens) {
-                                    stringBuffer.append(token.get(CoreAnnotations.LemmaAnnotation.class)).append(" ");
+                                    lemmaBuffer.append(token.get(CoreAnnotations.LemmaAnnotation.class)).append(" ");
+                                    tokenBuffer.append(token.get(CoreAnnotations.TextAnnotation.class)).append(" ");
                                 }
 
                                 String pos = entry.getPos();
                                 String annotatedPos = tokens.get(0).get(CoreAnnotations.PartOfSpeechAnnotation.class);
                                 if (pos == null || annotatedPos.substring(0, 1).equals("S")) {
-                                    glossario.put(stringBuffer.toString().trim(), entry);
+                                    glossario.put(lemmaBuffer.toString().trim(), entry);
                                 }
+                                glossario.put(tokenBuffer.toString().trim(), entry);
                             }
-
-                            glossario.put(form, entry);
+                            else {
+                                // todo: check this, it was outside the "if"
+                                glossario.put(form, entry);
+                            }
                         }
                     }
 

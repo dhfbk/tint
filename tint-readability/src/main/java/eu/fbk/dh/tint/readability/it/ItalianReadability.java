@@ -23,7 +23,8 @@ public abstract class ItalianReadability extends Readability {
     @JSONExclude ItalianReadabilityModel model;
     @JSONExclude int level1WordSize = 0, level2WordSize = 0, level3WordSize = 0;
 
-    @JSONExclude StringBuilder buffer = new StringBuilder();
+    @JSONExclude StringBuilder lemmaBuffer = new StringBuilder();
+    @JSONExclude StringBuilder tokenBuffer = new StringBuilder();
     @JSONExclude int lemmaIndex = 0;
     @JSONExclude HashMap<Integer, Integer> lemmaIndexes = new HashMap<>();
     @JSONExclude HashMap<Integer, Integer> tokenIndexes = new HashMap<>();
@@ -39,8 +40,9 @@ public abstract class ItalianReadability extends Readability {
         measures.put("level2", 100.0 * level2WordSize / getContentWordSize());
         measures.put("level3", 100.0 * level3WordSize / getContentWordSize());
 
-        String lemmaText = buffer.toString().trim();
-        String text = annotation.get(CoreAnnotations.TextAnnotation.class);
+        String lemmaText = lemmaBuffer.toString().trim().toLowerCase();
+        String tokenText = tokenBuffer.toString().trim().toLowerCase();
+//        String text = annotation.get(CoreAnnotations.TextAnnotation.class).toLowerCase();
 
         HashMap<String, GlossarioEntry> glossario = model.getGlossario();
 
@@ -50,7 +52,7 @@ public abstract class ItalianReadability extends Readability {
         for (String form : glossarioKeys) {
 
             int numberOfTokens = form.split("\\s+").length;
-            List<Integer> allOccurrences = findAllOccurrences(text, form);
+            List<Integer> allOccurrences = findAllOccurrences(tokenText, form);
             List<Integer> allLemmaOccurrences = findAllOccurrences(lemmaText, form);
 
             for (Integer occurrence : allOccurrences) {
@@ -68,35 +70,40 @@ public abstract class ItalianReadability extends Readability {
         hyphenator = new Hyphenator("it", "it", 1, 1);
         model = ItalianReadabilityModel.getInstance(globalProperties, localProperties);
 
-        measures.put("propositionsAvgYellow", 2.038);
-        measures.put("propositionsAvgYellow", 2.699);
-        measures.put("propositionsAvg", 0.0);
-        measures.put("propositionsAvg", 5.0);
+        minYellowValues.put("propositionsAvg", 2.038);
+        maxYellowValues.put("propositionsAvg", 2.699);
+        minValues.put("propositionsAvg", 0.0);
+        maxValues.put("propositionsAvg", 5.0);
 
-        measures.put("wordsAvgYellow", 9.845);
-        measures.put("wordsAvgYellow", 10.153);
-        measures.put("wordsAvg", 0.0);
-        measures.put("wordsAvg", 12.0);
-        
-        measures.put("subordinateRatioYellow", 0.263);
-        measures.put("subordinateRatioYellow", 0.325);
-        measures.put("subordinateRatio", 0.0);
-        measures.put("subordinateRatio", 1.0);
+        minYellowValues.put("wordsAvg", 9.845);
+        maxYellowValues.put("wordsAvg", 10.153);
+        minValues.put("wordsAvg", 0.0);
+        maxValues.put("wordsAvg", 12.0);
 
-        measures.put("deepAvgYellow", 5.292);
-        measures.put("deepAvgYellow", 6.532);
-        measures.put("deepAvg", 0.0);
-        measures.put("deepAvg", 10.0);
+//        minYellowValues.put("coordinateRatio", 0.737);
+//        maxYellowValues.put("coordinateRatio", 0.675);
+//        minValues.put("coordinateRatio", 0.0);
+//        maxValues.put("coordinateRatio", 1.0);
 
-        measures.put("ttrValueYellow", 0.549);
-        measures.put("ttrValueYellow", 0.719);
-        measures.put("ttrValue", 0.0);
-        measures.put("ttrValue", 1.0);
+        minYellowValues.put("subordinateRatio", 0.263);
+        maxYellowValues.put("subordinateRatio", 0.325);
+        minValues.put("subordinateRatio", 0.0);
+        maxValues.put("subordinateRatio", 1.0);
 
-        measures.put("densityYellow", 0.566);
-        measures.put("densityYellow", 0.566);
-        measures.put("density", 0.0);
-        measures.put("density", 1.0);
+        minYellowValues.put("deepAvg", 5.292);
+        maxYellowValues.put("deepAvg", 6.532);
+        minValues.put("deepAvg", 0.0);
+        maxValues.put("deepAvg", 10.0);
+
+        minYellowValues.put("ttrValue", 0.549);
+        maxYellowValues.put("ttrValue", 0.719);
+        minValues.put("ttrValue", 0.0);
+        maxValues.put("ttrValue", 1.0);
+
+        minYellowValues.put("density", 0.566);
+        maxYellowValues.put("density", 0.566);
+        minValues.put("density", 0.0);
+        maxValues.put("density", 1.0);
     }
 
     public static class StringLenComparator implements Comparator<String> {
@@ -113,7 +120,7 @@ public abstract class ItalianReadability extends Readability {
         int index = haystack.indexOf(needle);
         while (index >= 0) {
             try {
-                String afterChar = haystack.substring(index + needle.length(), index + needle.length() + 1);
+                String afterChar = haystack.substring(index + needle.length(), index + needle.length());
                 if (!afterChar.matches("\\w+")) {
                     ret.add(index);
                 }
@@ -180,11 +187,11 @@ public abstract class ItalianReadability extends Readability {
     }
 
     @Override public void addingToken(CoreLabel token) {
-        lemmaIndexes.put(buffer.length(), lemmaIndex);
+        lemmaIndexes.put(lemmaBuffer.length(), lemmaIndex);
         tokenIndexes.put(token.get(CoreAnnotations.CharacterOffsetBeginAnnotation.class), lemmaIndex);
         lemmaIndex++;
-        buffer.append(token.get(CoreAnnotations.LemmaAnnotation.class)).append(" ");
-
+        lemmaBuffer.append(token.get(CoreAnnotations.LemmaAnnotation.class)).append(" ");
+        tokenBuffer.append(token.get(CoreAnnotations.TextAnnotation.class)).append(" ");
     }
 
     @Override public void addingSentence(CoreMap sentence) {

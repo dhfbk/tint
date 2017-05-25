@@ -39,8 +39,22 @@ public abstract class Readability {
     private int hyphenCount = 0;
     private int hyphenWordCount = 0;
 
+    private Double ttrValue;
+    private Double density;
+    private Double deepAvg;
+    private Double deepMax;
+    private Double propositionsAvg;
+    private Double wordsAvg;
+    //    private Double coordinateRatio;
+    private Double subordinateRatio;
+
     protected Map<String, Double> measures = new HashMap<>();
     protected Map<String, String> labels = new HashMap<>();
+
+    protected Map<String, Double> minYellowValues = new HashMap<>();
+    protected Map<String, Double> maxYellowValues = new HashMap<>();
+    protected Map<String, Double> minValues = new HashMap<>();
+    protected Map<String, Double> maxValues = new HashMap<>();
 
     public int getHyphenWordCount() {
         return hyphenWordCount;
@@ -85,7 +99,7 @@ public abstract class Readability {
             }
 
             if (i >= ttrLimit) {
-                break;
+                return;
             }
             String tokenText = token.originalText().toLowerCase();
             ttr.add(tokenText);
@@ -103,21 +117,18 @@ public abstract class Readability {
         for (int sentIndex = 0; sentIndex < sentences.size(); sentIndex++) {
             CoreMap sentence = sentences.get(sentIndex);
 
-            SemanticGraph semanticGraph = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
+            SemanticGraph semanticGraph = sentence
+                    .get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
             int deep = 0;
-            if (semanticGraph != null) {
-                for (IndexedWord indexedWord : semanticGraph.getLeafVertices()) {
-                    try {
-                        deep = Math.max(deep, semanticGraph.getPathToRoot(indexedWord).size());
-                    } catch (NullPointerException e) {
-                        // ignored
-                    }
+            for (IndexedWord indexedWord : semanticGraph.getLeafVertices()) {
+                try {
+                    deep = Math.max(deep, semanticGraph.getPathToRoot(indexedWord).size());
+                } catch (NullPointerException e) {
+                    // ignored
                 }
             }
             deeps.add(deep);
-
-            // Verb part
-
+            
             if (!sentence.containsKey(VerbAnnotations.VerbsAnnotation.class)) {
                 continue;
             }
@@ -172,18 +183,7 @@ public abstract class Readability {
 //            System.out.println(semanticGraph);
         }
 
-//        System.out.println(indexedVerbs);
-
-        Double ttrValue;
-        Double density;
-        Double deepAvg = null;
-        Double deepMax = null;
-        Double propositionsAvg = null;
-        Double wordsAvg = null;
-        Double subordinateRatio;
-
         ttrValue = 1.0 * ttr.size() / (1.0 * i);
-
         if (deeps.size() > 0) {
             deepAvg = deeps.stream().mapToInt(val -> val).average().getAsDouble();
             deepMax = deeps.stream().mapToInt(val -> val).max().getAsInt() * 1.0;
@@ -191,39 +191,27 @@ public abstract class Readability {
         if (propositions.size() > 0) {
             propositionsAvg = propositions.stream().mapToInt(val -> val).average().getAsDouble();
             wordsAvg = (1.0 * getWordCount()) / propositions.stream().mapToInt(val -> val).sum();
+            if (wordsAvg == Double.POSITIVE_INFINITY) {
+                wordsAvg = 0.0;
+            }
         }
 
         int total = coordinates + subordinates;
         if (total == 0) {
+//            coordinateRatio = 0.0;
             subordinateRatio = 0.0;
         } else {
+//            coordinateRatio = (1.0 * coordinates) / (coordinates + subordinates);
             subordinateRatio = (1.0 * subordinates) / (coordinates + subordinates);
         }
         density = (1.0 * getContentWordSize()) / getWordCount();
 
-        measures.put("ttrValue", ttrValue);
-        measures.put("density", density);
-        measures.put("deepAvg", deepAvg);
-        measures.put("propositionsAvg", propositionsAvg);
-        measures.put("wordsAvg", wordsAvg);
-        measures.put("subordinateRatio", subordinateRatio);
-        measures.put("deepMax", deepMax);
-    }
-
-    public Map<String, Double> getMeasures() {
-        return measures;
-    }
-
-    public Map<String, String> getLabels() {
-        return labels;
-    }
-
-    public HashMap<String, String> getGenericPosDescription() {
-        return genericPosDescription;
-    }
-
-    public HashMap<String, String> getPosDescription() {
-        return posDescription;
+//        System.out.println("Average deep: " + deepAvg);
+//        System.out.println("Average propositions: " + propositionsAvg);
+//        System.out.println("Average words per proposition: " + wordsAvg);
+//        System.out.println(String.format("Coordinates: %d (%.2f%%)", coordinates, coordinateRatio));
+//        System.out.println(String.format("Subordinates: %d (%.2f%%)", subordinates, subordinateRatio));
+//        System.out.println("TTR: " + ttrValue);
     }
 
     public void addingContentWord(CoreLabel token) {
@@ -453,6 +441,38 @@ public abstract class Readability {
         return getGenericPosInfo(useGenericForSimple, simplePosList, pos, false);
     }
 
+    public Double getTtrValue() {
+        return ttrValue;
+    }
+
+    public Double getDeepAvg() {
+        return deepAvg;
+    }
+
+    public Double getDeepMax() {
+        return deepMax;
+    }
+
+    public Double getPropositionsAvg() {
+        return propositionsAvg;
+    }
+
+    public Double getWordsAvg() {
+        return wordsAvg;
+    }
+
+//    public Double getCoordinateRatio() {
+//        return coordinateRatio;
+//    }
+
+    public Double getSubordinateRatio() {
+        return subordinateRatio;
+    }
+
+    public Double getDensity() {
+        return density;
+    }
+
     @Override public String toString() {
         return "Readability{" +
                 "language='" + language + '\'' +
@@ -466,6 +486,12 @@ public abstract class Readability {
                 ", tokenCount=" + tokenCount +
                 ", hyphenCount=" + hyphenCount +
                 ", hyphenWordCount=" + hyphenWordCount +
+                ", ttrValue=" + ttrValue +
+                ", deepAvg=" + deepAvg +
+                ", deepMax=" + deepMax +
+                ", propositionsAvg=" + propositionsAvg +
+                ", wordsAvg=" + wordsAvg +
+                ", subordinateRatio=" + subordinateRatio +
                 ", measures=" + measures +
                 ", contentPosList=" + contentPosList +
                 ", simplePosList=" + simplePosList +
