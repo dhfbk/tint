@@ -2,7 +2,7 @@ package eu.fbk.dh.tint.verb;
 
 import com.google.common.collect.Iterables;
 import edu.stanford.nlp.ling.CoreLabel;
-import eu.fbk.fcw.udpipe.api.UDPipeAnnotations;
+import eu.fbk.utils.corenlp.CustomAnnotations;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,8 +36,8 @@ public class VerbMultiToken {
 
     public void addToken(CoreLabel token, boolean last) {
         this.tokens.add(token);
-        Map<String, Collection<String>> features = token.get(UDPipeAnnotations.FeaturesAnnotation.class);
-        System.out.println(features);
+        Map<String, Collection<String>> features = token.get(CustomAnnotations.FeaturesAnnotation.class);
+//        System.out.println(features);
         try {
             gender = Iterables.getFirst(features.get("Gender"), null);
         } catch (NullPointerException e) {
@@ -93,7 +93,7 @@ public class VerbMultiToken {
     }
 
     private void setTense(CoreLabel coreLabel) {
-        Map<String, Collection<String>> features = coreLabel.get(UDPipeAnnotations.FeaturesAnnotation.class);
+        Map<String, Collection<String>> features = coreLabel.get(CustomAnnotations.FeaturesAnnotation.class);
         try {
             tense = Iterables.getFirst(features.get("Tense"), null);
         } catch (NullPointerException e) {

@@ -41,10 +41,6 @@ public class VerbTest {
             pipeline.annotate(annotation);
             for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
                 System.out.println(sentence.get(VerbAnnotations.VerbsAnnotation.class));
-                SemanticGraph graph = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
-                System.out.println(graph);
-//                System.out.println(graph.getFirstRoot().index());
-//                System.out.println();
             }
 
         } catch (Exception e) {
