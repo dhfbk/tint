@@ -87,7 +87,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <tint.utils.version>3.0</tint.utils.version>
+        <tint.utils.version>3.1-SNAPSHOT</tint.utils.version>
         <fcw.version>1.0-SNAPSHOT</fcw.version>
         <tint.version>${project.version}</tint.version>
         <tint-models.version>${project.version}</tint-models.version>
