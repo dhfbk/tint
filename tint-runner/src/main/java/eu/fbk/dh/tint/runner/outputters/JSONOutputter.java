@@ -68,6 +68,13 @@ public class JSONOutputter extends AnnotationOutputter {
         }
     }
 
+    class CoreLabelSerializer implements JsonSerializer<CoreLabel> {
+
+        @Override public JsonElement serialize(CoreLabel coreLabel, Type type, JsonSerializationContext jsonSerializationContext) {
+            return new JsonPrimitive(coreLabel.index());
+        }
+    }
+
     class SpanSerializer implements JsonSerializer<Span> {
 
         @Override public JsonElement serialize(Span span, Type type,
@@ -179,6 +186,8 @@ public class JSONOutputter extends AnnotationOutputter {
         gsonBuilder.registerTypeAdapter(RelationTriple.class, new RelationTripleSerializer());
         gsonBuilder.registerTypeAdapter(Timex.class, new TimexSerializer());
         gsonBuilder.registerTypeAdapter(CorefChain.class, new CorefChainSerializer());
+        gsonBuilder.registerTypeAdapter(CoreLabel.class, new CoreLabelSerializer());
+
         gsonBuilder.serializeSpecialFloatingPointValues();
         gsonBuilder.setExclusionStrategies(new AnnotationExclusionStrategy());
         Gson gson = gsonBuilder.create();
