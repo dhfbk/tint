@@ -164,6 +164,8 @@ public abstract class ItalianReadability extends Readability {
         String simplePos = getGenericPos(token.get(CoreAnnotations.PartOfSpeechAnnotation.class));
         String lemma = token.get(CoreAnnotations.LemmaAnnotation.class);
 
+        token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 4);
+
         if (easyWords.get(3).get(simplePos).contains(lemma)) {
             level3WordSize++;
             token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 3);

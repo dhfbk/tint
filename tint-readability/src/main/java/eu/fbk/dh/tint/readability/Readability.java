@@ -120,6 +120,10 @@ public abstract class Readability {
             SemanticGraph semanticGraph = sentence
                     .get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
             int deep = 0;
+            if (semanticGraph == null) {
+                continue;
+            }
+            
             for (IndexedWord indexedWord : semanticGraph.getLeafVertices()) {
                 try {
                     deep = Math.max(deep, semanticGraph.getPathToRoot(indexedWord).size());

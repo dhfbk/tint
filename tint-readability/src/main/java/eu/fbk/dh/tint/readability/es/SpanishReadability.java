@@ -5,6 +5,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.readability.Readability;
+import eu.fbk.dh.tint.readability.ReadabilityAnnotations;
 import eu.fbk.utils.gson.JSONExclude;
 
 import java.util.Properties;
@@ -74,15 +75,19 @@ abstract class SpanishReadability extends Readability {
     @Override public void addingContentWord(CoreLabel token) {
         super.addingContentWord(token);
 
+        token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 4);
         String lemma = token.lemma();
-        if (model.getLevel1Lemmas().contains(lemma)) {
-            level1WordSize++;
+        if (model.getLevel3Lemmas().contains(lemma)) {
+            level3WordSize++;
+            token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 3);
         }
         if (model.getLevel2Lemmas().contains(lemma)) {
             level2WordSize++;
+            token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 2);
         }
-        if (model.getLevel3Lemmas().contains(lemma)) {
-            level3WordSize++;
+        if (model.getLevel1Lemmas().contains(lemma)) {
+            level1WordSize++;
+            token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 1);
         }
 //        System.out.println("Adding content word (lemma): " + lemma);
 //        System.out.println(model.getLevel1Lemmas().contains(lemma));

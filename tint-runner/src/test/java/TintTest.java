@@ -62,8 +62,8 @@ public class TintTest {
 
             TintPipeline pipeline = new TintPipeline();
             pipeline.loadDefaultProperties();
-            pipeline.setProperty("annotators", "ita_toksent, pos, ita_morpho, ita_lemma, depparse, readability");
-//            pipeline.setProperty("annotators", "ita_toksent, udpipe, verb, readability");
+//            pipeline.setProperty("annotators", "ita_toksent, pos, ita_morpho, ita_lemma, depparse, readability");
+            pipeline.setProperty("annotators", "ita_toksent, udpipe, verb, readability");
             pipeline.setProperty("timex.treeTaggerHome", "/Volumes/LEXAR/Software/TreeTagger");
             pipeline.setProperty("customAnnotatorClass.udpipe", "eu.fbk.fcw.udpipe.api.UDPipeAnnotator");
             pipeline.setProperty("customAnnotatorClass.verb", "eu.fbk.dh.tint.verb.VerbAnnotator");
@@ -73,8 +73,8 @@ public class TintTest {
 
             Annotation annotation = pipeline.runRaw(sentenceText);
 
-//            System.out.println(JSONOutputter.jsonPrint(annotation));
-            System.out.println(annotation.get(ReadabilityAnnotations.ReadabilityAnnotation.class));
+            System.out.println(JSONOutputter.jsonPrint(annotation));
+//            System.out.println(annotation.get(ReadabilityAnnotations.ReadabilityAnnotation.class));
         } catch (Exception e) {
             e.printStackTrace();
         }
