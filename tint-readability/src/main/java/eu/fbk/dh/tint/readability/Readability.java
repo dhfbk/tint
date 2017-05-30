@@ -48,6 +48,8 @@ public abstract class Readability {
     //    private Double coordinateRatio;
     private Double subordinateRatio;
 
+    protected TreeMap<Integer, DescriptionForm> forms = new TreeMap<>();
+
     protected Map<String, Double> measures = new HashMap<>();
     protected Map<String, String> labels = new HashMap<>();
 

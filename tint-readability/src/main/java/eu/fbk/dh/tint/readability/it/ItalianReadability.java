@@ -28,7 +28,6 @@ public abstract class ItalianReadability extends Readability {
     @JSONExclude int lemmaIndex = 0;
     @JSONExclude HashMap<Integer, Integer> lemmaIndexes = new HashMap<>();
     @JSONExclude HashMap<Integer, Integer> tokenIndexes = new HashMap<>();
-    TreeMap<Integer, DescriptionForm> forms = new TreeMap<>();
 
     @Override public void finalizeReadability() {
         super.finalizeReadability();
