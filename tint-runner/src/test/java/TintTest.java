@@ -1,4 +1,6 @@
 import edu.stanford.nlp.pipeline.Annotation;
+import eu.fbk.dh.tint.readability.Readability;
+import eu.fbk.dh.tint.readability.ReadabilityAnnotations;
 import eu.fbk.dh.tint.runner.TintPipeline;
 import eu.fbk.dh.tint.runner.outputters.JSONOutputter;
 
@@ -93,8 +95,9 @@ public class TintTest {
             pipeline.load();
 
             Annotation annotation = pipeline.runRaw(sentenceText);
-
-            System.out.println(JSONOutputter.jsonPrint(annotation));
+            Readability readability = annotation.get(ReadabilityAnnotations.ReadabilityAnnotation.class);
+            System.out.println(readability.getTtrValue());
+//            System.out.println(JSONOutputter.jsonPrint(annotation));
 //            System.out.println(annotation.get(ReadabilityAnnotations.ReadabilityAnnotation.class));
         } catch (Exception e) {
             e.printStackTrace();

@@ -101,7 +101,7 @@ public abstract class Readability {
             }
 
             if (i >= ttrLimit) {
-                return;
+                break;
             }
             String tokenText = token.originalText().toLowerCase();
             ttr.add(tokenText);
@@ -113,8 +113,6 @@ public abstract class Readability {
         Integer coordinates = 0;
         Integer subordinates = 0;
 
-//        Map<Integer, VerbMultiToken> indexedVerbs = new HashMap<>();
-
         List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
         for (int sentIndex = 0; sentIndex < sentences.size(); sentIndex++) {
             CoreMap sentence = sentences.get(sentIndex);
@@ -125,7 +123,7 @@ public abstract class Readability {
             if (semanticGraph == null) {
                 continue;
             }
-            
+
             for (IndexedWord indexedWord : semanticGraph.getLeafVertices()) {
                 try {
                     deep = Math.max(deep, semanticGraph.getPathToRoot(indexedWord).size());
