@@ -94,9 +94,9 @@ public class ItalianReadabilityModel {
                     GlossarioEntry[] entries = gson.fromJson(reader, GlossarioEntry[].class);
                     for (GlossarioEntry entry : entries) {
                         for (String form : entry.getForms()) {
-                            if (!form.equals("nido d'infanzia")) {
-                                continue;
-                            }
+//                            if (!form.equals("nido d'infanzia")) {
+//                                continue;
+//                            }
 
                             if (parseGlossario) {
                                 Annotation annotation = new Annotation(form);
@@ -117,8 +117,7 @@ public class ItalianReadabilityModel {
                                     glossario.put(lemmaBuffer.toString().trim(), entry);
                                 }
                                 glossario.put(tokenBuffer.toString().trim(), entry);
-                            }
-                            else {
+                            } else {
                                 // todo: check this, it was outside the "if"
                                 glossario.put(form, entry);
                             }
