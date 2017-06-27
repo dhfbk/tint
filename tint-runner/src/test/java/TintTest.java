@@ -2,6 +2,9 @@ import edu.stanford.nlp.pipeline.Annotation;
 import eu.fbk.dh.tint.runner.TintPipeline;
 import eu.fbk.dh.tint.runner.outputters.JSONOutputter;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /**
  * Created by alessio on 07/09/16.
  */
@@ -61,8 +64,25 @@ public class TintTest {
 
         try {
 
+            sentenceText = new String(Files.readAllBytes(Paths.get("/Users/alessio/Downloads/example.txt")));
+
             TintPipeline pipeline = new TintPipeline();
             pipeline.loadDefaultProperties();
+
+//            pipeline.setProperty("annotators", "ita_toksent, udpipe, ita_morpho, ita_lemma, ner, verb, readability");
+//            pipeline.setProperty("customAnnotatorClass.verb", "eu.fbk.dh.tint.verb.VerbAnnotator");
+//
+//            pipeline.setProperty("dbps.annotator", "ml-annotate");
+//            pipeline.setProperty("dbps.address", "http://ml.apnetwork.it/annotate");
+//            pipeline.setProperty("dbps.min_confidence", "0.3");
+//            pipeline.setProperty("dbps.first_confidence", "0.5");
+//            pipeline.setProperty("dbps.extract_types", "1");
+//
+//            pipeline.setProperty("readability.language", "it");
+//            pipeline.setProperty("readability.glossario.parse", "yes");
+//            pipeline.setProperty("readability.glossario.use", "no");
+//            pipeline.setProperty("readability.glossario.stanford.annotators", "ita_toksent, pos, ita_morpho, ita_lemma");
+
 //            pipeline.setProperty("annotators", "ita_toksent, pos, ita_morpho, ita_lemma, depparse, readability");
             pipeline.setProperty("annotators", "ita_toksent, udpipe, ita_morpho, ita_lemma, verb, readability");
             pipeline.setProperty("timex.treeTaggerHome", "/Volumes/LEXAR/Software/TreeTagger");

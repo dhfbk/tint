@@ -89,6 +89,9 @@ public class VerbMultiToken {
     }
 
     private void addStep() throws NullPointerException {
+        if (tense == null) {
+            return;
+        }
         switch (mood) {
         case "Ind":
         case "Conj":
