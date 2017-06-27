@@ -32,6 +32,7 @@ public class VerbAnnotator implements Annotator {
 
     private boolean usePrefix, modalUsePrefix, auxUsePrefix;
     private List<String> skipTags, verbTags, modalTags, auxTags;
+    private VerbModel model;
 
     public VerbAnnotator(String annotatorName, Properties prop) {
         usePrefix = PropertiesUtils.getBoolean(prop.getProperty(annotatorName + ".use_prefix"), DEFAULT_USE_PREFIX);
@@ -42,8 +43,8 @@ public class VerbAnnotator implements Annotator {
         String auxTagsText = prop.getProperty(annotatorName + ".aux_tags", DEFAULT_AUX_TAGS);
         String modalTagsText = prop.getProperty(annotatorName + ".modal_tags", DEFAULT_MODAL_TAGS);
 
-        // todo: add property for transitive verbs file list
-        // todo: load this part once
+        // todo: add custom filename
+        model = VerbModel.getInstance();
 
         skipTags = new ArrayList<>();
         verbTags = new ArrayList<>();
@@ -117,7 +118,7 @@ public class VerbAnnotator implements Annotator {
         for (int i = 0; i < lastVerb.size(); i++) {
             CoreLabel verb = lastVerb.get(i);
             boolean last = (i == lastVerb.size() - 1);
-            multiToken.addToken(verb, last);
+            multiToken.addToken(model, verb, last);
         }
         verbs.add(multiToken);
     }

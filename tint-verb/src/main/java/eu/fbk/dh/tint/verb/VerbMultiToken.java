@@ -30,11 +30,11 @@ public class VerbMultiToken {
         this.tokens = tokens;
     }
 
-    public void addToken(CoreLabel token) {
-        addToken(token, false);
+    public void addToken(VerbModel model, CoreLabel token) {
+        addToken(model, token, false);
     }
 
-    public void addToken(CoreLabel token, boolean last) {
+    public void addToken(VerbModel model, CoreLabel token, boolean last) {
         this.tokens.add(token);
         Map<String, Collection<String>> features = token.get(CustomAnnotations.FeaturesAnnotation.class);
 //        System.out.println(features);
@@ -44,13 +44,33 @@ public class VerbMultiToken {
             gender = null;
         }
         if (last) {
+            String lemma = this.tokens.get(this.tokens.size() - 1).lemma();
+            boolean isTransitive = false;
+            if (model.getTransitiveVerbs().contains(lemma)) {
+                isTransitive = true;
+            }
+
             switch (this.tokens.size()) {
             case 1:
                 setTense(this.tokens.get(0));
                 isPassive = false;
+
+                if (isTransitive && mood.equals("Part") && tense.equals("Past")) {
+                    isPassive = true;
+                }
                 break;
             case 2:
-                // check transitivity
+                String auxLemma = this.tokens.get(0).lemma();
+                if (auxLemma.equals("avere")) {
+                    isPassive = false;
+                } else {
+                    if (isTransitive) {
+                        isPassive = true;
+                    } else {
+                        isPassive = false;
+                    }
+                }
+
                 setTense(this.tokens.get(0));
                 if (!isPassive) {
                     try {
@@ -62,6 +82,8 @@ public class VerbMultiToken {
                 break;
             default:
                 isPassive = true;
+                setTense(this.tokens.get(0));
+                addStep();
             }
         }
     }
