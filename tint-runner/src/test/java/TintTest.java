@@ -1,5 +1,4 @@
 import edu.stanford.nlp.pipeline.Annotation;
-import eu.fbk.dh.tint.readability.ReadabilityAnnotations;
 import eu.fbk.dh.tint.runner.TintPipeline;
 import eu.fbk.dh.tint.runner.outputters.JSONOutputter;
 
@@ -58,12 +57,14 @@ public class TintTest {
                 + "Le lingue straniere (inglese e tedesco), considerate vera chiave per il successo professionale.\n"
                 + "Le discipline più propriamente d'aula, poiranno dedicare parte dei loro curricula allo sviluppo di competenze direttamente collegabili all'attività svolta nel ristorante di applicazione.\n";
 
+        sentenceText = "Non fossi stato mangiato da un canguro.";
+
         try {
 
             TintPipeline pipeline = new TintPipeline();
             pipeline.loadDefaultProperties();
 //            pipeline.setProperty("annotators", "ita_toksent, pos, ita_morpho, ita_lemma, depparse, readability");
-            pipeline.setProperty("annotators", "ita_toksent, udpipe, verb, readability");
+            pipeline.setProperty("annotators", "ita_toksent, udpipe, ita_morpho, ita_lemma, verb, readability");
             pipeline.setProperty("timex.treeTaggerHome", "/Volumes/LEXAR/Software/TreeTagger");
             pipeline.setProperty("customAnnotatorClass.udpipe", "eu.fbk.fcw.udpipe.api.UDPipeAnnotator");
             pipeline.setProperty("customAnnotatorClass.verb", "eu.fbk.dh.tint.verb.VerbAnnotator");
