@@ -220,6 +220,10 @@ public abstract class Readability {
 //        System.out.println("TTR: " + ttrValue);
     }
 
+    public Map<String, Double> getMeasures() {
+        return measures;
+    }
+
     public void addingContentWord(CoreLabel token) {
         token.set(ReadabilityAnnotations.ContentWord.class, true);
     }
