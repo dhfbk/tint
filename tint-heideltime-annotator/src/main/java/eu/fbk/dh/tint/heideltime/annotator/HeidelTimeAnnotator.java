@@ -128,6 +128,7 @@ public class HeidelTimeAnnotator implements Annotator {
                 doc.getDocumentElement().normalize();
 
                 Map<Integer, TimexObject> timexes = new HashMap<>();
+                List<TimexObject> finalTimexes = new ArrayList<>();
                 NodeList entries = doc.getElementsByTagName("*");
 
                 for (int i = 1; i < entries.getLength(); i++) {
@@ -140,6 +141,7 @@ public class HeidelTimeAnnotator implements Annotator {
                         String timexValue = element.getAttribute("timexValue");
 
                         TimexObject timexObject = new TimexObject(begin, end, timexType, timexValue);
+                        finalTimexes.add(timexObject);
                         timexes.put(begin, timexObject);
                     }
                 }
@@ -166,6 +168,8 @@ public class HeidelTimeAnnotator implements Annotator {
                                 text.substring(timexObject.getStart(), timexObject.getEnd()));
                     }
                 }
+
+                annotation.set(HeidelTimeAnnotations.TimexesAnnotation.class, finalTimexes);
             } catch (Exception e) {
                 e.printStackTrace();
             }

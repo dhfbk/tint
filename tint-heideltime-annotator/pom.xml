@@ -41,6 +41,11 @@
             <artifactId>xml-apis</artifactId>
             <version>1.3.03</version>
         </dependency>
+        <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-gson</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
     </dependencies>
     <properties>
         <parent-path>..</parent-path>
