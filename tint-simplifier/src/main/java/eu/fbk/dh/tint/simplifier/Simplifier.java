@@ -9,7 +9,7 @@ import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
 import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.runner.TintPipeline;
-import eu.fbk.dh.tint.runner.outputters.JSONOutputter;
+import eu.fbk.utils.corenlp.outputters.JSONOutputter;
 import eu.fbk.dh.tint.simplifier.rules.ReplaceSubordinateRule;
 import eu.fbk.dh.tint.simplifier.rules.SimplificationRule;
 

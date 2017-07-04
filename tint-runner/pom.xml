@@ -20,6 +20,11 @@
             <version>${tint.utils.version}</version>
         </dependency>
         <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-corenlp</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>

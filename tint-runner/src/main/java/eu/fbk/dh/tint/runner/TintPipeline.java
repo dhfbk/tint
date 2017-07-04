@@ -3,8 +3,8 @@ package eu.fbk.dh.tint.runner;
 import com.google.gson.GsonBuilder;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.*;
-import eu.fbk.dh.tint.runner.outputters.SerializerCollector;
-import eu.fbk.dh.tint.runner.outputters.TextProOutputter;
+import eu.fbk.utils.corenlp.outputters.SerializerCollector;
+import eu.fbk.utils.corenlp.outputters.TextProOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -125,7 +125,7 @@ public class TintPipeline {
             } else {
                 gsonBuilder = new GsonBuilder();
             }
-            eu.fbk.dh.tint.runner.outputters.JSONOutputter.jsonPrint(gsonBuilder, annotation, outputStream, pipeline);
+            eu.fbk.utils.corenlp.outputters.JSONOutputter.jsonPrint(gsonBuilder, annotation, outputStream, pipeline);
             break;
         case TEXTPRO:
             TextProOutputter.tpPrint(annotation, outputStream, pipeline);

@@ -2,7 +2,6 @@ import edu.stanford.nlp.pipeline.Annotation;
 import eu.fbk.dh.tint.readability.Readability;
 import eu.fbk.dh.tint.readability.ReadabilityAnnotations;
 import eu.fbk.dh.tint.runner.TintPipeline;
-import eu.fbk.dh.tint.runner.outputters.JSONOutputter;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;

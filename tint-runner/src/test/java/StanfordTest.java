@@ -2,7 +2,6 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import eu.fbk.dh.tint.runner.outputters.JSONOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

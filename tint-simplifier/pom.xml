@@ -13,6 +13,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-corenlp</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
+        <dependency>
             <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-runner</artifactId>
             <version>${tint.version}</version>
