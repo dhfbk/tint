@@ -344,12 +344,17 @@ public class ItalianTokenizer {
 
             for (int i = 0; i < text.length(); i++) {
                 char currentChar = text.charAt(i);
-                if (Character.isWhitespace(currentChar)) {
+                boolean isLast = i == text.length() - 1;
+                if (Character.isWhitespace(currentChar) || isLast) {
                     if (!lastIsWhitespace) {
 //                        System.out.println("---" + text.substring(nextStart, i) + "---" + newLineCount);
 
-                        String word = text.substring(nextStart, i);
-                        CoreLabel clToken = factory.makeToken(word, word, nextStart, i - nextStart);
+                        int j = i;
+                        if (isLast) {
+                            j++;
+                        }
+                        String word = text.substring(nextStart, j);
+                        CoreLabel clToken = factory.makeToken(word, word, nextStart, j - nextStart);
                         clToken.setIndex(++index);
 
                         if (newlineIsSentenceBreak && newLineCount > 0) {
@@ -383,13 +388,10 @@ public class ItalianTokenizer {
                     lastIsWhitespace = false;
                 }
             }
+
             if (temp.size() > 0) {
                 ret.add(temp);
-                index = 0; // index must be zeroed to meet Stanford policy
             }
-//            if (!lastIsWhitespace) {
-//                System.out.println("---" + text.substring(nextStart) + "---");
-//            }
         } else {
             HashMap<Integer, Integer> mergeList = new HashMap<>();
 
@@ -567,7 +569,7 @@ public class ItalianTokenizer {
 //        System.out.println(text);
 
         long time = System.currentTimeMillis();
-        List<List<CoreLabel>> sentences = tokenizer.parse(text);
+        List<List<CoreLabel>> sentences = tokenizer.parse(text, true, true, true);
         time = System.currentTimeMillis() - time;
 
         for (int i = 0; i < Math.min(10, sentences.size()); i++) {
