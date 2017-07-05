@@ -37,7 +37,7 @@ public class TintRunner {
                     .withOption("o", "output-file", "Output processed file (default stdout)", "FILE",
                             CommandLine.Type.FILE_EXISTING, true, false, false)
                     .withOption("f", "output-format",
-                            "Output format: textpro, json, xml, conll, naf, readable (default conll)",
+                            "Output format: textpro, json, xml, conll, readable (default conll)",
                             "FORMAT",
                             CommandLine.Type.STRING, true, false, false)
                     .withOption(null, "properties", "Additional properties for Stanford CoreNLP", "PROPS",

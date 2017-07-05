@@ -3,7 +3,6 @@ package eu.fbk.dh.tint.runner;
 import com.google.gson.GsonBuilder;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.*;
-import eu.fbk.utils.corenlp.outputters.SerializerCollector;
 import eu.fbk.utils.corenlp.outputters.TextProOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +12,8 @@ import java.io.*;
 import java.time.Instant;
 import java.util.Properties;
 
+//import eu.fbk.utils.corenlp.outputters.SerializerCollector;
+
 /**
  * Created by alessio on 15/08/16.
  */
@@ -20,23 +21,40 @@ import java.util.Properties;
 public class TintPipeline {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TintPipeline.class);
-    //    private StanfordCoreNLP pipeline = null;
     private String documentDate = null;
     private Properties props = new Properties();
 
-    private boolean DEFAULT_LOAD_SERIALIZER = false;
-    SerializerCollector serializerCollector = null;
+//    private boolean DEFAULT_LOAD_SERIALIZER = false;
+//    SerializerCollector serializerCollector = null;
 
-    public void loadSerializers() {
-        serializerCollector = new SerializerCollector();
+//    public void loadSerializers() {
+//        serializerCollector = new SerializerCollector();
+//    }
+
+    public TintPipeline(Properties props) {
+        this.props = props;
+    }
+
+    public TintPipeline() {
+        this(true);
+    }
+
+    public TintPipeline(boolean loadDefaultProperties) {
+        if (loadDefaultProperties) {
+            try {
+                loadDefaultProperties();
+            } catch (IOException e) {
+                LOGGER.error("Unable to load default configuration");
+            }
+        }
     }
 
     public void load() {
 //        if (pipeline == null) {
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-        if (DEFAULT_LOAD_SERIALIZER) {
-            loadSerializers();
-        }
+//        if (DEFAULT_LOAD_SERIALIZER) {
+//            loadSerializers();
+//        }
 //        }
     }
 
@@ -120,17 +138,18 @@ public class TintPipeline {
             break;
         case JSON:
             GsonBuilder gsonBuilder;
-            if (serializerCollector != null) {
-                gsonBuilder = serializerCollector.getGsonBuilder();
-            } else {
-                gsonBuilder = new GsonBuilder();
-            }
+            gsonBuilder = new GsonBuilder();
+//            if (serializerCollector != null) {
+//                gsonBuilder = serializerCollector.getGsonBuilder();
+//            } else {
+//                gsonBuilder = new GsonBuilder();
+//            }
             eu.fbk.utils.corenlp.outputters.JSONOutputter.jsonPrint(gsonBuilder, annotation, outputStream, pipeline);
             break;
         case TEXTPRO:
             TextProOutputter.tpPrint(annotation, outputStream, pipeline);
             break;
-        case NAF:
+//        case NAF:
 //            KAFDocument doc = AbstractHandler.text2naf(text, new HashMap<>());
 //            AnnotationPipeline pikesPipeline = new AnnotationPipeline(null, null);
 //            pikesPipeline.addToNerMap("PER", "PERSON");
