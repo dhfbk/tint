@@ -1,10 +1,5 @@
-import edu.stanford.nlp.pipeline.Annotation;
-import eu.fbk.dh.tint.readability.Readability;
-import eu.fbk.dh.tint.readability.ReadabilityAnnotations;
 import eu.fbk.dh.tint.runner.TintPipeline;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import eu.fbk.dh.tint.runner.TintRunner;
 
 /**
  * Created by alessio on 07/09/16.
@@ -62,10 +57,12 @@ public class TintTest {
                 + "Le discipline più propriamente d'aula, poiranno dedicare parte dei loro curricula allo sviluppo di competenze direttamente collegabili all'attività svolta nel ristorante di applicazione.\n";
 
         sentenceText = "Non fossi stato mangiato da un canguro.";
+        sentenceText = "Perche' non parli? Sei troppo petaloso!";
 
         try {
 
-            sentenceText = new String(Files.readAllBytes(Paths.get("/Users/alessio/Downloads/example.txt")));
+//            sentenceText = new String(Files.readAllBytes(Paths.get("/Users/alessio/Downloads/example.txt")));
+            sentenceText = "Clinton in testa nei sondaggi dopo l’«assoluzione» dell’Fbi sull’uso di un server di posta privato quando era Segretario di stato.";
 
             TintPipeline pipeline = new TintPipeline();
             pipeline.loadDefaultProperties();
@@ -84,18 +81,20 @@ public class TintTest {
 //            pipeline.setProperty("readability.glossario.use", "no");
 //            pipeline.setProperty("readability.glossario.stanford.annotators", "ita_toksent, pos, ita_morpho, ita_lemma");
 
-//            pipeline.setProperty("annotators", "ita_toksent, pos, ita_morpho, ita_lemma, depparse, readability");
-            pipeline.setProperty("annotators", "ita_toksent, udpipe, ita_morpho, ita_lemma, verb, readability");
-            pipeline.setProperty("timex.treeTaggerHome", "/Volumes/LEXAR/Software/TreeTagger");
-            pipeline.setProperty("customAnnotatorClass.udpipe", "eu.fbk.fcw.udpipe.api.UDPipeAnnotator");
-            pipeline.setProperty("customAnnotatorClass.verb", "eu.fbk.dh.tint.verb.VerbAnnotator");
-            pipeline.setProperty("udpipe.server", "gardner");
-            pipeline.setProperty("udpipe.port", "50020");
+            pipeline.setProperty("annotators", "ita_toksent, pos, ita_morpho, ita_lemma");
+//            pipeline.setProperty("annotators", "ita_toksent, udpipe, ita_morpho, ita_lemma, verb, readability");
+//            pipeline.setProperty("timex.treeTaggerHome", "/Volumes/LEXAR/Software/TreeTagger");
+//            pipeline.setProperty("customAnnotatorClass.udpipe", "eu.fbk.fcw.udpipe.api.UDPipeAnnotator");
+//            pipeline.setProperty("customAnnotatorClass.verb", "eu.fbk.dh.tint.verb.VerbAnnotator");
+//            pipeline.setProperty("udpipe.server", "gardner");
+//            pipeline.setProperty("udpipe.port", "50020");
             pipeline.load();
 
-            Annotation annotation = pipeline.runRaw(sentenceText);
-            Readability readability = annotation.get(ReadabilityAnnotations.ReadabilityAnnotation.class);
-            System.out.println(readability.getTtrValue());
+            pipeline.run(sentenceText, System.out, TintRunner.OutputFormat.JSON);
+
+//            Annotation annotation = pipeline.runRaw(sentenceText);
+//            Readability readability = annotation.get(ReadabilityAnnotations.ReadabilityAnnotation.class);
+//            System.out.println(readability.getTtrValue());
 //            System.out.println(JSONOutputter.jsonPrint(annotation));
 //            System.out.println(annotation.get(ReadabilityAnnotations.ReadabilityAnnotation.class));
         } catch (Exception e) {
