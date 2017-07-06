@@ -25,13 +25,5 @@ if [ -n "$JAVA_HOME"  ] ; then
         fi
 fi
 
-# Build classpath.
-_LIB="$BASEDIR/lib"
-_CLASSPATH=$BASEDIR/etc
-while read -d $'\0' file
-do
-    _CLASSPATH=$_CLASSPATH:$file;
-done < <(find "$_LIB" -name "*.jar" -print0)
-
 # Execute the program
-$_JAVA $JAVA_OPTS -classpath "$_CLASSPATH" eu.fbk.dh.tint.runner.TintServer "$@"
+$_JAVA $JAVA_OPTS -classpath "$BASEDIR"'/lib/*' eu.fbk.dh.tint.runner.TintServer "$@"
