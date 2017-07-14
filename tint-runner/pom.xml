@@ -31,7 +31,6 @@
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
-            <version>${corenlp-version}</version>
         </dependency>
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
@@ -62,11 +61,11 @@
             <version>${log4j2-version}</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-            <version>1.4.01</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>xml-apis</groupId>-->
+            <!--<artifactId>xml-apis</artifactId>-->
+            <!--<version>1.4.01</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
@@ -85,10 +84,10 @@
             <artifactId>grizzly-framework</artifactId>
             <version>2.3.21</version>
         </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>commons-io</groupId>-->
+            <!--<artifactId>commons-io</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

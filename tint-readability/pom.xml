@@ -15,7 +15,6 @@
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
-            <version>3.7.0</version>
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>
