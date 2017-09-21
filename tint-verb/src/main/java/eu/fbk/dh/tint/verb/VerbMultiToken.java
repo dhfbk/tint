@@ -22,6 +22,26 @@ public class VerbMultiToken {
     Integer person = null;
     String gender = null;
 
+    public boolean isPassive() {
+        return isPassive;
+    }
+
+    public String getTense() {
+        return tense;
+    }
+
+    public String getMood() {
+        return mood;
+    }
+
+    public Integer getPerson() {
+        return person;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
     public List<CoreLabel> getTokens() {
         return tokens;
     }
