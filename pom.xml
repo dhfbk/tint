@@ -90,7 +90,6 @@
         <module>tint-digimorph-annotator</module>
         <module>tint-tokenizer</module>
         <module>tint-runner</module>
-        <module>tint-tense</module>
         <module>tint-readability</module>
         <!--<module>tint-kd-annotator</module>-->
         <module>tint-heideltime-annotator</module>
