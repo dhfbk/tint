@@ -55,7 +55,7 @@ public class VerbModel {
                 e.printStackTrace();
             }
         } else {
-            LOGGER.info("Readability model already loaded");
+            LOGGER.info("Verb model already loaded");
         }
         return ourInstance;
     }

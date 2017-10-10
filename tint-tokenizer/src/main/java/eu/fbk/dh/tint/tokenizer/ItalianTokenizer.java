@@ -228,19 +228,19 @@ public class ItalianTokenizer {
                     String substring = text.substring(start, i);
                     addToken(tokenGroup, start, i, substring, isNewLine, lastToken);
 
-                    if (!isSeparatorChar(currentChar)) {
-                        String charString = new String(new char[] { currentChar });
+                    if (!splittingChars.contains(currentChar.hashCode())) {
+                        String charString = new String(new char[]{currentChar});
                         addToken(tokenGroup, i, i + 1, charString, isNewLine, lastToken);
                     }
                 } else {
-                    if (!isSeparatorChar(currentChar)) {
-                        String charString = new String(new char[] { currentChar });
+                    if (!splittingChars.contains(currentChar.hashCode())) {
+                        String charString = new String(new char[]{currentChar});
                         addToken(tokenGroup, i, i + 1, charString, isNewLine, lastToken);
                     }
                 }
             }
 
-            if (currentChar == CharacterTable.LINE_FEED) {
+            if (sentenceChars.contains(currentChar.hashCode())) {
                 isNewLine.setValue(true);
             }
 
@@ -255,7 +255,7 @@ public class ItalianTokenizer {
     }
 
     private void addToken(TokenGroup group, int start, int end, String charString, MutableBoolean isNewLine,
-            Token lastToken) {
+                          Token lastToken) {
         Token token = new Token(start, end, charString);
         if (isNewLine.booleanValue()) {
             group.addNewLine(start);
@@ -306,30 +306,30 @@ public class ItalianTokenizer {
         return buffer.toString();
     }
 
-    public boolean isSeparatorChar(Character ch) {
-        if (splittingChars.size() > 0) {
-            return splittingChars.contains(ch.hashCode());
-        } else if (ch == CharacterTable.SPACE) {
-            return true;
-        } else if (ch == CharacterTable.CARRIADGE_RETURN) {
-            return true;
-        } else if (ch == CharacterTable.LINE_FEED) {
-            return true;
-        } else if (ch == CharacterTable.HORIZONTAL_TABULATION) {
-            return true;
-        } else if (ch == CharacterTable.FORM_FEED) {
-            return true;
-        }
-
-        return false;
-    }
+//    public boolean isSeparatorChar(Character ch) {
+//        if (splittingChars.size() > 0) {
+//            return splittingChars.contains(ch.hashCode());
+//        } else if (ch == CharacterTable.SPACE) {
+//            return true;
+//        } else if (ch == CharacterTable.CARRIADGE_RETURN) {
+//            return true;
+//        } else if (ch == CharacterTable.LINE_FEED) {
+//            return true;
+//        } else if (ch == CharacterTable.HORIZONTAL_TABULATION) {
+//            return true;
+//        } else if (ch == CharacterTable.FORM_FEED) {
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
     public List<List<CoreLabel>> parse(String text) {
         return parse(text, true, false, false);
     }
 
     public List<List<CoreLabel>> parse(String text, boolean newlineIsSentenceBreak, boolean tokenizeOnlyOnSpace,
-            boolean ssplitOnlyOnNewLine) {
+                                       boolean ssplitOnlyOnNewLine) {
 
         List<List<CoreLabel>> ret = new ArrayList<>();
         List<CoreLabel> temp = new ArrayList<>();
@@ -436,6 +436,8 @@ public class ItalianTokenizer {
             Integer end = null;
             Integer start = null;
 
+            Set<Integer> newLines = tokenGroup.getNewLines();
+
             for (int i = 0; i < tokens.size(); i++) {
                 Token token = tokens.get(i);
                 boolean merging = false;
@@ -505,6 +507,8 @@ public class ItalianTokenizer {
 
                 if (start == null) {
                     start = token.getStart();
+                } else {
+                    newLines.remove(token.getEnd() + 1);
                 }
 
                 int finish = token.getEnd();
@@ -519,7 +523,7 @@ public class ItalianTokenizer {
                 CoreLabel clToken = factory.makeToken(normWord, word, start, finish - start);
                 clToken.setIndex(++index);
 
-                if (newlineIsSentenceBreak && tokenGroup.getNewLines().contains(start)) {
+                if (newlineIsSentenceBreak && newLines.contains(start)) {
                     if (temp.size() > 0) {
                         ret.add(temp);
                         index = 0; // index must be zeroed to meet Stanford policy

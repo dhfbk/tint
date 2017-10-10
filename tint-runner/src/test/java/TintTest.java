@@ -63,6 +63,7 @@ public class TintTest {
 
 //            sentenceText = new String(Files.readAllBytes(Paths.get("/Users/alessio/Downloads/example.txt")));
             sentenceText = "Clinton in testa nei sondaggi dopo l’«assoluzione» dell’Fbi sull’uso di un server di posta privato quando era Segretario di stato.";
+            sentenceText = "Il dott. Pinco Pallino e il dott. ing. Pinco Palluccio sono affiatatissimi!";
 
             TintPipeline pipeline = new TintPipeline();
             pipeline.loadDefaultProperties();
@@ -81,7 +82,7 @@ public class TintTest {
 //            pipeline.setProperty("readability.glossario.use", "no");
 //            pipeline.setProperty("readability.glossario.stanford.annotators", "ita_toksent, pos, ita_morpho, ita_lemma");
 
-            pipeline.setProperty("annotators", "ita_toksent, pos, ita_morpho, ita_lemma");
+            pipeline.setProperty("annotators", "ita_toksent");
 //            pipeline.setProperty("annotators", "ita_toksent, udpipe, ita_morpho, ita_lemma, verb, readability");
 //            pipeline.setProperty("timex.treeTaggerHome", "/Volumes/LEXAR/Software/TreeTagger");
 //            pipeline.setProperty("customAnnotatorClass.udpipe", "eu.fbk.fcw.udpipe.api.UDPipeAnnotator");

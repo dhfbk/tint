@@ -37,7 +37,7 @@ public class VerbTest {
 //        properties.setProperty("udpipe.model", "/Users/alessio/Desktop/model");
             StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
 
-            Annotation annotation = new Annotation("Il cane è stato mangiato!");
+            Annotation annotation = new Annotation("Lo spirito sarà invocato.");
             pipeline.annotate(annotation);
             for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
                 System.out.println(sentence.get(VerbAnnotations.VerbsAnnotation.class));
