@@ -14,27 +14,13 @@ import eu.fbk.dh.tint.inverse.digimorph.annotator.InverseDigiMorph;
 
 import java.util.*;
 
+import static eu.fbk.dh.tint.simplifier.Simplifier.getHistory;
+
 /**
  * Created by alessio on 15/02/17.
  */
 
 public class ReplaceSubordinateRule implements SimplificationRule {
-
-    static List<IndexedWord> getHistory(SemanticGraph semanticGraph, IndexedWord node) {
-        List<IndexedWord> ret = new ArrayList<>();
-        ret.add(node);
-        getHistory(semanticGraph, node, ret);
-        return ret;
-    }
-
-    static void getHistory(SemanticGraph semanticGraph, IndexedWord node, List<IndexedWord> start) {
-        List<SemanticGraphEdge> incomingEdgesSorted = semanticGraph.getIncomingEdgesSorted(node);
-        if (incomingEdgesSorted.size() > 0) {
-            IndexedWord governor = incomingEdgesSorted.get(0).getGovernor();
-            start.add(governor);
-            getHistory(semanticGraph, governor, start);
-        }
-    }
 
     static TreeSet<String> getPersons(SemanticGraph semanticGraph, IndexedWord word, CoreMap sentence) {
         Stack<IndexedWord> wordsToCheck = new Stack<>();

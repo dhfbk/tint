@@ -9,9 +9,9 @@ import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
 import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.runner.TintPipeline;
-import eu.fbk.utils.corenlp.outputters.JSONOutputter;
 import eu.fbk.dh.tint.simplifier.rules.ReplaceSubordinateRule;
 import eu.fbk.dh.tint.simplifier.rules.SimplificationRule;
+import eu.fbk.utils.corenlp.outputters.JSONOutputter;
 
 import java.util.*;
 
@@ -20,6 +20,8 @@ import java.util.*;
  */
 
 public class Simplifier {
+
+    public static final Integer MAX_ITER = 100;
 
     public static void main(String[] args) {
         String sentenceText;
@@ -95,7 +97,62 @@ public class Simplifier {
 
     }
 
-    private static void addChildren(HashMultimap<Integer, Integer> children, Set<Integer> stack, IndexedWord current,
+    public static Set<IndexedWord> getParents(SemanticGraph semanticGraph, IndexedWord node) {
+        Set<IndexedWord> ret = new HashSet<>();
+        List<SemanticGraphEdge> incomingEdgesSorted = semanticGraph.getIncomingEdgesSorted(node);
+        if (incomingEdgesSorted.size() > 0) {
+            for (SemanticGraphEdge semanticGraphEdge : incomingEdgesSorted) {
+                ret.add(semanticGraphEdge.getGovernor());
+            }
+        }
+        return ret;
+    }
+
+    public static Set<IndexedWord> getChildren(SemanticGraph semanticGraph, IndexedWord node) {
+        Set<IndexedWord> ret = new HashSet<>();
+        List<SemanticGraphEdge> outEdgesSorted = semanticGraph.getOutEdgesSorted(node);
+        for (SemanticGraphEdge semanticGraphEdge : outEdgesSorted) {
+            ret.add(semanticGraphEdge.getDependent());
+        }
+        return ret;
+    }
+
+    public static List<IndexedWord> getChildrenRecursive(SemanticGraph semanticGraph, IndexedWord indexedWord) throws Exception {
+        LinkedHashSet<IndexedWord> ret = new LinkedHashSet();
+        getChildrenRecursive(semanticGraph, indexedWord, ret, 0);
+        return new ArrayList<>(ret);
+    }
+
+    public static void getChildrenRecursive(SemanticGraph semanticGraph, IndexedWord node, LinkedHashSet<IndexedWord> list, int iter)
+            throws Exception {
+        if (iter > MAX_ITER) {
+            throw new Exception("Too many iterations");
+        }
+        List<SemanticGraphEdge> outEdgesSorted = semanticGraph.getOutEdgesSorted(node);
+        for (SemanticGraphEdge semanticGraphEdge : outEdgesSorted) {
+            IndexedWord child = semanticGraphEdge.getDependent();
+            list.add(child);
+            getChildrenRecursive(semanticGraph, child, list, iter + 1);
+        }
+    }
+
+    public static List<IndexedWord> getHistory(SemanticGraph semanticGraph, IndexedWord node) {
+        List<IndexedWord> ret = new ArrayList<>();
+        ret.add(node);
+        getHistory(semanticGraph, node, ret);
+        return ret;
+    }
+
+    public static void getHistory(SemanticGraph semanticGraph, IndexedWord node, List<IndexedWord> start) {
+        List<SemanticGraphEdge> incomingEdgesSorted = semanticGraph.getIncomingEdgesSorted(node);
+        if (incomingEdgesSorted.size() > 0) {
+            IndexedWord governor = incomingEdgesSorted.get(0).getGovernor();
+            start.add(governor);
+            getHistory(semanticGraph, governor, start);
+        }
+    }
+
+    protected static void addChildren(HashMultimap<Integer, Integer> children, Set<Integer> stack, IndexedWord current,
             SemanticGraph semanticGraph, Set<IndexedWord> used) {
         List<SemanticGraphEdge> edges = semanticGraph.getOutEdgesSorted(current);
         used.add(current);

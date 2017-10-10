@@ -12,4 +12,5 @@ import java.util.Map;
 public interface SimplificationRule {
 
     String apply(Annotation annotation, Map<Integer, HashMultimap<Integer, Integer>> children);
+
 }
