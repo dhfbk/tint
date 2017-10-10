@@ -9,11 +9,13 @@ import edu.stanford.nlp.util.ArraySet;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.readability.en.EnglishStandardReadability;
 import eu.fbk.dh.tint.readability.es.SpanishStandardReadability;
+import eu.fbk.dh.tint.readability.gl.GalicianStandardReadability;
 import eu.fbk.dh.tint.readability.it.ItalianStandardReadability;
 import eu.fbk.utils.core.PropertiesUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
 import java.util.*;
 
 /**
@@ -26,6 +28,7 @@ public class ReadabilityAnnotator implements Annotator {
     public static Integer DEFAULT_MAX_SENTENCE_LENGTH = 25;
 
     private String language;
+    private String className;
     private int maxSentenceLength;
 
     private Properties globalProperties;
@@ -36,6 +39,7 @@ public class ReadabilityAnnotator implements Annotator {
         localProperties = PropertiesUtils.dotConvertedProperties(props, annotatorName);
 
         language = globalProperties.getProperty(annotatorName + ".language");
+        className = globalProperties.getProperty(annotatorName + ".className");
         maxSentenceLength = PropertiesUtils
                 .getInteger(localProperties.getProperty("maxSentenceLength"), DEFAULT_MAX_SENTENCE_LENGTH);
     }
@@ -48,23 +52,39 @@ public class ReadabilityAnnotator implements Annotator {
     @Override public void annotate(Annotation annotation) {
 
         Readability readability = null;
-        if (language == null) {
-            LOGGER.warn("Language variable is not defined, readability will be empty");
-            return;
+
+        if (className != null) {
+            try {
+                Class<? extends Readability> obj = (Class<? extends Readability>) Class.forName(className);
+                Constructor<? extends Readability> constructor = obj.getConstructor(Properties.class, Properties.class, Annotation.class);
+                readability = constructor.newInstance(globalProperties, localProperties, annotation);
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage());
+            }
         }
 
-        switch (language) {
-        case "it":
-            readability = new ItalianStandardReadability(globalProperties, localProperties, annotation);
-            break;
-        case "es":
-            readability = new SpanishStandardReadability(globalProperties, localProperties, annotation);
-            break;
-        case "en":
-            readability = new EnglishStandardReadability(globalProperties, localProperties, annotation);
-            break;
+        if (readability == null) {
+            if (language == null) {
+                LOGGER.warn("Language variable is not defined, readability will be empty");
+                return;
+            }
+
+            switch (language) {
+            case "it":
+                readability = new ItalianStandardReadability(globalProperties, localProperties, annotation);
+                break;
+            case "es":
+                readability = new SpanishStandardReadability(globalProperties, localProperties, annotation);
+                break;
+            case "en":
+                readability = new EnglishStandardReadability(globalProperties, localProperties, annotation);
+                break;
+            case "gl":
+                readability = new GalicianStandardReadability(globalProperties, localProperties, annotation);
+                break;
 //        default:
 //            readability = new EnglishReadability();
+            }
         }
 
         if (readability == null) {
