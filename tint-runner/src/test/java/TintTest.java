@@ -1,3 +1,7 @@
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.runner.TintPipeline;
 import eu.fbk.dh.tint.runner.TintRunner;
 
@@ -63,7 +67,7 @@ public class TintTest {
 
 //            sentenceText = new String(Files.readAllBytes(Paths.get("/Users/alessio/Downloads/example.txt")));
             sentenceText = "Clinton in testa nei sondaggi dopo l’«assoluzione» dell’Fbi sull’uso di un server di posta privato quando era Segretario di stato.";
-            sentenceText = "Il dott. Pinco Pallino e il dott. ing. Pinco Palluccio sono affiatatissimi!";
+            sentenceText = "Il dott. ing. Pinco Pallino e la sig.ra Pinca Palluccia sono affiatatissimi!";
 
             TintPipeline pipeline = new TintPipeline();
             pipeline.loadDefaultProperties();
@@ -82,7 +86,7 @@ public class TintTest {
 //            pipeline.setProperty("readability.glossario.use", "no");
 //            pipeline.setProperty("readability.glossario.stanford.annotators", "ita_toksent, pos, ita_morpho, ita_lemma");
 
-            pipeline.setProperty("annotators", "ita_toksent");
+            pipeline.setProperty("annotators", "ita_toksent, pos");
 //            pipeline.setProperty("annotators", "ita_toksent, udpipe, ita_morpho, ita_lemma, verb, readability");
 //            pipeline.setProperty("timex.treeTaggerHome", "/Volumes/LEXAR/Software/TreeTagger");
 //            pipeline.setProperty("customAnnotatorClass.udpipe", "eu.fbk.fcw.udpipe.api.UDPipeAnnotator");
@@ -91,7 +95,22 @@ public class TintTest {
 //            pipeline.setProperty("udpipe.port", "50020");
             pipeline.load();
 
-            pipeline.run(sentenceText, System.out, TintRunner.OutputFormat.JSON);
+//            pipeline.run(sentenceText, System.out, TintRunner.OutputFormat.JSON);
+
+            Annotation annotation = pipeline.runRaw(sentenceText);
+
+            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+                for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+                    String originalText = token.originalText();
+                    String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+
+                    System.out.println(originalText);
+//                    System.out.println(pos);
+//                    System.out.println();
+                }
+
+            }
+
 
 //            Annotation annotation = pipeline.runRaw(sentenceText);
 //            Readability readability = annotation.get(ReadabilityAnnotations.ReadabilityAnnotation.class);

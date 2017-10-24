@@ -418,11 +418,18 @@ public class ItalianTokenizer {
                 // Added -1 for compatibility with the "s" string
 
                 Token startToken = tokenGroup.getStartOffIndexes().get(emit.getStart() + 1 - 1 + offset);
-                Token endToken = tokenGroup.getEndOffIndexes().get(emit.getEnd() - 1 - 1 + offset);
+//                Token endToken = tokenGroup.getEndOffIndexes().get(emit.getEnd() - 1 - 1 + offset);
+
+                Token endToken = null;
+                int endOffset = 0;
+                while (endToken == null) {
+                    endToken = tokenGroup.getEndOffIndexes().get(emit.getEnd() - endOffset - 1 + offset);
+                    endOffset++;
+                }
 
                 if (newlineIsSentenceBreak) {
                     String substring = text.substring(startToken.getStart(), endToken.getEnd());
-                    if (substring.contains("\n")) {
+                    if (substring.contains("\n") || substring.contains("\r")) {
                         continue;
                     }
                 }
