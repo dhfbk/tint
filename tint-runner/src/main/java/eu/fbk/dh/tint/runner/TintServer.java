@@ -80,8 +80,8 @@ public class TintServer {
         try {
             final CommandLine cmd = CommandLine
                     .parser()
-                    .withName("./tintop-server")
-                    .withHeader("Run the Tintop Server")
+                    .withName("./tint-server")
+                    .withHeader("Run the Tint Server")
                     .withOption("c", "config", "Configuration file", "FILE", CommandLine.Type.FILE_EXISTING, true,
                             false, false)
                     .withOption("p", "port", String.format("Host port (default %d)", DEFAULT_PORT), "NUM",
