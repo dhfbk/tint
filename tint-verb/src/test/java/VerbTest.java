@@ -7,6 +7,7 @@ import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.verb.VerbAnnotations;
 import eu.fbk.fcw.udpipe.api.UDPipeAnnotations;
+import eu.fbk.utils.corenlp.outputters.JSONOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,11 +38,13 @@ public class VerbTest {
 //        properties.setProperty("udpipe.model", "/Users/alessio/Desktop/model");
             StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
 
-            Annotation annotation = new Annotation("Lo spirito sarà invocato.");
+            Annotation annotation = new Annotation("Il caporale alpino Giampietro Civati caduto in combattimento il 5 dicembre 1944, come racconta Silvestri, ha scritto questo mirabile testamento: «sono figlio d’Italia, d’anni 21, non di Graziani e nemmeno di Badoglio, ma sono italiano e seguo la via che salverà l’onore d’Italia».");
             pipeline.annotate(annotation);
-            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-                System.out.println(sentence.get(VerbAnnotations.VerbsAnnotation.class));
-            }
+            String out = JSONOutputter.jsonPrint(annotation);
+            System.out.println(out);
+//            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+//                System.out.println(sentence.get(VerbAnnotations.VerbsAnnotation.class));
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();
