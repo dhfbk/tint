@@ -158,33 +158,6 @@ public abstract class Readability {
 
                 subordinates++;
             }
-
-//            System.out.println(semanticGraph);
-//            System.out.println(semanticGraph.getNodeByIndex(7));
-//            semanticGraph.removeVertex(semanticGraph.getNodeByIndex(7));
-//            System.out.println(semanticGraph);
-
-            // Change semanticGraph starting form here
-
-//            Set<IndexedWord> toRemove = new HashSet<>();
-//            for (IndexedWord indexedWord : semanticGraph.vertexListSorted()) {
-//                int index = indexedWord.index();
-//                if (heads.contains(index)) {
-//                    continue;
-//                }
-//                toRemove.add(indexedWord);
-//            }
-//            for (IndexedWord indexedWordToRemove : toRemove) {
-//                if (semanticGraph.containsVertex(indexedWordToRemove)) {
-//                    semanticGraph.removeVertex(indexedWordToRemove);
-//                }
-//            }
-
-//            for (SemanticGraphEdge semanticGraphEdge : semanticGraph.edgeListSorted()) {
-//                System.out.println(semanticGraphEdge.getRelation().getShortName());
-//            }
-//
-//            System.out.println(semanticGraph);
         }
 
         ttrValue = 1.0 * ttr.size() / (1.0 * i);
@@ -214,6 +187,8 @@ public abstract class Readability {
 //        System.out.println("Average propositions: " + propositionsAvg);
 //        System.out.println("Average words per proposition: " + wordsAvg);
 //        System.out.println(String.format("Coordinates: %d (%.2f%%)", coordinates, coordinateRatio));
+//        System.out.println("Coordinates: " + coordinates);
+//        System.out.println("Subordinates: " + subordinates);
 //        System.out.println(String.format("Subordinates: %d (%.2f%%)", subordinates, subordinateRatio));
 //        System.out.println("TTR: " + ttrValue);
     }
