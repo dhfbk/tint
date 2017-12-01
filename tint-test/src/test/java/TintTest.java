@@ -15,15 +15,16 @@ public class TintTest {
         String sentenceText;
         try {
 
-            sentenceText = "Gli attacchi attaccano gli attaccanti.";
+            sentenceText = "Ho comprato delle latte.";
 
             TintPipeline pipeline = new TintPipeline();
             pipeline.loadDefaultProperties();
 
 //            pipeline.setProperty("annotators", "ita_toksent, pos, semafor_ita");
-            pipeline.setProperty("annotators", "ita_toksent, pos, stem");
+            pipeline.setProperty("annotators", "ita_toksent, pos, upos, stem, ita_morpho, ita_lemma");
             pipeline.setProperty("customAnnotatorClass.semafor_ita", "eu.fbk.fcw.semafortranslate.SemaforTranslateAnnotator");
             pipeline.setProperty("customAnnotatorClass.stem", "eu.fbk.fcw.stemmer.corenlp.StemAnnotator");
+            pipeline.setProperty("customAnnotatorClass.upos", "eu.fbk.dh.tint.upos.UPosAnnotator");
 
             pipeline.setProperty("stem.lang", "it");
 
