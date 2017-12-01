@@ -28,6 +28,11 @@
             <artifactId>utils-gson</artifactId>
             <version>${tint.utils.version}</version>
         </dependency>
+        <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-core</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
     </dependencies>
 
     <properties>

@@ -19,6 +19,14 @@ public class DigiMorphAnnotations {
         }
     }
 
+    @JSONLabel("selected_morpho")
+    public static class SelectedMorphoAnnotation implements CoreAnnotation<String> {
+
+        public Class<String> getType() {
+            return String.class;
+        }
+    }
+
     @JSONLabel("comp_morpho")
     public static class MorphoCompAnnotation implements CoreAnnotation<List<String>> {
 

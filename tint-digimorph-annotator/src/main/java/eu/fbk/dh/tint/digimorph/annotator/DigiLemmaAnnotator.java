@@ -7,6 +7,7 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.ArraySet;
 import edu.stanford.nlp.util.CoreMap;
+import eu.fbk.utils.core.PropertiesUtils;
 
 import java.util.*;
 
@@ -18,58 +19,20 @@ import java.util.*;
 public class DigiLemmaAnnotator implements Annotator {
 
     //private Multimap<String,String> pos_morpho_mapping = ArrayListMultimap.create();
-    private Map<String, String> pos_morpho_mapping = new HashMap<String, String>();
+    private static Map<String, String> pos_morpho_mapping = new HashMap<>();
+    private static Map<String, String> guessMap = new HashMap<>();
+    private static boolean DEFAULT_USE_GUESSER = true;
+    private static boolean DEFAULT_FEATURES = true;
 
-    private final String auxiliary = "VA";
+    private boolean useGuesser, extractFeatures;
+    private GuessModel guesser;
 
-    private final Set<String> betweenAuxAndVerb = new HashSet<>(Arrays.asList("B", "BN"));
+    static private final String auxiliary = "VA";
+    static private final String verb = "V";
+    static private final String pNoun = "SP";
+    static private final Set<String> betweenAuxAndVerb = new HashSet<>(Arrays.asList("B", "BN"));
 
-    public DigiLemmaAnnotator(String annotatorName, Properties prop) {
-
-
-
-
-
-
-
-        /*pos_morpho_mapping.put("A", "+ADJ");
-        pos_morpho_mapping.put("AP", "+DET");
-        pos_morpho_mapping.put("B", "+ADV");
-        pos_morpho_mapping.put("BN", "+ADV");
-        pos_morpho_mapping.put("C", "+CON");
-        pos_morpho_mapping.put("CC", "+CON");
-        pos_morpho_mapping.put("CS", "+CON");
-        pos_morpho_mapping.put("DD", "+DET");
-        pos_morpho_mapping.put("DE", "+DET");
-        pos_morpho_mapping.put("DI", "+DET");
-        pos_morpho_mapping.put("DQ", "+DET");
-        pos_morpho_mapping.put("DR", "+DET");
-        pos_morpho_mapping.put("DT", "+DET");
-        pos_morpho_mapping.put("E", "+PRE");
-        pos_morpho_mapping.put("E+RD", "+ART");
-        pos_morpho_mapping.put("I", "+INT");
-        pos_morpho_mapping.put("N", "+PRO");
-        pos_morpho_mapping.put("NO", "+ADJ");
-        pos_morpho_mapping.put("PC", "+PRO");
-        pos_morpho_mapping.put("PD", "+PRO");
-        pos_morpho_mapping.put("PE", "+PRO");
-        pos_morpho_mapping.put("PI", "+PRO");
-        pos_morpho_mapping.put("PP", "+PRO");
-        pos_morpho_mapping.put("PQ", "+PRO");
-        pos_morpho_mapping.put("PR", "+PRO");
-        pos_morpho_mapping.put("RD", "+ART");
-        pos_morpho_mapping.put("RI", "+ART");
-        pos_morpho_mapping.put("S", "+NOUN");
-        pos_morpho_mapping.put("SP", "+NPR");
-        pos_morpho_mapping.put("T", "+DET");
-        pos_morpho_mapping.put("V", "+VER");
-        pos_morpho_mapping.put("VA", "+VER");
-        pos_morpho_mapping.put("VA", "+AUX");
-        pos_morpho_mapping.put("VM", "+MOD");
-        pos_morpho_mapping.put("VM", "+VER");
-        pos_morpho_mapping.put("V+PC", "+VER");
-        */
-
+    static {
         pos_morpho_mapping.put("A", "+adj");
         pos_morpho_mapping.put("AP", "+adj");
         pos_morpho_mapping.put("B", "+adv");
@@ -106,20 +69,40 @@ public class DigiLemmaAnnotator implements Annotator {
         pos_morpho_mapping.put("VM", "+v+");
         pos_morpho_mapping.put("VM", "+v+");
         pos_morpho_mapping.put("V+PC", "+v+");
+        guessMap.put("A", "ADJ");
+        guessMap.put("S", "NOUN");
+        guessMap.put("V", "VERB");
+        guessMap.put("B", "ADV");
+    }
+
+    public DigiLemmaAnnotator(String annotatorName, Properties prop) {
+        useGuesser = PropertiesUtils.getBoolean(prop.getProperty(annotatorName + ".use_guesser"), DEFAULT_USE_GUESSER);
+        extractFeatures = PropertiesUtils.getBoolean(prop.getProperty(annotatorName + ".extract_features"), DEFAULT_FEATURES);
+
+        if (useGuesser) {
+            guesser = GuessModelInstance.getInstance().getModel();
+        }
     }
 
     public void annotate(Annotation annotation) {
         if (annotation.containsKey(CoreAnnotations.SentencesAnnotation.class)) {
             for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+
                 String last_valuable_genre = "";
                 Boolean valid_aux = false;
+
                 List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
-                for (CoreLabel c : tokens) {
-                    String[] morph_fatures = c.get(DigiMorphAnnotations.MorphoAnnotation.class).split(" ");
-                    String pos = c.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-                    c.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, true);
-                    c.set(CoreAnnotations.LemmaAnnotation.class, morph_fatures[0]);
-                    if (!pos.equals("V")) {
+                for (CoreLabel token : tokens) {
+
+                    String[] morph_fatures = token.get(DigiMorphAnnotations.MorphoAnnotation.class).split("\\s+");
+                    String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                    boolean isGuessable = guessMap.containsKey(pos);
+
+                    token.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, true);
+                    token.set(CoreAnnotations.LemmaAnnotation.class, morph_fatures[0]);
+                    token.set(DigiMorphAnnotations.SelectedMorphoAnnotation.class, "");
+
+                    if (!pos.equals(verb)) {
                         if (pos.equals(auxiliary) || (valid_aux && betweenAuxAndVerb.contains(pos))) {
                             valid_aux = true;
                         } else {
@@ -127,78 +110,120 @@ public class DigiLemmaAnnotator implements Annotator {
                         }
                     }
 
-                    if (!pos.equals("SP")) {
+                    if (!pos.equals(pNoun)) {
 
                         if (morph_fatures.length > 1) {
+
+                            // One possible candidate
                             if (morph_fatures.length == 2) {
 
-                                if (morph_fatures[1].contains("+art") && morph_fatures[1].contains("+m+")) {
-                                    last_valuable_genre = "m";
+                                String finalMorpho = morph_fatures[1];
+
+                                if (finalMorpho.contains("+art") || finalMorpho.equals("+adj")) {
+                                    if (finalMorpho.contains("+m+")) {
+                                        last_valuable_genre = "m";
+                                    } else {
+                                        last_valuable_genre = "f";
+                                    }
+                                }
+
+                                String featMapped = pos_morpho_mapping.get(pos);
+                                boolean shouldBeGuessed = featMapped == null || !finalMorpho.contains(featMapped);
+
+                                if (isGuessable && useGuesser && shouldBeGuessed) {
+                                    GuessModel.Token guess = guesser.guess(token.word(), guessMap.get(pos));
+                                    token.set(CoreAnnotations.LemmaAnnotation.class, guess.lemma);
                                 } else {
-                                    last_valuable_genre = "f";
+                                    token.set(CoreAnnotations.LemmaAnnotation.class, finalMorpho.split("\\+")[0].split("~")[0]);
+                                    token.set(DigiMorphAnnotations.SelectedMorphoAnnotation.class, finalMorpho);
+                                    if (!shouldBeGuessed) {
+                                        token.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, false);
+                                    }
                                 }
+                            }
 
-                                c.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, false);
-                                c.set(CoreAnnotations.LemmaAnnotation.class,
-                                        morph_fatures[1].split("\\+")[0].split("~")[0]);
-                            } else {
+                            // More candidates
+                            else {
+//                                Set<String> lemmas = new HashSet<String>();
+//                                for (int i = 1; i < morph_fatures.length; i++) {
+//                                    lemmas.add(morph_fatures[i].split("\\+")[0].split("~")[0]);
+//                                }
+//                                if (lemmas.size() > 1) {
+                                    // woking with multiple features element
 
-                                Set<String> lemmas = new HashSet<String>();
-                                for (int i = 1; i < morph_fatures.length; i++) {
-                                    lemmas.add(morph_fatures[i].split("\\+")[0].split("~")[0]);
-                                }
-                                if (lemmas.size() > 1) {
-                                    //woking with multiple features element
                                     String featMapped = pos_morpho_mapping.get(pos);
 
-                                    String possible_candidate = "";
+                                    String possibleCandidate = "";
                                     String firstCandidate = "";
+
                                     if (featMapped != null) {
                                         for (String feature : morph_fatures) {
                                             if (feature.contains(featMapped)) {
                                                 if (firstCandidate.length() == 0) {
-                                                    firstCandidate = feature.split("\\+")[0].split("~")[0];
+                                                    firstCandidate = feature;
                                                 }
 
-                                                if (featMapped.equals("+art") && feature.contains("+m+")) {
-                                                    last_valuable_genre = "m";
-                                                } else if (featMapped.equals("+art") && feature.contains("+f+")) {
-                                                    last_valuable_genre = "f";
+                                                if (featMapped.equals("+art") || featMapped.equals("+adj")) {
+                                                    if (feature.contains("+m+")) {
+                                                        last_valuable_genre = "m";
+                                                    } else if (feature.contains("+f+")) {
+                                                        last_valuable_genre = "f";
+                                                    }
                                                 }
 
                                                 if (last_valuable_genre.equals("m") && feature.contains("+m+")) {
-                                                    possible_candidate = feature.split("\\+")[0].split("~")[0];
-                                                } else if (last_valuable_genre.equals("m") && feature.contains("+f+")) {
-                                                    possible_candidate = feature.split("\\+")[0].split("~")[0];
+                                                    possibleCandidate = feature;
+                                                } else if (last_valuable_genre.equals("f") && feature.contains("+f+")) {
+                                                    possibleCandidate = feature;
                                                 }
 
                                                 if (valid_aux && feature.contains("+part+")) {
-                                                    possible_candidate = feature.split("\\+")[0].split("~")[0];
+                                                    possibleCandidate = feature;
                                                     valid_aux = false;
                                                 }
 
                                             }
                                         }
-                                        boolean guessed = false;
-                                        if (firstCandidate.length() == 0) {
-                                            firstCandidate = c.word();
-                                            guessed = true;
-                                        }
-                                        c.set(CoreAnnotations.LemmaAnnotation.class,
-                                                possible_candidate.length() > 0 ? possible_candidate : firstCandidate);
 
-//                                        if (possible_candidate.length() > 0){
-                                        c.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, guessed);
-//                                        }
+                                        boolean guessed = false;
+
+                                        String chosenLemma;
+                                        String chosenMorpho;
+
+                                        if (possibleCandidate.length() > 0) {
+                                            chosenMorpho = possibleCandidate;
+                                            chosenLemma = possibleCandidate.split("\\+")[0].split("~")[0];
+                                        }
+                                        else {
+                                            if (firstCandidate.length() > 0) {
+                                                chosenMorpho = firstCandidate;
+                                                chosenLemma = firstCandidate.split("\\+")[0].split("~")[0];
+                                            }
+                                            else {
+                                                guessed = true;
+                                                chosenLemma = token.word();
+                                                chosenMorpho = "";
+                                            }
+                                        }
+
+                                        token.set(CoreAnnotations.LemmaAnnotation.class, chosenLemma);
+                                        token.set(DigiMorphAnnotations.SelectedMorphoAnnotation.class, chosenMorpho);
+                                        token.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, guessed);
                                     }
 
-                                } else {
-                                    c.set(CoreAnnotations.LemmaAnnotation.class,
-                                            morph_fatures[1].split("\\+")[0].split("~")[0]);
-                                    c.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, false);
-                                }
+//                                } else {
+//                                    token.set(CoreAnnotations.LemmaAnnotation.class,
+//                                            morph_fatures[1].split("\\+")[0].split("~")[0]);
+//                                    token.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, false);
+//                                }
                             }
                         }
+                    }
+
+                    Boolean stillGuessed = token.get(DigiMorphAnnotations.GuessedLemmaAnnotation.class);
+                    if (isGuessable && stillGuessed && useGuesser) {
+                        GuessModel.Token guess = guesser.guess(token.word(), guessMap.get(pos));
+                        token.set(CoreAnnotations.LemmaAnnotation.class, guess.lemma);
                     }
                 }
             }
@@ -210,7 +235,8 @@ public class DigiLemmaAnnotator implements Annotator {
      * Returns a set of requirements for which tasks this annotator can
      * provide.  For example, the POS annotator will return "pos".
      */
-    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
+    @Override
+    public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
         return Collections.singleton(CoreAnnotations.LemmaAnnotation.class);
     }
 
@@ -219,7 +245,8 @@ public class DigiLemmaAnnotator implements Annotator {
      * to perform.  For example, the POS annotator will return
      * "tokenize", "ssplit".
      */
-    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+    @Override
+    public Set<Class<? extends CoreAnnotation>> requires() {
         return Collections.unmodifiableSet(new ArraySet<>(Arrays.asList(
                 CoreAnnotations.PartOfSpeechAnnotation.class,
                 DigiMorphAnnotations.MorphoAnnotation.class,
