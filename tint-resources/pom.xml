@@ -17,7 +17,7 @@
         <dependency>
             <groupId>eu.fbk.twm</groupId>
             <artifactId>twm-utils</artifactId>
-            <version>1.4</version>
+            <version>${twm-version}</version>
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>
@@ -86,6 +86,7 @@
 
     <properties>
         <parent-path>..</parent-path>
+        <twm-version>1.4</twm-version>
     </properties>
 
 </project>
