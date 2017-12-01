@@ -36,7 +36,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-core</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
     </dependencies>
 
     <properties>

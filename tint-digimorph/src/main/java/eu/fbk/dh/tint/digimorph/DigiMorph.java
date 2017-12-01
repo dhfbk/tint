@@ -77,12 +77,10 @@ public class DigiMorph {
      * @version 0.42a
      */
 
-    synchronized public List<String> getMorphology(List token_list) {
-        List<String> results = new LinkedList<String>();
-        List<List<String>> parts;
+    synchronized public List<String> getMorphology(List<String> token_list) {
+        List<String> results = new LinkedList<>();
         int threadsNumber = Runtime.getRuntime().availableProcessors();
-        //int threadsNumber = 1;
-        parts = Lists.partition(token_list, (token_list.size() / threadsNumber) + 1);
+        List<List<String>> parts = Lists.partition(token_list, (token_list.size() / threadsNumber) + 1);
 
         if (token_list.size() > 0) {
             executor = Executors.newFixedThreadPool(parts.size());
@@ -91,7 +89,7 @@ public class DigiMorph {
             return results;
         }
 
-        callables = new LinkedHashSet<Callable<List<String>>>();
+        callables = new LinkedHashSet<>();
 
         for (int pts = 0; pts < parts.size(); pts++) {
             callables.add(new DigiMorph_Analizer(parts.get(pts), map));
@@ -110,20 +108,17 @@ public class DigiMorph {
         }
 
         try {
-            for (int i = 0; i < futures.size(); i++) {
-                List<String> stringList = futures.get(i).get();
+            for (Future<List<String>> future : futures) {
+                List<String> stringList = future.get();
                 results.addAll(stringList);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (int pts = 0; pts < parts.size(); pts++) {
-            parts.get(pts).clear();
-        }
+//        for (int pts = 0; pts < parts.size(); pts++) {
+//            parts.get(pts).clear();
+//        }
 
-//        System.out.println("Result size: " + results.size());
-
-        // volume.close();
         return results;
     }
 
@@ -136,14 +131,11 @@ public class DigiMorph {
      * @param csv_path - String contains the tsv file path
      */
 
-    public void re_train(String csv_path, boolean include_lemma) {
-        File dbf = new File(model_path);
-        if (dbf.exists()) {
-            dbf.delete();
+    public static void re_train(File csv_path, File output, boolean include_lemma) {
+        if (output.exists()) {
+            output.delete();
         }
-        fill_codgram();
-        fill_codfless();
-        Volume volume = MappedFileVol.FACTORY.makeVolume(model_path, false);
+        Volume volume = MappedFileVol.FACTORY.makeVolume(output.getAbsolutePath(), false);
         SortedTableMap.Sink<String, String> sink =
                 SortedTableMap.create(
                         volume,
@@ -191,13 +183,4 @@ public class DigiMorph {
         System.out.println("done");
 
     }
-
-    private void fill_codfless() {
-
-    }
-
-    private void fill_codgram() {
-
-    }
-
 }
