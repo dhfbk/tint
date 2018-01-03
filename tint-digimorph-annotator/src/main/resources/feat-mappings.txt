@@ -6,6 +6,10 @@ adj+m+plur+pst	Gender=Masc|Number=Plur
 adj+f+plur+pst	Gender=Fem|Number=Plur
 adj+m+sing+pst	Gender=Masc|Number=Sing
 adj+f+sing+pst	Gender=Fem|Number=Sing
+adj+m+plur+pst+poss	Gender=Masc|Number=Plur|Poss=Yes|PronType=Prs
+adj+f+plur+pst+poss	Gender=Fem|Number=Plur|Poss=Yes|PronType=Prs
+adj+m+sing+pst+poss	Gender=Masc|Number=Sing|Poss=Yes|PronType=Prs
+adj+f+sing+pst+poss	Gender=Fem|Number=Sing|Poss=Yes|PronType=Prs
 n+f+plur	Gender=Fem|Number=Plur
 n+f+sing	Gender=Fem|Number=Sing
 n+m+plur	Gender=Masc|Number=Plur

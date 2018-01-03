@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-
 public class GuessModel {
 
     class Token {
@@ -36,15 +35,189 @@ public class GuessModel {
             this.form = form;
             this.lemma = lemma;
             this.feats = feats;
-
-
         }
+    }
+
+    private static Set<String> absAdvs = new HashSet<>();
+    static {
+        absAdvs.add("ottimamente");
+        absAdvs.add("pessimamente");
+        absAdvs.add("massimamente");
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GuessModel.class);
     private HashSet<String> allowedTags = new HashSet<>();
     private Map<String, RadixTree<LinkedList<String>>> trees = new HashMap<>();
     private Map<String, String> featMappings = new HashMap<>();
+
+    public String getMorphoFeatsForContentWords(String featString) {
+        String subToken = featString.replaceAll("^[^~]*~", "");
+        subToken = subToken.replaceAll("^[^+]*\\+", "");
+        return featMappings.get(subToken);
+    }
+
+    public void addSexMorpho(Set<String> set, String sex) {
+        if (sex.equals("m")) {
+            set.add("Gender=Masc");
+        } else if (sex.equals("f")) {
+            set.add("Gender=Fem");
+        }
+    }
+
+    public void addNumMorpho(Set<String> set, String num) {
+        if (num.equals("sing")) {
+            set.add("Number=Sing");
+        } else if (num.equals("plur")) {
+            set.add("Number=Plur");
+        }
+    }
+
+    public void addPersMorpho(Set<String> set, String pers) {
+        if (pers.equals("1") || pers.equals("2") || pers.equals("3")) {
+            set.add("Person=" + pers);
+        }
+    }
+
+    public void addTypeMorpho(Set<String> set, String type) {
+        if (type.equals("sup")) {
+            set.add("Degree=Abs");
+        }
+        if (type.equals("cmp")) {
+            set.add("Degree=Cmp");
+        }
+    }
+
+    public String getMorphoFeats(String featString, String pos) {
+        Set<String> featureSet = new TreeSet<>();
+        String[] parts = featString.split("\\+");
+        if (parts.length > 1) {
+            switch (parts[1]) {
+                case "adj":
+                    addSexMorpho(featureSet, parts[2]);
+                    addNumMorpho(featureSet, parts[3]);
+                    if (parts.length > 4) {
+                        addTypeMorpho(featureSet, parts[4]);
+                    }
+                    break;
+                case "art":
+                    addSexMorpho(featureSet, parts[2]);
+                    addNumMorpho(featureSet, parts[3]);
+                    break;
+                case "adv":
+                    // todo: add Cmp for adverbs?
+                    // It seems that it is not used in UD, but maybe it should be.
+                    // see https://it.wikipedia.org/wiki/Gradi_e_alterazioni_degli_avverbi
+                    if (parts[0].endsWith("issimo")) {
+                        featureSet.add("Degree=Abs");
+                    }
+                    if (absAdvs.contains(parts[0].toLowerCase())) {
+                        featureSet.add("Degree=Abs");
+                    }
+                    break;
+                case "pron":
+                    addSexMorpho(featureSet, parts[3]);
+                    addPersMorpho(featureSet, parts[4]);
+                    addNumMorpho(featureSet, parts[5]);
+                    break;
+            }
+        }
+        switch (pos) {
+            case "A":
+            case "V":
+            case "VA":
+            case "VM":
+            case "S":
+                return getMorphoFeatsForContentWords(featString);
+            case "AP":
+                featureSet.add("Poss=Yes");
+                featureSet.add("PronType=Prs");
+                break;
+            case "BN":
+                featureSet.add("PronType=Neg");
+                break;
+            case "DD":
+                featureSet.add("PronType=Dem");
+                break;
+            case "DE":
+                featureSet.add("PronType=Exc");
+                break;
+            case "DI":
+                featureSet.add("PronType=Ind");
+                break;
+            case "DQ":
+                featureSet.add("PronType=Int");
+                break;
+            case "DR":
+                featureSet.add("PronType=Rel");
+                break;
+            case "I":
+                switch (parts[0].toLowerCase()) {
+                    case "si":
+                    case "sì":
+                    case "si'":
+                        featureSet.add("Polarity=Pos");
+                        break;
+                    case "no":
+                        featureSet.add("Polarity=Neg");
+                        break;
+                }
+                break;
+            case "N":
+                featureSet.add("NumType=Card");
+                break;
+            case "NO":
+                featureSet.add("NumType=Ord");
+                break;
+            case "PC":
+                featureSet.add("Clitic=Yes");
+                featureSet.add("PronType=Prs");
+                break;
+            case "PD":
+                featureSet.add("PronType=Dem");
+                break;
+            case "PE":
+            case "PP":
+                featureSet.add("PronType=Prs");
+                break;
+            case "PI":
+                featureSet.add("PronType=Ind");
+                break;
+            case "PQ":
+                featureSet.add("PronType=Int");
+                break;
+            case "PR":
+                featureSet.add("PronType=Rel");
+                break;
+            case "RD":
+                featureSet.add("Definite=Def");
+                featureSet.add("PronType=Art");
+                break;
+            case "RI":
+                featureSet.add("Definite=Ind");
+                featureSet.add("PronType=Art");
+                break;
+            case "SW":
+                featureSet.add("Foreign=Yes");
+                break;
+            case "T":
+                featureSet.add("PronType=Tot");
+                break;
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        int i = 0;
+        for (String s : featureSet) {
+            buffer.append(s);
+            if (++i < featureSet.size()) {
+                buffer.append("|");
+            }
+        }
+        if (buffer.length() == 0) {
+            buffer.append("_");
+        }
+
+        return buffer.toString();
+    }
 
     public GuessModel() {
 
@@ -102,9 +275,7 @@ public class GuessModel {
                 }
 
                 // Feats
-                String subToken = word.replaceAll("^[^~]*~", "");
-                subToken = subToken.replaceAll("^[^+]*\\+", "");
-                String feats = featMappings.get(subToken);
+                String feats = getMorphoFeatsForContentWords(word);
                 if (feats == null) {
                     continue;
                 }
