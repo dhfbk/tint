@@ -47,6 +47,13 @@
             <version>${corenlp.version}</version>
             <scope>test</scope>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>edu.stanford.nlp</groupId>-->
+            <!--<artifactId>stanford-corenlp</artifactId>-->
+            <!--<version>${corenlp.version}</version>-->
+            <!--<classifier>models</classifier>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

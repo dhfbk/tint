@@ -1,7 +1,3 @@
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.runner.TintPipeline;
 import eu.fbk.dh.tint.runner.TintRunner;
 
@@ -15,7 +11,22 @@ public class TintTest {
         String sentenceText;
         try {
 
-            sentenceText = "Ho comprato delle latte.";
+//            sentenceText = "The trip was very beautiful. Unfortunately, my dog has died in the meantime.";
+//            Annotation annotation = new Annotation(sentenceText);
+//            Properties properties = new Properties();
+//            properties.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse, sentiment");
+//            StanfordCoreNLP stanfordCoreNLP = new StanfordCoreNLP(properties);
+//            stanfordCoreNLP.annotate(annotation);
+//
+//            String json = JSONOutputter.jsonPrint(annotation);
+//            System.out.println(json);
+//
+//            System.exit(1);
+
+            sentenceText = "Domani insalatiamo tutti insieme. " +
+                    "Il mio cane ha smerdazzato il tuo. " +
+                    "Meglio dormirci su. " +
+                    "Nel suo mondo color arcobaleno e pieno di pucciosi unicorni si aspettava che LEXenstein fosse un programma in stile Word";
 
             TintPipeline pipeline = new TintPipeline();
             pipeline.loadDefaultProperties();
@@ -32,7 +43,6 @@ public class TintTest {
             pipeline.setProperty("semafor_ita.engine", "deepl");
 
             pipeline.setProperty("semafor_ita.stanford.annotators", "tokenize, ssplit, pos, lemma, conll_parse, semafor");
-//            pipeline.setProperty("semafor_ita.stanford.annotators", "tokenize, ssplit");
             pipeline.setProperty("semafor_ita.stanford.semafor.model_dir", "/Volumes/Dati/Resources/pikes/models/semafor-orig");
             pipeline.setProperty("semafor_ita.stanford.semafor.use_conll", "true");
             pipeline.setProperty("semafor_ita.stanford.customAnnotatorClass.mst_fake", "eu.fbk.dkm.pikes.depparseannotation.FakeMstParserAnnotator");
