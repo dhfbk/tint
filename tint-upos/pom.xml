@@ -19,7 +19,7 @@
         <dependency>
             <groupId>eu.fbk.utils</groupId>
             <artifactId>utils-corenlp</artifactId>
-            <version>3.2-SNAPSHOT</version>
+            <version>${tint.utils.version}</version>
         </dependency>
     </dependencies>
 </project>

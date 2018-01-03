@@ -19,7 +19,7 @@
         <dependency>
             <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-verb</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${tint.version}</version>
         </dependency>
         <dependency>
             <groupId>eu.fbk.utils</groupId>
