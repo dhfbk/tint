@@ -20,11 +20,6 @@
             <version>${twm-version}</version>
         </dependency>
         <dependency>
-            <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-textpro</artifactId>
-            <version>${tint.version}</version>
-        </dependency>
-        <dependency>
             <groupId>eu.fbk.twm</groupId>
             <artifactId>twm-index</artifactId>
             <version>${twm-version}</version>
@@ -52,6 +47,11 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.0</version>
         </dependency>
     </dependencies>
 

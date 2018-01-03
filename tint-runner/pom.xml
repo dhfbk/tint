@@ -123,12 +123,6 @@
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-geoloc-annotator</artifactId>
-            <version>${tint.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-heideltime-annotator</artifactId>
             <version>${tint.version}</version>
             <scope>runtime</scope>
