@@ -1,23 +1,22 @@
 package eu.fbk.dh.tint.readability;
 
+import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
+import edu.stanford.nlp.util.ArraySet;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.readability.en.EnglishStandardReadability;
 import eu.fbk.dh.tint.readability.es.SpanishStandardReadability;
+import eu.fbk.dh.tint.readability.gl.GalicianStandardReadability;
 import eu.fbk.dh.tint.readability.it.ItalianStandardReadability;
 import eu.fbk.utils.core.PropertiesUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-
-import static eu.fbk.dh.tint.readability.ReadabilityAnnotations.READABILITY_REQUIREMENT;
+import java.lang.reflect.Constructor;
+import java.util.*;
 
 /**
  * Created by alessio on 21/09/16.
@@ -26,8 +25,10 @@ import static eu.fbk.dh.tint.readability.ReadabilityAnnotations.READABILITY_REQU
 public class ReadabilityAnnotator implements Annotator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReadabilityAnnotator.class);
-    public static String DEFAULT_MAX_SENTENCE_LENGTH = "25";
+    public static Integer DEFAULT_MAX_SENTENCE_LENGTH = 25;
+
     private String language;
+    private String className;
     private int maxSentenceLength;
 
     private Properties globalProperties;
@@ -36,10 +37,11 @@ public class ReadabilityAnnotator implements Annotator {
     public ReadabilityAnnotator(String annotatorName, Properties props) {
         globalProperties = props;
         localProperties = PropertiesUtils.dotConvertedProperties(props, annotatorName);
+
         language = globalProperties.getProperty(annotatorName + ".language");
-        maxSentenceLength = Integer
-                .parseInt(globalProperties
-                        .getProperty(annotatorName + ".maxSentenceLength", DEFAULT_MAX_SENTENCE_LENGTH));
+        className = globalProperties.getProperty(annotatorName + ".className");
+        maxSentenceLength = PropertiesUtils
+                .getInteger(localProperties.getProperty("maxSentenceLength"), DEFAULT_MAX_SENTENCE_LENGTH);
     }
 
     /**
@@ -50,23 +52,39 @@ public class ReadabilityAnnotator implements Annotator {
     @Override public void annotate(Annotation annotation) {
 
         Readability readability = null;
-        if (language == null) {
-            LOGGER.warn("Language variable is not defined, readability will be empty");
-            return;
+
+        if (className != null) {
+            try {
+                Class<? extends Readability> obj = (Class<? extends Readability>) Class.forName(className);
+                Constructor<? extends Readability> constructor = obj.getConstructor(Properties.class, Properties.class, Annotation.class);
+                readability = constructor.newInstance(globalProperties, localProperties, annotation);
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage());
+            }
         }
 
-        switch (language) {
-        case "it":
-            readability = new ItalianStandardReadability(globalProperties, localProperties, annotation);
-            break;
-        case "es":
-            readability = new SpanishStandardReadability(globalProperties, localProperties, annotation);
-            break;
-        case "en":
-            readability = new EnglishStandardReadability(globalProperties, localProperties, annotation);
-            break;
+        if (readability == null) {
+            if (language == null) {
+                LOGGER.warn("Language variable is not defined, readability will be empty");
+                return;
+            }
+
+            switch (language) {
+            case "it":
+                readability = new ItalianStandardReadability(globalProperties, localProperties, annotation);
+                break;
+            case "es":
+                readability = new SpanishStandardReadability(globalProperties, localProperties, annotation);
+                break;
+            case "en":
+                readability = new EnglishStandardReadability(globalProperties, localProperties, annotation);
+                break;
+            case "gl":
+                readability = new GalicianStandardReadability(globalProperties, localProperties, annotation);
+                break;
 //        default:
 //            readability = new EnglishReadability();
+            }
         }
 
         if (readability == null) {
@@ -99,8 +117,8 @@ public class ReadabilityAnnotator implements Annotator {
      * Returns a set of requirements for which tasks this annotator can
      * provide.  For example, the POS annotator will return "pos".
      */
-    @Override public Set<Requirement> requirementsSatisfied() {
-        return Collections.singleton(READABILITY_REQUIREMENT);
+    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
+        return Collections.singleton(ReadabilityAnnotations.ReadabilityAnnotation.class);
     }
 
     /**
@@ -108,7 +126,12 @@ public class ReadabilityAnnotator implements Annotator {
      * to perform.  For example, the POS annotator will return
      * "tokenize", "ssplit".
      */
-    @Override public Set<Requirement> requires() {
-        return Annotator.TOKENIZE_SSPLIT_POS_LEMMA;
+    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+        return Collections.unmodifiableSet(new ArraySet<>(Arrays.asList(
+                CoreAnnotations.PartOfSpeechAnnotation.class,
+                CoreAnnotations.TokensAnnotation.class,
+                CoreAnnotations.LemmaAnnotation.class,
+                CoreAnnotations.SentencesAnnotation.class
+        )));
     }
 }

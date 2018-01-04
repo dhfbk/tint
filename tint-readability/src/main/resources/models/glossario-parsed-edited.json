@@ -47,7 +47,7 @@
 	"forms": ["contribuente"],
 	"description": "Persona che paga i tributi."
 }, {
-    "pos" : "n",
+	"pos": "n",
 	"forms": ["visto"],
 	"description": "Firma o timbro su un documento che prova che è stato letto e approvato."
 }, {
@@ -105,7 +105,7 @@
 	"forms": ["nuda proprietà"],
 	"description": "Proprietà di un bene di cui non si ha la disponibilità, perché il diritto di usare il bene (diritto di usufrutto) appartiene a un altro soggetto."
 }, {
-    "pos" : "n",
+	"pos": "n",
 	"forms": ["abuso"],
 	"description": "Azione di un cittadino contraria alla legge (per esempio, è un abuso edilizio la costruzione o la modifica delle caratteristiche interne o esterne di una casa in contrasto con le leggi sull’edilizia)."
 }, {
@@ -127,7 +127,7 @@
 	"forms": ["silenzio"],
 	"description": "Comportamento di una amministrazione pubblica che non risponde a una domanda presentata da un privato entro un certo termine stabilito dalla legge. La legge in alcuni casi considera il silenzio come una risposta positiva (silenzio assenso), in altri casi come una risposta negativa (silenzio rifiuto)."
 }, {
-	"forms": ["decadenza", "decadere" ],
+	"forms": ["decadenza", "decadere"],
 	"description": "1. Perdita di un diritto dovuta al fatto che una persona non lo ha esercitato per un certo periodo di tempo stabilito dalla legge.\n2. (o termine di decadenza): periodo di tempo entro il quale si può esercitare un diritto (per esempio, il diritto di ricorrere al TAR per chiedere l’annullamento di un atto della pubblica amministrazione)."
 }, {
 	"forms": ["enti locali"],
@@ -166,7 +166,7 @@
 	"forms": ["relazione tecnica"],
 	"description": "Rapporto che spiega il contenuto o i motivi delle scelte di una decisione (per esempio, la relazione tecnica relativa a un progetto urbanistico)."
 }, {
-    "pos" : "n",
+	"pos": "n",
 	"forms": ["delega"],
 	"description": "Atto con cui una persona o un’amministrazione autorizza qualcun altro a fare qualcosa al suo posto."
 }, {
@@ -458,7 +458,7 @@
 	"forms": ["cosa giudicata"],
 	"description": "Sentenza definitiva, cioè che non può più essere rivista da un altro giudice."
 }, {
-    "pos" : "n",
+	"pos": "n",
 	"forms": ["bene"],
 	"description": "Cosa, oggetto."
 }, {
@@ -683,9 +683,6 @@
 }, {
 	"forms": ["usucapione"],
 	"description": "Uno dei modi che la legge prevede per diventare proprietari di un bene. Si verifica quando qualcuno possiede un bene per un periodo di tempo continuato, stabilito dalla legge (per esempio, la proprietà di un terreno si acquista per usucapione dopo venti anni)."
-}, {
-	"forms": ["precedente"],
-	"description": "Decisione presa in passato da un giudice o da una pubblica amministrazione per risolvere un caso simile a quello che si sta discutendo."
 }, {
 	"forms": ["atto illecito"],
 	"description": "Azione contraria alla legge. Se è contraria alla legge penale è un reato."
@@ -1662,4 +1659,139 @@
 }, {
 	"forms": ["istituzione scolastica"],
 	"description": "Scuola."
-}]
+},
+	{
+		"forms": ["codice"],
+		"description": "successione di cifre o lettere idonee a identificare una persona o qualcosa (Wikitionary)"
+	}, {
+	"forms": ["prima infanzia"],
+	"description": "dalla nascita ai due anni, periodo in cui i bambini potranno frequentare l'asilo nido oppure restare con i genitori"
+}, {
+	"forms": ["nido d'infanzia"],
+	"description": "la struttura educativa destinata ai bambini di età compresa tra 3 mesi e i 3 anni e che precede l'ingresso alla scuola dell'infanzia (o scuola materna). (Wikipedia)"
+}, {
+	"forms": ["Consiglio comunale"],
+	"description": "assemblea pubblica rappresentativa di ogni Comune posto in una regione a statuto ordinario, ente locale previsto dall'art. 114 della Costituzione della Repubblica Italiana. (Wikipedia)"
+}, {
+	"forms": ["posta elettronica"],
+	"description": "servizio di internet che permette agli utenti abilitati di inviare e ricevere messaggi da un computer (Wiktionary)"
+}, {
+	"forms": ["nucleo famigliare", "nucleo familiare"],
+	"description": "designa un'unità sociologica che vive nello stesso alloggio, oltre che una famiglia tradizionale o una persona fisica che vive sola (in una casa, appartamento, monastero o caserma) (Wikipedia)"
+}, {
+	"forms": ["grado di parentela", "grado parentela"],
+	"description": "Il grado di parentela indica il livello, il gradino, l’ordine di parentela. Sono parenti tutti coloro che hanno un antenato in comune."
+}, {
+	"forms": ["attestazione ICEF"],
+	"description": "L'Icef è l'indicatore della condizione economica familiare. Serve per definire le reali condizioni economiche di una famiglia per accedere alle agevolazioni sociali, nel caso di nuclei meno abbienti, e a tutte le agevolazioni tariffarie previste (CGIL Trentino)"
+}, {
+	"forms": ["situazione ICEF", "situazione ICEF"],
+	"description": "L'Icef è l'indicatore della condizione economica familiare. Serve per definire le reali condizioni economiche di una famiglia per accedere alle agevolazioni sociali, nel caso di nuclei meno abbienti, e a tutte le agevolazioni tariffarie previste (CGIL Trentino)"
+}, {
+	"forms": ["falsità in atti"],
+	"description": "Quando un soggetto privato dichiara fatti non veritieri al pubblico ufficiale incaricato di redigere un atto pubblico (Wikipedia)"
+}, {
+	"forms": ["servizio sociale"],
+	"description": "strumenti per garantire assistenza a persone in difficoltà in un sistema di welfare state. (Wikipedia)"
+}, {
+	"forms": ["assistente sociale"],
+	"description": "professionista laureato in servizio sociale, abilitato a fornire aiuto materiale e morale a chi si trova in condizione di necessità e disagio (Wiktionary)"
+}, {
+	"forms": ["disabilità certificata"],
+	"description": "La certificazione di disabilità è il presupposto per l’attribuzione all’alunno con disabilità delle misure di sostegno e di integrazione. La certificazione deve essere effettuata da un organismo collegiale appartenente al Servizio Sanitario Nazionale (MIUR)"
+}, {
+	"forms": ["monoparentale"],
+	"description": "Con famiglia a genitore unico o monoparentale si definisce un genitore, anche minorenne, che si occupa dell'educazione di bambini minori di 18 anni. Si tratta perciò di padri e madri divorziati, celibi, vedovi, per molto tempo separati e che non vivono insieme ad un altro adulto in una comunità domestica comune.  (Wikipedia)"
+}, {
+	"forms": ["affidamento"],
+	"description": "assegnazione a norma di legge di un minore, privo di un idoneo ambiente familiare, a una famiglia diversa da quella naturale o ad un istituto (Wiktionary)"
+}, {
+	"forms": ["tutela"],
+	"description": "La tutela è uno strumento per proteggere il minore quando entrambi i genitori sono morti o quando, per altre cause, non possono esercitare la potestà genitoriale (Ministero della Giustizia)"
+}, {
+	"forms": ["tutore"],
+	"description": "Il tutore è di regola la persona designata dal genitore che per ultimo ha esercitato la potestà; tale designazione può avvenire per testamento, per atto pubblico o scrittura privata autenticata. (Ministero della Giustizia)"
+}, {
+	"forms": ["affidatario"],
+	"description": "che ha in affidamento una persona od un oggetto (Wiktionary)"
+}, {
+	"forms": ["preadottivo"],
+	"description": "che precede l'adozione. Prima di giungere ad una pronuncia definitiva di adozione, si deve accertare l’effettivo positivo inserimento del minore nella famiglia adottiva, imponendo un periodo di prova preadottivo in cui viene monitorata la nuova situazione in relazione all’interesse del minore. (Associazione nazionale famiglie adottive e affidatarie)"
+}, {
+	"forms": ["patria potestà"],
+	"description": "La patria potestà è la potestà attribuita al padre di proteggere, educare ed istruire il figlio minorenne e curarne gli interessi. Negli ordinamenti contemporanei tale potestà tende ad essere attribuita ad entrambi i genitori, in condizione di parità, e si parla allora di potestà genitoriale. (Wikipedia)"
+}, {
+	"forms": ["vedovanza"],
+	"description": "stato in cui si trova un coniuge al momento della morte dell'altro (Wiktionary)"
+}, {
+	"forms": ["separazione legale"],
+	"description": "allentamento di un vincolo coniugale senza che però si dissolva (Wiktionary)"
+}, {
+	"forms": ["divorzio"],
+	"description": "istituto legislativo che decreta la fine di un matrimonio, lasciandone validi solo gli aspetti amministrativi e legali (Wiktionary)"
+}, {
+	"forms": ["sede giurisdizionale"],
+	"description": "la sfera di competenza di un giudice o, con significato più generale ma meno appropriato, di un organo pubblico (Wikipedia)"
+}, {
+	"forms": ["potestà"],
+	"description": "La patria potestà è la potestà attribuita al padre di proteggere, educare ed istruire il figlio minorenne e curarne gli interessi. Negli ordinamenti contemporanei tale potestà tende ad essere attribuita ad entrambi i genitori, in condizione di parità, e si parla allora di potestà genitoriale. (Wikipedia)"
+}, {
+	"forms": ["percentuale di invalidità"],
+	"description": "grado di malattie e menomazioni permanenti e croniche, sia di natura fisica che psichica e intellettiva, stabilito da specifiche norme legislative. (INPS)"
+}, {
+	"forms": ["convivente"],
+	"description": "chi fa parte di una coppia non sposata (Wiktionary)"
+}, {
+	"forms": ["contratto a tempo indeterminato"],
+	"description": "Il contratto di lavoro subordinato a tempo indeterminato è quel contratto con cui un soggetto (il lavoratore) si impegna, senza vincolo di durata – dietro versamento di una retribuzione – a prestare la propria attività lavorativa sottoponendosi al potere direttivo, organizzativo e disciplinare del proprio datore di lavoro. (Wikilabour)"
+}, {
+	"forms": ["dipendente"],
+	"description": "chi esercita un'attività alle dipendenze di altri (Wiktionary)"
+}, {
+	"forms": ["Ragione sociale"],
+	"description": "denominazione di una società, generalmente costituita da sigle, parole, frasi o nomi di persona (Wiktionary)"
+}, {
+	"forms": ["Sede legale"],
+	"description": "La sede legale (o sede sociale) di una persona giuridica (società o ente non commerciale) è il luogo in cui dall'atto costitutivo essa risulta avere il centro dei propri affari. (Wikipedia)"
+}, {
+	"forms": ["autonomo"],
+	"description": "prestazione d'opera che esclude ogni vincolo di subordinazione (Wiktionary)"
+}, {
+	"forms": ["occupazione saltuaria"],
+	"description": "privo di continuità"
+}, {
+	"forms": ["lavoratore stagionale"],
+	"description": "coloro che svolgono un lavoro legato all'esigenza di una stagione (lavoratore stagionale), tipico dell'industria turistica e dell'agricoltura (Wiktionary)"
+}, {
+	"forms": ["continuativo"],
+	"description": "che dura nel tempo, che persiste, che continua (Wiktionary)"
+}, {
+	"forms": ["cumulabile"],
+	"description": "che si può cumulare o sommare ad altro"
+}, {
+	"forms": ["fuori corso"],
+	"description": "si dice di studente universitario che non ha ultimato gli esami entro il tempo legalmente previsto per il suo corso di studi (GarzantiLinguistica)"
+}, {
+	"forms": ["Centro per l'Impiego"],
+	"description": "Un centro per l'impiego in Italia è un ufficio della pubblica amministrazione a cui è demandata la funzione di gestire il mercato del lavoro a livello locale. (Wikipedia)"
+}, {
+	"forms": ["ente di formazione"],
+	"description": "Si definisce ente di formazione (a volte anche agenzia formativa) un organismo di natura privata (come associazione, cooperativa, etc.) che svolge come suo compito principale la formazione, non solo professionale, delle persone (sia giovani che adulti). (Wikipedia)"
+},
+	{
+		"forms": ["requisito"],
+		"description": "qualità richiesta per fare qualcosa (Wiktionary)"
+	},
+	{
+		"forms": ["ufficio competente"],
+		"description": "L'ufficio che deve svolgere un insieme di compiti, attribuiti in relazione alla divisione del lavoro operata nella struttura organizzativa dell'ente. (Wikipedia)"
+	},
+	{
+		"forms": ["normativa vigente sulla Privacy"],
+		"description": "una norma della Repubblica Italiana, emanata con il Decreto legislativo 30 giugno 2003, n. 196, che razionalizza, semplifica e coordina in un \"Testo Unico\" tutte le precedenti disposizioni relative alla protezione dei dati personali. (Wikipedia)"
+	},
+	{
+		"forms": ["decreto legislativo"],
+		"description": "atto normativo avente forza di legge adottato dal potere esecutivo (Governo) per delega espressa e formale del potere legislativo (Parlamento) (Wiktionary)"
+	}
+]

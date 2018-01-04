@@ -1,7 +1,10 @@
 package eu.fbk.dh.tint.digimorph;
 
+import eu.fbk.utils.core.CommandLine;
 import org.apache.commons.cli.*;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,43 +18,45 @@ public class Main {
         System.exit(1);
     }
 
-    private static void retrain(String filepath, boolean include_lemma) {
-        DigiMorph dm = new DigiMorph("italian.db");
-        dm.re_train(filepath, include_lemma);
+    private static void retrain(File filepath, File outputPath, boolean include_lemma) {
+        DigiMorph.re_train(filepath, outputPath, include_lemma);
         System.exit(0);
     }
 
     public static void main(String[] args) {
-        Options options = new Options();
-        options.addOption(
-                Option.builder("r").hasArg().argName("path to file").desc("Retrain Morphological Analyzer").build());
-        options.addOption("h", "help", false, "show help");
-        options.addOption("l", "lemma", false, "include lemma");
-        options.addOption("v", "version", false, "print the tool version");
-        CommandLineParser parser = new DefaultParser();
 
         try {
-            CommandLine cmd = parser.parse(options, args);
+            final eu.fbk.utils.core.CommandLine cmd = eu.fbk.utils.core.CommandLine
+                    .parser()
+                    .withName("run-digimorph")
+                    .withHeader("Run or retrain DigiMorph tool")
+                    .withOption("r", "retrain-input-file", "Input file in Morph-IT for retraining", "FILE",
+                            eu.fbk.utils.core.CommandLine.Type.FILE_EXISTING, true, false, false)
+                    .withOption("w", "retrain-output-file", "Output file for retraining", "FILE",
+                            eu.fbk.utils.core.CommandLine.Type.FILE, true, false, false)
+                    .withOption("l", "lemma", "Include lemma")
+                    .withOption("v", "version", "Print the tool version")
+                    .withLogger(LoggerFactory.getLogger("eu.fbk")).parse(args);
+
             if (cmd.hasOption("version")) {
                 System.out.println(DigiMorph.getVersion());
                 System.exit(0);
-
             }
 
-            if (cmd.hasOption("help")) {
-                printUsage(options);
-            }
+            File retrainInputFile = cmd.getOptionValue("retrain-input-file", File.class);
+            File retrainOutputFile = cmd.getOptionValue("retrain-output-file", File.class);
+            boolean lemma = cmd.hasOption("lemma");
 
-            if (cmd.hasOption('r')) {
-                if (cmd.getOptionValue('r') != null) {
-                    retrain(cmd.getOptionValue('r'), cmd.hasOption("lemma"));
+            if (retrainInputFile != null || retrainOutputFile != null) {
+                if (retrainInputFile == null || retrainOutputFile == null) {
+                    retrain(retrainInputFile, retrainOutputFile, lemma);
                 } else {
-                    printUsage(options);
+                    throw new CommandLine.Exception("Input file or output path missing for retrain");
                 }
             }
 
         } catch (Exception e) {
-            printUsage(options);
+            CommandLine.fail(e);
         }
 
         List<String> text = new LinkedList<String>();

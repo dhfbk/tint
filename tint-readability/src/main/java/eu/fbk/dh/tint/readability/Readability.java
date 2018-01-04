@@ -4,10 +4,16 @@ import com.itextpdf.layout.hyphenation.Hyphenation;
 import com.itextpdf.layout.hyphenation.Hyphenator;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.semgraph.SemanticGraph;
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.readability.es.SpanishReadabilityModel;
+import eu.fbk.dh.tint.verb.VerbAnnotations;
+import eu.fbk.dh.tint.verb.VerbMultiToken;
 import eu.fbk.utils.core.FrequencyHashSet;
+import eu.fbk.utils.core.PropertiesUtils;
 import eu.fbk.utils.gson.JSONExclude;
 
 import javax.annotation.Nullable;
@@ -16,15 +22,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.Normalizer;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by alessio on 21/09/16.
  */
 public abstract class Readability {
+
+    public static Integer DEFAULT_TTR_LIMIT = 1000;
+    @JSONExclude private int ttrLimit;
 
     private String language = null;
     private int contentWordSize = 0, contentEasyWordSize = 0, wordCount = 0;
@@ -33,7 +39,24 @@ public abstract class Readability {
     private int hyphenCount = 0;
     private int hyphenWordCount = 0;
 
+    private Double ttrValue;
+    private Double density;
+    private Double deepAvg;
+    private Double deepMax;
+    private Double propositionsAvg;
+    private Double wordsAvg;
+    //    private Double coordinateRatio;
+    private Double subordinateRatio;
+
+    protected TreeMap<Integer, DescriptionForm> forms = new TreeMap<>();
+
     protected Map<String, Double> measures = new HashMap<>();
+    protected Map<String, String> labels = new HashMap<>();
+
+    protected Map<String, Double> minYellowValues = new HashMap<>();
+    protected Map<String, Double> maxYellowValues = new HashMap<>();
+    protected Map<String, Double> minValues = new HashMap<>();
+    protected Map<String, Double> maxValues = new HashMap<>();
 
     public int getHyphenWordCount() {
         return hyphenWordCount;
@@ -57,22 +80,132 @@ public abstract class Readability {
     @JSONExclude protected Hyphenator hyphenator;
     @JSONExclude protected Annotation annotation;
 
-    public Readability(String language, Annotation annotation) {
+    public Readability(String language, Annotation annotation, Properties localProperties) {
         this.language = language;
         this.annotation = annotation;
 
         String text = annotation.get(CoreAnnotations.TextAnnotation.class);
         docLenWithSpaces = text.length();
         docLenWithoutSpaces = text.replaceAll("\\s+", "").length();
+        ttrLimit = PropertiesUtils.getInteger(localProperties.getProperty("ttrLimit"), DEFAULT_TTR_LIMIT);
     }
 
-    public abstract void finalizeReadability();
+    public void finalizeReadability() {
+        Set<String> ttr = new HashSet<>();
 
-    public abstract void addingContentWord(CoreLabel token);
+        int i = 0;
+        for (CoreLabel token : annotation.get(CoreAnnotations.TokensAnnotation.class)) {
+            Boolean isWord = token.get(ReadabilityAnnotations.LiteralWord.class);
+            if (!isWord) {
+                continue;
+            }
+
+            if (i >= ttrLimit) {
+                break;
+            }
+            String tokenText = token.originalText().toLowerCase();
+            ttr.add(tokenText);
+            i++;
+        }
+        List<Integer> deeps = new ArrayList<>();
+        List<Integer> propositions = new ArrayList<>();
+
+        Integer coordinates = 0;
+        Integer subordinates = 0;
+
+        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+        for (int sentIndex = 0; sentIndex < sentences.size(); sentIndex++) {
+            CoreMap sentence = sentences.get(sentIndex);
+
+            SemanticGraph semanticGraph = sentence
+                    .get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
+            int deep = 0;
+            if (semanticGraph == null) {
+                continue;
+            }
+
+            for (IndexedWord indexedWord : semanticGraph.getLeafVertices()) {
+                try {
+                    deep = Math.max(deep, semanticGraph.getPathToRoot(indexedWord).size());
+                } catch (NullPointerException e) {
+                    // ignored
+                }
+            }
+            deeps.add(deep);
+            
+            if (!sentence.containsKey(VerbAnnotations.VerbsAnnotation.class)) {
+                continue;
+            }
+
+            List<VerbMultiToken> verbs = sentence.get(VerbAnnotations.VerbsAnnotation.class);
+            propositions.add(verbs.size());
+
+            Set<Integer> heads = new HashSet<>();
+            for (VerbMultiToken verb : verbs) {
+                Map<Integer, String> parentIDs = SemanticGraphUtils.getParent(verb, semanticGraph);
+                Integer head = SemanticGraphUtils.getHead(verb, semanticGraph);
+                heads.add(head);
+//                indexedVerbs.put(head, verb);
+
+                if (parentIDs.size() == 0) {
+                    continue;
+                }
+
+                if (parentIDs.values().contains("conj")) {
+                    coordinates++;
+                    continue;
+                }
+
+                subordinates++;
+            }
+        }
+
+        ttrValue = 1.0 * ttr.size() / (1.0 * i);
+        if (deeps.size() > 0) {
+            deepAvg = deeps.stream().mapToInt(val -> val).average().getAsDouble();
+            deepMax = deeps.stream().mapToInt(val -> val).max().getAsInt() * 1.0;
+        }
+        if (propositions.size() > 0) {
+            propositionsAvg = propositions.stream().mapToInt(val -> val).average().getAsDouble();
+            wordsAvg = (1.0 * getWordCount()) / propositions.stream().mapToInt(val -> val).sum();
+            if (wordsAvg == Double.POSITIVE_INFINITY) {
+                wordsAvg = 0.0;
+            }
+        }
+
+        int total = coordinates + subordinates;
+        if (total == 0) {
+//            coordinateRatio = 0.0;
+            subordinateRatio = 0.0;
+        } else {
+//            coordinateRatio = (1.0 * coordinates) / (coordinates + subordinates);
+            subordinateRatio = (1.0 * subordinates) / (coordinates + subordinates);
+        }
+        density = (1.0 * getContentWordSize()) / getWordCount();
+
+//        System.out.println("Average deep: " + deepAvg);
+//        System.out.println("Average propositions: " + propositionsAvg);
+//        System.out.println("Average words per proposition: " + wordsAvg);
+//        System.out.println(String.format("Coordinates: %d (%.2f%%)", coordinates, coordinateRatio));
+//        System.out.println("Coordinates: " + coordinates);
+//        System.out.println("Subordinates: " + subordinates);
+//        System.out.println(String.format("Subordinates: %d (%.2f%%)", subordinates, subordinateRatio));
+//        System.out.println("TTR: " + ttrValue);
+    }
+
+    public Map<String, Double> getMeasures() {
+        return measures;
+    }
+
+    public void addingContentWord(CoreLabel token) {
+        token.set(ReadabilityAnnotations.ContentWord.class, true);
+    }
 
     public abstract void addingEasyWord(CoreLabel token);
 
-    public abstract void addingWord(CoreLabel token);
+    public void addingWord(CoreLabel token) {
+        token.set(ReadabilityAnnotations.LiteralWord.class, true);
+    }
 
     public abstract void addingToken(CoreLabel token);
 
@@ -191,6 +324,9 @@ public abstract class Readability {
     }
 
     public void addWord(CoreLabel token) {
+        token.set(ReadabilityAnnotations.ContentWord.class, false);
+        token.set(ReadabilityAnnotations.LiteralWord.class, false);
+
         String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
 //        String lemma = token.get(CoreAnnotations.LemmaAnnotation.class);
         String word = token.word();
@@ -288,6 +424,38 @@ public abstract class Readability {
         return getGenericPosInfo(useGenericForSimple, simplePosList, pos, false);
     }
 
+    public Double getTtrValue() {
+        return ttrValue;
+    }
+
+    public Double getDeepAvg() {
+        return deepAvg;
+    }
+
+    public Double getDeepMax() {
+        return deepMax;
+    }
+
+    public Double getPropositionsAvg() {
+        return propositionsAvg;
+    }
+
+    public Double getWordsAvg() {
+        return wordsAvg;
+    }
+
+//    public Double getCoordinateRatio() {
+//        return coordinateRatio;
+//    }
+
+    public Double getSubordinateRatio() {
+        return subordinateRatio;
+    }
+
+    public Double getDensity() {
+        return density;
+    }
+
     @Override public String toString() {
         return "Readability{" +
                 "language='" + language + '\'' +
@@ -301,6 +469,12 @@ public abstract class Readability {
                 ", tokenCount=" + tokenCount +
                 ", hyphenCount=" + hyphenCount +
                 ", hyphenWordCount=" + hyphenWordCount +
+                ", ttrValue=" + ttrValue +
+                ", deepAvg=" + deepAvg +
+                ", deepMax=" + deepMax +
+                ", propositionsAvg=" + propositionsAvg +
+                ", wordsAvg=" + wordsAvg +
+                ", subordinateRatio=" + subordinateRatio +
                 ", measures=" + measures +
                 ", contentPosList=" + contentPosList +
                 ", simplePosList=" + simplePosList +

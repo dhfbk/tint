@@ -7,7 +7,7 @@
     <groupId>eu.fbk.dh</groupId>
     <artifactId>tint</artifactId>
     <packaging>pom</packaging>
-    <version>0.1</version>
+    <version>0.2</version>
     <inceptionYear>2016</inceptionYear>
     <description>The Italian NLP Tool</description>
 
@@ -67,32 +67,64 @@
         </developer>
     </developers>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>edu.stanford.nlp</groupId>
+                <artifactId>stanford-corenlp</artifactId>
+                <version>3.8.0</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.stanford.nlp</groupId>
+                <artifactId>stanford-corenlp</artifactId>
+                <version>3.8.0</version>
+                <classifier>models</classifier>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <modules>
-        <module>tint-textpro</module>
         <module>tint-eval</module>
         <module>tint-resources</module>
         <module>tint-digimorph</module>
         <module>tint-digimorph-annotator</module>
         <module>tint-tokenizer</module>
         <module>tint-runner</module>
-        <module>tint-tense</module>
         <module>tint-readability</module>
-        <module>tint-kd-annotator</module>
-        <module>tint-geoloc-annotator</module>
+        <!--<module>tint-kd-annotator</module>-->
         <module>tint-heideltime-annotator</module>
         <module>tint-models</module>
+        <module>tint-inverse-digimorph</module>
+        <module>tint-simplifier</module>
+        <module>tint-verb</module>
+        <module>tint-upos</module>
     </modules>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <tint.utils.version>3.0</tint.utils.version>
-        <tint.pikes.version>0.1</tint.pikes.version>
+
+        <tint.utils.version>3.1.1</tint.utils.version>
+        <fcw.version>0.1.1</fcw.version>
         <tint.version>${project.version}</tint.version>
-        <tint-models.version>${project.version}</tint-models.version>
-        <twm-version>1.4</twm-version>
+        <corenlp.version>3.8.0</corenlp.version>
+        <log4j2.version>2.6.1</log4j2.version>
+
         <site.root>http://tint.fbk.eu/</site.root>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <build>
         <pluginManagement>
@@ -102,7 +134,7 @@
                     <artifactId>license-maven-plugin</artifactId>
                     <configuration>
                         <licenseName>gpl_v3</licenseName>
-                        <fileTemplate>${project.basedir}${parent-path}/src/license/template.ftl</fileTemplate>
+                        <fileTemplate>${project.basedir}/${parent-path}/src/license/template.ftl</fileTemplate>
                         <!--<licenseResolver>file://${project.basedir}${parent-path}/src/license</licenseResolver>-->
                     </configuration>
                 </plugin>

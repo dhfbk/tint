@@ -5,7 +5,7 @@
     <parent>
         <artifactId>tint</artifactId>
         <groupId>eu.fbk.dh</groupId>
-        <version>0.1</version>
+        <version>0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,7 +17,6 @@
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
-            <version>3.6.0</version>
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>
@@ -29,10 +28,43 @@
             <artifactId>utils-gson</artifactId>
             <version>${tint.utils.version}</version>
         </dependency>
+        <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-core</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.concurrent-trees</groupId>
+            <artifactId>concurrent-trees</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapdb</groupId>
+            <artifactId>mapdb</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.fcw</groupId>
+            <artifactId>fcw-utils</artifactId>
+            <version>${fcw.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-corenlp</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
     </dependencies>
 
     <properties>
-        <parent-path>/..</parent-path>
+        <parent-path>..</parent-path>
     </properties>
 
 </project>

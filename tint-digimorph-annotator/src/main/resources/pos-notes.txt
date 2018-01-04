@@ -1,0 +1,38 @@
+A	ADJ
+AP	DET # (Gender=Masc|Number=Sing|)Poss=Yes|PronType=Prs
+B	ADV # Degree
+BN	ADV # (PronType=Neg) Degree
+CC	CCONJ
+CS	SCONJ
+DD	DET # (Gender=Masc|Number=Sing|PronType=Dem)
+DE	DET # PronType=Exc
+DI	DET # Gender=Masc|Number=Plur|PronType=Ind
+DQ	DET	# Gender=Fem|Number=Plur|PronType=Int
+DR	DET # Number=Plur|PronType=Rel
+E	ADP
+FB	PUNCT
+FC	PUNCT
+FF	PUNCT
+FS	PUNCT
+I	INTJ # Polarity=Neg
+N	NUM # NumType=Card
+NO	ADJ	# Gender=Masc|Number=Sing|NumType=Ord
+PART	PART
+PC	PRON # Clitic=Yes|Gender=Masc|Number=Sing|Person=3|PronType=Prs
+PD	PRON # Gender=Masc|Number=Plur|PronType=Dem
+PE	PRON # Number=Sing|Person=1|PronType=Prs
+PI	PRON # Gender=Fem|Number=Sing|PronType=Ind
+PP	PRON # Gender=Masc|Number=Sing|Poss=Yes|PronType=Prs
+PQ	PRON # Number=Sing|PronType=Int
+PR	PRON # Number=Plur|PronType=Rel
+RD	DET # Definite=Def|Gender=Masc|Number=Sing|PronType=Art
+RI	DET # Definite=Ind|Gender=Fem|Number=Sing|PronType=Art
+S	NOUN
+SP	PROPN
+SW	X # Foreign=Yes
+SYM	SYM
+T	DET # Gender=Fem|Number=Sing|PronType=Tot
+V	VERB
+VA	AUX
+VM	AUX
+X	X

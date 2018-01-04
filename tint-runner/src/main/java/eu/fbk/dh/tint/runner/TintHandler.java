@@ -1,5 +1,6 @@
 package eu.fbk.dh.tint.runner;
 
+import org.glassfish.grizzly.Buffer;
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.Request;
 import org.glassfish.grizzly.http.server.Response;
@@ -24,6 +25,7 @@ public class TintHandler extends HttpHandler {
     private TintPipeline pipeline;
 
     public static Map<TintRunner.OutputFormat, String> contentTypes = new HashMap<>();
+
     static {
         contentTypes.put(TintRunner.OutputFormat.CONLL, "text/plain");
         contentTypes.put(TintRunner.OutputFormat.XML, "text/xml");
@@ -48,7 +50,14 @@ public class TintHandler extends HttpHandler {
     public void service(Request request, Response response) throws Exception {
 
         request.setCharacterEncoding("UTF-8");
-        String text = request.getParameter("text");
+
+        Buffer postBody = request.getPostBody(1024);
+        String text = postBody.toStringContent();
+
+        if (request.getParameter("text") != null) {
+            text = request.getParameter("text");
+        }
+
         String outputFormat = request.getParameter("format");
 
         InputStream inputStream = new ByteArrayInputStream(text.getBytes());

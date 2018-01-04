@@ -50,7 +50,7 @@ public class TintServer {
             pipeline.addProperties(additionalProperties);
 
             // todo: parametrize this!
-            pipeline.loadSerializers();
+//            pipeline.loadSerializers();
 
             pipeline.load();
 
@@ -80,32 +80,32 @@ public class TintServer {
         try {
             final CommandLine cmd = CommandLine
                     .parser()
-                    .withName("./tintop-server")
-                    .withHeader("Run the Tintop Server")
+                    .withName("./tint-server")
+                    .withHeader("Run the Tint Server")
                     .withOption("c", "config", "Configuration file", "FILE", CommandLine.Type.FILE_EXISTING, true,
                             false, false)
                     .withOption("p", "port", String.format("Host port (default %d)", DEFAULT_PORT), "NUM",
                             CommandLine.Type.INTEGER, true, false, false)
                     .withOption("h", "host", String.format("Host address (default %s)", DEFAULT_HOST), "NUM",
                             CommandLine.Type.STRING, true, false, false)
-                    .withOption(null, "properties", "Additional properties", "PROPS", CommandLine.Type.STRING, true,
-                            true, false)
+//                    .withOption(null, "properties", "Additional properties", "PROPS", CommandLine.Type.STRING, true,
+//                            true, false)
                     .withLogger(LoggerFactory.getLogger("eu.fbk")).parse(args);
 
             String host = cmd.getOptionValue("host", String.class, DEFAULT_HOST);
             Integer port = cmd.getOptionValue("port", Integer.class, DEFAULT_PORT);
             File configFile = cmd.getOptionValue("config", File.class);
 
-            List<String> addProperties = cmd.getOptionValues("properties", String.class);
+//            List<String> addProperties = cmd.getOptionValues("properties", String.class);
 
             Properties additionalProps = new Properties();
-            for (String property : addProperties) {
-                try {
-                    additionalProps.load(new StringReader(property));
-                } catch (Exception e) {
-                    LOGGER.warn(e.getMessage());
-                }
-            }
+//            for (String property : addProperties) {
+//                try {
+//                    additionalProps.load(new StringReader(property));
+//                } catch (Exception e) {
+//                    LOGGER.warn(e.getMessage());
+//                }
+//            }
 
             TintServer server = new TintServer(host, port, configFile, additionalProps);
 

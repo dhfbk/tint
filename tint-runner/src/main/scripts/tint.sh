@@ -25,12 +25,4 @@ if [ -n "$JAVA_HOME"  ] ; then
         fi
 fi
 
-# Build classpath.
-_LIB=$BASEDIR/lib
-_CLASSPATH=$RDFPRO_CLASSPATH:$BASEDIR/etc
-for _JAR in `ls $_LIB/*.jar` ; do
-        _CLASSPATH=$_CLASSPATH:$_JAR;
-done
-
-# Execute the program
-$_JAVA $JAVA_OPTS -classpath $_CLASSPATH eu.fbk.dh.tint.runner.TintRunner "$@"
+$_JAVA $JAVA_OPTS -classpath "$BASEDIR"'/lib/*' eu.fbk.dh.tint.runner.TintRunner "$@"

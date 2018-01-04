@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>tint</artifactId>
+        <groupId>eu.fbk.dh</groupId>
+        <version>0.2</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>tint-verb</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-corenlp</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-core</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-gson</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-tokenizer</artifactId>
+            <version>${tint.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.fcw</groupId>
+            <artifactId>fcw-udpipe-api</artifactId>
+            <version>${fcw.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

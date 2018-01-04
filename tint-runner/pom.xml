@@ -5,7 +5,7 @@
     <parent>
         <artifactId>tint</artifactId>
         <groupId>eu.fbk.dh</groupId>
-        <version>0.1</version>
+        <version>0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,18 +20,18 @@
             <version>${tint.utils.version}</version>
         </dependency>
         <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-corenlp</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>edu.stanford.nlp</groupId>
-            <artifactId>stanford-corenlp</artifactId>
-            <classifier>models</classifier>
-            <scope>test</scope>
+            <version>${corenlp.version}</version>
         </dependency>
         <dependency>
             <groupId>eu.fbk.utils</groupId>
@@ -41,25 +41,20 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>${log4j2-version}</version>
+            <version>${log4j2.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>${log4j2-version}</version>
+            <version>${log4j2.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j2-version}</version>
+            <version>${log4j2.version}</version>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-            <version>1.4.01</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
@@ -75,9 +70,14 @@
             <version>2.3.21</version>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
+            <groupId>org.glassfish.grizzly</groupId>
+            <artifactId>grizzly-framework</artifactId>
+            <version>2.3.21</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>commons-io</groupId>-->
+            <!--<artifactId>commons-io</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -86,15 +86,15 @@
 
         <!-- Annotators -->
         <dependency>
-            <groupId>eu.fbk.pikes</groupId>
-            <artifactId>pikes-depparse-annotation</artifactId>
-            <version>${tint.pikes.version}</version>
+            <groupId>eu.fbk.fcw</groupId>
+            <artifactId>fcw-depparse</artifactId>
+            <version>${fcw.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>eu.fbk.pikes</groupId>
-            <artifactId>pikes-twm</artifactId>
-            <version>${tint.pikes.version}</version>
+            <groupId>eu.fbk.fcw</groupId>
+            <artifactId>fcw-linking</artifactId>
+            <version>${fcw.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -105,7 +105,7 @@
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-tense</artifactId>
+            <artifactId>tint-verb</artifactId>
             <version>${tint.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -123,50 +123,27 @@
         </dependency>
         <dependency>
             <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-geoloc-annotator</artifactId>
-            <version>${tint.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-heideltime-annotator</artifactId>
             <version>${tint.version}</version>
             <scope>runtime</scope>
         </dependency>
-
-        <dependency>
-            <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-heideltime-annotator</artifactId>
-            <version>${tint.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
         <dependency>
             <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-models</artifactId>
-            <version>${tint-models.version}</version>
+            <version>${tint.version}</version>
             <scope>runtime</scope>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>eu.fbk.dh</groupId>-->
-            <!--<artifactId>tint-kd-annotator</artifactId>-->
-            <!--<version>${tint.version}</version>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
         <dependency>
-            <groupId>io.github.lukehutch</groupId>
-            <artifactId>fast-classpath-scanner</artifactId>
-            <version>LATEST</version>
-            <scope>test</scope>
+            <groupId>eu.fbk.fcw</groupId>
+            <artifactId>fcw-udpipe-api</artifactId>
+            <version>${fcw.version}</version>
+            <scope>runtime</scope>
         </dependency>
-
     </dependencies>
 
     <profiles>
         <profile>
-            <id>release</id>
+            <id>bigjar</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -197,8 +174,7 @@
     </profiles>
 
     <properties>
-        <parent-path>/..</parent-path>
-        <log4j2-version>2.6.1</log4j2-version>
+        <parent-path>..</parent-path>
     </properties>
 
 </project>

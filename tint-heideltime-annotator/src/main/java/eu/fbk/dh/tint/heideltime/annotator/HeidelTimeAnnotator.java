@@ -2,6 +2,7 @@ package eu.fbk.dh.tint.heideltime.annotator;
 
 import de.unihd.dbs.heideltime.standalone.DocumentType;
 import de.unihd.dbs.heideltime.standalone.HeidelTimeStandalone;
+import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -127,6 +128,7 @@ public class HeidelTimeAnnotator implements Annotator {
                 doc.getDocumentElement().normalize();
 
                 Map<Integer, TimexObject> timexes = new HashMap<>();
+                List<TimexObject> finalTimexes = new ArrayList<>();
                 NodeList entries = doc.getElementsByTagName("*");
 
                 for (int i = 1; i < entries.getLength(); i++) {
@@ -139,6 +141,7 @@ public class HeidelTimeAnnotator implements Annotator {
                         String timexValue = element.getAttribute("timexValue");
 
                         TimexObject timexObject = new TimexObject(begin, end, timexType, timexValue);
+                        finalTimexes.add(timexObject);
                         timexes.put(begin, timexObject);
                     }
                 }
@@ -165,6 +168,8 @@ public class HeidelTimeAnnotator implements Annotator {
                                 text.substring(timexObject.getStart(), timexObject.getEnd()));
                     }
                 }
+
+                annotation.set(HeidelTimeAnnotations.TimexesAnnotation.class, finalTimexes);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -176,7 +181,7 @@ public class HeidelTimeAnnotator implements Annotator {
      * Returns a set of requirements for which tasks this annotator can
      * provide.  For example, the POS annotator will return "pos".
      */
-    @Override public Set<Requirement> requirementsSatisfied() {
+    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
         return Collections.emptySet();
     }
 
@@ -185,7 +190,7 @@ public class HeidelTimeAnnotator implements Annotator {
      * to perform.  For example, the POS annotator will return
      * "tokenize", "ssplit".
      */
-    @Override public Set<Requirement> requires() {
-        return Collections.singleton(Annotator.TOKENIZE_REQUIREMENT);
+    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+        return Collections.singleton(CoreAnnotations.TokensAnnotation.class);
     }
 }

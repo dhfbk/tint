@@ -5,6 +5,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.readability.Readability;
+import eu.fbk.dh.tint.readability.ReadabilityAnnotations;
 import eu.fbk.utils.gson.JSONExclude;
 
 import java.util.Properties;
@@ -25,6 +26,8 @@ abstract class SpanishReadability extends Readability {
 //    TreeMap<Integer, DescriptionForm> forms = new TreeMap<>();
 
     @Override public void finalizeReadability() {
+        super.finalizeReadability();
+
 
         double fleschSzigriszt =
                 206.835 - (62.3 * getHyphenCount() / getHyphenWordCount()) - (1.0 * getWordCount()
@@ -32,7 +35,8 @@ abstract class SpanishReadability extends Readability {
         double fernandezHuerta =
                 206.84 - 0.6 * (100.0 * getHyphenCount() / getHyphenWordCount()) - 1.02 * (100.0 * getSentenceCount()
                         / getWordCount());
-        measures.put("flesch-szigriszt", fleschSzigriszt);
+        labels.put("main", "Flesch-Szigriszt");
+        measures.put("main", fleschSzigriszt);
         measures.put("fernandez-huerta", fernandezHuerta);
         measures.put("level1", 100.0 * level1WordSize / getContentWordSize());
         measures.put("level2", 100.0 * level2WordSize / getContentWordSize());
@@ -63,21 +67,27 @@ abstract class SpanishReadability extends Readability {
     }
 
     public SpanishReadability(Properties globalProperties, Properties localProperties, Annotation annotation) {
-        super("es", annotation);
+        super("es", annotation, localProperties);
         hyphenator = new Hyphenator("es", "es", 1, 1);
         model = SpanishReadabilityModel.getInstance(globalProperties, localProperties);
     }
 
     @Override public void addingContentWord(CoreLabel token) {
+        super.addingContentWord(token);
+
+        token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 4);
         String lemma = token.lemma();
-        if (model.getLevel1Lemmas().contains(lemma)) {
-            level1WordSize++;
+        if (model.getLevel3Lemmas().contains(lemma)) {
+            level3WordSize++;
+            token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 3);
         }
         if (model.getLevel2Lemmas().contains(lemma)) {
             level2WordSize++;
+            token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 2);
         }
-        if (model.getLevel3Lemmas().contains(lemma)) {
-            level3WordSize++;
+        if (model.getLevel1Lemmas().contains(lemma)) {
+            level1WordSize++;
+            token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 1);
         }
 //        System.out.println("Adding content word (lemma): " + lemma);
 //        System.out.println(model.getLevel1Lemmas().contains(lemma));
@@ -105,7 +115,7 @@ abstract class SpanishReadability extends Readability {
     }
 
     @Override public void addingWord(CoreLabel token) {
-
+        super.addingWord(token);
     }
 
     @Override public void addingToken(CoreLabel token) {

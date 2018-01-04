@@ -5,7 +5,7 @@
     <parent>
         <artifactId>tint</artifactId>
         <groupId>eu.fbk.dh</groupId>
-        <version>0.1</version>
+        <version>0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -36,11 +36,15 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-core</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
     </dependencies>
 
     <properties>
-        <parent-path>/..</parent-path>
+        <parent-path>..</parent-path>
     </properties>
 
 </project>

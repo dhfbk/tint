@@ -1,10 +1,14 @@
+import com.google.common.io.CharSource;
+import com.google.common.io.CharStreams;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.util.CoreMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -16,22 +20,32 @@ public class TestTokenizer {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestTokenizer.class);
 
     public static void main(String[] args) {
-        String text = "È più di un sospetto, bensì un’indagine complessa su cui lavorano più procure.";
-        Properties props;
-        Annotation annotation;
+        try {
+            String text = CharStreams.toString(new BufferedReader(new FileReader(new File("/Users/alessio/Desktop/GIA.txt"))));
 
-        props = new Properties();
-        props.setProperty("annotators", "ita_toksent");
-        props.setProperty("customAnnotatorClass.ita_toksent", "eu.fbk.dh.tint.tokenizer.annotators.ItalianTokenizerAnnotator");
+//            text = "Sei un cavolo di cazzabubbo.lo stronzo!";
 
-        StanfordCoreNLP ITApipeline = new StanfordCoreNLP(props);
-        annotation = new Annotation(text);
-        ITApipeline.annotate(annotation);
-        System.out.println(ITApipeline.timingInformation());
+            Properties props;
+            Annotation annotation;
 
-        for (CoreLabel token : annotation.get(CoreAnnotations.TokensAnnotation.class)) {
-            System.out.println(token);
+            props = new Properties();
+            props.setProperty("annotators", "ita_toksent");
+            props.setProperty("ita_toksent.model", "/Users/alessio/Desktop/token-settings.xml");
+            props.setProperty("customAnnotatorClass.ita_toksent", "eu.fbk.dh.tint.tokenizer.annotators.ItalianTokenizerAnnotator");
+
+            StanfordCoreNLP ITApipeline = new StanfordCoreNLP(props);
+            annotation = new Annotation(text);
+            ITApipeline.annotate(annotation);
+            System.out.println(ITApipeline.timingInformation());
+
+            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+                System.out.println(sentence.get(CoreAnnotations.TextAnnotation.class));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
     }
 }

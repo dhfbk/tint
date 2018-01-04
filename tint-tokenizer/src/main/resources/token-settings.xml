@@ -263,6 +263,7 @@
         <abbreviation>lat.</abbreviation>
         <abbreviation>SS.PP.</abbreviation>
         <abbreviation>dott.</abbreviation>
+        <abbreviation>dott.ing.</abbreviation>
         <abbreviation>comp.</abbreviation>
         <abbreviation>pizz.</abbreviation>
         <abbreviation>Figs.</abbreviation>
@@ -286,6 +287,8 @@
         <abbreviation>al.</abbreviation>
         <abbreviation>secc.</abbreviation>
         <abbreviation>pag.</abbreviation>
+        <abbreviation>Sig.ra</abbreviation>
+        <abbreviation>sig.ra</abbreviation>
     </abbreviations>
 
     <expressions>
@@ -300,6 +303,8 @@
         <expression merge="1" find="([:;=]-?[\)\(DOP])"/>
         <!-- Dash-connected words -->
         <expression merge="1" find="(\w+-\w+)"/>
+        <!-- Hashtags -->
+        <expression merge="1" find="(#\w+)"/>
         <!-- Dots ... -->
         <expression merge="1" find="(\.{3,})"/>
         <!-- Footnotes [1], [2], etc. -->
@@ -314,16 +319,17 @@
         <char id="160" hexcode="00A0" desc="NO-BREAK SPACE"/>
         <char id="9" hexcode="0009" desc="TABULAR SPACE"/>
         <char id="10" hexcode="000A" desc="LINE FEED"/>
-        <char id="13" hexcode="0x0d" desc="CARRIAGE RETURN"/>
+        <char id="13" hexcode="000d" desc="CARRIAGE RETURN"/>
     </tokenSplitting>
 
     <sentenceSplitting>
         <char id="46" hexcode="002E" desc="FULL STOP"/>
         <char id="33" hexcode="0021" desc="EXCLAMATION MARK"/>
-        <!--<char id="59" hexcode="003B" desc="SEMICOLON"/>-->
-        <!--<char id="58" hexcode="003B" desc="COLON"/>-->
+        <char id="59" hexcode="003B" desc="SEMICOLON"/>
+        <char id="58" hexcode="003B" desc="COLON"/>
         <char id="63" hexcode="003F" desc="QUESTION MARK"/>
-        <char id="13" hexcode="0x0d" desc="CARRIAGE RETURN"/>
+        <char id="10" hexcode="000A" desc="LINE FEED"/>
+        <char id="13" hexcode="000d" desc="CARRIAGE RETURN"/>
     </sentenceSplitting>
 
     <normalization>

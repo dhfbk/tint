@@ -1,7 +1,6 @@
 package eu.fbk.dh.tint.readability;
 
 import edu.stanford.nlp.ling.CoreAnnotation;
-import edu.stanford.nlp.pipeline.Annotator;
 import eu.fbk.utils.gson.JSONLabel;
 
 /**
@@ -9,7 +8,21 @@ import eu.fbk.utils.gson.JSONLabel;
  */
 public class ReadabilityAnnotations {
 
-    public static Annotator.Requirement READABILITY_REQUIREMENT = new Annotator.Requirement("readability");
+    @JSONLabel("contentWord")
+    public static class ContentWord implements CoreAnnotation<Boolean> {
+
+        public Class<Boolean> getType() {
+            return Boolean.class;
+        }
+    }
+
+    @JSONLabel("literalWord")
+    public static class LiteralWord implements CoreAnnotation<Boolean> {
+
+        public Class<Boolean> getType() {
+            return Boolean.class;
+        }
+    }
 
     @JSONLabel("readability")
     public static class ReadabilityAnnotation implements CoreAnnotation<Readability> {

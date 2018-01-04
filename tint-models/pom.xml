@@ -5,11 +5,14 @@
     <parent>
         <artifactId>tint</artifactId>
         <groupId>eu.fbk.dh</groupId>
-        <version>0.1</version>
+        <version>0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tint-models</artifactId>
 
+    <properties>
+        <parent-path>..</parent-path>
+    </properties>
 
 </project>

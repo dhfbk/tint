@@ -5,7 +5,7 @@
     <parent>
         <artifactId>tint</artifactId>
         <groupId>eu.fbk.dh</groupId>
-        <version>0.1</version>
+        <version>0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,13 +15,18 @@
 
     <dependencies>
         <dependency>
-            <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-textpro</artifactId>
-            <version>${tint.version}</version>
+            <groupId>eu.fbk.twm</groupId>
+            <artifactId>twm-utils</artifactId>
+            <version>${twm-version}</version>
         </dependency>
         <dependency>
             <groupId>eu.fbk.twm</groupId>
             <artifactId>twm-index</artifactId>
+            <version>${twm-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.twm</groupId>
+            <artifactId>twm-wiki</artifactId>
             <version>${twm-version}</version>
         </dependency>
         <dependency>
@@ -43,11 +48,16 @@
             <version>1.2.17</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
     <profiles>
         <profile>
-            <id>release</id>
+            <id>bigjar</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -75,7 +85,8 @@
     </profiles>
 
     <properties>
-        <parent-path>/..</parent-path>
+        <parent-path>..</parent-path>
+        <twm-version>1.4</twm-version>
     </properties>
 
 </project>
