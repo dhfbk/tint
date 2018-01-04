@@ -65,36 +65,6 @@
             <version>${tint.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>eu.fbk.fcw</groupId>-->
-        <!--<artifactId>fcw-semafor</artifactId>-->
-        <!--<version>${fcw.version}</version>-->
-        <!--<scope>test</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>eu.fbk.fcw</groupId>-->
-        <!--<artifactId>fcw-depparse</artifactId>-->
-        <!--<version>${fcw.version}</version>-->
-        <!--<scope>test</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>eu.fbk.fcw</groupId>-->
-        <!--<artifactId>fcw-mate</artifactId>-->
-        <!--<version>${fcw.version}</version>-->
-        <!--<scope>test</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>edu.stanford.nlp</groupId>-->
-        <!--<artifactId>stanford-corenlp</artifactId>-->
-        <!--<classifier>models</classifier>-->
-        <!--<scope>test</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>eu.fbk.fcw</groupId>-->
-        <!--<artifactId>fcw-semafor-translate</artifactId>-->
-        <!--<version>${fcw.version}</version>-->
-        <!--<scope>test</scope>-->
-        <!--</dependency>-->
     </dependencies>
     <build>
         <plugins>
