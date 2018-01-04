@@ -98,7 +98,6 @@
         <module>tint-simplifier</module>
         <module>tint-verb</module>
         <module>tint-upos</module>
-        <module>tint-test</module>
     </modules>
 
     <properties>
