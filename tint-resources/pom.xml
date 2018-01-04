@@ -57,7 +57,7 @@
 
     <profiles>
         <profile>
-            <id>release</id>
+            <id>bigjar</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
