@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tint-upos</artifactId>
+    <name>tint-upos</name>
+    <description>Universal POS converter</description>
 
     <dependencies>
         <dependency>
@@ -22,4 +24,9 @@
             <version>${tint.utils.version}</version>
         </dependency>
     </dependencies>
+
+    <properties>
+        <parent-path>/..</parent-path>
+    </properties>
+
 </project>

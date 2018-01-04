@@ -10,9 +10,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tint-models</artifactId>
+    <name>tint-models</name>
+    <description>Models for Tint modules</description>
 
     <properties>
-        <parent-path>..</parent-path>
+        <parent-path>/..</parent-path>
     </properties>
 
 </project>

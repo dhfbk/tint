@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tint-simplifier</artifactId>
+    <name>tint-simplifier</name>
+    <description>Tint module for Italian syntactic simplification</description>
 
     <dependencies>
         <dependency>
@@ -94,7 +96,7 @@
     </profiles>
 
     <properties>
-        <parent-path>..</parent-path>
+        <parent-path>/..</parent-path>
     </properties>
 
 </project>

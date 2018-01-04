@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tint-readability</artifactId>
+    <name>tint-readability</name>
+    <description>Readability module</description>
 
     <dependencies>
         <dependency>
@@ -60,8 +62,9 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
+
     <properties>
-        <parent-path>..</parent-path>
+        <parent-path>/..</parent-path>
     </properties>
 
 </project>

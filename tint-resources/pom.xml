@@ -85,7 +85,7 @@
     </profiles>
 
     <properties>
-        <parent-path>..</parent-path>
+        <parent-path>/..</parent-path>
         <twm-version>1.4</twm-version>
     </properties>
 

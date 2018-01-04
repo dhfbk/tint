@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tint-heideltime-annotator</artifactId>
+    <name>tint-heideltime-annotator</name>
+    <description>Stanford Annotator for Heideltime</description>
 
     <dependencies>
         <dependency>
@@ -47,8 +49,9 @@
             <version>${tint.utils.version}</version>
         </dependency>
     </dependencies>
+
     <properties>
-        <parent-path>..</parent-path>
+        <parent-path>/..</parent-path>
     </properties>
 
 </project>
