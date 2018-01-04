@@ -8,72 +8,81 @@
 <pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> eu.fbk.dh.tint.runner;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.glassfish.grizzly.http.server.HttpHandler;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.glassfish.grizzly.http.server.Request;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.glassfish.grizzly.http.server.Response;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.io.*;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * Created with IntelliJ IDEA.</em>
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * User: alessio</em>
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * Date: 21/07/14</em>
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * Time: 15:30</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * To change this template use File | Settings | File Templates.</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../eu/fbk/dh/tint/runner/TintHandler.html">TintHandler</a> <strong class="jxr_keyword">extends</strong> HttpHandler {
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(TintHandler.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../eu/fbk/dh/tint/runner/TintPipeline.html">TintPipeline</a> pipeline;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Map&lt;TintRunner.OutputFormat, String&gt; contentTypes = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">static</strong> {
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>          contentTypes.put(TintRunner.OutputFormat.CONLL, <span class="jxr_string">"text/plain"</span>);
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>          contentTypes.put(TintRunner.OutputFormat.XML, <span class="jxr_string">"text/xml"</span>);
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>          contentTypes.put(TintRunner.OutputFormat.NAF, <span class="jxr_string">"text/xml"</span>);
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>          contentTypes.put(TintRunner.OutputFormat.JSON, <span class="jxr_string">"text/json"</span>);
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>          contentTypes.put(TintRunner.OutputFormat.TEXTPRO, <span class="jxr_string">"text/plain"</span>);
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>          contentTypes.put(TintRunner.OutputFormat.READABLE, <span class="jxr_string">"text/plain"</span>);
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      }
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../eu/fbk/dh/tint/runner/TintHandler.html">TintHandler</a>(<a href="../../../../../eu/fbk/dh/tint/runner/TintPipeline.html">TintPipeline</a> pipeline) {
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">this</strong>.pipeline = pipeline;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      }
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeOutput(Response response, String contentType, String output) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>          response.setContentType(contentType);
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>          response.setCharacterEncoding(<span class="jxr_string">"UTF-8"</span>);
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>          response.addHeader(<span class="jxr_string">"Access-Control-Allow-Origin"</span>, <span class="jxr_string">"*"</span>);
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>          response.getWriter().write(output);
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      }
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      @Override
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> service(Request request, Response response) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          request.setCharacterEncoding(<span class="jxr_string">"UTF-8"</span>);
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>          String text = request.getParameter(<span class="jxr_string">"text"</span>);
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>          String outputFormat = request.getParameter(<span class="jxr_string">"format"</span>);
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.glassfish.grizzly.Buffer;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.glassfish.grizzly.http.server.HttpHandler;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.glassfish.grizzly.http.server.Request;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.glassfish.grizzly.http.server.Response;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.io.*;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * Created with IntelliJ IDEA.</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * User: alessio</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * Date: 21/07/14</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * Time: 15:30</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * To change this template use File | Settings | File Templates.</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../eu/fbk/dh/tint/runner/TintHandler.html">TintHandler</a> <strong class="jxr_keyword">extends</strong> HttpHandler {
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(TintHandler.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../eu/fbk/dh/tint/runner/TintPipeline.html">TintPipeline</a> pipeline;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Map&lt;TintRunner.OutputFormat, String&gt; contentTypes = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">static</strong> {
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          contentTypes.put(TintRunner.OutputFormat.CONLL, <span class="jxr_string">"text/plain"</span>);
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          contentTypes.put(TintRunner.OutputFormat.XML, <span class="jxr_string">"text/xml"</span>);
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          contentTypes.put(TintRunner.OutputFormat.NAF, <span class="jxr_string">"text/xml"</span>);
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>          contentTypes.put(TintRunner.OutputFormat.JSON, <span class="jxr_string">"text/json"</span>);
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          contentTypes.put(TintRunner.OutputFormat.TEXTPRO, <span class="jxr_string">"text/plain"</span>);
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          contentTypes.put(TintRunner.OutputFormat.READABLE, <span class="jxr_string">"text/plain"</span>);
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      }
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../eu/fbk/dh/tint/runner/TintHandler.html">TintHandler</a>(<a href="../../../../../eu/fbk/dh/tint/runner/TintPipeline.html">TintPipeline</a> pipeline) {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">this</strong>.pipeline = pipeline;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      }
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeOutput(Response response, String contentType, String output) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          response.setContentType(contentType);
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          response.setCharacterEncoding(<span class="jxr_string">"UTF-8"</span>);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>          response.addHeader(<span class="jxr_string">"Access-Control-Allow-Origin"</span>, <span class="jxr_string">"*"</span>);
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          response.getWriter().write(output);
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      @Override
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> service(Request request, Response response) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          request.setCharacterEncoding(<span class="jxr_string">"UTF-8"</span>);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>          InputStream inputStream = <strong class="jxr_keyword">new</strong> ByteArrayInputStream(text.getBytes());
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>          OutputStream outputStream = <strong class="jxr_keyword">new</strong> ByteArrayOutputStream();
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          Buffer postBody = request.getPostBody(1024);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          String text = postBody.toStringContent();
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>          TintRunner.OutputFormat format = TintRunner.getOutputFormat(outputFormat, TintRunner.OutputFormat.JSON);
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>          pipeline.run(inputStream, outputStream, format);
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          LOGGER.debug(<span class="jxr_string">"Text: {}"</span>, text);
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          String output = outputStream.toString();
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          writeOutput(response, contentTypes.get(format), output);
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  }
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">if</strong> (request.getParameter(<span class="jxr_string">"text"</span>) != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>              text = request.getParameter(<span class="jxr_string">"text"</span>);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>          }
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          String outputFormat = request.getParameter(<span class="jxr_string">"format"</span>);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          InputStream inputStream = <strong class="jxr_keyword">new</strong> ByteArrayInputStream(text.getBytes());
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          OutputStream outputStream = <strong class="jxr_keyword">new</strong> ByteArrayOutputStream();
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          TintRunner.OutputFormat format = TintRunner.getOutputFormat(outputFormat, TintRunner.OutputFormat.JSON);
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          pipeline.run(inputStream, outputStream, format);
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          LOGGER.debug(<span class="jxr_string">"Text: {}"</span>, text);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          String output = outputStream.toString();
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          writeOutput(response, contentTypes.get(format), output);
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      }
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2016&#x2013;2017 <a href="http://www.fbk.eu">FBK</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2016&#x2013;2018 <a href="http://www.fbk.eu">FBK</a>. All rights reserved.</div>
 </body>
 </html>

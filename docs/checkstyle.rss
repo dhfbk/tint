@@ -23,11 +23,11 @@ under the License.
     <link>https://github.com/fbk/parent/tint</link>
     <description>tint - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2016 - 2017 FBK</copyright>
+    <copyright>&#169;2016 - 2018 FBK</copyright>
     <item>
-      <title>File: 91,
-             Errors: 2,
-             Warnings: 2307,
+      <title>File: 86,
+             Errors: 1,
+             Warnings: 2139,
              Infos: 0
       </title>
             <link>https://github.com/fbk/parent/tint/checkstyle.html</link>
@@ -66,7 +66,21 @@ under the License.
                   0
                 </td>
                 <td>
-                  11
+                  13
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.readability.gl.GalicianReadability.java">eu/fbk/dh/tint/readability/gl/GalicianReadability.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
                 </td>
                 <td>
                   0
@@ -102,6 +116,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.heideltime.annotator.HeidelTimeAnnotations.java">eu/fbk/dh/tint/heideltime/annotator/HeidelTimeAnnotations.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.resources.parse.CreateTrainingForStanfordParser.java">eu/fbk/dh/tint/resources/parse/CreateTrainingForStanfordParser.java</a>
                 </td>
                 <td>
@@ -130,20 +158,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.geoloc.annotator.GeolocAnnotator.java">eu/fbk/dh/tint/geoloc/annotator/GeolocAnnotator.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  42
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.tokenizer.util.SplitSentences.java">eu/fbk/dh/tint/tokenizer/util/SplitSentences.java</a>
                 </td>
                 <td>
@@ -151,6 +165,20 @@ under the License.
                 </td>
                 <td>
                   17
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#VerbTest.java">VerbTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
                 </td>
                 <td>
                   0
@@ -186,13 +214,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.runner.outputters.JSONOutputter.java">eu/fbk/dh/tint/runner/outputters/JSONOutputter.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.verb.VerbAnnotations.java">eu/fbk/dh/tint/verb/VerbAnnotations.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  118
+                  5
                 </td>
                 <td>
                   0
@@ -220,21 +248,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  40
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#ClassesTest.java">ClassesTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  14
+                  42
                 </td>
                 <td>
                   0
@@ -249,34 +263,6 @@ under the License.
                 </td>
                 <td>
                   8
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.kd.annotator.DigiKdResult.java">eu/fbk/dh/tint/kd/annotator/DigiKdResult.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  26
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#StanfordTest.java">StanfordTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  50
                 </td>
                 <td>
                   0
@@ -312,13 +298,27 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.geoloc.annotator.GeocodResult.java">eu/fbk/dh/tint/geoloc/annotator/GeocodResult.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.readability.gl.GalicianReadabilityModel.java">eu/fbk/dh/tint/readability/gl/GalicianReadabilityModel.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  19
+                  28
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.digimorph.annotator.GuessModel.java">eu/fbk/dh/tint/digimorph/annotator/GuessModel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  76
                 </td>
                 <td>
                   0
@@ -346,7 +346,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  37
+                  39
                 </td>
                 <td>
                   0
@@ -354,13 +354,27 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#JsonTest.java">JsonTest.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.inverse.digimorph.annotator.InverseDigiMorph.java">eu/fbk/dh/tint/inverse/digimorph/annotator/InverseDigiMorph.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  6
+                  24
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.simplifier.rules.SimpleSplittingRule.java">eu/fbk/dh/tint/simplifier/rules/SimpleSplittingRule.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  34
                 </td>
                 <td>
                   0
@@ -396,27 +410,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.languagetool.Rule.java">eu/fbk/dh/tint/languagetool/Rule.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.simplifier.rules.SimplificationRule.java">eu/fbk/dh/tint/simplifier/rules/SimplificationRule.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  22
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.languagetool.LanguageToolAnnotator.java">eu/fbk/dh/tint/languagetool/LanguageToolAnnotator.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  28
+                  3
                 </td>
                 <td>
                   0
@@ -458,21 +458,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  34
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.languagetool.LanguageToolAnnotations.java">eu/fbk/dh/tint/languagetool/LanguageToolAnnotations.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  7
+                  33
                 </td>
                 <td>
                   0
@@ -486,7 +472,21 @@ under the License.
                   0
                 </td>
                 <td>
-                  18
+                  17
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.simplifier.rules.ReplaceSubordinateRule.java">eu/fbk/dh/tint/simplifier/rules/ReplaceSubordinateRule.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  40
                 </td>
                 <td>
                   0
@@ -514,7 +514,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  51
+                  53
                 </td>
                 <td>
                   0
@@ -522,13 +522,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.tense.TenseAnnotations.java">eu/fbk/dh/tint/tense/TenseAnnotations.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.resources.ner.WikiNewsReader.java">eu/fbk/dh/tint/resources/ner/WikiNewsReader.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  8
+                  37
                 </td>
                 <td>
                   0
@@ -550,41 +550,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.kd.annotator.DigiKdModel.java">eu/fbk/dh/tint/kd/annotator/DigiKdModel.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#InverseDigiTest.java">InverseDigiTest.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.languagetool.Context.java">eu/fbk/dh/tint/languagetool/Context.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  13
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.tense.TenseAnnotator.java">eu/fbk/dh/tint/tense/TenseAnnotator.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  73
+                  8
                 </td>
                 <td>
                   0
@@ -620,27 +592,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.geoloc.annotator.GeolocAnnotations.java">eu/fbk/dh/tint/geoloc/annotator/GeolocAnnotations.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.verb.VerbMultiToken.java">eu/fbk/dh/tint/verb/VerbMultiToken.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  9
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#Test.java">Test.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  9
+                  34
                 </td>
                 <td>
                   0
@@ -648,27 +606,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.geoloc.annotator.GeolocModel.java">eu/fbk/dh/tint/geoloc/annotator/GeolocModel.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.digimorph.annotator.GuessModelInstance.java">eu/fbk/dh/tint/digimorph/annotator/GuessModelInstance.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  12
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.languagetool.Category.java">eu/fbk/dh/tint/languagetool/Category.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  11
+                  3
                 </td>
                 <td>
                   0
@@ -676,13 +620,27 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.textpro.FstanRunnerBuffered.java">eu/fbk/dh/tint/textpro/FstanRunnerBuffered.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.simplifier.rules.GarantendoSplittingRule.java">eu/fbk/dh/tint/simplifier/rules/GarantendoSplittingRule.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  47
+                  4
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.verb.VerbAnnotator.java">eu/fbk/dh/tint/verb/VerbAnnotator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  41
                 </td>
                 <td>
                   0
@@ -696,7 +654,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  21
+                  13
                 </td>
                 <td>
                   0
@@ -704,27 +662,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.runner.outputters.SerializerCollector.java">eu/fbk/dh/tint/runner/outputters/SerializerCollector.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.simplifier.Simplifier.java">eu/fbk/dh/tint/simplifier/Simplifier.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  15
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.runner.outputters.AnnotationOutputter.java">eu/fbk/dh/tint/runner/outputters/AnnotationOutputter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  43
+                  69
                 </td>
                 <td>
                   0
@@ -760,6 +704,34 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.upos.UPosAnnotator.java">eu/fbk/dh/tint/upos/UPosAnnotator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.digimorph.annotator.ModelHelper.java">eu/fbk/dh/tint/digimorph/annotator/ModelHelper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  37
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.tokenizer.token.Extent.java">eu/fbk/dh/tint/tokenizer/token/Extent.java</a>
                 </td>
                 <td>
@@ -774,34 +746,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.languagetool.Replacement.java">eu/fbk/dh/tint/languagetool/Replacement.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  5
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#DeGasperi2.java">DeGasperi2.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotations.java">eu/fbk/dh/tint/digimorph/annotator/DigiMorphAnnotations.java</a>
                 </td>
                 <td>
@@ -809,6 +753,20 @@ under the License.
                 </td>
                 <td>
                   10
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.inverse.digimorph.annotator.DigiInverseMorphAnnotator.java">eu/fbk/dh/tint/inverse/digimorph/annotator/DigiInverseMorphAnnotator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
                 </td>
                 <td>
                   0
@@ -850,24 +808,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  127
+                  128
                 </td>
                 <td>
                   0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#DeGasperi.java">DeGasperi.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
                 </td>
               </tr>
                           <tr>
@@ -906,7 +850,21 @@ under the License.
                   0
                 </td>
                 <td>
-                  36
+                  50
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.simplifier.Test.java">eu/fbk/dh/tint/simplifier/Test.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  130
                 </td>
                 <td>
                   0
@@ -956,41 +914,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.kd.annotator.DigiKdAnnotations.java">eu/fbk/dh/tint/kd/annotator/DigiKdAnnotations.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  8
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.readability.ReadabilityAnnotations.java">eu/fbk/dh/tint/readability/ReadabilityAnnotations.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  12
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.runner.outputters.TextProOutputter.java">eu/fbk/dh/tint/runner/outputters/TextProOutputter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  42
+                  11
                 </td>
                 <td>
                   0
@@ -1032,7 +962,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  22
+                  29
                 </td>
                 <td>
                   0
@@ -1040,13 +970,55 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.textpro.TextProLemmaAnnotator.java">eu/fbk/dh/tint/textpro/TextProLemmaAnnotator.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.digimorph.annotator.DigiCompMorphAnnotator.java">eu/fbk/dh/tint/digimorph/annotator/DigiCompMorphAnnotator.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  32
+                  13
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.inverse.digimorph.annotator.InverseDigiMorph_Analizer.java">eu/fbk/dh/tint/inverse/digimorph/annotator/InverseDigiMorph_Analizer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.readability.gl.GalicianStandardReadability.java">eu/fbk/dh/tint/readability/gl/GalicianStandardReadability.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.simplifier.rules.DenominatiSplittingRule.java">eu/fbk/dh/tint/simplifier/rules/DenominatiSplittingRule.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
                 </td>
                 <td>
                   0
@@ -1068,41 +1040,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#StanfordTest2.java">StanfordTest2.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.inverse.digimorph.annotator.DigiInverseMorphAnnotations.java">eu/fbk/dh/tint/inverse/digimorph/annotator/DigiInverseMorphAnnotations.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  12
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#TintTest.java">TintTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  8
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#ServerTest.java">ServerTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  10
+                  4
                 </td>
                 <td>
                   0
@@ -1124,13 +1068,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.languagetool.Match.java">eu/fbk/dh/tint/languagetool/Match.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.readability.SemanticGraphUtils.java">eu/fbk/dh/tint/readability/SemanticGraphUtils.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  30
+                  26
                 </td>
                 <td>
                   0
@@ -1145,6 +1089,20 @@ under the License.
                 </td>
                 <td>
                   29
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.verb.VerbModel.java">eu/fbk/dh/tint/verb/VerbModel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
                 </td>
                 <td>
                   0
@@ -1180,13 +1138,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.tense.TenseModel.java">eu/fbk/dh/tint/tense/TenseModel.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.simplifier.rules.PrecisandoSplittingRule.java">eu/fbk/dh/tint/simplifier/rules/PrecisandoSplittingRule.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  5
+                  4
                 </td>
                 <td>
                   0
@@ -1200,7 +1158,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  20
+                  22
                 </td>
                 <td>
                   0
@@ -1236,13 +1194,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.readability.it.EasyLanguage.java">eu/fbk/dh/tint/readability/it/EasyLanguage.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.resources.morpho.FstanRunner.java">eu/fbk/dh/tint/resources/morpho/FstanRunner.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  16
+                  50
                 </td>
                 <td>
                   0
@@ -1250,13 +1208,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.geoloc.annotator.GeolocConfiguration.java">eu/fbk/dh/tint/geoloc/annotator/GeolocConfiguration.java</a>
+                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.readability.it.EasyLanguage.java">eu/fbk/dh/tint/readability/it/EasyLanguage.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  40
+                  16
                 </td>
                 <td>
                   0
@@ -1278,44 +1236,16 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.kd.annotator.DigiKdAnnotator.java">eu/fbk/dh/tint/kd/annotator/DigiKdAnnotator.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  24
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.textpro.FstanRunner.java">eu/fbk/dh/tint/textpro/FstanRunner.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  49
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/fbk/parent/tint/checkstyle.html#eu.fbk.dh.tint.readability.Readability.java">eu/fbk/dh/tint/readability/Readability.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  120
+                  1
                 </td>
                 <td>
-                  0
+                  1
                 </td>
               </tr>
                       </tbody>

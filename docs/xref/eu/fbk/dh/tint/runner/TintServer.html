@@ -58,7 +58,7 @@
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>              pipeline.addProperties(additionalProperties);
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>              <em class="jxr_comment">// todo: parametrize this!</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>              pipeline.loadSerializers();
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_comment">//            pipeline.loadSerializers();</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>              pipeline.load();
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
@@ -88,32 +88,32 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              <strong class="jxr_keyword">final</strong> CommandLine cmd = CommandLine
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>                      .parser()
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>                      .withName(<span class="jxr_string">"./tintop-server"</span>)
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>                      .withHeader(<span class="jxr_string">"Run the Tintop Server"</span>)
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>                      .withName(<span class="jxr_string">"./tint-server"</span>)
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>                      .withHeader(<span class="jxr_string">"Run the Tint Server"</span>)
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>                      .withOption(<span class="jxr_string">"c"</span>, <span class="jxr_string">"config"</span>, <span class="jxr_string">"Configuration file"</span>, <span class="jxr_string">"FILE"</span>, CommandLine.Type.FILE_EXISTING, <strong class="jxr_keyword">true</strong>,
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>                              false, false)
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>                      .withOption(<span class="jxr_string">"p"</span>, <span class="jxr_string">"port"</span>, String.format(<span class="jxr_string">"Host port (default %d)"</span>, DEFAULT_PORT), <span class="jxr_string">"NUM"</span>,
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>                              CommandLine.Type.INTEGER, <strong class="jxr_keyword">true</strong>, false, false)
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>                      .withOption(<span class="jxr_string">"h"</span>, <span class="jxr_string">"host"</span>, String.format(<span class="jxr_string">"Host address (default %s)"</span>, DEFAULT_HOST), <span class="jxr_string">"NUM"</span>,
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>                              CommandLine.Type.STRING, <strong class="jxr_keyword">true</strong>, false, false)
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>                      .withOption(<strong class="jxr_keyword">null</strong>, <span class="jxr_string">"properties"</span>, <span class="jxr_string">"Additional properties"</span>, <span class="jxr_string">"PROPS"</span>, CommandLine.Type.STRING, <strong class="jxr_keyword">true</strong>,
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>                              <strong class="jxr_keyword">true</strong>, false)
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_comment">//                    .withOption(null, "properties", "Additional properties", "PROPS", CommandLine.Type.STRING, true,</em>
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_comment">//                            true, false)</em>
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>                      .withLogger(LoggerFactory.getLogger(<span class="jxr_string">"eu.fbk"</span>)).parse(args);
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>              String host = cmd.getOptionValue(<span class="jxr_string">"host"</span>, String.<strong class="jxr_keyword">class</strong>, DEFAULT_HOST);
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>              Integer port = cmd.getOptionValue(<span class="jxr_string">"port"</span>, Integer.<strong class="jxr_keyword">class</strong>, DEFAULT_PORT);
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>              File configFile = cmd.getOptionValue(<span class="jxr_string">"config"</span>, File.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>  
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>              List&lt;String&gt; addProperties = cmd.getOptionValues(<span class="jxr_string">"properties"</span>, String.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_comment">//            List&lt;String&gt; addProperties = cmd.getOptionValues("properties", String.class);</em>
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>             Properties additionalProps = <strong class="jxr_keyword">new</strong> Properties();
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>             <strong class="jxr_keyword">for</strong> (String property : addProperties) {
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>                     additionalProps.load(<strong class="jxr_keyword">new</strong> StringReader(property));
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>                 } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>                     LOGGER.warn(e.getMessage());
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>                 }
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>             }
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> <em class="jxr_comment">//            for (String property : addProperties) {</em>
+<a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_comment">//                try {</em>
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_comment">//                    additionalProps.load(new StringReader(property));</em>
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_comment">//                } catch (Exception e) {</em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_comment">//                    LOGGER.warn(e.getMessage());</em>
+<a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_comment">//                }</em>
+<a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_comment">//            }</em>
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             <a href="../../../../../eu/fbk/dh/tint/runner/TintServer.html">TintServer</a> server = <strong class="jxr_keyword">new</strong> <a href="../../../../../eu/fbk/dh/tint/runner/TintServer.html">TintServer</a>(host, port, configFile, additionalProps);
 <a class="jxr_linenumber" name="L111" href="#L111">111</a> 
@@ -125,6 +125,6 @@
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2016&#x2013;2017 <a href="http://www.fbk.eu">FBK</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2016&#x2013;2018 <a href="http://www.fbk.eu">FBK</a>. All rights reserved.</div>
 </body>
 </html>
