@@ -48,11 +48,11 @@
             <scope>test</scope>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>edu.stanford.nlp</groupId>-->
-            <!--<artifactId>stanford-corenlp</artifactId>-->
-            <!--<version>${corenlp.version}</version>-->
-            <!--<classifier>models</classifier>-->
-            <!--<scope>test</scope>-->
+        <!--<groupId>edu.stanford.nlp</groupId>-->
+        <!--<artifactId>stanford-corenlp</artifactId>-->
+        <!--<version>${corenlp.version}</version>-->
+        <!--<classifier>models</classifier>-->
+        <!--<scope>test</scope>-->
         <!--</dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -96,4 +96,16 @@
         <!--<scope>test</scope>-->
         <!--</dependency>-->
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
