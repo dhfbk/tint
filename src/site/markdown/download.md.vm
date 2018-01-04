@@ -7,7 +7,7 @@ The Tint command line tool is packaged as a self-contained, cross-platform Java 
 In order to install it, download the following package and unpack it in the location you prefer:
 
 * [tint-runner-${project-version}-bin.tar.gz](http://www.airpedia.org/tint/${project-version}/tint-runner-${project-version}-bin.tar.gz) (latest nightly build, tar.gz)
-* [tint-runner-0.1-bin.tar.gz](http://www.airpedia.org/tint/0.1/tint-runner-0.1-bin.tar.gz) (latest stable version, tar.gz)
+* [tint-runner-0.2-bin.tar.gz](http://www.airpedia.org/tint/0.2/tint-runner-0.2-bin.tar.gz) (latest stable version, tar.gz)
 * [browse all versions](http://www.airpedia.org/tint/)
 
 $H3 Tint Java API
@@ -20,7 +20,7 @@ In the `pom.xml` file, add the following dependency:
 <dependency>
     <groupId>eu.fbk.dh</groupId>
     <artifactId>tint-runner</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 </dependency>
 ```
 
@@ -152,7 +152,7 @@ by surfing to `http://localhost:8012/tint?text=[text]&format=[format]` where `[t
 For instance, surfing to
 
 ```
-http://localhost:8012/tint?text=Barack%20Obama%20%C3%A8%20il%20presidente%20degli%20Stati%20Uniti%20d%27America.&format=json
+http://localhost:8012/tint?text=Barack%20Obama%20era%20il%20presidente%20degli%20Stati%20Uniti%20d%27America.
 ```
 
 will result in the JSON file containing all the desired annotations.
