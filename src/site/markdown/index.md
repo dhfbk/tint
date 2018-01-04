@@ -37,6 +37,7 @@ languages different than Italian.
 <h3 class='no-before'>News</h3>
 
 <!-- - 2015-06-08 [Try-it-out demo](https://knowledgestore2.fbk.eu/pikes-demo/) available!-->
+- 2018-01-04 Version 0.2 released, available on [Maven Central](http://search.maven.org/).
 - 2016-11-09 Version 0.1 released, available on [Maven Central](http://search.maven.org/).
 - 2016-09-22 [Description paper about Tint](http://arxiv.org/abs/1609.06204) published on arXiv.
 - 2016-09-15 [Version 1.0-SNAPSHOT](download.html) available.
