@@ -62,6 +62,7 @@ public class ItalianTokenizer {
     private Trie trie;
     private Set<Integer> splittingChars = new HashSet<>();
     private Set<Integer> sentenceChars = new HashSet<>();
+    private Set<Integer> newLineSplitting = new HashSet<>();
     private Map<Integer, String> normalizedChars = new HashMap<>();
     private Map<String, String> normalizedStrings = new HashMap<>();
     private Map<Pattern, Integer> expressions = new HashMap<>();
@@ -133,6 +134,17 @@ public class ItalianTokenizer {
                 sentenceChars.add(Integer.parseInt(charID));
             }
             logger.info("Loaded {} sentence splitting rules", sentenceChars.size());
+
+            // newline chars
+            expr = xpath.compile("/settings/newLineSplitting/char");
+            nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+            for (int i = 0; i < nl.getLength(); i++) {
+                Node item = nl.item(i);
+                Element element = (Element) item;
+                String charID = element.getAttribute("id");
+                newLineSplitting.add(Integer.parseInt(charID));
+            }
+            logger.info("Loaded {} newline chars", newLineSplitting.size());
 
             // splitting rules
             expr = xpath.compile("/settings/tokenSplitting/char");
@@ -240,7 +252,7 @@ public class ItalianTokenizer {
                 }
             }
 
-            if (sentenceChars.contains(currentChar.hashCode())) {
+            if (newLineSplitting.contains(currentChar.hashCode())) {
                 isNewLine.setValue(true);
             }
 
@@ -444,6 +456,21 @@ public class ItalianTokenizer {
             Integer start = null;
 
             Set<Integer> newLines = tokenGroup.getNewLines();
+
+            // Checking overlapping tokens
+            Map<Integer, Integer> moveIds = new HashMap<>();
+            for (Integer keyStart : mergeList.keySet()) {
+                Integer keyEnd = mergeList.get(keyStart);
+                for (int i = keyStart + 1; i < keyEnd; i++) {
+                    if (mergeList.containsKey(i)) {
+                        moveIds.put(i, keyEnd);
+                    }
+                }
+            }
+            for (Integer mKey : moveIds.keySet()) {
+                mergeList.put(moveIds.get(mKey), mergeList.get(mKey));
+                mergeList.remove(mKey);
+            }
 
             for (int i = 0; i < tokens.size(); i++) {
                 Token token = tokens.get(i);

@@ -168,7 +168,6 @@
         <abbreviation>Ms.</abbreviation>
         <abbreviation>Fig.</abbreviation>
         <abbreviation>suppl.</abbreviation>
-        <abbreviation>me.</abbreviation>
         <abbreviation>ced.</abbreviation>
         <abbreviation>eccl.</abbreviation>
         <abbreviation>pp.</abbreviation>
@@ -328,9 +327,12 @@
         <char id="59" hexcode="003B" desc="SEMICOLON"/>
         <char id="58" hexcode="003B" desc="COLON"/>
         <char id="63" hexcode="003F" desc="QUESTION MARK"/>
+    </sentenceSplitting>
+
+    <newLineSplitting>
         <char id="10" hexcode="000A" desc="LINE FEED"/>
         <char id="13" hexcode="000d" desc="CARRIAGE RETURN"/>
-    </sentenceSplitting>
+    </newLineSplitting>
 
     <normalization>
         <char hexcode="02BC" category="apostrophe" desc="MODIFIER LETTER APOSTROPHE">'</char>
