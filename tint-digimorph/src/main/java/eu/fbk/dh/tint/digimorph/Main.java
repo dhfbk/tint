@@ -48,7 +48,7 @@ public class Main {
             boolean lemma = cmd.hasOption("lemma");
 
             if (retrainInputFile != null || retrainOutputFile != null) {
-                if (retrainInputFile == null || retrainOutputFile == null) {
+                if (retrainInputFile != null && retrainOutputFile != null) {
                     retrain(retrainInputFile, retrainOutputFile, lemma);
                 } else {
                     throw new CommandLine.Exception("Input file or output path missing for retrain");

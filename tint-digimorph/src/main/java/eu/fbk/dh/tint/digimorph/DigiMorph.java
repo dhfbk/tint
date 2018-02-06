@@ -169,6 +169,25 @@ public class DigiMorph {
                 }
             }
 
+            // put imp in last position
+            // todo: we can do it better
+            for (Map.Entry<String, String> e : map.entrySet()) {
+                if (e.getValue().contains("+imp+")) {
+                    String newMorph = "";
+                    String[] morphItems = e.getValue().split(" ");
+                    String imp = "";
+                    for (String m : morphItems) {
+                        if (m.contains("+imp+")) {
+                            imp = m;
+                        } else {
+                            newMorph += m + " ";
+                        }
+                    }
+                    newMorph += imp;
+                    e.setValue(newMorph);
+                }
+            }
+
             for (Map.Entry<String, String> e : map.entrySet()) {
                 sink.put(e.getKey(), e.getValue());
             }
