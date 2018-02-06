@@ -317,9 +317,14 @@ public class GuessModel {
                     char charLemma = lemma.charAt(i);
                     if (charForm != charLemma || i == min - 1) {
                         String postfix = lemma.substring(i);
-                        int length = token.length() - form.length();
-                        String prefix = token.substring(0, i + length);
-                        guessed_lemma = prefix + postfix;
+                        int length = Math.max(0, token.length() - form.length());
+                        try {
+                            String prefix = token.substring(0, i + length);
+                            guessed_lemma = prefix + postfix;
+                        }
+                        catch (Exception e) {
+                            // ignored
+                        }
                         break;
                     }
                 }
