@@ -202,7 +202,6 @@ public class DigiLemmaAnnotator implements Annotator {
                                             chosenMorpho = "";
                                         }
                                     }
-
                                 }
                             }
                         }
@@ -216,7 +215,23 @@ public class DigiLemmaAnnotator implements Annotator {
                     }
 
                     if (!chosenGuess) {
-                        chosenFeaturesString = guesser.getMorphoFeats(chosenMorpho, pos);
+
+                        String useMorpho = chosenMorpho;
+                        String usePos = pos;
+
+                        // todo: we can do it better
+                        if (pos.startsWith("V+")) {
+                            usePos = "V";
+                            try {
+                                useMorpho = chosenMorpho.split("/")[0];
+                                useMorpho = useMorpho.split("~")[1];
+                            }
+                            catch (Exception e) {
+                                // ignored
+                            }
+                        }
+
+                        chosenFeaturesString = guesser.getMorphoFeats(useMorpho, usePos);
                         if (chosenFeaturesString != null) {
                             chosenFeatures = ConllToken.featureStringToAnnotation(chosenFeaturesString);
                         }

@@ -39,6 +39,7 @@ public class GuessModel {
     }
 
     private static Set<String> absAdvs = new HashSet<>();
+
     static {
         absAdvs.add("ottimamente");
         absAdvs.add("pessimamente");
@@ -317,14 +318,12 @@ public class GuessModel {
                     char charLemma = lemma.charAt(i);
                     if (charForm != charLemma || i == min - 1) {
                         String postfix = lemma.substring(i);
-                        int length = Math.max(0, token.length() - form.length());
-                        try {
-                            String prefix = token.substring(0, i + length);
-                            guessed_lemma = prefix + postfix;
+                        int length = token.length() - form.length();
+                        if (length < 0) {
+                            break;
                         }
-                        catch (Exception e) {
-                            // ignored
-                        }
+                        String prefix = token.substring(0, i + length);
+                        guessed_lemma = prefix + postfix;
                         break;
                     }
                 }
