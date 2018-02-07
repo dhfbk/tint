@@ -119,19 +119,20 @@ public abstract class Readability {
 
             SemanticGraph semanticGraph = sentence
                     .get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
-            int deep = 0;
+            int depth = 0;
             if (semanticGraph == null) {
                 continue;
             }
 
             for (IndexedWord indexedWord : semanticGraph.getLeafVertices()) {
                 try {
-                    deep = Math.max(deep, semanticGraph.getPathToRoot(indexedWord).size());
+                    depth = Math.max(depth, semanticGraph.getPathToRoot(indexedWord).size());
                 } catch (NullPointerException e) {
                     // ignored
                 }
             }
-            deeps.add(deep);
+            deeps.add(depth);
+            sentence.set(ReadabilityAnnotations.SentenceDepth.class, depth);
             
             if (!sentence.containsKey(VerbAnnotations.VerbsAnnotation.class)) {
                 continue;

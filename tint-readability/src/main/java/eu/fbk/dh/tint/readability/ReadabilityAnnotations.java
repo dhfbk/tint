@@ -24,6 +24,14 @@ public class ReadabilityAnnotations {
         }
     }
 
+    @JSONLabel("depth")
+    public static class SentenceDepth implements CoreAnnotation<Integer> {
+
+        public Class<Integer> getType() {
+            return Integer.class;
+        }
+    }
+
     @JSONLabel("readability")
     public static class ReadabilityAnnotation implements CoreAnnotation<Readability> {
 
