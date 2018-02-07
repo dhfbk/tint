@@ -554,8 +554,6 @@ public class ItalianTokenizer {
                 if (word.charAt(word.length() - 1) == '’' || word.charAt(word.length() - 1) == '`') {
                     normWord = word.substring(0, word.length() - 1) + "'";
                 }
-                CoreLabel clToken = factory.makeToken(normWord, word, start, finish - start);
-                clToken.setIndex(++index);
 
                 if (newlineIsSentenceBreak && newLines.contains(start)) {
                     if (temp.size() > 0) {
@@ -565,6 +563,8 @@ public class ItalianTokenizer {
                     }
                 }
 
+                CoreLabel clToken = factory.makeToken(normWord, word, start, finish - start);
+                clToken.setIndex(++index);
                 temp.add(clToken);
 
                 if (!ssplitOnlyOnNewLine) {
