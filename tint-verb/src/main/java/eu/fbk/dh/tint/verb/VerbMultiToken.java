@@ -21,6 +21,15 @@ public class VerbMultiToken {
     String mood;
     Integer person = null;
     String gender = null;
+    String number = null;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
     public boolean isPassive() {
         return isPassive;
@@ -71,39 +80,44 @@ public class VerbMultiToken {
             }
 
             switch (this.tokens.size()) {
-            case 1:
-                setTense(this.tokens.get(0));
-                isPassive = false;
-
-                if (isTransitive && mood.equals("Part") && tense.equals("Past")) {
-                    isPassive = true;
-                }
-                break;
-            case 2:
-                String auxLemma = this.tokens.get(0).lemma();
-                if (auxLemma.equals("avere")) {
+                case 1:
+                    setTense(this.tokens.get(0));
                     isPassive = false;
-                } else {
-                    if (isTransitive) {
-                        isPassive = true;
-                    } else {
-                        isPassive = false;
-                    }
-                }
 
-                setTense(this.tokens.get(0));
-                if (!isPassive) {
                     try {
-                        addStep();
-                    } catch (NullPointerException e) {
+                        if (isTransitive && mood.equals("Part") && tense.equals("Past")) {
+                            isPassive = true;
+                        }
+                    }
+                    catch (Exception e) {
                         // ignored
                     }
-                }
-                break;
-            default:
-                isPassive = true;
-                setTense(this.tokens.get(0));
-                addStep();
+                    break;
+                case 2:
+                    String auxLemma = this.tokens.get(0).lemma();
+                    if (auxLemma.equals("avere")) {
+                        isPassive = false;
+                    } else {
+                        if (isTransitive) {
+                            isPassive = true;
+                        } else {
+                            isPassive = false;
+                        }
+                    }
+
+                    setTense(this.tokens.get(0));
+                    if (!isPassive) {
+                        try {
+                            addStep();
+                        } catch (NullPointerException e) {
+                            // ignored
+                        }
+                    }
+                    break;
+                default:
+                    isPassive = true;
+                    setTense(this.tokens.get(0));
+                    addStep();
             }
         }
     }
@@ -113,27 +127,27 @@ public class VerbMultiToken {
             return;
         }
         switch (mood) {
-        case "Ind":
-        case "Conj":
-            switch (tense) {
-            case "Pres":
-                tense = "PrPast";
-                break;
-            case "Imp":
-                tense = "TrPast";
-                break;
-            case "Past":
-                tense = "RemPast";
-                break;
-            case "Fut":
-                tense = "AntFut";
-                break;
-            }
-        default:
-            switch (tense) {
-            case "Pres":
-                tense = "Past";
-            }
+            case "Ind":
+            case "Conj":
+                switch (tense) {
+                    case "Pres":
+                        tense = "PrPast";
+                        break;
+                    case "Imp":
+                        tense = "TrPast";
+                        break;
+                    case "Past":
+                        tense = "RemPast";
+                        break;
+                    case "Fut":
+                        tense = "AntFut";
+                        break;
+                }
+            default:
+                switch (tense) {
+                    case "Pres":
+                        tense = "Past";
+                }
         }
     }
 
@@ -150,7 +164,11 @@ public class VerbMultiToken {
             mood = null;
         }
         if (mood == null) {
-            mood = Iterables.getFirst(features.get("VerbForm"), null);
+            try {
+                mood = Iterables.getFirst(features.get("VerbForm"), null);
+            } catch (NullPointerException e) {
+                mood = null;
+            }
         }
         if (mood != null && mood.equals("Sub")) {
             mood = "Conj";
@@ -161,12 +179,18 @@ public class VerbMultiToken {
         } catch (NullPointerException e) {
             // ignore
         }
+        try {
+            number = Iterables.getFirst(features.get("Number"), null);
+        } catch (NullPointerException e) {
+            // ignore
+        }
         if (txtPerson != null) {
             person = Integer.parseInt(txtPerson);
         }
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "VerbMultiToken{" +
                 "tokens=" + tokens +
                 ", isPassive=" + isPassive +
