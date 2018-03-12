@@ -107,7 +107,7 @@
         <tint.utils.version>3.1.1</tint.utils.version>
         <fcw.version>0.1.1</fcw.version>
         <tint.version>${project.version}</tint.version>
-        <corenlp.version>3.8.0</corenlp.version>
+        <corenlp.version>3.9.1</corenlp.version>
         <log4j2.version>2.6.1</log4j2.version>
 
         <site.root>http://tint.fbk.eu/</site.root>
