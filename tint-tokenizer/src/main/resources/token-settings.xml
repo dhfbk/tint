@@ -288,6 +288,8 @@
         <abbreviation>pag.</abbreviation>
         <abbreviation>Sig.ra</abbreviation>
         <abbreviation>sig.ra</abbreviation>
+        <abbreviation>inc.</abbreviation>
+        <abbreviation>n.d.a.</abbreviation>
     </abbreviations>
 
     <expressions>
@@ -302,14 +304,20 @@
         <expression merge="1" find="([:;=]-?[\)\(DOP])"/>
         <!-- Dash-connected words -->
         <expression merge="1" find="(\w+-\w+)"/>
-        <!-- Hashtags -->
+        <!-- Hashtags and users -->
         <expression merge="1" find="(#\w+)"/>
+        <expression merge="1" find="(@\w+)"/>
         <!-- Dots ... -->
         <expression merge="1" find="(\.{3,})"/>
         <!-- Footnotes [1], [2], etc. -->
         <expression merge="1" find="(\[[0-9]+\])"/>
         <!-- Numbers and dates -->
         <expression merge="1" find="([0-9]+([ \.,/][0-9]+)*)"/>
+
+        <!-- Added after Iprase project -->
+        <expression merge="0" find="[^a-zA-Z\.](([A-Z]\.)+)" get="1"/>
+        <expression merge="0" find="[\s\(]([a-z]\.)" get="1"/>
+        <expression merge="0" find="([!\?]+)" get="1"/> <!-- Group marks -->
     </expressions>
 
     <tokenSplitting>

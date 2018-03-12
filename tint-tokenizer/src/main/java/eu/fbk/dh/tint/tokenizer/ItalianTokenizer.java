@@ -472,9 +472,19 @@ public class ItalianTokenizer {
                 mergeList.remove(mKey);
             }
 
+            boolean postpone = false;
+
             for (int i = 0; i < tokens.size(); i++) {
                 Token token = tokens.get(i);
                 boolean merging = false;
+
+                Token prevToken = null, nextToken = null;
+                if (i > 0) {
+                    prevToken = tokens.get(i - 1);
+                }
+                if (i < tokens.size() - 1) {
+                    nextToken = tokens.get(i + 1);
+                }
 
                 if (mergeList.containsKey(token.getStart()) || end != null) {
                     merging = true;
@@ -488,16 +498,18 @@ public class ItalianTokenizer {
                     merging = false;
                 }
 
-                if (token.getNormForm().equals("'")) {
+//                if (merging) {
+//                    System.out.println("Sono qui");
+//                    System.out.println(prevToken.getForm());
+//                    System.out.println(token.getForm());
+//                    System.out.println(nextToken.getForm());
+//                }
+//                if (merging && nextToken != null && nextToken.getNormForm().equals("\"") && !nextToken.isPreceedBySpace()) {
+//                    merging = false;
+//                    mergeList.put(nextToken.getStart(), mergeList.get(token.getStart()));
+//                }
 
-                    Token prevToken = null,
-                            nextToken = null;
-                    if (i > 0) {
-                        prevToken = tokens.get(i - 1);
-                    }
-                    if (i < tokens.size() - 1) {
-                        nextToken = tokens.get(i + 1);
-                    }
+                if (token.getNormForm().equals("'")) {
 
                     // Example: l'economia
                     if (prevToken != null &&
@@ -568,10 +580,18 @@ public class ItalianTokenizer {
                 temp.add(clToken);
 
                 if (!ssplitOnlyOnNewLine) {
-                    if (word.length() == 1 && sentenceChars.contains((int) word.charAt(0))) {
-                        ret.add(temp);
-                        index = 0; // index must be zeroed to meet Stanford policy
-                        temp = new ArrayList<>();
+                    if (postpone || (word.length() == 1 && sentenceChars.contains((int) word.charAt(0)))) {
+                        postpone = false;
+                        if (
+                                (nextToken != null && nextToken.getNormForm().equals("\"") && !nextToken.isPreceedBySpace()) ||
+                                        (nextToken != null && nextToken.getForm().length() == 1 && sentenceChars.contains((int) nextToken.getForm().charAt(0)))
+                                ) {
+                            postpone = true;
+                        } else {
+                            ret.add(temp);
+                            index = 0; // index must be zeroed to meet Stanford policy
+                            temp = new ArrayList<>();
+                        }
                     }
                 }
 
