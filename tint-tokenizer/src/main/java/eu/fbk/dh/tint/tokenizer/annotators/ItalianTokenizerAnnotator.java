@@ -5,8 +5,6 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.Annotator;
-import edu.stanford.nlp.util.ArrayCoreMap;
-import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.tokenizer.ItalianTokenizer;
 import eu.fbk.dh.tint.tokenizer.models.ItalianTokenizerModel;
 import eu.fbk.utils.core.PropertiesUtils;

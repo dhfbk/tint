@@ -1,7 +1,6 @@
 package eu.fbk.dh.tint.inverse.digimorph.annotator;
 
 import edu.stanford.nlp.ling.CoreAnnotation;
-import edu.stanford.nlp.pipeline.Annotator;
 import eu.fbk.utils.gson.JSONLabel;
 
 /**

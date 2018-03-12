@@ -7,10 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import java.io.File;
-import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 
 /**

@@ -12,7 +12,10 @@ import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotations;
 import eu.fbk.dh.tint.inverse.digimorph.annotator.InverseDigiMorph;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+import java.util.TreeSet;
 
 import static eu.fbk.dh.tint.simplifier.Simplifier.getHistory;
 
