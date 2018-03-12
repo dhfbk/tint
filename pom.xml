@@ -97,7 +97,6 @@
         <module>tint-inverse-digimorph</module>
         <module>tint-simplifier</module>
         <module>tint-verb</module>
-        <module>tint-upos</module>
         <module>tint-derived</module>
     </modules>
 
