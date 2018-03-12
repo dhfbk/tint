@@ -1,7 +1,8 @@
 package eu.fbk.dh.tint.digimorph;
 
 import eu.fbk.utils.core.CommandLine;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -36,6 +37,7 @@ public class Main {
                             eu.fbk.utils.core.CommandLine.Type.FILE, true, false, false)
                     .withOption("l", "lemma", "Include lemma")
                     .withOption("v", "version", "Print the tool version")
+                    .withOption("R", "retrain", "Retrain using default file")
                     .withLogger(LoggerFactory.getLogger("eu.fbk")).parse(args);
 
             if (cmd.hasOption("version")) {
@@ -46,9 +48,10 @@ public class Main {
             File retrainInputFile = cmd.getOptionValue("retrain-input-file", File.class);
             File retrainOutputFile = cmd.getOptionValue("retrain-output-file", File.class);
             boolean lemma = cmd.hasOption("lemma");
+            boolean retrain = cmd.hasOption("retrain");
 
             if (retrainInputFile != null || retrainOutputFile != null) {
-                if (retrainInputFile != null && retrainOutputFile != null) {
+                if ((retrainInputFile != null || retrain) && retrainOutputFile != null) {
                     retrain(retrainInputFile, retrainOutputFile, lemma);
                 } else {
                     throw new CommandLine.Exception("Input file or output path missing for retrain");

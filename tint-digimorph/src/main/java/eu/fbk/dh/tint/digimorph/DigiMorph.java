@@ -1,6 +1,8 @@
 package eu.fbk.dh.tint.digimorph;
 
+import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
+import com.google.common.io.CharSource;
 import com.google.common.io.Resources;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -15,6 +17,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.*;
@@ -148,7 +151,15 @@ public class DigiMorph {
 
         SortedMap<String, String> map = new TreeMap<String, String>();
         try {
-            Reader in = new FileReader(csv_path);
+            Reader in;
+            if (csv_path == null) {
+                URL resource = Resources.getResource("morph-it_dh_extended.txt");
+                CharSource charSource = Resources.asCharSource(resource, Charsets.UTF_8);
+                in = charSource.openStream();
+            }
+            else {
+                in = new FileReader(csv_path);
+            }
             Iterable<CSVRecord> records = CSVFormat.TDF.withIgnoreEmptyLines().withQuote('≥').parse(in);
             for (CSVRecord record : records) {
 
