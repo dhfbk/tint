@@ -59,7 +59,7 @@ public class ReadabilityAnnotator implements Annotator {
                 Constructor<? extends Readability> constructor = obj.getConstructor(Properties.class, Properties.class, Annotation.class);
                 readability = constructor.newInstance(globalProperties, localProperties, annotation);
             } catch (Exception e) {
-                LOGGER.error(e.getMessage());
+                e.printStackTrace();
             }
         }
 

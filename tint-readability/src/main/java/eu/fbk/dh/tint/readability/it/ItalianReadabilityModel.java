@@ -43,6 +43,7 @@ public class ItalianReadabilityModel {
             LOGGER.info("Loading easy lemmas");
             try {
                 InputStream stream = Readability.getStream(easyWordsFileName, "/models/easy-output.json");
+//                InputStream stream = Readability.getStream(easyWordsFileName, "/models/demauro.json");
                 JsonReader reader = new JsonReader(new InputStreamReader(stream));
                 easyLanguage = gson.fromJson(reader, EasyLanguage.class);
             } catch (Exception e) {
