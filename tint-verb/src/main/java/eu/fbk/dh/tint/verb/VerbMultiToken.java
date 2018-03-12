@@ -88,9 +88,12 @@ public class VerbMultiToken {
                         if (isTransitive && mood.equals("Part") && tense.equals("Past")) {
                             isPassive = true;
                         }
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         // ignored
+                    }
+
+                    if (mood != null && mood.equals("Ger")) {
+                        tense = "Pres";
                     }
                     break;
                 case 2:
@@ -113,10 +116,20 @@ public class VerbMultiToken {
                             // ignored
                         }
                     }
+                    if (mood != null && mood.equals("Ger")) {
+                        if (isPassive) {
+                            tense = "Pres";
+                        } else {
+                            tense = "Past";
+                        }
+                    }
                     break;
                 default:
                     isPassive = true;
                     setTense(this.tokens.get(0));
+                    if (mood != null && mood.equals("Ger")) {
+                        tense = "Past";
+                    }
                     addStep();
             }
         }
