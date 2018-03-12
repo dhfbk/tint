@@ -17,4 +17,16 @@ public class Derivation {
     public void addPhase(DerivedPhase phase) {
         phases.add(phase);
     }
+
+    public String getBaseLemma() {
+        return baseLemma;
+    }
+
+    public String getBaseType() {
+        return baseType;
+    }
+
+    public List<DerivedPhase> getPhases() {
+        return phases;
+    }
 }
