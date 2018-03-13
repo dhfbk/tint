@@ -69,7 +69,8 @@ public class ItalianTokenizerAnnotator implements Annotator {
                 CoreAnnotations.OriginalTextAnnotation.class,
                 CoreAnnotations.ValueAnnotation.class,
                 CoreAnnotations.SentencesAnnotation.class,
-                CoreAnnotations.SentenceIndexAnnotation.class
+                CoreAnnotations.SentenceIndexAnnotation.class,
+                CoreAnnotations.IsNewlineAnnotation.class
         ));
     }
 

@@ -31,7 +31,7 @@
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
-            <version>${corenlp.version}</version>
+            <version>${corenlp-version}</version>
         </dependency>
         <dependency>
             <groupId>eu.fbk.utils</groupId>
