@@ -5,6 +5,7 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.*;
 import eu.fbk.utils.corenlp.outputters.JSONOutputter;
 import eu.fbk.utils.corenlp.outputters.TextProOutputter;
+import eu.fbk.utils.corenlp.outputters.TokenOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -128,28 +129,31 @@ public class TintPipeline {
         Annotation annotation = runRaw(text, pipeline);
 
         switch (format) {
-        case CONLL:
-            CoNLLUOutputter.conllUPrint(annotation, outputStream, pipeline);
-            break;
-        case READABLE:
-            TextOutputter.prettyPrint(annotation, outputStream, pipeline);
-            break;
-        case XML:
-            XMLOutputter.xmlPrint(annotation, outputStream, pipeline);
-            break;
-        case JSON:
-            GsonBuilder gsonBuilder;
-            gsonBuilder = new GsonBuilder();
+            case CONLL:
+                CoNLLUOutputter.conllUPrint(annotation, outputStream, pipeline);
+                break;
+            case READABLE:
+                TextOutputter.prettyPrint(annotation, outputStream, pipeline);
+                break;
+            case XML:
+                XMLOutputter.xmlPrint(annotation, outputStream, pipeline);
+                break;
+            case JSON:
+                GsonBuilder gsonBuilder;
+                gsonBuilder = new GsonBuilder();
 //            if (serializerCollector != null) {
 //                gsonBuilder = serializerCollector.getGsonBuilder();
 //            } else {
 //                gsonBuilder = new GsonBuilder();
 //            }
-            JSONOutputter.jsonPrint(gsonBuilder, annotation, outputStream, pipeline);
-            break;
-        case TEXTPRO:
-            TextProOutputter.tpPrint(annotation, outputStream, pipeline);
-            break;
+                JSONOutputter.jsonPrint(gsonBuilder, annotation, outputStream, pipeline);
+                break;
+            case TEXTPRO:
+                TextProOutputter.tpPrint(annotation, outputStream, pipeline);
+                break;
+            case TOKEN:
+                TokenOutputter.tpPrint(annotation, outputStream, pipeline);
+                break;
 //        case NAF:
 //            KAFDocument doc = AbstractHandler.text2naf(text, new HashMap<>());
 //            AnnotationPipeline pikesPipeline = new AnnotationPipeline(null, null);

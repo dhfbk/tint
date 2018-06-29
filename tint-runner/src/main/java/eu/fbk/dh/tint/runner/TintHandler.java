@@ -32,6 +32,7 @@ public class TintHandler extends HttpHandler {
         contentTypes.put(TintRunner.OutputFormat.NAF, "text/xml");
         contentTypes.put(TintRunner.OutputFormat.JSON, "text/json");
         contentTypes.put(TintRunner.OutputFormat.TEXTPRO, "text/plain");
+        contentTypes.put(TintRunner.OutputFormat.TOKEN, "text/plain");
         contentTypes.put(TintRunner.OutputFormat.READABLE, "text/plain");
     }
 
