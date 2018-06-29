@@ -32,7 +32,7 @@ public abstract class ItalianReadability extends Readability {
     @Override public void finalizeReadability() {
         super.finalizeReadability();
 
-        double gulpease = 89 + (300 * getSentenceCount() - 10 * getDocLenLettersOnly()) / (getWordCount() * 1.0);
+        double gulpease = 89 + (300 * getGoodSentenceCount() - 10 * getDocLenLettersOnly()) / (getWordCount() * 1.0);
         labels.put("main", "Gulpease");
         measures.put("main", gulpease);
         measures.put("level1", 100.0 * level1WordSize / getContentEasyWordSize());

@@ -35,7 +35,7 @@ public abstract class Readability {
     private String language = null;
     private int contentWordSize = 0, contentEasyWordSize = 0, wordCount = 0;
     private int docLenWithSpaces = 0, docLenWithoutSpaces = 0, docLenLettersOnly = 0;
-    private int sentenceCount = 0, tokenCount = 0;
+    private int goodSentenceCount = 0, sentenceCount = 0, tokenCount = 0;
     private int hyphenCount = 0;
     private int hyphenWordCount = 0;
 
@@ -47,6 +47,8 @@ public abstract class Readability {
     private Double wordsAvg;
     //    private Double coordinateRatio;
     private Double subordinateRatio;
+
+    Map<Integer, Integer> deeps = new HashMap<>();
 
     protected TreeMap<Integer, DescriptionForm> forms = new TreeMap<>();
 
@@ -96,7 +98,7 @@ public abstract class Readability {
         int i = 0;
         for (CoreLabel token : annotation.get(CoreAnnotations.TokensAnnotation.class)) {
             Boolean isWord = token.get(ReadabilityAnnotations.LiteralWord.class);
-            if (!isWord) {
+            if (isWord == null || !isWord) {
                 continue;
             }
 
@@ -107,7 +109,7 @@ public abstract class Readability {
             ttr.add(tokenText);
             i++;
         }
-        List<Integer> deeps = new ArrayList<>();
+//        List<Integer> deeps = new ArrayList<>();
         List<Integer> propositions = new ArrayList<>();
 
         Integer coordinates = 0;
@@ -131,7 +133,8 @@ public abstract class Readability {
                     // ignored
                 }
             }
-            deeps.add(depth);
+//            deeps.add(depth);
+            deeps.put(sentIndex, depth);
             sentence.set(ReadabilityAnnotations.SentenceDepth.class, depth);
             
             if (!sentence.containsKey(VerbAnnotations.VerbsAnnotation.class)) {
@@ -163,8 +166,8 @@ public abstract class Readability {
 
         ttrValue = 1.0 * ttr.size() / (1.0 * i);
         if (deeps.size() > 0) {
-            deepAvg = deeps.stream().mapToInt(val -> val).average().getAsDouble();
-            deepMax = deeps.stream().mapToInt(val -> val).max().getAsInt() * 1.0;
+            deepAvg = deeps.values().stream().mapToInt(val -> val).average().getAsDouble();
+            deepMax = deeps.values().stream().mapToInt(val -> val).max().getAsInt() * 1.0;
         }
         if (propositions.size() > 0) {
             propositionsAvg = propositions.stream().mapToInt(val -> val).average().getAsDouble();
@@ -270,6 +273,14 @@ public abstract class Readability {
 
     public void setDocLenLettersOnly(int docLenLettersOnly) {
         this.docLenLettersOnly = docLenLettersOnly;
+    }
+
+    public int getGoodSentenceCount() {
+        return goodSentenceCount;
+    }
+
+    public void setGoodSentenceCount(int goodSentenceCount) {
+        this.goodSentenceCount = goodSentenceCount;
     }
 
     public int getSentenceCount() {

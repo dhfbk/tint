@@ -49,7 +49,8 @@ public class ReadabilityAnnotator implements Annotator {
      *
      * @param annotation
      */
-    @Override public void annotate(Annotation annotation) {
+    @Override
+    public void annotate(Annotation annotation) {
 
         Readability readability = null;
 
@@ -70,18 +71,18 @@ public class ReadabilityAnnotator implements Annotator {
             }
 
             switch (language) {
-            case "it":
-                readability = new ItalianStandardReadability(globalProperties, localProperties, annotation);
-                break;
-            case "es":
-                readability = new SpanishStandardReadability(globalProperties, localProperties, annotation);
-                break;
-            case "en":
-                readability = new EnglishStandardReadability(globalProperties, localProperties, annotation);
-                break;
-            case "gl":
-                readability = new GalicianStandardReadability(globalProperties, localProperties, annotation);
-                break;
+                case "it":
+                    readability = new ItalianStandardReadability(globalProperties, localProperties, annotation);
+                    break;
+                case "es":
+                    readability = new SpanishStandardReadability(globalProperties, localProperties, annotation);
+                    break;
+                case "en":
+                    readability = new EnglishStandardReadability(globalProperties, localProperties, annotation);
+                    break;
+                case "gl":
+                    readability = new GalicianStandardReadability(globalProperties, localProperties, annotation);
+                    break;
 //        default:
 //            readability = new EnglishReadability();
             }
@@ -93,11 +94,19 @@ public class ReadabilityAnnotator implements Annotator {
 
         List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
         int tokenCount = 0;
-        readability.setSentenceCount(sentences.size());
+        int goodSentencesCount = 0;
         for (CoreMap sentence : sentences) {
             int sentenceID = sentence.get(CoreAnnotations.SentenceIndexAnnotation.class);
             int wordsNow = readability.getWordCount();
-            for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+            List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
+
+            // Long sentences with a single word
+            if (tokens.size() <= 1 && sentence.get(CoreAnnotations.TextAnnotation.class).length() > 25) {
+                continue;
+            }
+
+            goodSentencesCount++;
+            for (CoreLabel token : tokens) {
                 readability.addWord(token);
                 tokenCount++;
             }
@@ -106,7 +115,10 @@ public class ReadabilityAnnotator implements Annotator {
                 readability.addTooLongSentence(sentenceID);
             }
         }
+
         readability.setTokenCount(tokenCount);
+        readability.setSentenceCount(sentences.size());
+        readability.setGoodSentenceCount(goodSentencesCount);
 
         readability.finalizeReadability();
 
@@ -117,7 +129,8 @@ public class ReadabilityAnnotator implements Annotator {
      * Returns a set of requirements for which tasks this annotator can
      * provide.  For example, the POS annotator will return "pos".
      */
-    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
+    @Override
+    public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
         return Collections.singleton(ReadabilityAnnotations.ReadabilityAnnotation.class);
     }
 
@@ -126,7 +139,8 @@ public class ReadabilityAnnotator implements Annotator {
      * to perform.  For example, the POS annotator will return
      * "tokenize", "ssplit".
      */
-    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+    @Override
+    public Set<Class<? extends CoreAnnotation>> requires() {
         return Collections.unmodifiableSet(new ArraySet<>(Arrays.asList(
                 CoreAnnotations.PartOfSpeechAnnotation.class,
                 CoreAnnotations.TokensAnnotation.class,
