@@ -96,6 +96,14 @@ public class TintPipeline {
         return documentDate;
     }
 
+    public Properties getProps() {
+        return props;
+    }
+
+    public void setProps(Properties props) {
+        this.props = props;
+    }
+
     public void setDocumentDate(String documentDate) {
         this.documentDate = documentDate;
     }
