@@ -137,8 +137,11 @@ public class TintPipeline {
         Annotation annotation = runRaw(text, pipeline);
 
         switch (format) {
-            case CONLL:
+            case CONLLU:
                 CoNLLUOutputter.conllUPrint(annotation, outputStream, pipeline);
+                break;
+            case CONLL:
+                CoNLLOutputter.conllPrint(annotation, outputStream, pipeline);
                 break;
             case READABLE:
                 TextOutputter.prettyPrint(annotation, outputStream, pipeline);

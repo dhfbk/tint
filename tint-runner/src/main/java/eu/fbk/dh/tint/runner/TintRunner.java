@@ -21,7 +21,7 @@ public class TintRunner {
     private static final Logger LOGGER = LoggerFactory.getLogger(TintRunner.class);
 
     public static enum OutputFormat {
-        READABLE, JSON, XML, CONLL, NAF, TEXTPRO, TOKEN
+        READABLE, JSON, XML, CONLL, CONLLU, NAF, TEXTPRO, TOKEN
     }
 
     public static void main(String[] args) {

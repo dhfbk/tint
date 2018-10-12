@@ -119,11 +119,12 @@ public abstract class ItalianReadability extends Readability {
         int index = haystack.indexOf(needle);
         while (index >= 0) {
             try {
-                String afterChar = haystack.substring(index + needle.length(), index + needle.length());
+                String afterChar = haystack.substring(index + needle.length(), index + needle.length() + 1);
                 if (!afterChar.matches("\\w+")) {
                     ret.add(index);
                 }
             } catch (Exception e) {
+                ret.add(index);
                 // ignore
             }
             index = haystack.indexOf(needle, index + 1);
@@ -151,8 +152,7 @@ public abstract class ItalianReadability extends Readability {
             return;
         }
 
-        DescriptionForm descriptionForm = new DescriptionForm(
-                beginOffset, endOffset, glossarioEntry);
+        DescriptionForm descriptionForm = new DescriptionForm(beginOffset, endOffset, glossarioEntry);
 
         forms.put(beginOffset, descriptionForm);
     }

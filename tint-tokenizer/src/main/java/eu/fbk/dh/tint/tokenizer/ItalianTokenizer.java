@@ -16,11 +16,14 @@
 
 package eu.fbk.dh.tint.tokenizer;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.process.CoreLabelTokenFactory;
 import eu.fbk.dh.tint.tokenizer.token.CharacterTable;
 import eu.fbk.dh.tint.tokenizer.token.Token;
 import eu.fbk.dh.tint.tokenizer.token.TokenGroup;
+import eu.fbk.utils.core.CommandLine;
 import eu.fbk.utils.core.PropertiesUtils;
 import org.ahocorasick.trie.Emit;
 import org.ahocorasick.trie.Trie;
@@ -346,9 +349,18 @@ public class ItalianTokenizer {
         List<List<CoreLabel>> ret = new ArrayList<>();
         List<CoreLabel> temp = new ArrayList<>();
 
+//        System.out.println(text);
+//        System.out.println(newlineIsSentenceBreak);
+//        System.out.println(tokenizeOnlyOnSpace);
+//        System.out.println(ssplitOnlyOnNewLine);
+
         int index = 0;
 
         if (tokenizeOnlyOnSpace) {
+
+            // This part does not work
+            /// 1. Adjust indexes
+            /// 2. Add abbreviations
 
             int nextStart = 0;
             boolean lastIsWhitespace = true;
@@ -369,6 +381,8 @@ public class ItalianTokenizer {
                         CoreLabel clToken = factory.makeToken(word, word, nextStart, j - nextStart);
                         clToken.setIndex(++index);
 
+                        temp.add(clToken);
+
                         if (newlineIsSentenceBreak && newLineCount > 0) {
                             if (temp.size() > 0) {
                                 ret.add(temp);
@@ -376,8 +390,6 @@ public class ItalianTokenizer {
                                 temp = new ArrayList<>();
                             }
                         }
-
-                        temp.add(clToken);
 
                         if (!ssplitOnlyOnNewLine) {
                             if (word.length() == 1 && sentenceChars.contains((int) word.charAt(0))) {
@@ -474,6 +486,11 @@ public class ItalianTokenizer {
 
             boolean postpone = false;
 
+//            for (Token token : tokens) {
+//                System.out.println(token);
+//            }
+//            System.out.println(sentenceChars);
+
             for (int i = 0; i < tokens.size(); i++) {
                 Token token = tokens.get(i);
                 boolean merging = false;
@@ -554,7 +571,7 @@ public class ItalianTokenizer {
                 if (start == null) {
                     start = token.getStart();
                 } else {
-                    newLines.remove(token.getEnd() + 1);
+//                    newLines.remove(token.getEnd() + 1);
                 }
 
                 int finish = token.getEnd();
@@ -611,39 +628,40 @@ public class ItalianTokenizer {
 
         ItalianTokenizer tokenizer = new ItalianTokenizer();
 
-//        byte[] file = Files.readAllBytes((new File("/Users/alessio/Desktop/milano.txt")).toPath());
-//        String text = new String(file);
-        String text = "Clinton in testa nei sondaggi dopo l’«assoluzione» dell’Fbi sull’uso di un server di posta privato quando era Segretario di stato.";
-//        text = "``Determinato, pronto a «fare tutto il necessario per mantenere la stabilità dei prezzi».''"
-//                + " Ma anche allarmato per come le conseguenze del referendum britannico minacciano l’economia e i mercati europei."
-//                + " Sono nato nel 200 S.p.A."
-//                + " Il mio indirizzo e-mail è alessio@apnetwork.it."
-//                + " Il blog è http://www.ziorufus.it e mi piace molto.";
-//        text = "Questo è un test per una sigla qualsiasi tipo a.B.C. che non ha senso.";
-//        text = "Milano (/miˈlano/ ascolta[?·info], in milanese: Milan[4], /miˈlãː/[5]) è una città italiana di 1 346 153 abitanti[2], capoluogo dell'omonima città metropolitana e della regione Lombardia, secondo comune italiano per numero di abitanti, tredicesimo comune dell'Unione europea e diciannovesimo del continente e, con l'agglomerato urbano, quarta area metropolitana più popolata d'Europa dopo Londra, Madrid e Parigi[6].\n"
-//                + "\n"
-//                + "Fondata dagli Insubri all'inizio del VI secolo a.C.[7], fu conquistata dai Romani nel 222 a.C.";
+        try {
+            final CommandLine cmd = CommandLine
+                    .parser()
+                    .withName("./tint-tokenizer")
+                    .withHeader("Tint tokenizer")
+                    .withOption("i", "input", "Input file", "FILE", CommandLine.Type.FILE_EXISTING, true, false, true)
+                    .withLogger(LoggerFactory.getLogger("eu.fbk")).parse(argv);
 
-//        System.out.println(text);
+            File inputFile = cmd.getOptionValue("input", File.class);
+            String text = Files.toString(inputFile, Charsets.UTF_8);
 
-        long time = System.currentTimeMillis();
-        List<List<CoreLabel>> sentences = tokenizer.parse(text, true, true, true);
-        time = System.currentTimeMillis() - time;
+            long time = System.currentTimeMillis();
+            List<List<CoreLabel>> sentences = tokenizer.parse(text, true, false, false);
+            time = System.currentTimeMillis() - time;
 
-        for (int i = 0; i < Math.min(10, sentences.size()); i++) {
-            List<CoreLabel> sentence = sentences.get(i);
-            for (CoreLabel token : sentence) {
-                System.out.println(token.word() + " -- " + token.originalText() + " -- " + token.beginPosition());
+            for (List<CoreLabel> sentence : sentences) {
+                StringBuffer sentenceText = new StringBuffer();
 
+                for (CoreLabel token : sentence) {
+                    sentenceText.append(token.originalText()).append("|");
+                }
+
+                System.out.println(sentenceText.toString().trim());
             }
-            System.out.println();
+
+            int sentenceSize = sentences.size();
+            int lastTokenIndex = sentences.get(sentenceSize - 1).get(sentences.get(sentenceSize - 1).size() - 1).index();
+            System.out.println("Length: " + text.length());
+            System.out.println("Time: " + time);
+            System.out.println("Sentences: " + sentenceSize);
+            System.out.println("Tokens: " + lastTokenIndex);
+        } catch (Exception e) {
+            CommandLine.fail(e);
         }
 
-        int sentenceSize = sentences.size();
-        int lastTokenIndex = sentences.get(sentenceSize - 1).get(sentences.get(sentenceSize - 1).size() - 1).index();
-        System.out.println("Length: " + text.length());
-        System.out.println("Time: " + time);
-        System.out.println("Sentences: " + sentenceSize);
-        System.out.println("Tokens: " + lastTokenIndex);
     }
 }

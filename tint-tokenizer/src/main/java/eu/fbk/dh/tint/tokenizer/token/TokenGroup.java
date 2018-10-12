@@ -54,4 +54,14 @@ public class TokenGroup {
         return newLines;
     }
 
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("TokenGroup{").append("\n");
+        for (Token token : support) {
+            buffer.append(" ").append(token.toString()).append("\n");
+        }
+    buffer.append("}");
+        return buffer.toString();
+    }
 }
