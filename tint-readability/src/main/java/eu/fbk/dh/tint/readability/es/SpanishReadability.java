@@ -70,6 +70,17 @@ abstract class SpanishReadability extends Readability {
         super("es", annotation, localProperties);
         hyphenator = new Hyphenator("es", "es", 1, 1);
         model = SpanishReadabilityModel.getInstance(globalProperties, localProperties);
+
+        minYellowValues.put("ttrValue", 0.549);
+        maxYellowValues.put("ttrValue", 0.719);
+        minValues.put("ttrValue", 0.0);
+        maxValues.put("ttrValue", 1.0);
+
+        minYellowValues.put("density", 0.566);
+        maxYellowValues.put("density", 0.566);
+        minValues.put("density", 0.0);
+        maxValues.put("density", 1.0);
+
     }
 
     @Override public void addingContentWord(CoreLabel token) {
@@ -89,6 +100,7 @@ abstract class SpanishReadability extends Readability {
             level1WordSize++;
             token.set(ReadabilityAnnotations.DifficultyLevelAnnotation.class, 1);
         }
+
 //        System.out.println("Adding content word (lemma): " + lemma);
 //        System.out.println(model.getLevel1Lemmas().contains(lemma));
 //        System.out.println(model.getLevel2Lemmas().contains(lemma));

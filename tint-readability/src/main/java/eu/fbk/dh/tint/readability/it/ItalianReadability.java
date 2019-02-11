@@ -21,7 +21,7 @@ import java.util.*;
 public abstract class ItalianReadability extends Readability {
 
     @JSONExclude ItalianReadabilityModel model;
-    @JSONExclude int level1WordSize = 0, level2WordSize = 0, level3WordSize = 0;
+    int level1WordSize = 0, level2WordSize = 0, level3WordSize = 0;
 
     @JSONExclude StringBuilder lemmaBuffer = new StringBuilder();
     @JSONExclude StringBuilder tokenBuffer = new StringBuilder();
@@ -180,7 +180,7 @@ public abstract class ItalianReadability extends Readability {
     }
 
     @Override public void addingEasyWord(CoreLabel token) {
-
+        token.set(ReadabilityAnnotations.EasyWord.class, true);
     }
 
     @Override public void addingWord(CoreLabel token) {

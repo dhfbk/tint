@@ -8,6 +8,7 @@ import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
+import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.dh.tint.readability.es.SpanishReadabilityModel;
 import eu.fbk.dh.tint.verb.VerbAnnotations;
@@ -29,8 +30,9 @@ import java.util.*;
  */
 public abstract class Readability {
 
-    public static Integer DEFAULT_TTR_LIMIT = 1000;
-    @JSONExclude private int ttrLimit;
+    public static Integer DEFAULT_TTR_LIMIT = 100;
+    @JSONExclude
+    private int ttrLimit;
 
     private String language = null;
     private int contentWordSize = 0, contentEasyWordSize = 0, wordCount = 0;
@@ -64,23 +66,31 @@ public abstract class Readability {
         return hyphenWordCount;
     }
 
-    @JSONExclude protected HashSet<String> contentPosList = new HashSet<>();
-    @JSONExclude protected HashSet<String> simplePosList = new HashSet<>();
-    @JSONExclude protected HashSet<String> nonWordPosList = new HashSet<>();
+    @JSONExclude
+    protected HashSet<String> contentPosList = new HashSet<>();
+    @JSONExclude
+    protected HashSet<String> simplePosList = new HashSet<>();
+    @JSONExclude
+    protected HashSet<String> nonWordPosList = new HashSet<>();
 
     protected HashMap<String, String> genericPosDescription = new HashMap<>();
     protected HashMap<String, String> posDescription = new HashMap<>();
 
-    @JSONExclude boolean useGenericForContent = true;
-    @JSONExclude boolean useGenericForSimple = true;
-    @JSONExclude boolean useGenericForWord = true;
+    @JSONExclude
+    boolean useGenericForContent = true;
+    @JSONExclude
+    boolean useGenericForSimple = true;
+    @JSONExclude
+    boolean useGenericForWord = true;
 
     Set<Integer> tooLongSentences = new HashSet<>();
     FrequencyHashSet<String> posStats = new FrequencyHashSet<>();
     FrequencyHashSet<String> genericPosStats = new FrequencyHashSet<>();
 
-    @JSONExclude protected Hyphenator hyphenator;
-    @JSONExclude protected Annotation annotation;
+    @JSONExclude
+    protected Hyphenator hyphenator;
+    @JSONExclude
+    protected Annotation annotation;
 
     public Readability(String language, Annotation annotation, Properties localProperties) {
         this.language = language;
@@ -102,20 +112,81 @@ public abstract class Readability {
                 continue;
             }
 
-            if (i >= ttrLimit) {
+            if (ttrLimit > 0 && i >= ttrLimit) {
                 break;
             }
             String tokenText = token.originalText().toLowerCase();
             ttr.add(tokenText);
             i++;
         }
-//        List<Integer> deeps = new ArrayList<>();
+
         List<Integer> propositions = new ArrayList<>();
 
         Integer coordinates = 0;
         Integer subordinates = 0;
 
         List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+
+        if (language.equals("en")) {
+            for (int sentIndex = 0; sentIndex < sentences.size(); sentIndex++) {
+
+                int sentSubordinates = 0;
+                int sentCoordinates = 0;
+                int auxAnnotations = 0;
+                int verbAnnotations = 0;
+
+                CoreMap sentence = sentences.get(sentIndex);
+                SemanticGraph semanticGraph = sentence
+                        .get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
+                try {
+                    for (SemanticGraphEdge edge : semanticGraph.edgeListSorted()) {
+                        switch (edge.getRelation().getShortName()) {
+                            case "aux":
+                            case "auxpass":
+                                auxAnnotations++;
+                                break;
+                            case "mark":
+                            case "acl:relcl":
+//                        case "xcomp":
+                                sentSubordinates++;
+                                break;
+                        }
+
+                    }
+                } catch (Exception e) {
+                    // continue
+                }
+
+                for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+                    String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                    if (pos.startsWith("V") || pos.startsWith("M")) {
+                        verbAnnotations++;
+                    }
+                }
+
+                verbAnnotations -= auxAnnotations;
+                propositions.add(verbAnnotations);
+                sentCoordinates = Math.max(0, verbAnnotations - sentSubordinates);
+
+//                System.out.println(verbAnnotations);
+//                System.out.println(sentCoordinates);
+//                System.out.println(sentSubordinates);
+
+                Integer sentTotal = sentCoordinates + sentSubordinates;
+
+                coordinates += sentCoordinates;
+                subordinates += sentSubordinates;
+
+                Double sentSubordinateRatio = 0.0;
+
+                if (sentTotal > 0) {
+                    sentSubordinateRatio = (1.0 * sentSubordinates) / sentTotal;
+                }
+
+                sentence.set(ReadabilityAnnotations.SubordinateRatioAnnotation.class, sentSubordinateRatio);
+            }
+        }
+
         for (int sentIndex = 0; sentIndex < sentences.size(); sentIndex++) {
             CoreMap sentence = sentences.get(sentIndex);
 
@@ -133,13 +204,33 @@ public abstract class Readability {
                     // ignored
                 }
             }
-//            deeps.add(depth);
             deeps.put(sentIndex, depth);
-            sentence.set(ReadabilityAnnotations.SentenceDepth.class, depth);
-            
+            sentence.set(ReadabilityAnnotations.SentenceDepthAnnotation.class, depth);
+
+            Integer contentWords = 0;
+            Integer literalWords = 0;
+            for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+                if (token.get(ReadabilityAnnotations.ContentWord.class)) {
+                    contentWords++;
+                }
+                if (token.get(ReadabilityAnnotations.LiteralWord.class)) {
+                    literalWords++;
+                }
+            }
+            Double sentDensity = (1.0 * contentWords) / literalWords;
+            sentence.set(ReadabilityAnnotations.DensityAnnotation.class, sentDensity);
+            sentence.set(ReadabilityAnnotations.ContentWordsAnnotation.class, contentWords);
+            sentence.set(ReadabilityAnnotations.LiteralWordsAnnotation.class, literalWords);
+
             if (!sentence.containsKey(VerbAnnotations.VerbsAnnotation.class)) {
                 continue;
             }
+            if (!language.equals("it")) {
+                continue;
+            }
+
+            Integer sentCoordinates = 0;
+            Integer sentSubordinates = 0;
 
             List<VerbMultiToken> verbs = sentence.get(VerbAnnotations.VerbsAnnotation.class);
             propositions.add(verbs.size());
@@ -156,12 +247,26 @@ public abstract class Readability {
                 }
 
                 if (parentIDs.values().contains("conj")) {
-                    coordinates++;
+                    sentCoordinates++;
                     continue;
                 }
 
-                subordinates++;
+                sentSubordinates++;
             }
+
+            Integer sentTotal = sentCoordinates + sentSubordinates;
+
+            coordinates += sentCoordinates;
+            subordinates += sentSubordinates;
+
+            Double sentSubordinateRatio = 0.0;
+
+            if (sentTotal > 0) {
+                sentSubordinateRatio = (1.0 * sentSubordinates) / sentTotal;
+            }
+
+            sentence.set(ReadabilityAnnotations.SubordinateRatioAnnotation.class, sentSubordinateRatio);
+
         }
 
         ttrValue = 1.0 * ttr.size() / (1.0 * i);
@@ -468,7 +573,8 @@ public abstract class Readability {
         return density;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "Readability{" +
                 "language='" + language + '\'' +
                 ", contentWordSize=" + contentWordSize +

@@ -16,6 +16,14 @@ public class ReadabilityAnnotations {
         }
     }
 
+    @JSONLabel("easyWord")
+    public static class EasyWord implements CoreAnnotation<Boolean> {
+
+        public Class<Boolean> getType() {
+            return Boolean.class;
+        }
+    }
+
     @JSONLabel("literalWord")
     public static class LiteralWord implements CoreAnnotation<Boolean> {
 
@@ -25,10 +33,26 @@ public class ReadabilityAnnotations {
     }
 
     @JSONLabel("depth")
-    public static class SentenceDepth implements CoreAnnotation<Integer> {
+    public static class SentenceDepthAnnotation implements CoreAnnotation<Integer> {
 
         public Class<Integer> getType() {
             return Integer.class;
+        }
+    }
+
+    @JSONLabel("subordinateRatio")
+    public static class SubordinateRatioAnnotation implements CoreAnnotation<Double> {
+
+        public Class<Double> getType() {
+            return Double.class;
+        }
+    }
+
+    @JSONLabel("density")
+    public static class DensityAnnotation implements CoreAnnotation<Double> {
+
+        public Class<Double> getType() {
+            return Double.class;
         }
     }
 
@@ -50,6 +74,22 @@ public class ReadabilityAnnotations {
 
     @JSONLabel("difficultyLevel")
     public static class DifficultyLevelAnnotation implements CoreAnnotation<Integer> {
+
+        public Class<Integer> getType() {
+            return Integer.class;
+        }
+    }
+
+    @JSONLabel("contentWords")
+    public static class ContentWordsAnnotation implements CoreAnnotation<Integer> {
+
+        public Class<Integer> getType() {
+            return Integer.class;
+        }
+    }
+
+    @JSONLabel("literalWords")
+    public static class LiteralWordsAnnotation implements CoreAnnotation<Integer> {
 
         public Class<Integer> getType() {
             return Integer.class;

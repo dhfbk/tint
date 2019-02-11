@@ -72,25 +72,25 @@ abstract class EnglishReadability extends Readability {
 //        System.out.println(model.getLevel2Lemmas().size());
 //        System.out.println(model.getLevel3Lemmas().size());
 
-//        minYellowValues.put("propositionsAvg", 2.038);
-//        maxYellowValues.put("propositionsAvg", 2.699);
-//        minValues.put("propositionsAvg", 0.0);
-//        maxValues.put("propositionsAvg", 5.0);
-//
-//        minYellowValues.put("wordsAvg", 9.845);
-//        maxYellowValues.put("wordsAvg", 10.153);
-//        minValues.put("wordsAvg", 0.0);
-//        maxValues.put("wordsAvg", 12.0);
+        minYellowValues.put("propositionsAvg", 2.038);
+        maxYellowValues.put("propositionsAvg", 2.699);
+        minValues.put("propositionsAvg", 0.0);
+        maxValues.put("propositionsAvg", 5.0);
 
-//        minYellowValues.put("coordinateRatio", 0.737);
-//        maxYellowValues.put("coordinateRatio", 0.675);
-//        minValues.put("coordinateRatio", 0.0);
-//        maxValues.put("coordinateRatio", 1.0);
+        minYellowValues.put("wordsAvg", 9.845);
+        maxYellowValues.put("wordsAvg", 10.153);
+        minValues.put("wordsAvg", 0.0);
+        maxValues.put("wordsAvg", 12.0);
 
-//        minYellowValues.put("subordinateRatio", 0.263);
-//        maxYellowValues.put("subordinateRatio", 0.325);
-//        minValues.put("subordinateRatio", 0.0);
-//        maxValues.put("subordinateRatio", 1.0);
+        minYellowValues.put("coordinateRatio", 0.737);
+        maxYellowValues.put("coordinateRatio", 0.675);
+        minValues.put("coordinateRatio", 0.0);
+        maxValues.put("coordinateRatio", 1.0);
+
+        minYellowValues.put("subordinateRatio", 0.263);
+        maxYellowValues.put("subordinateRatio", 0.325);
+        minValues.put("subordinateRatio", 0.0);
+        maxValues.put("subordinateRatio", 1.0);
 
         minYellowValues.put("deepAvg", 5.292);
         maxYellowValues.put("deepAvg", 6.532);

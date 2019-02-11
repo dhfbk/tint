@@ -63,6 +63,13 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <classifier>models</classifier>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Remove me! -->
         <!--<dependency>-->
             <!--<groupId>eu.fbk.dh</groupId>-->
