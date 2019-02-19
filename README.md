@@ -6,6 +6,8 @@ dependency parsing, entity linking.
 The tool is based on [Stanford CoreNLP](http://stanfordnlp.github.io/CoreNLP/), and can be used
 as a stand-alone tool, included as a Java library or as a REST API service.
 
+Tint is a research-oriented project, and it is consantly under development. To compile the last version of Tint, you can [read this short tutorial](https://github.com/dhfbk/tint/wiki/Compiling-the-develop-version-of-Tint).
+
 If you are using Tint in your project, please cite the following paper:
 
 ```
