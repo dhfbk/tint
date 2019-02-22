@@ -29,6 +29,7 @@ public class DigiLemmaAnnotator implements Annotator {
 
     private boolean useGuesser, extractFeatures;
     private GuessModel guesser;
+    private String guessModel;
 
     static private final String auxiliary = "VA";
     static private final String verb = "V";
@@ -81,10 +82,11 @@ public class DigiLemmaAnnotator implements Annotator {
     public DigiLemmaAnnotator(String annotatorName, Properties prop) {
         useGuesser = PropertiesUtils.getBoolean(prop.getProperty(annotatorName + ".use_guesser"), DEFAULT_USE_GUESSER);
         extractFeatures = PropertiesUtils.getBoolean(prop.getProperty(annotatorName + ".extract_features"), DEFAULT_FEATURES);
+        guessModel = prop.getProperty(annotatorName + ".guess_model");
 
         //todo: the model is unique
         if (useGuesser || extractFeatures) {
-            guesser = GuessModelInstance.getInstance().getModel();
+            guesser = GuessModelInstance.getInstance(guessModel).getModel();
         }
     }
 

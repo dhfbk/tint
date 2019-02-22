@@ -13,14 +13,14 @@ public class GuessModelInstance {
     private GuessModel model;
     private static final Logger LOGGER = LoggerFactory.getLogger(GuessModelInstance.class);
 
-    private GuessModelInstance() {
+    private GuessModelInstance(String guessModelPath) {
         LOGGER.info("Loading guess model for lemma");
-        model = new GuessModel();
+        model = new GuessModel(guessModelPath);
     }
 
-    public static GuessModelInstance getInstance() {
+    public static GuessModelInstance getInstance(String guessModelPath) {
         if (instance == null) {
-            instance = new GuessModelInstance();
+            instance = new GuessModelInstance(guessModelPath);
         }
 
         return instance;

@@ -1,6 +1,7 @@
 package eu.fbk.dh.tint.digimorph.annotator;
 
 import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 import com.google.common.io.Resources;
 import com.googlecode.concurrenttrees.radix.ConcurrentRadixTree;
 import com.googlecode.concurrenttrees.radix.RadixTree;
@@ -11,6 +12,7 @@ import org.mapdb.SortedTableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -221,6 +223,10 @@ public class GuessModel {
     }
 
     public GuessModel() {
+        this(null);
+    }
+
+    public GuessModel(String guessModelPath) {
 
         HashMap<String, String> uMap = new HashMap<>();
         uMap.put("v", "VERB");
@@ -232,9 +238,15 @@ public class GuessModel {
         allowedTags.add("ADJ");
         allowedTags.add("ADV");
 
-        URL adjResource = Resources.getResource("feat-mappings.txt");
+        List<String> lines;
         try {
-            for (String line : Resources.readLines(adjResource, Charsets.UTF_8)) {
+            if (guessModelPath == null) {
+                URL adjResource = Resources.getResource("feat-mappings.txt");
+                lines = Resources.readLines(adjResource, Charsets.UTF_8);
+            } else {
+                lines = Files.readLines(new File(guessModelPath), Charsets.UTF_8);
+            }
+            for (String line : lines) {
                 line = line.trim();
                 if (line.length() == 0) {
                     continue;
