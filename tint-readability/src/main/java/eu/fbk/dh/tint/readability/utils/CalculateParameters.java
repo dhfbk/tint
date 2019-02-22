@@ -51,7 +51,7 @@ public class CalculateParameters {
             }
             sums.putIfAbsent("main", 0.0d);
 
-            int count = 0;
+//            int count = 0;
 
             Map<String, File> list = new HashMap<>();
             list.put("easy", inputEasyFolder);
@@ -94,17 +94,17 @@ public class CalculateParameters {
                     v += readability.getDensity() * tokenCount;
                     sums.put("density", v);
 
-                    count += tokenCount;
+//                    count += tokenCount;
                 }
 
-                System.out.println(entry.getKey());
-                System.out.println(count);
-                for (String key : sums.keySet()) {
-                    System.out.println(key);
-                    System.out.println(sums.get(key));
-                    System.out.println(sums.get(key) / (count * 1.0));
-                }
-                System.out.println();
+//                System.out.println(entry.getKey());
+//                System.out.println(count);
+//                for (String key : sums.keySet()) {
+//                    System.out.println(key);
+//                    System.out.println(sums.get(key));
+//                    System.out.println(sums.get(key) / (count * 1.0));
+//                }
+//                System.out.println();
 
 
             }
