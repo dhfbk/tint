@@ -48,6 +48,16 @@ abstract class GalicianReadability extends Readability {
         super("gl", annotation, localProperties);
         hyphenator = new Hyphenator("es", "es", 1, 1);
         model = GalicianReadabilityModel.getInstance(globalProperties, localProperties);
+
+        minYellowValues.put("ttrValue", 0.549);
+        maxYellowValues.put("ttrValue", 0.719);
+        minValues.put("ttrValue", 0.0);
+        maxValues.put("ttrValue", 1.0);
+
+        minYellowValues.put("density", 0.566);
+        maxYellowValues.put("density", 0.566);
+        minValues.put("density", 0.0);
+        maxValues.put("density", 1.0);
     }
 
     @Override public void addingContentWord(CoreLabel token) {
