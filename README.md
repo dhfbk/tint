@@ -1,7 +1,5 @@
 [![Build Status](https://travis-ci.org/dhfbk/tint.svg?branch=master)](https://travis-ci.org/dhfbk/tint)
 
-[![codecov](https://codecov.io/gh/dhfbk/tint/branch/master/graph/badge.svg)](https://codecov.io/gh/dhfbk/tint)
-
 # TINT
 
 **Tint** (The Italian NLP Tool) is a Java-based pipeline for Natural Language Processing (NLP) in Italian.
