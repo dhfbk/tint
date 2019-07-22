@@ -1,4 +1,4 @@
 language: java
 sudo: false
 install: true
-script: ./mvnw clean install
+script: mvn clean install
