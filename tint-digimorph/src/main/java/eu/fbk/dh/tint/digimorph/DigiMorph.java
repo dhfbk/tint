@@ -80,6 +80,12 @@ public class DigiMorph {
      * @version 0.42a
      */
 
+    synchronized public List<String> getMorphology(String token) {
+        List<String> list = new ArrayList<>();
+        list.add(token);
+        return getMorphology(list);
+    }
+
     synchronized public List<String> getMorphology(List<String> token_list) {
         List<String> results = new LinkedList<>();
         int threadsNumber = Runtime.getRuntime().availableProcessors();
@@ -156,8 +162,7 @@ public class DigiMorph {
                 URL resource = Resources.getResource("morph-it_dh_extended.txt");
                 CharSource charSource = Resources.asCharSource(resource, Charsets.UTF_8);
                 in = charSource.openStream();
-            }
-            else {
+            } else {
                 in = new FileReader(csv_path);
             }
             Iterable<CSVRecord> records = CSVFormat.TDF.withIgnoreEmptyLines().withQuote('≥').parse(in);

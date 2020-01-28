@@ -106,7 +106,12 @@ public class DigiLemmaAnnotator implements Annotator {
                     boolean isGuessable = guessMap.containsKey(pos);
 
                     boolean chosenGuess = true;
-                    String chosenLemma = morph_fatures[0];
+                    String chosenLemma;
+                    if (morph_fatures.length > 0) {
+                        chosenLemma = morph_fatures[0];
+                    } else {
+                        chosenLemma = token.originalText();
+                    }
                     String chosenMorpho = "";
                     String chosenFeaturesString = "";
                     SortedSetMultimap<String, String> chosenFeatures = TreeMultimap.create();
@@ -227,8 +232,7 @@ public class DigiLemmaAnnotator implements Annotator {
                             try {
                                 useMorpho = chosenMorpho.split("/")[0];
                                 useMorpho = useMorpho.split("~")[1];
-                            }
-                            catch (Exception e) {
+                            } catch (Exception e) {
                                 // ignored
                             }
                         }

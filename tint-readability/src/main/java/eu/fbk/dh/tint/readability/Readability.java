@@ -210,10 +210,10 @@ public abstract class Readability {
             Integer contentWords = 0;
             Integer literalWords = 0;
             for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
-                if (token.get(ReadabilityAnnotations.ContentWord.class)) {
+                if (token.get(ReadabilityAnnotations.ContentWord.class) != null && token.get(ReadabilityAnnotations.ContentWord.class)) {
                     contentWords++;
                 }
-                if (token.get(ReadabilityAnnotations.LiteralWord.class)) {
+                if (token.get(ReadabilityAnnotations.LiteralWord.class) != null && token.get(ReadabilityAnnotations.LiteralWord.class)) {
                     literalWords++;
                 }
             }

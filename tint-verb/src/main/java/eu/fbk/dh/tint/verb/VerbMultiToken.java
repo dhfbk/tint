@@ -202,6 +202,14 @@ public class VerbMultiToken {
         }
     }
 
+    public String getString() {
+        StringBuilder buffer = new StringBuilder();
+        for (CoreLabel token : tokens) {
+            buffer.append(token.originalText()).append(" ");
+        }
+        return buffer.toString().trim();
+    }
+
     @Override
     public String toString() {
         return "VerbMultiToken{" +
