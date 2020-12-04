@@ -249,6 +249,11 @@ public class DigiLemmaAnnotator implements Annotator {
                     if (extractFeatures) {
                         token.set(CoreAnnotations.FeaturesAnnotation.class, chosenFeaturesString);
                         token.set(CustomAnnotations.FeaturesAnnotation.class, chosenFeatures.asMap());
+                        HashMap<String, String> conlluFeats = new HashMap<>();
+                        for (String key : chosenFeatures.keySet()) {
+                            conlluFeats.put(key, String.join(",", chosenFeatures.get(key)));
+                        }
+                        token.set(CoreAnnotations.CoNLLUFeats.class, conlluFeats);
                     }
                 }
             }
