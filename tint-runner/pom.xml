@@ -87,6 +87,12 @@
         <!-- Annotators -->
         <dependency>
             <groupId>eu.fbk.fcw</groupId>
+            <artifactId>fcw-pos</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.fbk.fcw</groupId>
             <artifactId>fcw-depparse</artifactId>
             <version>${fcw.version}</version>
             <scope>runtime</scope>
