@@ -48,12 +48,6 @@
             <version>${tint.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>eu.fbk.fcw</groupId>
-            <artifactId>fcw-udpipe-api</artifactId>
-            <version>${fcw.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <properties>
