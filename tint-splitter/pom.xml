@@ -23,9 +23,9 @@
             <version>${corenlp-version}</version>
         </dependency>
         <dependency>
-            <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-runner</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-corenlp</artifactId>
+            <version>3.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
