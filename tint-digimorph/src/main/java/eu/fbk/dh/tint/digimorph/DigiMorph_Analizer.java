@@ -33,6 +33,7 @@ public class DigiMorph_Analizer implements Callable<List<String>> {
         add("zoo");
         add("circon");
         add("circom");
+        add("circum");
         add("in");
     }};
 
@@ -48,10 +49,6 @@ public class DigiMorph_Analizer implements Callable<List<String>> {
         add("si");
         add("ne");
         add("gli");
-        add("glielo");
-        add("gliela");
-        add("gliele");
-        add("gliene");
     }};
 
     //middle suffix
@@ -63,6 +60,7 @@ public class DigiMorph_Analizer implements Callable<List<String>> {
         add("te");
         add("ve");
         add("se");
+        add("glie");
     }};
 
     public DigiMorph_Analizer(List<String> tokens, SortedTableMap<String, String> map) {
@@ -198,7 +196,7 @@ public class DigiMorph_Analizer implements Callable<List<String>> {
                 // System.out.println(possible_verb);
 
                 for (String v : verb_items) {
-                    if (v.contains("+infinito") || v.contains("impr") || v.contains("part") || v.contains("gerundio")) {
+                    if (v.contains("+infinito") || v.contains("impr") || v.contains("indic") || v.contains("part") || v.contains("gerundio")) {
                         infiniti.add(" " + v);
                         inf += " " + v;
                     }
