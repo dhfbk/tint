@@ -151,6 +151,12 @@
             <version>${fcw.version}</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-splitter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <profiles>

@@ -98,6 +98,7 @@
         <module>tint-simplifier</module>
         <module>tint-verb</module>
         <module>tint-derived</module>
+        <module>tint-splitter</module>
     </modules>
 
     <properties>
