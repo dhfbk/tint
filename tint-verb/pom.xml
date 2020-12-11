@@ -42,12 +42,6 @@
             <artifactId>utils-gson</artifactId>
             <version>${tint.utils.version}</version>
         </dependency>
-        <dependency>
-            <groupId>eu.fbk.dh</groupId>
-            <artifactId>tint-tokenizer</artifactId>
-            <version>${tint.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <properties>
