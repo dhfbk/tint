@@ -12,7 +12,7 @@ public class SplitterTest {
 
         pipeline.load();
 
-        Annotation annotation = pipeline.runRaw("Andrea vuole una tazza di latte, gliela portiamo?");
+        Annotation annotation = pipeline.runRaw("Il ratto delle sabine è stato terribile.");
 
         try {
             String s = JSONOutputter.jsonPrint(annotation);
