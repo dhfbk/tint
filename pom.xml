@@ -91,7 +91,6 @@
         <module>tint-tokenizer</module>
         <module>tint-runner</module>
         <module>tint-readability</module>
-        <!--<module>tint-kd-annotator</module>-->
         <module>tint-heideltime-annotator</module>
         <module>tint-models</module>
         <module>tint-inverse-digimorph</module>
@@ -107,6 +106,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <tint.utils.version>3.2-SNAPSHOT</tint.utils.version>
+        <kd.version>1.0-SNAPSHOT</kd.version>
         <fcw.version>0.1.1</fcw.version>
         <tint.version>${project.version}</tint.version>
         <corenlp-version>4.2.0</corenlp-version>

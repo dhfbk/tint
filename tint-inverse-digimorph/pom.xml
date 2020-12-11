@@ -24,11 +24,6 @@
             <artifactId>stanford-corenlp</artifactId>
             <version>${corenlp-version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>eu.fbk.dh</groupId>-->
-            <!--<artifactId>tint-digimorph</artifactId>-->
-            <!--<version>${tint.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>eu.fbk.dh</groupId>
             <artifactId>tint-digimorph-annotator</artifactId>
