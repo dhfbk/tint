@@ -29,16 +29,18 @@ public class ItalianStandardReadability extends ItalianReadability {
 
         genericPosDescription.put("A", "Adjective");
         genericPosDescription.put("B", "Adverb");
-        genericPosDescription.put("S", "Noun");
-        genericPosDescription.put("E", "Preposition");
         genericPosDescription.put("C", "Conjunction");
-        genericPosDescription.put("P", "Pronoun");
-        genericPosDescription.put("R", "Determiner");
+        genericPosDescription.put("D", "Determiner");
+        genericPosDescription.put("E", "Preposition");
         genericPosDescription.put("F", "Punctuation");
-        genericPosDescription.put("D", "Adj. (det.)");
+        genericPosDescription.put("I", "Interjection");
+        genericPosDescription.put("N", "Number");
+        genericPosDescription.put("P", "Pronoun");
+        genericPosDescription.put("R", "Determiner (article)");
+        genericPosDescription.put("S", "Noun");
+        genericPosDescription.put("T", "Predeterminer");
         genericPosDescription.put("V", "Verb");
         genericPosDescription.put("X", "Other");
-        genericPosDescription.put("N", "Number");
 
     }
 
