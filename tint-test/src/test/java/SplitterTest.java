@@ -12,15 +12,15 @@ public class SplitterTest {
 
         pipeline.load();
 
-        Annotation annotation = pipeline.runRaw("Il ratto delle sabine è stato terribile.");
+        Annotation annotation = pipeline.runRaw("Franz Kafka è uno dei primi , nella \" Lettera al padre \" , a restituirci , con un' immagine alquanto inedita , questo tipo di rapporto .");
 
         try {
             String s = JSONOutputter.jsonPrint(annotation);
             System.out.println(s);
             CoNLLUOutputter.conllUPrint(annotation, System.out);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

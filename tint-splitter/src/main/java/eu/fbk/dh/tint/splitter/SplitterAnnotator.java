@@ -18,7 +18,7 @@ import java.util.*;
 
 public class SplitterAnnotator implements Annotator {
 
-    public Map<String, Pair<String, String>> preps = new HashMap<>();
+    public Map<String, String[]> preps = new HashMap<>();
     public static Set<String> clitics = new HashSet<>();
 
     static {
@@ -52,7 +52,7 @@ public class SplitterAnnotator implements Annotator {
                 if (parts.length < 3) {
                     continue;
                 }
-                preps.put(parts[0], new Pair<>(parts[1], parts[2]));
+                preps.put(parts[0], new String[]{parts[1], parts[2]});
             }
 
             reader.close();
@@ -85,45 +85,11 @@ public class SplitterAnnotator implements Annotator {
 
                     // Preposizione articolata
                     if (pos.equals("E+RD")) {
-                        Pair<String, String> prepsPair = preps.get(token.originalText().toLowerCase());
-                        boolean isFirst = true;
-                        List<Object> asList = prepsPair.asList();
-                        for (int i = 0; i < asList.size(); i++) {
-                            Object prepsPairObj = asList.get(i);
-                            String word = (String) prepsPairObj;
-
-                            CoreLabel newToken = new CoreLabel(token);
-
-                            newToken.setWord(word);
-                            newToken.setValue(word);
-                            newToken.setIndex(sentenceIndex);
-                            newToken.setSentIndex(sentNum);
-
-                            newToken.set(CoreAnnotations.PartOfSpeechAnnotation.class, parts[i]);
-                            if (isCoarse) {
-                                newToken.set(CoreAnnotations.CoarseTagAnnotation.class, uparts[i]);
-                                newToken.set(CustomAnnotations.UPosAnnotation.class, uparts[i]);
-                            }
-
-                            newToken.set(CoreAnnotations.MWTTokenTextAnnotation.class, token.word());
-
-                            // set that this is a multi-word-token
-                            newToken.setIsMWT(true);
-
-                            // set that this is the first word derived from a multi-word-token
-                            // e.g. when "des" is split into "de" and "les", "de" would be true
-                            if (isFirst) {
-                                newToken.setIsMWTFirst(true);
-                                newToken.set(CoreAnnotations.CoNLLUTokenSpanAnnotation.class,
-                                        new IntPair(token.index(), token.index() + parts.length - 1));
-                                isFirst = false;
-                            } else {
-                                newToken.setIsMWTFirst(false);
-                            }
-
-                            // add finalized token
-                            newSentenceTokens.add(newToken);
-                            finalDocumentTokens.add(newToken);
+                        String[] textparts = preps.get(token.originalText().toLowerCase());
+                        for (int i = 0; i < textparts.length; i++) {
+                            String word = textparts[i];
+                            addToken(word, token, sentenceIndex, sentNum, parts[i], uparts[i], isCoarse,
+                                    i == 0, parts.length, newSentenceTokens, finalDocumentTokens);
                             sentenceIndex++;
                         }
                     }
@@ -132,7 +98,7 @@ public class SplitterAnnotator implements Annotator {
                     else {
 
                         String text = token.originalText().toLowerCase();
-                        String textparts[] = new String[parts.length];
+                        String[] textparts = new String[parts.length];
 
                         // get all POS parts but first, in reverse order
                         for (int i = parts.length - 1; i > 0; i--) {
@@ -146,45 +112,15 @@ public class SplitterAnnotator implements Annotator {
                         }
                         textparts[0] = text;
 
-                        boolean isFirst = true;
                         for (int i = 0, textpartsLength = textparts.length; i < textpartsLength; i++) {
                             String word = textparts[i];
-                            CoreLabel newToken = new CoreLabel(token);
-
-                            newToken.setWord(word);
-                            newToken.setValue(word);
-                            newToken.setIndex(sentenceIndex);
-                            newToken.setSentIndex(sentNum);
-
-                            newToken.set(CoreAnnotations.PartOfSpeechAnnotation.class, parts[i]);
-                            if (isCoarse) {
-                                newToken.set(CoreAnnotations.CoarseTagAnnotation.class, uparts[i]);
-                                newToken.set(CustomAnnotations.UPosAnnotation.class, uparts[i]);
-                            }
-
-                            newToken.set(CoreAnnotations.MWTTokenTextAnnotation.class, token.word());
-
-                            // set that this is a multi-word-token
-                            newToken.setIsMWT(true);
-
-                            // set that this is the first word derived from a multi-word-token
-                            // e.g. when "des" is split into "de" and "les", "de" would be true
-                            if (isFirst) {
-                                newToken.setIsMWTFirst(true);
-                                newToken.set(CoreAnnotations.CoNLLUTokenSpanAnnotation.class,
-                                        new IntPair(token.index(), token.index() + parts.length - 1));
-                                isFirst = false;
-                            } else {
-                                newToken.setIsMWTFirst(false);
-                            }
-
-                            // add finalized token
-                            newSentenceTokens.add(newToken);
-                            finalDocumentTokens.add(newToken);
+                            addToken(word, token, sentenceIndex, sentNum, parts[i], uparts[i], isCoarse,
+                                    i == 0, parts.length, newSentenceTokens, finalDocumentTokens);
                             sentenceIndex++;
                         }
 
                     }
+
                 } else {
                     token.setIndex(sentenceIndex);
                     token.setIsMWT(false);
@@ -199,6 +135,45 @@ public class SplitterAnnotator implements Annotator {
             sentence.set(CoreAnnotations.TokensAnnotation.class, newSentenceTokens);
             sentNum++;
         }
+
+        annotation.set(CoreAnnotations.TokensAnnotation.class, finalDocumentTokens);
+    }
+
+    private void addToken(String word, CoreLabel token, int sentenceIndex, int sentNum,
+                          String part, String upart, boolean isCoarse, boolean isFirst, int length,
+                          List<CoreLabel> newSentenceTokens, List<CoreLabel> finalDocumentTokens) {
+
+        CoreLabel newToken = new CoreLabel(token);
+
+        newToken.setWord(word);
+        newToken.setValue(word);
+        newToken.setIndex(sentenceIndex);
+        newToken.setSentIndex(sentNum);
+
+        newToken.set(CoreAnnotations.PartOfSpeechAnnotation.class, part);
+        if (isCoarse) {
+            newToken.set(CoreAnnotations.CoarseTagAnnotation.class, upart);
+            newToken.set(CustomAnnotations.UPosAnnotation.class, upart);
+        }
+
+        newToken.set(CoreAnnotations.MWTTokenTextAnnotation.class, token.word());
+
+        // set that this is a multi-word-token
+        newToken.setIsMWT(true);
+
+        // set that this is the first word derived from a multi-word-token
+        // e.g. when "des" is split into "de" and "les", "de" would be true
+        if (isFirst) {
+            newToken.setIsMWTFirst(true);
+            newToken.set(CoreAnnotations.CoNLLUTokenSpanAnnotation.class,
+                    new IntPair(newToken.index(), newToken.index() + length - 1));
+        } else {
+            newToken.setIsMWTFirst(false);
+        }
+
+        // add finalized token
+        newSentenceTokens.add(newToken);
+        finalDocumentTokens.add(newToken);
     }
 
     @Override
