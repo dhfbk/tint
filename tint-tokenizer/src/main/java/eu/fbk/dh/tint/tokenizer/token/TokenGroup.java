@@ -61,7 +61,7 @@ public class TokenGroup {
         for (Token token : support) {
             buffer.append(" ").append(token.toString()).append("\n");
         }
-    buffer.append("}");
+        buffer.append("}");
         return buffer.toString();
     }
 }

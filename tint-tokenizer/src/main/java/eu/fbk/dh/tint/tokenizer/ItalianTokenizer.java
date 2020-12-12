@@ -60,7 +60,6 @@ public class ItalianTokenizer {
      * Logger instance named <code>HardTokenizer</code>.
      */
     static Logger logger = LoggerFactory.getLogger(ItalianTokenizer.class);
-    static Pattern spaceTokenizer = Pattern.compile("\\s+");
 
     private Trie trie;
     private Set<Integer> splittingChars = new HashSet<>();
