@@ -20,7 +20,7 @@ public class TokenizerTest {
         for (List<CoreLabel> sentence : sentences) {
             sentenceText.append(">");
             for (CoreLabel token : sentence) {
-                sentenceText.append(token.originalText()).append("|");
+                sentenceText.append(token.toString()).append("|");
             }
             sentenceText.append("\n");
         }
@@ -39,13 +39,13 @@ public class TokenizerTest {
 
             sentences = tokenizer.parse(text, true, false, false);
 //            System.out.println(getSentence(sentences));
-            assertEquals(sentences.size(), 5);
+            assertEquals(sentences.size(), 7);
             assertEquals(sentences.get(0).size(), 6);
             assertEquals(sentences.get(0).get(5).originalText(), "...");
 
             sentences = tokenizer.parse(text, false, false, false);
 //            System.out.println(getSentence(sentences));
-            assertEquals(sentences.size(), 3);
+            assertEquals(sentences.size(), 5);
             assertEquals(sentences.get(2).size(), 16);
             assertEquals(sentences.get(2).get(7).originalText(), "G.");
 

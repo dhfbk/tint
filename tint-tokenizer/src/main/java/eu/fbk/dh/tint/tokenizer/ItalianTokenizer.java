@@ -357,38 +357,19 @@ public class ItalianTokenizer {
 
         if (tokenizeOnlyOnSpace) {
 
-            // This part does not work
-            /// 1. Adjust indexes
-            /// 2. Add abbreviations
-
-            int nextStart = 0;
-            boolean lastIsWhitespace = true;
-            int newLineCount = 0;
+            StringBuffer buffer = new StringBuffer();
 
             for (int i = 0; i < text.length(); i++) {
                 char currentChar = text.charAt(i);
-                boolean isLast = i == text.length() - 1;
-                if (Character.isWhitespace(currentChar) || isLast) {
-                    if (!lastIsWhitespace) {
-//                        System.out.println("---" + text.substring(nextStart, i) + "---" + newLineCount);
+                boolean isWhitespace = Character.isWhitespace(currentChar);
 
-                        int j = i;
-                        if (isLast) {
-                            j++;
-                        }
-                        String word = text.substring(nextStart, j);
-                        CoreLabel clToken = factory.makeToken(word, word, nextStart, j - nextStart);
+                if (isWhitespace) {
+                    if (buffer.length() > 0) {
+                        String word = buffer.toString();
+                        CoreLabel clToken = factory.makeToken(word, word, i - word.length(), word.length());
                         clToken.setIndex(++index);
 
                         temp.add(clToken);
-
-                        if (newlineIsSentenceBreak && newLineCount > 0) {
-                            if (temp.size() > 0) {
-                                ret.add(temp);
-                                index = 0; // index must be zeroed to meet Stanford policy
-                                temp = new ArrayList<>();
-                            }
-                        }
 
                         if (!ssplitOnlyOnNewLine) {
                             if (word.length() == 1 && sentenceChars.contains((int) word.charAt(0))) {
@@ -398,23 +379,35 @@ public class ItalianTokenizer {
                             }
                         }
 
-                        newLineCount = 0;
+                        buffer = new StringBuffer();
                     }
-                    if (currentChar == '\n') {
-                        newLineCount++;
+
+                    if (currentChar == '\n' && newlineIsSentenceBreak) {
+                        if (temp.size() > 0) {
+                            ret.add(temp);
+                            index = 0; // index must be zeroed to meet Stanford policy
+                            temp = new ArrayList<>();
+                        }
                     }
-                    lastIsWhitespace = true;
-                } else {
-                    if (lastIsWhitespace) {
-                        nextStart = i;
-                    }
-                    lastIsWhitespace = false;
+                    continue;
                 }
+
+                buffer.append(currentChar);
+            }
+
+            // This happens when the last char of the text is different from a whitespace
+            if (buffer.length() > 0) {
+                String word = buffer.toString();
+                CoreLabel clToken = factory.makeToken(word, word, text.length() - word.length(), word.length());
+                clToken.setIndex(++index);
+
+                temp.add(clToken);
             }
 
             if (temp.size() > 0) {
                 ret.add(temp);
             }
+
         } else {
             HashMap<Integer, Integer> mergeList = new HashMap<>();
 
