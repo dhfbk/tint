@@ -27,8 +27,9 @@ public class ItalianTokenizerAnnotator implements Annotator {
 
         newlineIsSentenceBreak = PropertiesUtils
                 .getBoolean(props.getProperty(annotatorName + ".newlineIsSentenceBreak"), true);
-        tokenizeOnlyOnSpace = PropertiesUtils
-                .getBoolean(props.getProperty(annotatorName + ".tokenizeOnlyOnSpace"), false);
+        tokenizeOnlyOnSpace =
+                PropertiesUtils.getBoolean(props.getProperty(annotatorName + ".tokenizeOnlyOnSpace"), false)
+                || PropertiesUtils.getBoolean(props.getProperty(annotatorName + ".whitespace"), false);
         ssplitOnlyOnNewLine = PropertiesUtils
                 .getBoolean(props.getProperty(annotatorName + ".ssplitOnlyOnNewLine"), false);
         if (ssplitOnlyOnNewLine) {
