@@ -6,7 +6,7 @@ import eu.fbk.dh.tint.runner.TintPipeline;
 public class TokenizerTest {
 
     public static void main(String[] args) {
-        String text = "Terri Schiavo, la donna che in questi giorni aveva tenuto col fiato sospeso gli Stati Uniti d'America e causato numerosi dibattiti sul diritto a morire, è morta oggi a St. Petersburg (Florida), alle 9:00 locali, 13 giorni dopo il distacco dai macchinari che la tenevano in vita.";
+        String text = "Secondo i dati ufficiali pubblicati alle 9:00, Mahmoud Ahmadinejad avrebbe ricevuto il 63% delle preferenze, con Musavi fermo al 34%.";
         TintPipeline pipeline = new TintPipeline();
         pipeline.setProperty("annotators", "ita_toksent");
         pipeline.load();
