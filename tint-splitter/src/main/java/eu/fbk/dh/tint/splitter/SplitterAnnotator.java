@@ -8,6 +8,8 @@ import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.ArraySet;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.IntPair;
+import edu.stanford.nlp.util.StringUtils;
+import eu.fbk.utils.core.PropertiesUtils;
 import eu.fbk.utils.corenlp.CustomAnnotations;
 
 import java.io.BufferedReader;
@@ -19,6 +21,7 @@ public class SplitterAnnotator implements Annotator {
 
     public Map<String, String[]> preps = new HashMap<>();
     public static Set<String> clitics = new HashSet<>();
+    private Boolean preserveCasing;
 
     static {
         clitics.add("li");
@@ -40,7 +43,9 @@ public class SplitterAnnotator implements Annotator {
         clitics.add("glie");
     }
 
-    public SplitterAnnotator(String annotatorName, Properties prop) {
+    public SplitterAnnotator(String annotatorName, Properties props) {
+        preserveCasing = PropertiesUtils
+                .getBoolean(props.getProperty(annotatorName + ".preserveCasing"), true);
         try {
             InputStream stream = this.getClass().getResourceAsStream("/preps.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -85,6 +90,7 @@ public class SplitterAnnotator implements Annotator {
                     // Preposizione articolata
                     if (pos.equals("E+RD")) {
                         String[] textparts = preps.get(token.originalText().toLowerCase());
+                        textparts = applyCase(textparts, token.originalText());
                         for (int i = 0; i < textparts.length; i++) {
                             String word = textparts[i];
                             addToken(word, token, sentenceIndex, sentNum, parts[i], uparts[i], isCoarse,
@@ -98,6 +104,7 @@ public class SplitterAnnotator implements Annotator {
 
                         String text = token.originalText().toLowerCase();
                         String[] textparts = new String[parts.length];
+                        textparts = applyCase(textparts, token.originalText());
 
                         // get all POS parts but first, in reverse order
                         for (int i = parts.length - 1; i > 0; i--) {
@@ -136,6 +143,17 @@ public class SplitterAnnotator implements Annotator {
         }
 
         annotation.set(CoreAnnotations.TokensAnnotation.class, finalDocumentTokens);
+    }
+
+    private String[] applyCase(String[] textparts, String text) {
+        if (preserveCasing) {
+            if (StringUtils.isAllUpperCase(text)) {
+                textparts = Arrays.stream(textparts).map(t -> t.toUpperCase()).toArray(String[]::new);
+            } else if (StringUtils.isTitleCase(text)) {
+                textparts[0] = StringUtils.toTitleCase(textparts[0]);
+            }
+        }
+        return textparts;
     }
 
     private void addToken(String word, CoreLabel token, int sentenceIndex, int sentNum,
