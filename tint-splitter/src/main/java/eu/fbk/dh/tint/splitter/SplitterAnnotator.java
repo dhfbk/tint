@@ -8,7 +8,6 @@ import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.util.ArraySet;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.IntPair;
-import edu.stanford.nlp.util.Pair;
 import eu.fbk.utils.corenlp.CustomAnnotations;
 
 import java.io.BufferedReader;
