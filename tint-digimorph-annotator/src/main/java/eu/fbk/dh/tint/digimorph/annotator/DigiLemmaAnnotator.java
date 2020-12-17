@@ -243,6 +243,10 @@ public class DigiLemmaAnnotator implements Annotator {
                         }
                     }
 
+                    if (chosenLemma.equals("[PUNCT]")) {
+                        chosenLemma = token.originalText();
+                    }
+
                     token.set(CoreAnnotations.LemmaAnnotation.class, chosenLemma);
                     token.set(DigiMorphAnnotations.SelectedMorphoAnnotation.class, chosenMorpho);
                     token.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, chosenGuess);
