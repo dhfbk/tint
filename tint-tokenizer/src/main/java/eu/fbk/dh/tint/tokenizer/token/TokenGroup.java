@@ -19,6 +19,9 @@ public class TokenGroup {
     private Set<Integer> newLines = new HashSet<>();
 
     public void addToken(Token token) {
+        if (!token.hasSpaceBefore() && support.size() > 0) {
+            support.get(support.size() - 1).setHasSpaceAfter(false);
+        }
         support.add(token);
         startIndexes.put(token.getStart(), token);
         endIndexes.put(token.getEnd(), token);

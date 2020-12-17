@@ -12,16 +12,25 @@ public class Token extends Extent {
     private static final long serialVersionUID = 1024396602591514749L;
 
     private String form, normForm;
-    private boolean preceedBySpace = false;
+    private boolean hasSpaceBefore = false;
+    private boolean hasSpaceAfter = true;
 
     private int spaceOffset;
 
-    public boolean isPreceedBySpace() {
-        return preceedBySpace;
+    public boolean hasSpaceBefore() {
+        return hasSpaceBefore;
     }
 
-    public void setPreceedBySpace(boolean preceedBySpace) {
-        this.preceedBySpace = preceedBySpace;
+    public boolean hasSpaceAfter() {
+        return hasSpaceAfter;
+    }
+
+    public void setHasSpaceBefore(boolean hasSpaceBefore) {
+        this.hasSpaceBefore = hasSpaceBefore;
+    }
+
+    public void setHasSpaceAfter(boolean hasSpaceAfter) {
+        this.hasSpaceAfter = hasSpaceAfter;
     }
 
     public int getSpaceOffset() {
@@ -36,9 +45,8 @@ public class Token extends Extent {
         this.start = token.getStart();
         this.end = token.getEnd();
         this.spaceOffset = token.getSpaceOffset();
-//        this.form = token.getForm();
-//        this.normForm = token.getNormForm();
-//        this.afterNewLine = token.isAfterNewLine();
+        this.hasSpaceBefore = token.hasSpaceBefore();
+        this.hasSpaceAfter = token.hasSpaceAfter();
     }
 
     public Token(int start, int end, String form, String normForm) {
@@ -80,7 +88,7 @@ public class Token extends Extent {
         return form + "\t"
                 + spaceOffset + "\t"
                 + (spaceOffset + super.getStart()) + "\t"
-                + isPreceedBySpace() + "\t"
+                + hasSpaceBefore() + "\t"
                 + super.toString();
     }
 

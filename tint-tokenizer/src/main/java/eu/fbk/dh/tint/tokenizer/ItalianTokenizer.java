@@ -18,6 +18,7 @@ package eu.fbk.dh.tint.tokenizer;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
+import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.process.CoreLabelTokenFactory;
 import eu.fbk.dh.tint.tokenizer.token.CharacterTable;
@@ -275,7 +276,8 @@ public class ItalianTokenizer {
             group.addNewLine(start);
             isNewLine.setValue(false);
         }
-        token.setPreceedBySpace(start - lastToken.getEnd() > 0);
+        boolean hasSpaceBefore = start - lastToken.getEnd() > 0;
+        token.setHasSpaceBefore(hasSpaceBefore);
 
         int spaces = 0;
         if (lastToken != null && lastToken.getEnd() != 0) {
@@ -478,11 +480,6 @@ public class ItalianTokenizer {
 
             boolean postpone = false;
 
-//            for (Token token : tokens) {
-//                System.out.println(token);
-//            }
-//            System.out.println(sentenceChars);
-
             for (int i = 0; i < tokens.size(); i++) {
                 Token token = tokens.get(i);
                 boolean merging = false;
@@ -523,8 +520,8 @@ public class ItalianTokenizer {
                     // Example: l'economia
                     if (prevToken != null &&
                             nextToken != null &&
-                            !token.isPreceedBySpace() &&
-                            !nextToken.isPreceedBySpace() &&
+                            !token.hasSpaceBefore() &&
+                            !nextToken.hasSpaceBefore() &&
                             Character.isLetter(prevToken.getForm().charAt(prevToken.getForm().length() - 1)) &&
                             Character.isLetter(nextToken.getForm().charAt(0))) {
                         CoreLabel lastToken = temp.get(temp.size() - 1);
@@ -536,7 +533,7 @@ public class ItalianTokenizer {
                     // Example: sta'
                     else if (prevToken != null &&
                             Character.isLetter(prevToken.getForm().charAt(prevToken.getForm().length() - 1)) &&
-                            !token.isPreceedBySpace() &&
+                            !token.hasSpaceBefore() &&
                             (nextToken == null || !nextToken.getNormForm().equals("'"))) {
                         CoreLabel lastToken = temp.get(temp.size() - 1);
                         start = lastToken.beginPosition();
@@ -547,7 +544,7 @@ public class ItalianTokenizer {
                     // Example: 'ndrangheta
                     else if (nextToken != null &&
                             Character.isLetter(nextToken.getForm().charAt(0)) &&
-                            !nextToken.isPreceedBySpace() &&
+                            !nextToken.hasSpaceBefore() &&
                             (prevToken == null || !prevToken.getNormForm().equals("'"))) {
                         merging = true;
                     }
@@ -585,6 +582,11 @@ public class ItalianTokenizer {
                 }
 
                 CoreLabel clToken = factory.makeToken(normWord, word, start, finish - start);
+                String misc = "_";
+                if (!token.hasSpaceAfter()) {
+                    misc = "SpaceAfter=No";
+                }
+                clToken.set(CoreAnnotations.CoNLLUMisc.class, misc);
                 clToken.setIndex(++index);
                 temp.add(clToken);
 
@@ -592,7 +594,7 @@ public class ItalianTokenizer {
                     if (postpone || (word.length() == 1 && sentenceChars.contains((int) word.charAt(0)))) {
                         postpone = false;
                         if (
-                                (nextToken != null && nextToken.getNormForm().equals("\"") && !nextToken.isPreceedBySpace()) ||
+                                (nextToken != null && nextToken.getNormForm().equals("\"") && !nextToken.hasSpaceBefore()) ||
                                         (nextToken != null && nextToken.getForm().length() == 1 && sentenceChars.contains((int) nextToken.getForm().charAt(0)))
                                 ) {
                             postpone = true;
