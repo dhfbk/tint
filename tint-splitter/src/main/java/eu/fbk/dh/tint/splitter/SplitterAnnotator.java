@@ -90,12 +90,22 @@ public class SplitterAnnotator implements Annotator {
                     // Preposizione articolata
                     if (pos.equals("E+RD")) {
                         String[] textparts = preps.get(token.originalText().toLowerCase());
-                        textparts = applyCase(textparts, token.originalText());
-                        for (int i = 0; i < textparts.length; i++) {
-                            String word = textparts[i];
-                            addToken(word, token, sentenceIndex, sentNum, parts[i], uparts[i], isCoarse,
-                                    i == 0, parts.length, newSentenceTokens, finalDocumentTokens);
+                        if (textparts == null) {
+                            token.setIndex(sentenceIndex);
+                            token.setIsMWT(false);
+                            token.setIsMWTFirst(false);
+                            newSentenceTokens.add(token);
+                            finalDocumentTokens.add(token);
                             sentenceIndex++;
+                        }
+                        else {
+                            textparts = applyCase(textparts, token.originalText());
+                            for (int i = 0; i < textparts.length; i++) {
+                                String word = textparts[i];
+                                addToken(word, token, sentenceIndex, sentNum, parts[i], uparts[i], isCoarse,
+                                        i == 0, parts.length, newSentenceTokens, finalDocumentTokens);
+                                sentenceIndex++;
+                            }
                         }
                     }
 
