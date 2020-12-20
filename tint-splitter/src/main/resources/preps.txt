@@ -1,6 +1,7 @@
 del,di,il
 dello,di,lo
 dell',di,l'
+dell’,di,l'
 della,di,la
 dei,di,i
 de',di,i

@@ -100,7 +100,6 @@ public class DigiLemmaAnnotator implements Annotator {
                 List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
                 for (CoreLabel token : tokens) {
 
-
                     String[] morph_fatures = token.get(DigiMorphAnnotations.MorphoAnnotation.class).split("\\s+");
                     String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
                     boolean isGuessable = guessMap.containsKey(pos);

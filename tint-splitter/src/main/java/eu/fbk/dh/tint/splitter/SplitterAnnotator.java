@@ -104,7 +104,6 @@ public class SplitterAnnotator implements Annotator {
 
                         String text = token.originalText().toLowerCase();
                         String[] textparts = new String[parts.length];
-                        textparts = applyCase(textparts, token.originalText());
 
                         // get all POS parts but first, in reverse order
                         for (int i = parts.length - 1; i > 0; i--) {
@@ -117,6 +116,12 @@ public class SplitterAnnotator implements Annotator {
                             }
                         }
                         textparts[0] = text;
+                        textparts = applyCase(textparts, token.originalText());
+
+                        // Remove null elements from array
+                        textparts = Arrays.stream(textparts)
+                                .filter(s -> (s != null && s.length() > 0))
+                                .toArray(String[]::new);
 
                         for (int i = 0, textpartsLength = textparts.length; i < textpartsLength; i++) {
                             String word = textparts[i];
