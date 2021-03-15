@@ -99,6 +99,7 @@
         <module>tint-derived</module>
         <module>tint-splitter</module>
         <module>tint-test</module>
+        <module>tint-depechemood</module>
     </modules>
 
     <properties>
