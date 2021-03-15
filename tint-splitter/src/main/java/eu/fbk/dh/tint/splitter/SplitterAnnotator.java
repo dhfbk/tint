@@ -89,23 +89,17 @@ public class SplitterAnnotator implements Annotator {
 
                     // Preposizione articolata
                     if (pos.equals("E+RD")) {
-                        String[] textparts = preps.get(token.originalText().toLowerCase());
-                        if (textparts == null) {
-                            token.setIndex(sentenceIndex);
-                            token.setIsMWT(false);
-                            token.setIsMWTFirst(false);
-                            newSentenceTokens.add(token);
-                            finalDocumentTokens.add(token);
-                            sentenceIndex++;
-                        }
-                        else {
-                            textparts = applyCase(textparts, token.originalText());
-                            for (int i = 0; i < textparts.length; i++) {
-                                String word = textparts[i];
-                                addToken(word, token, sentenceIndex, sentNum, parts[i], uparts[i], isCoarse,
-                                        i == 0, parts.length, newSentenceTokens, finalDocumentTokens);
-                                sentenceIndex++;
+                        String[] textparts = Arrays.copyOf(preps.get(token.originalText().toLowerCase()), preps.get(token.originalText().toLowerCase()).length);
+                        applyCase(textparts, token.originalText());
+                        for (int i = 0; i < textparts.length; i++) {
+                            String word = textparts[i];
+                            String upart = null;
+                            if (isCoarse) {
+                                upart = uparts[i];
                             }
+                            addToken(word, token, sentenceIndex, sentNum, parts[i], upart, isCoarse,
+                                    i == 0, parts.length, newSentenceTokens, finalDocumentTokens);
+                            sentenceIndex++;
                         }
                     }
 
@@ -126,7 +120,7 @@ public class SplitterAnnotator implements Annotator {
                             }
                         }
                         textparts[0] = text;
-                        textparts = applyCase(textparts, token.originalText());
+                        applyCase(textparts, token.originalText());
 
                         // Remove null elements from array
                         textparts = Arrays.stream(textparts)
@@ -135,7 +129,11 @@ public class SplitterAnnotator implements Annotator {
 
                         for (int i = 0, textpartsLength = textparts.length; i < textpartsLength; i++) {
                             String word = textparts[i];
-                            addToken(word, token, sentenceIndex, sentNum, parts[i], uparts[i], isCoarse,
+                            String upart = null;
+                            if (isCoarse) {
+                                upart = uparts[i];
+                            }
+                            addToken(word, token, sentenceIndex, sentNum, parts[i], upart, isCoarse,
                                     i == 0, parts.length, newSentenceTokens, finalDocumentTokens);
                             sentenceIndex++;
                         }
@@ -160,15 +158,18 @@ public class SplitterAnnotator implements Annotator {
         annotation.set(CoreAnnotations.TokensAnnotation.class, finalDocumentTokens);
     }
 
-    private String[] applyCase(String[] textparts, String text) {
+    private void applyCase(String[] textparts, String text) {
         if (preserveCasing) {
             if (StringUtils.isAllUpperCase(text)) {
-                textparts = Arrays.stream(textparts).map(t -> t.toUpperCase()).toArray(String[]::new);
+                String[] newTextparts = Arrays.stream(textparts).map(String::toUpperCase).toArray(String[]::new);
+                for (int i = 0; i < newTextparts.length; i++) {
+                    String part = newTextparts[i];
+                    textparts[i] = part;
+                }
             } else if (StringUtils.isTitleCase(text)) {
                 textparts[0] = StringUtils.toTitleCase(textparts[0]);
             }
         }
-        return textparts;
     }
 
     private void addToken(String word, CoreLabel token, int sentenceIndex, int sentNum,
