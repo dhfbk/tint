@@ -10,12 +10,14 @@
         <abbreviation>dom.</abbreviation>
         <abbreviation>gen.</abbreviation>
         <abbreviation>feb.</abbreviation>
+        <abbreviation>febb.</abbreviation>
         <abbreviation>apr.</abbreviation>
         <abbreviation>mag.</abbreviation>
         <abbreviation>giu.</abbreviation>
         <abbreviation>lug.</abbreviation>
         <abbreviation>ago.</abbreviation>
         <abbreviation>set.</abbreviation>
+        <abbreviation>sett.</abbreviation>
         <abbreviation>ott.</abbreviation>
         <abbreviation>nov.</abbreviation>
         <abbreviation>dic.</abbreviation>
@@ -305,7 +307,9 @@
         <!-- emoticons -->
         <expression merge="1" find="([:;=]-?[\)\(DOP])"/>
         <!-- Dash-connected words -->
-        <expression merge="1" find="(\w+-\w+)"/>
+        <expression merge="1" find="(\w+(-\w+)+)"/>
+        <!-- Time -->
+        <expression merge="1" find="(\d+(:\d+)+)"/>
         <!-- Hashtags and users -->
         <expression merge="1" find="(#\w+)"/>
         <expression merge="1" find="(@\w+)"/>
