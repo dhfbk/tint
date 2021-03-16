@@ -116,15 +116,17 @@ public class TintPipeline {
         load();
 
         Annotation annotation = new Annotation(text);
+
+        //todo: fix this using a property
         LOGGER.debug("Text: {}", text);
         if (documentDate == null) {
             documentDate = Instant.now().toString().substring(0, 10);
         }
-
         annotation.set(CoreAnnotations.DocDateAnnotation.class, documentDate);
         if (pipeline == null) {
             pipeline = new StanfordCoreNLP(props);
         }
+
         pipeline.annotate(annotation);
         annotation.set(TimingAnnotations.TimingAnnotation.class, pipeline.timingInformation());
 
