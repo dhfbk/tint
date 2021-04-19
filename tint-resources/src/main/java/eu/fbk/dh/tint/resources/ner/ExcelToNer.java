@@ -79,8 +79,8 @@ public class ExcelToNer {
 
         try {
             Properties properties = new Properties();
-//            properties.setProperty("annotators", "ita_toksent, pos, ita_upos, ita_splitter");
-            properties.setProperty("annotators", "ita_toksent, pos, ita_upos");
+            properties.setProperty("annotators", "ita_toksent, pos, ita_upos, ita_splitter");
+//            properties.setProperty("annotators", "ita_toksent, pos, ita_upos");
             properties.setProperty("ita_toksent.newlineIsSentenceBreak", "1");
             properties.setProperty("ita_toksent.tokenizeOnlyOnSpace", "1");
             properties.setProperty("ita_toksent.ssplitOnlyOnNewLine", "1");
