@@ -5,7 +5,7 @@ import eu.fbk.utils.corenlp.outputters.JSONOutputter;
 public class DefaultTest {
 
     public static void main(String[] args) {
-        String text = "Dischetti levatrucco make up MAREB in cotone idrofilo 100PZ  Dischetti per togliete il trucco Materiale 100% cotone idrofilo Quantità 100 dischetti Codice:210140.";
+        String text = "Franz Kafka, nato a Praga il 3 luglio 1883, è uno dei primi , nella \" Lettera al padre \" , a restituirci , con un' immagine alquanto inedita , questo tipo di rapporto .";
         TintPipeline pipeline = new TintPipeline();
         pipeline.load();
 
