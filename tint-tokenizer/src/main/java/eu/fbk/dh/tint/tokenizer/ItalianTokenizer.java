@@ -69,6 +69,7 @@ public class ItalianTokenizer {
     private Map<Integer, String> normalizedChars = new HashMap<>();
     private Map<String, String> normalizedStrings = new HashMap<>();
     private Map<Pattern, Integer> expressions = new HashMap<>();
+    private Set<Pattern> skipSentenceOnly = new HashSet<>();
 
     public enum NewLineType {
         NOBR,
@@ -179,16 +180,21 @@ public class ItalianTokenizer {
                 String regExp = element.getAttribute("find");
                 boolean merge = PropertiesUtils.getBoolean(element.getAttribute("merge"), true);
                 Integer group = PropertiesUtils.getInteger(element.getAttribute("get"), 1);
-                if (merge) {
-                    if (!first) {
-                        b.append("|");
-                    }
-                    b.append(regExp);
-                    count++;
-                    first = false;
+                boolean sso = PropertiesUtils.getBoolean(element.getAttribute("skipSentenceOnly"), false);
+                if (sso) {
+                    skipSentenceOnly.add(Pattern.compile(regExp));
                 } else {
-                    expressions.put(Pattern.compile(regExp), group);
-                    count++;
+                    if (merge) {
+                        if (!first) {
+                            b.append("|");
+                        }
+                        b.append(regExp);
+                        count++;
+                        first = false;
+                    } else {
+                        expressions.put(Pattern.compile(regExp), group);
+                        count++;
+                    }
                 }
             }
             b.append(")");
@@ -203,7 +209,7 @@ public class ItalianTokenizer {
                 Node item = nl.item(i);
                 String abbr = item.getTextContent();
                 abbr = getString(tokenArray(abbr));
-                builder.addKeyword(" " + abbr + " ");
+                builder.addKeyword(" " + abbr);
                 count++;
             }
             logger.info("Loaded {} abbreviations", count);
@@ -427,6 +433,16 @@ public class ItalianTokenizer {
 
         } else {
             HashMap<Integer, Integer> mergeList = new HashMap<>();
+            Set<Integer> doNotBreak = new HashSet<>();
+
+            for (Pattern expression : skipSentenceOnly) {
+                Matcher matcher = expression.matcher(text);
+                while (matcher.find()) {
+                    for (int i = matcher.start(); i < matcher.end(); i++) {
+                        doNotBreak.add(i);
+                    }
+                }
+            }
 
             for (Pattern expression : expressions.keySet()) {
                 int get = expressions.get(expression);
@@ -513,10 +529,6 @@ public class ItalianTokenizer {
                 }
 
                 newLines.removeAll(toRemove);
-//                System.out.println(newLines);
-//                System.out.println(tokenGroup.getNewLines());
-//                System.out.println(allNewLines);
-//                System.out.println(toRemove);
             }
 
             for (int i = 0; i < tokens.size(); i++) {
@@ -601,6 +613,7 @@ public class ItalianTokenizer {
                     normWord = word.substring(0, word.length() - 1) + "'";
                 }
 
+                // Break sentences on newlines
                 if (newLineType != NewLineType.NOBR && newLines.contains(start)) {
                     if (temp.size() > 0) {
                         ret.add(temp);
@@ -618,18 +631,21 @@ public class ItalianTokenizer {
                 clToken.setIndex(++index);
                 temp.add(clToken);
 
+                // Break sentences on sentenceChars
                 if (!ssplitOnlyOnNewLine) {
-                    if (postpone || (word.length() == 1 && sentenceChars.contains((int) word.charAt(0)))) {
-                        postpone = false;
-                        if (
-                                (nextToken != null && nextToken.getNormForm().equals("\"") && !nextToken.hasSpaceBefore()) ||
-                                        (nextToken != null && nextToken.getForm().length() == 1 && sentenceChars.contains((int) nextToken.getForm().charAt(0)))
-                        ) {
-                            postpone = true;
-                        } else {
-                            ret.add(temp);
-                            index = 0; // index must be zeroed to meet Stanford policy
-                            temp = new ArrayList<>();
+                    if (!doNotBreak.contains(token.getStart())) {
+                        if (postpone || (word.length() == 1 && sentenceChars.contains((int) word.charAt(0)))) {
+                            postpone = false;
+                            if (
+                                    (nextToken != null && nextToken.getNormForm().equals("\"") && !nextToken.hasSpaceBefore()) ||
+                                            (nextToken != null && nextToken.getForm().length() == 1 && sentenceChars.contains((int) nextToken.getForm().charAt(0)))
+                            ) {
+                                postpone = true;
+                            } else {
+                                ret.add(temp);
+                                index = 0; // index must be zeroed to meet Stanford policy
+                                temp = new ArrayList<>();
+                            }
                         }
                     }
                 }
