@@ -62,7 +62,13 @@ public class TintServer {
             tintHandler.setRequestURIEncoding(Charset.forName("UTF-8"));
 
             httpServer.getServerConfiguration().setSessionTimeoutSeconds(timeoutInSeconds);
-            httpServer.getServerConfiguration().setMaxPostSize(4194304);
+            httpServer.getServerConfiguration().setMaxPostSize(Long.MAX_VALUE);
+            httpServer.getServerConfiguration().setMaxBufferedPostSize(Integer.MAX_VALUE);
+            for (NetworkListener listener : httpServer.getListeners()) {
+                listener.setMaxFormPostSize(Integer.MAX_VALUE);
+                listener.setMaxBufferedPostSize(Integer.MAX_VALUE);
+            }
+
             httpServer.getServerConfiguration().addHttpHandler(tintHandler, "/tint");
 
             httpServer.start();
