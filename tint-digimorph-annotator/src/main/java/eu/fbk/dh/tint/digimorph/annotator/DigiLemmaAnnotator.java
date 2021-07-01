@@ -11,7 +11,6 @@ import edu.stanford.nlp.util.ArraySet;
 import edu.stanford.nlp.util.CoreMap;
 import eu.fbk.fcw.utils.ConllToken;
 import eu.fbk.utils.core.PropertiesUtils;
-import eu.fbk.utils.corenlp.CustomAnnotations;
 
 import java.util.*;
 
@@ -251,7 +250,8 @@ public class DigiLemmaAnnotator implements Annotator {
                     token.set(DigiMorphAnnotations.GuessedLemmaAnnotation.class, chosenGuess);
                     if (extractFeatures) {
                         token.set(CoreAnnotations.FeaturesAnnotation.class, chosenFeaturesString);
-                        token.set(CustomAnnotations.FeaturesAnnotation.class, chosenFeatures.asMap());
+//                        Map<String, Collection<String>> chosenFeaturesMap = new HashMap<>(chosenFeatures.asMap());
+//                        token.set(CustomAnnotations.FeaturesAnnotation.class, chosenFeaturesMap);
                         HashMap<String, String> conlluFeats = new HashMap<>();
                         for (String key : chosenFeatures.keySet()) {
                             conlluFeats.put(key, String.join(",", chosenFeatures.get(key)));

@@ -57,11 +57,6 @@
             <artifactId>fcw-utils</artifactId>
             <version>${fcw.version}</version>
         </dependency>
-        <dependency>
-            <groupId>eu.fbk.utils</groupId>
-            <artifactId>utils-corenlp</artifactId>
-            <version>${tint.utils.version}</version>
-        </dependency>
     </dependencies>
 
     <properties>
