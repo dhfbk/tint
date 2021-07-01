@@ -122,6 +122,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>eu.fbk.dh</groupId>
+            <artifactId>tint-readability</artifactId>
+            <version>${tint.version}</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -178,12 +184,6 @@
                     <groupId>eu.fbk.fcw</groupId>
                     <artifactId>fcw-linking</artifactId>
                     <version>${fcw.version}</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>eu.fbk.dh</groupId>
-                    <artifactId>tint-readability</artifactId>
-                    <version>${tint.version}</version>
                     <scope>runtime</scope>
                 </dependency>
                 <dependency>
