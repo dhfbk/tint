@@ -19,22 +19,49 @@ import java.util.*;
 
 public class ItalianTokenizerAnnotator implements Annotator {
 
-    boolean newlineIsSentenceBreak, tokenizeOnlyOnSpace, ssplitOnlyOnNewLine;
+    boolean tokenizeOnlyOnSpace, ssplitOnlyOnNewLine;
+    ItalianTokenizer.NewLineType newLineType;
     ItalianTokenizer tokenizer;
 
     public ItalianTokenizerAnnotator(String annotatorName, Properties props) {
         String modelFile = props.getProperty(annotatorName + ".model", null);
 
-        newlineIsSentenceBreak = PropertiesUtils
+        boolean newlineIsSentenceBreak = PropertiesUtils
                 .getBoolean(props.getProperty(annotatorName + ".newlineIsSentenceBreak"), true);
+        newLineType = newlineIsSentenceBreak ? ItalianTokenizer.NewLineType.SINGLE : ItalianTokenizer.NewLineType.NOBR;
+        if (props.getProperty(annotatorName + ".newlineIsSentenceBreak") != null) {
+            if (props.getProperty(annotatorName + ".newlineIsSentenceBreak").equals("two") ||
+                    props.getProperty(annotatorName + ".newlineIsSentenceBreak").equals("double")) {
+                newLineType = ItalianTokenizer.NewLineType.DOUBLE;
+            } else if (props.getProperty(annotatorName + ".newlineIsSentenceBreak").equals("never")) {
+                newLineType = ItalianTokenizer.NewLineType.NOBR;
+            }
+        }
+
         tokenizeOnlyOnSpace =
                 PropertiesUtils.getBoolean(props.getProperty(annotatorName + ".tokenizeOnlyOnSpace"), false)
-                || PropertiesUtils.getBoolean(props.getProperty(annotatorName + ".whitespace"), false);
+                        || PropertiesUtils.getBoolean(props.getProperty(annotatorName + ".whitespace"), false);
+
+        ItalianTokenizer.NewLineType tmpNewLineType = null;
+        if (props.getProperty(annotatorName + ".ssplitOnlyOnNewLine") != null) {
+            switch (props.getProperty(annotatorName + ".ssplitOnlyOnNewLine")) {
+                case "always":
+                    tmpNewLineType = ItalianTokenizer.NewLineType.SINGLE;
+                    break;
+                case "two":
+                    tmpNewLineType = ItalianTokenizer.NewLineType.DOUBLE;
+                    break;
+                case "never":
+                    tmpNewLineType = ItalianTokenizer.NewLineType.NOBR;
+                    break;
+            }
+        }
+        if (tmpNewLineType != null) {
+            this.newLineType = tmpNewLineType;
+        }
+
         ssplitOnlyOnNewLine = PropertiesUtils
                 .getBoolean(props.getProperty(annotatorName + ".ssplitOnlyOnNewLine"), false);
-        if (ssplitOnlyOnNewLine) {
-            newlineIsSentenceBreak = true;
-        }
 
         File model = null;
         if (modelFile != null) {
@@ -48,14 +75,16 @@ public class ItalianTokenizerAnnotator implements Annotator {
      *
      * @param annotation
      */
-    @Override public void annotate(Annotation annotation) {
+    @Override
+    public void annotate(Annotation annotation) {
         String text = annotation.get(CoreAnnotations.TextAnnotation.class);
         List<List<CoreLabel>> sTokens = tokenizer
-                .parse(text, newlineIsSentenceBreak, tokenizeOnlyOnSpace, ssplitOnlyOnNewLine);
+                .parse(text, newLineType, tokenizeOnlyOnSpace, ssplitOnlyOnNewLine);
         Utils.addBasicAnnotations(annotation, sTokens, text);
     }
 
-    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
+    @Override
+    public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
         return new HashSet<>(Arrays.asList(
                 CoreAnnotations.TextAnnotation.class,
                 CoreAnnotations.TokensAnnotation.class,
@@ -75,7 +104,8 @@ public class ItalianTokenizerAnnotator implements Annotator {
         ));
     }
 
-    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+    @Override
+    public Set<Class<? extends CoreAnnotation>> requires() {
         return Collections.emptySet();
     }
 

@@ -70,6 +70,12 @@ public class ItalianTokenizer {
     private Map<String, String> normalizedStrings = new HashMap<>();
     private Map<Pattern, Integer> expressions = new HashMap<>();
 
+    public enum NewLineType {
+        NOBR,
+        SINGLE,
+        DOUBLE
+    }
+
     CoreLabelTokenFactory factory = new CoreLabelTokenFactory();
 
     public ItalianTokenizer() {
@@ -211,12 +217,11 @@ public class ItalianTokenizer {
 
     public TokenGroup tokenArray(String text) {
 
-        if (text.length() == 0) {
-            return new TokenGroup();
-        }
-
-//        List<Token> list = new ArrayList<Token>();
         TokenGroup tokenGroup = new TokenGroup();
+
+        if (text.length() == 0) {
+            return tokenGroup;
+        }
 
         Character currentChar;
         Character previousChar = null;
@@ -233,6 +238,10 @@ public class ItalianTokenizer {
             currentChar = text.charAt(i);
             isCurrentCharLetterOrDigit = Character.isLetterOrDigit(currentChar);
             isPreviousCharLetterOrDigit = previousChar != null && Character.isLetterOrDigit(previousChar);
+
+            if (newLineSplitting.contains(currentChar.hashCode())) {
+                tokenGroup.addAllNewLine(i - 1);
+            }
 
             if (isCurrentCharLetterOrDigit) {
                 if (!isPreviousCharLetterOrDigit) {
@@ -341,10 +350,10 @@ public class ItalianTokenizer {
 //    }
 
     public List<List<CoreLabel>> parse(String text) {
-        return parse(text, true, false, false);
+        return parse(text, NewLineType.SINGLE, false, false);
     }
 
-    public List<List<CoreLabel>> parse(String text, boolean newlineIsSentenceBreak, boolean tokenizeOnlyOnSpace,
+    public List<List<CoreLabel>> parse(String text, NewLineType newLineType, boolean tokenizeOnlyOnSpace,
                                        boolean ssplitOnlyOnNewLine) {
 
         List<List<CoreLabel>> ret = new ArrayList<>();
@@ -361,6 +370,7 @@ public class ItalianTokenizer {
 
             StringBuffer buffer = new StringBuffer();
 
+            Character previousChar = null;
             for (int i = 0; i < text.length(); i++) {
                 char currentChar = text.charAt(i);
                 boolean isWhitespace = Character.isWhitespace(currentChar);
@@ -384,7 +394,11 @@ public class ItalianTokenizer {
                         buffer = new StringBuffer();
                     }
 
-                    if (currentChar == '\n' && newlineIsSentenceBreak) {
+                    if (
+                            currentChar == '\n' && newLineType == NewLineType.SINGLE
+                                    ||
+                                    (previousChar != null && currentChar == '\n' && previousChar == '\n' && newLineType == NewLineType.DOUBLE)
+                    ) {
                         if (temp.size() > 0) {
                             ret.add(temp);
                             index = 0; // index must be zeroed to meet Stanford policy
@@ -395,6 +409,7 @@ public class ItalianTokenizer {
                 }
 
                 buffer.append(currentChar);
+                previousChar = currentChar;
             }
 
             // This happens when the last char of the text is different from a whitespace
@@ -417,6 +432,11 @@ public class ItalianTokenizer {
                 int get = expressions.get(expression);
                 Matcher matcher = expression.matcher(text);
                 while (matcher.find()) {
+                    if (mergeList.containsKey(matcher.start(get))) {
+                        if (mergeList.get(matcher.start(get)) > matcher.end(get)) {
+                            continue;
+                        }
+                    }
                     mergeList.put(matcher.start(get), matcher.end(get));
                 }
             }
@@ -445,7 +465,7 @@ public class ItalianTokenizer {
                     endOffset++;
                 }
 
-                if (newlineIsSentenceBreak) {
+                if (newLineType != NewLineType.NOBR) {
                     String substring = text.substring(startToken.getStart(), endToken.getEnd());
                     if (substring.contains("\n") || substring.contains("\r")) {
                         continue;
@@ -462,6 +482,7 @@ public class ItalianTokenizer {
             Integer start = null;
 
             Set<Integer> newLines = tokenGroup.getNewLines();
+//            System.out.println(newLines);
 
             // Checking overlapping tokens
             Map<Integer, Integer> moveIds = new HashMap<>();
@@ -479,6 +500,24 @@ public class ItalianTokenizer {
             }
 
             boolean postpone = false;
+
+            if (newLineType == NewLineType.DOUBLE) {
+                int newLineStartIndex = 0;
+                TreeSet<Integer> allNewLines = tokenGroup.getAllNewLines();
+                Set<Integer> toRemove = new HashSet<>();
+                for (Integer newLineIndex : newLines) {
+                    if (allNewLines.subSet(newLineStartIndex, newLineIndex).size() < 2) {
+                        toRemove.add(newLineIndex);
+                    }
+                    newLineStartIndex = newLineIndex;
+                }
+
+                newLines.removeAll(toRemove);
+//                System.out.println(newLines);
+//                System.out.println(tokenGroup.getNewLines());
+//                System.out.println(allNewLines);
+//                System.out.println(toRemove);
+            }
 
             for (int i = 0; i < tokens.size(); i++) {
                 Token token = tokens.get(i);
@@ -503,17 +542,6 @@ public class ItalianTokenizer {
                     end = null;
                     merging = false;
                 }
-
-//                if (merging) {
-//                    System.out.println("Sono qui");
-//                    System.out.println(prevToken.getForm());
-//                    System.out.println(token.getForm());
-//                    System.out.println(nextToken.getForm());
-//                }
-//                if (merging && nextToken != null && nextToken.getNormForm().equals("\"") && !nextToken.isPreceedBySpace()) {
-//                    merging = false;
-//                    mergeList.put(nextToken.getStart(), mergeList.get(token.getStart()));
-//                }
 
                 if (token.getNormForm().equals("'")) {
 
@@ -573,7 +601,7 @@ public class ItalianTokenizer {
                     normWord = word.substring(0, word.length() - 1) + "'";
                 }
 
-                if (newlineIsSentenceBreak && newLines.contains(start)) {
+                if (newLineType != NewLineType.NOBR && newLines.contains(start)) {
                     if (temp.size() > 0) {
                         ret.add(temp);
                         index = 0; // index must be zeroed to meet Stanford policy
@@ -596,7 +624,7 @@ public class ItalianTokenizer {
                         if (
                                 (nextToken != null && nextToken.getNormForm().equals("\"") && !nextToken.hasSpaceBefore()) ||
                                         (nextToken != null && nextToken.getForm().length() == 1 && sentenceChars.contains((int) nextToken.getForm().charAt(0)))
-                                ) {
+                        ) {
                             postpone = true;
                         } else {
                             ret.add(temp);
@@ -634,7 +662,7 @@ public class ItalianTokenizer {
             String text = Files.toString(inputFile, Charsets.UTF_8);
 
             long time = System.currentTimeMillis();
-            List<List<CoreLabel>> sentences = tokenizer.parse(text, true, false, false);
+            List<List<CoreLabel>> sentences = tokenizer.parse(text, NewLineType.SINGLE, false, false);
             time = System.currentTimeMillis() - time;
 
             for (List<CoreLabel> sentence : sentences) {

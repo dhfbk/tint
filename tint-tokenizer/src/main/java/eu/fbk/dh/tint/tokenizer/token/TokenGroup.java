@@ -1,9 +1,6 @@
 package eu.fbk.dh.tint.tokenizer.token;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by alessio on 14/07/16.
@@ -16,7 +13,10 @@ public class TokenGroup {
     private HashMap<Integer, Token> endIndexes = new HashMap<>();
     private HashMap<Integer, Token> startOffIndexes = new HashMap<>();
     private HashMap<Integer, Token> endOffIndexes = new HashMap<>();
-    private Set<Integer> newLines = new HashSet<>();
+
+    // Must be sorted
+    private TreeSet<Integer> newLines = new TreeSet<>();
+    private TreeSet<Integer> allNewLines = new TreeSet<>();
 
     public void addToken(Token token) {
         if (!token.hasSpaceBefore() && support.size() > 0) {
@@ -31,6 +31,10 @@ public class TokenGroup {
 
     public void addNewLine(int offset) {
         newLines.add(offset);
+    }
+
+    public void addAllNewLine(int offset) {
+        allNewLines.add(offset);
     }
 
     public ArrayList<Token> getSupport() {
@@ -55,6 +59,10 @@ public class TokenGroup {
 
     public Set<Integer> getNewLines() {
         return newLines;
+    }
+
+    public TreeSet<Integer> getAllNewLines() {
+        return allNewLines;
     }
 
     @Override
