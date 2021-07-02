@@ -2,16 +2,19 @@ del,di,il
 dello,di,lo
 dell',di,l'
 dell’,di,l'
+dell,di,l'
 della,di,la
 dei,di,i
 de',di,i
 de’,di,i
+de,di,i
 degli,di,gli
 delle,di,le
 al,a,il
 allo,a,lo
 all',a,l'
 all’,a,l'
+all,a,l'
 alla,a,la
 ai,a,i
 agli,a,gli
@@ -20,6 +23,7 @@ dal,da,il
 dallo,da,lo
 dall',da,l'
 dall’,da,l'
+dall,da,l'
 dalla,da,la
 dai,da,i
 dagli,da,gli
@@ -28,6 +32,7 @@ nel,in,il
 nello,in,lo
 nell',in,l'
 nell’,in,l'
+nell,in,l'
 nella,in,la
 nei,in,i
 negli,in,gli
@@ -36,6 +41,7 @@ col,con,il
 collo,con,lo
 coll',con,l'
 coll’,con,l'
+coll,con,l'
 colla,con,la
 coi,con,i
 cogli,con,gli
@@ -44,6 +50,7 @@ sul,su,il
 sullo,su,lo
 sull',su,l'
 sull’,su,l'
+sull,su,l'
 sulla,su,la
 sui,su,i
 sugli,su,gli

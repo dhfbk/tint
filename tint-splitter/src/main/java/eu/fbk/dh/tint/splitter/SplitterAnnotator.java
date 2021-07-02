@@ -89,6 +89,15 @@ public class SplitterAnnotator implements Annotator {
 
                     // Preposizione articolata
                     if (pos.equals("E+RD")) {
+                        if (preps.get(token.originalText().toLowerCase()) == null) {
+                            token.setIndex(sentenceIndex);
+                            token.setIsMWT(false);
+                            token.setIsMWTFirst(false);
+                            newSentenceTokens.add(token);
+                            finalDocumentTokens.add(token);
+                            sentenceIndex++;
+                            continue;
+                        }
                         String[] textparts = Arrays.copyOf(preps.get(token.originalText().toLowerCase()), preps.get(token.originalText().toLowerCase()).length);
                         applyCase(textparts, token.originalText());
                         for (int i = 0; i < textparts.length; i++) {
@@ -120,7 +129,18 @@ public class SplitterAnnotator implements Annotator {
                             }
                         }
                         textparts[0] = text;
-                        applyCase(textparts, token.originalText());
+                        try {
+                            applyCase(textparts, token.originalText());
+                        }
+                        catch (NullPointerException e) {
+                            token.setIndex(sentenceIndex);
+                            token.setIsMWT(false);
+                            token.setIsMWTFirst(false);
+                            newSentenceTokens.add(token);
+                            finalDocumentTokens.add(token);
+                            sentenceIndex++;
+                            continue;
+                        }
 
                         // Remove null elements from array
                         textparts = Arrays.stream(textparts)
@@ -162,10 +182,7 @@ public class SplitterAnnotator implements Annotator {
         if (preserveCasing) {
             if (StringUtils.isAllUpperCase(text)) {
                 String[] newTextparts = Arrays.stream(textparts).map(String::toUpperCase).toArray(String[]::new);
-                for (int i = 0; i < newTextparts.length; i++) {
-                    String part = newTextparts[i];
-                    textparts[i] = part;
-                }
+                System.arraycopy(newTextparts, 0, textparts, 0, newTextparts.length);
             } else if (StringUtils.isTitleCase(text)) {
                 textparts[0] = StringUtils.toTitleCase(textparts[0]);
             }
