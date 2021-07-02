@@ -564,10 +564,15 @@ public class ItalianTokenizer {
                             !nextToken.hasSpaceBefore() &&
                             Character.isLetter(prevToken.getForm().charAt(prevToken.getForm().length() - 1)) &&
                             Character.isLetter(nextToken.getForm().charAt(0))) {
-                        CoreLabel lastToken = temp.get(temp.size() - 1);
-                        start = lastToken.beginPosition();
-                        temp.remove(temp.size() - 1);
-                        index--;
+                        try {
+                            CoreLabel lastToken = temp.get(temp.size() - 1);
+                            start = lastToken.beginPosition();
+                            temp.remove(temp.size() - 1);
+                            index--;
+                        }
+                        catch (Exception e) {
+                            merging = true;
+                        }
                     }
 
                     // Example: sta'
