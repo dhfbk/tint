@@ -3,6 +3,7 @@ package eu.fbk.dh.tint.runner;
 import com.google.gson.GsonBuilder;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.*;
+import eu.fbk.utils.corenlp.outputters.IOBOutputter;
 import eu.fbk.utils.corenlp.outputters.JSONOutputter;
 import eu.fbk.utils.corenlp.outputters.TextProOutputter;
 import eu.fbk.utils.corenlp.outputters.TokenOutputter;
@@ -165,7 +166,10 @@ public class TintPipeline {
                 TextProOutputter.tpPrint(annotation, outputStream, pipeline);
                 break;
             case TOKEN:
-                TokenOutputter.tpPrint(annotation, outputStream, pipeline);
+                TokenOutputter.textPrint(annotation, outputStream, pipeline);
+                break;
+            case IOB:
+                IOBOutputter.iobPrint(annotation, outputStream, pipeline);
                 break;
 //        case NAF:
 //            KAFDocument doc = AbstractHandler.text2naf(text, new HashMap<>());

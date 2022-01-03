@@ -15,7 +15,7 @@ public class TokenizerTest {
         pipeline.setProperty("annotators", "ita_toksent");
         pipeline.setProperty("ita_toksent.model", "/Users/alessio/Dropbox/relation-extraction/token-settings-wemapp.xml");
         pipeline.setProperty("ita_toksent.newlineIsSentenceBreak", "two");
-        String text = "Coll. Prof. Amm.vo Pinco Pallino";
+        String text = "elettronica   della   Ditta   Mac   Stampa   .s.rl.   acquisita   in   data   10/01/2020";
         Annotation annotation = pipeline.runRaw(text);
         for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
             for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
