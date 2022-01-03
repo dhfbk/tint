@@ -7,8 +7,8 @@ import eu.fbk.dh.tint.runner.TintPipeline;
 import eu.fbk.twm.utils.CommandLineWithLogger;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -25,7 +25,7 @@ import java.util.stream.IntStream;
 
 public class ExcelToNer {
 
-    public static final Logger LOGGER = Logger.getLogger(ExcelToNer.class);
+    public static final Logger LOGGER = LogManager.getLogger(ExcelToNer.class);
     public static Pattern nerPattern = Pattern.compile("^([IB]-)?(PER|ORG|LOC)$");
 
     private Map<String[], String[]> removeMap;
@@ -250,7 +250,6 @@ public class ExcelToNer {
         CommandLine commandLine = null;
         try {
             commandLine = commandLineWithLogger.getCommandLine(args);
-            PropertyConfigurator.configure(commandLineWithLogger.getLoggerProps());
             Properties props = new Properties();
 
 //        props.put("log4j.rootLogger", "INFO, stdlog");
@@ -259,11 +258,11 @@ public class ExcelToNer {
 //        props.put("log4j.appender.stdlog.layout", "org.apache.log4j.PatternLayout");
 //        props.put("log4j.appender.stdlog.layout.ConversionPattern", "%d{HH:mm:ss} %-5p %-25c :: %m%n");
 
-            props.put("log4j.logger.edu.stanford.nlp.pipeline.StanfordCoreNLP", "ERROR");
-            props.put("log4j.logger.eu.fbk.dh.tint.tokenizer.ItalianTokenizer", "ERROR");
-            props.put("log4j.logger.eu.fbk.dh.tint.runner.TintPipeline", "ERROR");
-            props.put("log4j.logger.edu.stanford.nlp.tagger.maxent.MaxentTagger", "ERROR");
-            PropertyConfigurator.configure(props);
+//            props.put("log4j.logger.edu.stanford.nlp.pipeline.StanfordCoreNLP", "ERROR");
+//            props.put("log4j.logger.eu.fbk.dh.tint.tokenizer.ItalianTokenizer", "ERROR");
+//            props.put("log4j.logger.eu.fbk.dh.tint.runner.TintPipeline", "ERROR");
+//            props.put("log4j.logger.edu.stanford.nlp.tagger.maxent.MaxentTagger", "ERROR");
+//            PropertyConfigurator.configure(props);
 
         } catch (Exception e) {
             System.exit(1);
