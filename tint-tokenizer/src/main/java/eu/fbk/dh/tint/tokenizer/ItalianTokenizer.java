@@ -448,12 +448,18 @@ public class ItalianTokenizer {
                 int get = expressions.get(expression);
                 Matcher matcher = expression.matcher(text);
                 while (matcher.find()) {
-                    if (mergeList.containsKey(matcher.start(get))) {
-                        if (mergeList.get(matcher.start(get)) > matcher.end(get)) {
-                            continue;
+                    try {
+                        if (mergeList.containsKey(matcher.start(get))) {
+                            if (mergeList.get(matcher.start(get)) > matcher.end(get)) {
+                                continue;
+                            }
                         }
+                        mergeList.put(matcher.start(get), matcher.end(get));
                     }
-                    mergeList.put(matcher.start(get), matcher.end(get));
+                    catch (Exception e) {
+                        e.printStackTrace();
+                        System.err.println(expression);
+                    }
                 }
             }
 
