@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 /**
  * Computes the Fleiss' Kappa value as described in (Fleiss, 1971)
+ * Taken from: https://gist.github.com/igorbrigadir/5567543
+ *
  */
 public class FleissKappa
 {

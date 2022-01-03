@@ -12,9 +12,9 @@ import java.util.regex.Pattern;
 
 public class InterAnnotatorAgreement {
     public static void main(String[] args) {
-        String inputFolder = "/Users/alessio/Downloads/annotazioni/annotazioni/26_Tutti";
-        String outputFolder = "/Users/alessio/Downloads/annotazioni/annotazioni/26_Tutti-out";
-        Pattern pattern = Pattern.compile("^.*-([0-9]+)_([a-z]+).tsv$");
+        String inputFolder = "/Users/alessio/Downloads/annotazioni/out-20211220/tutti";
+        String outputFolder = "/Users/alessio/Downloads/annotazioni/out-20211220/tutti-out";
+        Pattern pattern = Pattern.compile("^.*-([0-9]+)_([a-zA-Z0-9]+).tsv$");
 
         HashMap<String, Integer> conversionMap = new HashMap<>();
         conversionMap.put("O", 0);
