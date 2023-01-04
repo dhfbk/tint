@@ -232,8 +232,8 @@ public class ItalianTokenizer {
         Character currentChar;
         Character previousChar = null;
         int start = 0;
-        Boolean isCurrentCharLetterOrDigit;
-        Boolean isPreviousCharLetterOrDigit;
+        boolean isCurrentCharLetterOrDigit;
+        boolean isPreviousCharLetterOrDigit;
 
         MutableBoolean isNewLine = new MutableBoolean(false);
         Token lastToken = new Token(0, 0, "");
@@ -242,13 +242,30 @@ public class ItalianTokenizer {
         for (int i = 0; i < text.length(); i++) {
 
             currentChar = text.charAt(i);
-            isCurrentCharLetterOrDigit = Character.isLetterOrDigit(currentChar);
-            isPreviousCharLetterOrDigit = previousChar != null && Character.isLetterOrDigit(previousChar);
+            int codePoint = text.codePointAt(i);
+//            isCurrentCharLetterOrDigit = Character.isLetterOrDigit(currentChar);
+//            isPreviousCharLetterOrDigit = previousChar != null && Character.isLetterOrDigit(previousChar);
+            isCurrentCharLetterOrDigit = Character.isLetterOrDigit(currentChar) || Character.isSurrogate(currentChar);
+            isPreviousCharLetterOrDigit = previousChar != null && (Character.isLetterOrDigit(previousChar) || Character.isSurrogate(previousChar));
 
-            if (newLineSplitting.contains(currentChar.hashCode())) {
-                tokenGroup.addAllNewLine(i - 1);
-            }
+//            if (Character.isLowSurrogate(currentChar)) {
+//                previousChar = currentChar;
+//                continue;
+//            }
+//
+//            if (Character.isHighSurrogate(currentChar)) {
+//                previousChar = currentChar;
+//                if (!isPreviousCharLetterOrDigit) {
+//                    start = i;
+//                }
+//                continue;
+//            }
 
+//            System.out.println(i + "\t" + Character.isLowSurrogate(currentChar) +
+//                    "\t" + Character.isHighSurrogate(currentChar) +
+//                    "\t" + Character.UnicodeBlock.of(currentChar) +
+//                    "\t" + Character.UnicodeBlock.of(codePoint)
+//            );
             if (isCurrentCharLetterOrDigit) {
                 if (!isPreviousCharLetterOrDigit) {
                     start = i;
@@ -259,12 +276,12 @@ public class ItalianTokenizer {
                     addToken(tokenGroup, start, i, substring, isNewLine, lastToken);
 
                     if (!splittingChars.contains(currentChar.hashCode())) {
-                        String charString = new String(new char[]{currentChar});
+                        String charString = String.valueOf(currentChar);
                         addToken(tokenGroup, i, i + 1, charString, isNewLine, lastToken);
                     }
                 } else {
                     if (!splittingChars.contains(currentChar.hashCode())) {
-                        String charString = new String(new char[]{currentChar});
+                        String charString = String.valueOf(currentChar);
                         addToken(tokenGroup, i, i + 1, charString, isNewLine, lastToken);
                     }
                 }
@@ -272,12 +289,13 @@ public class ItalianTokenizer {
 
             if (newLineSplitting.contains(currentChar.hashCode())) {
                 isNewLine.setValue(true);
+                tokenGroup.addAllNewLine(i - 1);
             }
 
             previousChar = currentChar;
         }
         if (Character.isLetterOrDigit(previousChar)) {
-            String substring = text.substring(start, text.length());
+            String substring = text.substring(start);
             addToken(tokenGroup, start, text.length(), substring, isNewLine, lastToken);
         }
 
@@ -455,8 +473,7 @@ public class ItalianTokenizer {
                             }
                         }
                         mergeList.put(matcher.start(get), matcher.end(get));
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                         System.err.println(expression);
                     }
@@ -575,8 +592,7 @@ public class ItalianTokenizer {
                             start = lastToken.beginPosition();
                             temp.remove(temp.size() - 1);
                             index--;
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             merging = true;
                         }
                     }
