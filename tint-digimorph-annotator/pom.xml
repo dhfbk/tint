@@ -35,6 +35,11 @@
             <version>${tint.utils.version}</version>
         </dependency>
         <dependency>
+            <groupId>eu.fbk.utils</groupId>
+            <artifactId>utils-corenlp</artifactId>
+            <version>${tint.utils.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.googlecode.concurrent-trees</groupId>
             <artifactId>concurrent-trees</artifactId>
             <version>2.6.1</version>
